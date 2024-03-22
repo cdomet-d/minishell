@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:16 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/22 14:20:59 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:10:39 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include <stdlib.h>
+# include <stdio.h>
 
 typedef enum s_enum
 {
@@ -41,6 +42,6 @@ typedef struct s_input
 	struct s_input	*prev;
 }	t_input;
 
-t_input	*create_node(char **data, t_tok token, t_env **env);
+t_input	*create_node(char **data, int token, t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/22 13:47:10 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:58:09 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,35 @@
 
 void	lst_free(t_input **lst)
 {
-	t_input	*ptr;
 	t_input	*temp;
 
 	if (!lst || !*lst)
 		return ;
-	ptr = *lst;
-	while (ptr)
+	while (*lst)
 	{
-		temp = ptr->next;
-		free(ptr);
-		ptr = temp;
+		temp = (*lst)->next;
+		free(*lst);
+		*lst = temp;
 	}
-	lst = NULL;
+	*lst = NULL;
 }
 
-void	add_back(t_input **lst, t_input *node)
+void	add_back(t_input **lst, t_input *new)
 {
-	if (!lst || !node)
+	if (!lst || !new)
 		return ;
 	if (*lst == NULL)
-		*lst = node;
+		*lst = new;
 	else
 	{
 		while ((*lst)->next)
-			*lst = (*lst)->next;
-		(*lst)->next = node;
-		node->prev = *lst;
+			(*lst) = (*lst)->next;
+		(*lst)->next = new;
+		new->prev = (*lst);
 	}
 }
 
-t_input	*create_node(char **data, t_tok token, t_env **env)
+t_input	*create_node(char **data, int token, t_env *env)
 {
 	t_input	*new;
 
