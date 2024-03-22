@@ -2,9 +2,21 @@
 
 #include "parsing.h"
 
-void	lst_free()
+void	lst_free(t_input **lst)
 {
-	
+	t_input	*ptr;
+	t_input	*temp;
+
+	if (!lst || !*lst)
+		return ;
+	ptr = *lst;
+	while (ptr)
+	{
+		temp = ptr->next;
+		free(ptr);
+		ptr = temp;
+	}
+	lst = NULL;
 }
 
 void	add_back(t_input **lst, t_input *node)
