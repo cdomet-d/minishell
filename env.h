@@ -1,46 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 10:25:58 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 12:24:54 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <stdbool.h>
+# include "libft/libft.h"
 
 typedef enum s_enum
 {
-	pipe, // |
+	piping, // |
 	in_bracket, // <
 	out_bracket, // >
-	heredoc, // <<
 	append_bracket, // >>
+	heredoc, // <<
 	command,
-	//file,
-}	t_token;
+	file,
+	delimiter,
+}	t_tok;
 
-typedef struct s_cmd
+typedef struct s_env
 {
-	t_token		token;
-	char		*path;
-	char		**arg;
-	char		**env;
-} t_cmd;
+	char			*env;
+	struct s_env	*prev;
+	struct s_env	*next;
+}	t_env;
 
-typedef struct s_operator
+typedef struct s_input
 {
-	t_token	token;
-	char	*literal;
-}	t_op;
+	char			**data;
+	bool			done;
+	t_tok			tok;
+	t_env			env;
+	struct s_input	*next;
+	struct s_input	*prev;
+}	t_input;
+
+/* env list utils*/
+t_env	*env_add_back(t_env **env, t_env *new);
+t_env	*env_create_node(t_input *input, char *data);
+t_env	*env_last(t_env	*env);
+
+/* display */
+void	print_env_for(t_env *env);
+void	print_env_back(t_env *env);
 
 #endif

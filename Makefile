@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/18 15:45:26 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/22 11:52:46 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,20 +16,20 @@ BUILD_DIR := .dir_build
 LIBFT_DIR := libft
 
 CC := cc
-CFLAGS := -Werror -Wextra -Wall -g3 
+CFLAGS := -Werror -Wextra -Wall -g3
 CPPFLAGS = -MMD -MP
 MAKEFLAGS += --no-print-directory
 
 INCLUDES := -lft -L/usr/local/lib -I/usr/local/include -lreadline
 
-SRCS := readline.c \
+SRCS := env_lst_utils.c \
+		main.c \
+		display.c
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)
 
 RM := rm -rf
-
-
 
 all: $(NAME)
 bonus : $(BONUS)
@@ -43,7 +43,7 @@ $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	@echo "$(GREEN)|=========== \t\t minishell done ! \t\t ===========|$(RESET)"
 	@echo
 	
-$(BUILD_DIR)/%.o:%.c minishell.h $(LIBFT_DIR)/libft.h Makefile
+$(BUILD_DIR)/%.o:%.c env.h $(LIBFT_DIR)/libft.h Makefile
 	@mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $< $(INCLUDES)
 

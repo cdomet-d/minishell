@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:21:48 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/18 18:24:45 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 10:33:03 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	main(void)
 {
 	char	*input;
 	int		i;
-
 	t_list	lst;
+
 
 	i = 0;
 	input = NULL;
