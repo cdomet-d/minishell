@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst.c                                           :+:      :+:    :+:   */
+/*   input_lst_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/22 15:58:09 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:57:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
-void	lst_free(t_input **lst)
+void	input_freelst(t_input **lst)
 {
 	t_input	*temp;
 
@@ -27,22 +27,22 @@ void	lst_free(t_input **lst)
 	*lst = NULL;
 }
 
-void	add_back(t_input **lst, t_input *new)
+void	input_addback(t_input **lst, t_input *node)
 {
-	if (!lst || !new)
+	if (!lst || !node)
 		return ;
 	if (*lst == NULL)
-		*lst = new;
+		*lst = node;
 	else
 	{
 		while ((*lst)->next)
 			(*lst) = (*lst)->next;
-		(*lst)->next = new;
-		new->prev = (*lst);
+		(*lst)->next = node;
+		node->prev = (*lst);
 	}
 }
 
-t_input	*create_node(char **data, int token, t_env *env)
+t_input	*input_newnode(char **data, int token, t_env *env)
 {
 	t_input	*new;
 
