@@ -6,14 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 14:52:05 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 15:18:38 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-
- // all exit are to be replaced with free_all funct.
+// all exit are to be replaced with free_all funct.
 t_env	*env_add_back(t_env **env, t_env *new)
 {
 	t_env	*last;
@@ -44,7 +43,7 @@ t_env	*env_create_node(t_input *input, char *data)
 {
 	t_env	*new;
 
-	// disabled for testing ;
+	// disabled for testing;
 	(void)input;
 	new = malloc(1 * sizeof(t_env));
 	if (!new)
@@ -72,4 +71,3 @@ void	env_free_lst(t_env *env)
 	}
 	env = NULL;
 }
-
