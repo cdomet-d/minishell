@@ -1,5 +1,0 @@
-NAME := minishell
-all: $(NAME)
-$(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -o $(NAME) $(INCLUDES)
-	$(RM) $(NAME) $(BONUS) out

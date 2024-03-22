@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/19 13:52:55 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:25:58 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,60 +26,21 @@ typedef enum s_enum
 	heredoc, // <<
 	append_bracket, // >>
 	command,
+	//file,
 }	t_token;
 
-typedef struct s_list
+typedef struct s_cmd
 {
-	t_token			token;
-	char			*litteral;
-	char			*path;
-	char			**arg;
-	char			**env;
-	struct s_list	*next;
-}	t_list;
+	t_token		token;
+	char		*path;
+	char		**arg;
+	char		**env;
+} t_cmd;
 
-// default structure for commands, to give to execve
-typedef	struct s_cmd
-{
-	char			*path;
-	char			**arg;
-	char			**env;
-}	t_cmd;
-
-// structure for operators found with the type of operators
 typedef struct s_operator
 {
 	t_token	token;
-	char	*file;
-	t_cmd	cmd1;
-	t_cmd	cmd2;
+	char	*literal;
 }	t_op;
 
-/*
-
-
-*/
 #endif
-
-/*
-typedef	struct s_cmd
-{
-	t_op			op;
-	char			*path;
-	char			**arg;
-	char			**env;
-}	t_cmd;
-
-typedef struct s_operator
-{
-	t_token	token;
-	char	*file;
-}	t_op;
-
-typedef struct s_pipe
-{
-	t_token	token;
-	t_cmd	cmd1;
-	t_cmd	cmd2;
-}	t_pipe;
-*/
