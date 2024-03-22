@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 17:22:44 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 17:56:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 // all exit are to be replaced with free_all funct.
 void	env_addback(t_env **env, t_env *node)

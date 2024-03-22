@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/22 17:47:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 17:57:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 void	input_freelst(t_input **lst)
 {
