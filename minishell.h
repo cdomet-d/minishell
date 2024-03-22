@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 17:11:45 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 17:19:20 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -47,12 +47,15 @@ typedef struct s_input
 }	t_input;
 
 /* env list utils*/
-t_env	*env_create_node(t_input *input, char *data);
 t_env	*env_last(t_env	*env);
-void	env_add_back(t_env **env, t_env *new);
-void	env_free_lst(t_env *env);
+t_env	*env_newnode(t_input *input, char *data);
+void	env_addback(t_env **env, t_env *node);
+void	env_freelst(t_env *env);
 
 /* input list utils */
+t_input	*input_newnode(char **data, int token, t_env *env);
+void	input_addback(t_input **lst, t_input *node);
+void	input_freelst(t_input **lst);
 
 /* display */
 void	print_env_for(t_env *env);

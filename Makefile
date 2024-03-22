@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/22 14:51:28 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/22 17:20:58 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,10 @@ MAKEFLAGS += --no-print-directory
 
 INCLUDES := -lft -L/usr/local/lib -I/usr/local/include -lreadline
 
-SRCS := env_lst_utils.c \
+SRCS := display.c \
+		env_lst_utils.c \
+		input_lst_utils.c \
 		test_main.c \
-		display.c
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)
