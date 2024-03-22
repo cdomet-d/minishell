@@ -6,19 +6,19 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 15:18:38 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 15:57:56 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
 // all exit are to be replaced with free_all funct.
-t_env	*env_add_back(t_env **env, t_env *new)
+void	env_add_back(t_env **env, t_env *new)
 {
 	t_env	*last;
 
 	if (!new || !env)
-		return (NULL);
+		return ;
 	last = env_last(*env);
 	if (!last)
 		(*env) = new;
@@ -27,7 +27,6 @@ t_env	*env_add_back(t_env **env, t_env *new)
 		last->next = new;
 		new->prev = last;
 	}
-	return (*env);
 }
 
 t_env	*env_last(t_env	*env)
