@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/22 17:20:58 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/22 17:57:57 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	@echo "$(GREEN)|=========== \t\t minishell done ! \t\t ===========|$(RESET)"
 	@echo
 	
-$(BUILD_DIR)/%.o:%.c env.h $(LIBFT_DIR)/libft.h Makefile
+$(BUILD_DIR)/%.o:%.c minishell.h $(LIBFT_DIR)/libft.h Makefile
 	@mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $< $(INCLUDES)
 
