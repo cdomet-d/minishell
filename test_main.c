@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:50:37 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 14:51:15 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 15:51:28 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 	while (argv[i])
 	{
 		new = env_create_node(NULL, argv[i]);
-		env = env_add_back(&env, new);
+		env_add_back(&env, new);
 		i++;
 	}
 	print_env_for(env);
