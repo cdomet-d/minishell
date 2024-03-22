@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 12:24:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 14:48:50 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_input
 t_env	*env_add_back(t_env **env, t_env *new);
 t_env	*env_create_node(t_input *input, char *data);
 t_env	*env_last(t_env	*env);
+void	env_free_lst(t_env *env);
 
 /* display */
 void	print_env_for(t_env *env);

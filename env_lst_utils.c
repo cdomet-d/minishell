@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 13:48:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 14:52:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,19 @@ t_env	*env_create_node(t_input *input, char *data)
 	return (new);
 }
 
-// void	insert_in_node(t_input *input, char *to_add)
-// {
-	
-// }
+void	env_free_lst(t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = NULL;
+	env = env_last(env);
+	while (env)
+	{
+		free(env->env);
+		tmp = env->prev;
+		free(env);
+		env = tmp;
+	}
+	env = NULL;
+}
 
