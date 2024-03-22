@@ -6,29 +6,31 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:50:37 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 15:51:28 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 17:46:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h"
 
 int	main(int argc, char *argv[])
 {
-	t_env	*new;
+	t_env	*envnew;
 	t_env	*env;
+	t_input	*input;
+	t_input	*innew;
 	size_t	i;
 
+	i = 0;
 	env = NULL;
-	i = 1;
 	if (argc < 2)
 		return (EXIT_FAILURE);
 	while (argv[i])
 	{
-		new = env_create_node(NULL, argv[i]);
-		env_add_back(&env, new);
+		envnew = env_newnode(NULL, argv[i]);
+		env_addback(&env, envnew);
 		i++;
 	}
 	print_env_for(env);
 	print_env_back(env);
-	env_free_lst(env);
+	env_freelst(env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:16 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/22 15:10:39 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:13:37 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_input
 	struct s_input	*prev;
 }	t_input;
 
-t_input	*create_node(char **data, int token, t_env *env);
+t_input	*input_newnode(char **data, int token, t_env *env);
+void	input_addback(t_input **lst, t_input *new);
+void	input_lstfree(t_input **lst);
 
 #endif

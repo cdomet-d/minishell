@@ -6,26 +6,26 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 15:57:56 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 17:22:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
 // all exit are to be replaced with free_all funct.
-void	env_add_back(t_env **env, t_env *new)
+void	env_addback(t_env **env, t_env *node)
 {
 	t_env	*last;
 
-	if (!new || !env)
+	if (!node || !env)
 		return ;
 	last = env_last(*env);
 	if (!last)
-		(*env) = new;
+		(*env) = node;
 	else
 	{
-		last->next = new;
-		new->prev = last;
+		last->next = node;
+		node->prev = last;
 	}
 }
 
@@ -38,24 +38,24 @@ t_env	*env_last(t_env	*env)
 	return (env);
 }
 
-t_env	*env_create_node(t_input *input, char *data)
+t_env	*env_newnode(t_input *input, char *data)
 {
-	t_env	*new;
+	t_env	*node;
 
 	// disabled for testing;
 	(void)input;
-	new = malloc(1 * sizeof(t_env));
-	if (!new)
+	node = malloc(1 * sizeof(t_env));
+	if (!node)
 		exit(EXIT_FAILURE);
-	new->env = ft_strdup(data);
-	if (!new->env)
+	node->env = ft_strdup(data);
+	if (!node->env)
 		exit(EXIT_FAILURE);
-	new->next = NULL;
-	new->prev = NULL;
-	return (new);
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }
 
-void	env_free_lst(t_env *env)
+void	env_freelst(t_env *env)
 {
 	t_env	*tmp;
 
