@@ -17,20 +17,20 @@ typedef enum s_enum
     delimiter,
 }	t_tok;
 
-typedef struct s_input
-{
-    char            **data;
-	t_env           *env;
-	t_tok			tok;
-	struct s_input	*next;
-	struct s_input	*prev;
-}	t_input;
-
 typedef struct s_env
 {
     char *env;
 } t_env;
 
-t_input	*create_node(char **data, t_tok token, t_env *env);
+typedef struct s_input
+{
+    char            **data;
+	t_env           **env;
+	t_tok			tok;
+	struct s_input	*next;
+	struct s_input	*prev;
+}	t_input;
+
+t_input	*create_node(char **data, t_tok token, t_env **env);
 
 #endif

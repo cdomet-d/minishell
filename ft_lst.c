@@ -34,7 +34,7 @@ void	add_back(t_input **lst, t_input *node)
 	}
 }
 
-t_input	*create_node(char **data, t_tok token, t_env *env)
+t_input	*create_node(char **data, t_tok token, t_env **env)
 {
 	t_input	*new;
 
