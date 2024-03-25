@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 14:37:44 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 17:18:22 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 # include <string.h> // strerror
 # include <errno.h> // errno
 # include "libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef enum s_enum
 {
 	pip, // |
-	in_bracket, // <
-	out_bracket, // >
-	append_bracket, // >>
+	inredir, // <
+	outredir, // >
+	append, // >>
 	heredoc, // <<
 	command,
 	file,
