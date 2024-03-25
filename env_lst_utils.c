@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 11:22:24 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 14:11:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ t_env	*env_newnode(char *data)
 
 	node = malloc(1 * sizeof(t_env));
 	if (!node)
-		exit(EXIT_FAILURE);
+		return (NULL);
 	node->env = ft_strdup(data);
 	if (!node->env)
-		exit(EXIT_FAILURE);
+		return (NULL);
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
