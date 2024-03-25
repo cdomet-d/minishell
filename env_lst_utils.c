@@ -15,25 +15,26 @@
 // all exit are to be replaced with free_all funct.
 void	env_addback(t_env **env, t_env *node)
 {
+	t_env	*ptr;
+
 	if (!node || !env)
 		return ;
 	if (!*env)
 		*env = node;
 	else
 	{
-		while ((*env)->next)
-			(*env) = (*env)->next;
-		(*env)->next = node;
-		node->prev = (*env);
+		ptr = *env;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = node;
+		node->prev = ptr;
 	}
 }
 
-t_env	*env_newnode(t_input *input, char *data)
+t_env	*env_newnode(char *data)
 {
 	t_env	*node;
 
-	// disabled for testing;
-	(void)input;
 	node = malloc(1 * sizeof(t_env));
 	if (!node)
 		exit(EXIT_FAILURE);

@@ -47,7 +47,7 @@ typedef struct s_input
 }	t_input;
 
 /* env list utils*/
-t_env	*env_newnode(t_input *input, char *data);
+t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
 void	env_freelst(t_env *env);
 

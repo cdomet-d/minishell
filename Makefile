@@ -25,8 +25,9 @@ INCLUDES := -lft -L/usr/local/lib -I/usr/local/include -lreadline
 SRCS := display.c \
 		env_lst_utils.c \
 		input_lst_utils.c \
-		test_main.c \
 		error_handling.c \
+		create_env_lst.c \
+		main.c \
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)

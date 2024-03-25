@@ -31,16 +31,19 @@ void	input_freelst(t_input **lst)
 
 void	input_addback(t_input **lst, t_input *node)
 {
+	t_input	*ptr;
+
 	if (!lst || !node)
 		return ;
 	if (*lst == NULL)
 		*lst = node;
 	else
 	{
-		while ((*lst)->next)
-			(*lst) = (*lst)->next;
-		(*lst)->next = node;
-		node->prev = (*lst);
+		ptr = *lst;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = node;
+		node->prev = ptr;
 	}
 }
 

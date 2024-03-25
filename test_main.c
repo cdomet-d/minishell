@@ -24,7 +24,7 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	while (argv[i])
 	{
-		envnew = env_newnode(NULL, argv[i]);
+		envnew = env_newnode(argv[i]);
 		env_addback(&env, envnew);
 		i++;
 	}
