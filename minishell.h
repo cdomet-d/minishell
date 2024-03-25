@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 14:37:44 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 18:04:47 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 # include <string.h> // strerror
 # include <errno.h> // errno
 # include "libft/libft.h"
+# include "exec_header.h"
 
 typedef enum s_enum
 {
 	pip, // |
-	in_bracket, // <
-	out_bracket, // >
-	append_bracket, // >>
+	inredir, // <
+	outredir, // >
+	append, // >>
 	heredoc, // <<
 	command,
 	file,
@@ -70,10 +71,5 @@ void	print_in_for(t_input *input);
 void	free_all(t_input **lst, int error_code, char *error_message);
 void	free_env(t_env *lst, int error_code, char *error_message);
 void	print_error(int error_code, char *error_message);
-
-/* local file for exec debug */
-void	init_input(char *argv[], t_input **input, t_env *env);
-void	init_env(char **envp, t_env **env);
-int	token(char *str);
 
 #endif

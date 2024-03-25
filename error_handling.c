@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/25 12:46:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 16:13:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_all(t_input **lst, int error_code, char *error_message)
 	if (error_code || error_message)
 		print_error(error_code, error_message);
 	else
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 }
 
 void	free_env(t_env *lst, int error_code, char *error_message)

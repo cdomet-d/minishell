@@ -6,11 +6,32 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 12:32:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 17:33:01 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_in_for(t_input *input)
+{
+	t_input	*head;
+	int		node;
+
+	node = 1;
+	head = input;
+	printf("\033[0;35m\033[1m#==== PRINTING INPUT FORWARD ====#\n\n\033[0m");
+	while (input)
+	{
+		printf("\033[0;34m\033[1m#---- Node %d ----#\n\033[0m", node++);
+		display_dtab(input->data);
+		printf("token = %u\n", input->tok);
+		// print_env_for(input->env);
+		input = input->next;
+		printf("\033[0;34m\033[1m#----------------#\n\n\033[0m");
+	}
+	input = head;
+	print_redirs(input);
+}
 
 void	print_env_for(t_env *env)
 {
@@ -26,42 +47,6 @@ void	print_env_for(t_env *env)
 	}
 	env = head;
 	printf("==========================\n\n");
-}
-
-void	print_env_back(t_env *env)
-{
-	t_env	*head;
-
-	head = env;
-	printf("=== PRINTING BACKWARDS ===\n");
-	env = env_last(env);
-	printf("env > %p\n", env);
-	while (env)
-	{
-		printf("env > %p\nenv->env > %s\nenv->prev > %p\nenv->next > %p\n\n", \
-		env, env->env, env->prev, env->next);
-		env = env->prev;
-	}
-	env = head;
-	printf("==========================\n\n");
-}
-
-void	print_in_for(t_input *input)
-{
-	t_input	*head;
-
-	head = input;
-	printf("==== PRINTING INPUT FORWARD ====\n");
-	while (input)
-	{
-		display_dtab(input->data);
-		printf("Token = %u\n", input->tok);
-		print_env_for(input->env);
-		input = input->next;
-	}
-	input = head;
-	printf("==========================\n\n");
-	input = head;
 }
 
 void	display_dtab(char **dtab)
@@ -80,4 +65,19 @@ t_env	*env_last(t_env	*env)
 	while (env->next)
 		env = env->next;
 	return (env);
+}
+
+void	print_redirs(t_input *input)
+{
+	printf("\033[0;34m\033[1m#---- REDIRECTIONS FIRST UNIT ----#\n\033[0m");
+	printf("Pipes : %ld\n", count_pipes(input));
+	if (count_inredir(input))
+		printf("inredir : yes\n");
+	else
+		printf("inredir : none\n");
+	if (count_outredir(input))
+		printf("outredir : yes\n");
+	else
+		printf("outredir : none\n");
+	printf("\033[0;34m\033[1m#---------------------------------#\n\n\033[0m");
 }
