@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 12:43:02 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 12:46:46 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ void	print_in_for(t_input *input);
 void	free_all(t_input **lst, int error_code, char *error_message);
 void	free_env(t_env *lst, int error_code, char *error_message);
 void	print_error(int error_code, char *error_message);
-
 
 #endif

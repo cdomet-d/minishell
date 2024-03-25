@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/25 12:35:36 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 12:46:38 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	input_addback(t_input **lst, t_input *node)
 	t_input	*head;
 
 	if (!lst || !node)
-		free_all(lst, errno, NULL) ;
+		free_all(lst, errno, NULL);
 	if (*lst == NULL)
 		*lst = node;
 	else
