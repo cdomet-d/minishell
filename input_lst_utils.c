@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_lst_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/22 20:03:19 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:22:32 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	input_freelst(t_input **lst)
 	temp = NULL;
 	if (!lst || !*lst)
 		return ;
-	env_freelst((*lst)->env);
+	if ((*lst)->env)
+		env_freelst((*lst)->env);
 	while (*lst)
 	{
 		temp = (*lst)->next;
@@ -31,16 +32,20 @@ void	input_freelst(t_input **lst)
 
 void	input_addback(t_input **lst, t_input *node)
 {
+	t_input	*head;
+
 	if (!lst || !node)
 		return ;
 	if (*lst == NULL)
 		*lst = node;
 	else
 	{
+		head = (*lst);
 		while ((*lst)->next)
 			(*lst) = (*lst)->next;
 		(*lst)->next = node;
 		node->prev = (*lst);
+		(*lst) = head;
 	}
 }
 

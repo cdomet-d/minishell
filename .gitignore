@@ -1,3 +1,4 @@
 .dir_build
 doc
 test_main.c
+libft.a
