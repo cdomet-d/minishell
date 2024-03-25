@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 17:59:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 20:12:01 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_input
 }	t_input;
 
 /* env list utils*/
-t_env	*env_last(t_env	*env);
 t_env	*env_newnode(t_input *input, char *data);
 void	env_addback(t_env **env, t_env *node);
 void	env_freelst(t_env *env);
@@ -58,7 +57,11 @@ void	input_addback(t_input **lst, t_input *node);
 void	input_freelst(t_input **lst);
 
 /* display */
+t_env	*env_last(t_env	*env);
 void	print_env_for(t_env *env);
 void	print_env_back(t_env *env);
+
+/* error handling */
+void	free_all(t_input **lst, char **env);
 
 #endif

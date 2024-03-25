@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 18:04:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 10:20:02 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,17 @@
 // all exit are to be replaced with free_all funct.
 void	env_addback(t_env **env, t_env *node)
 {
-	t_env	*last;
-
 	if (!node || !env)
 		return ;
-	last = env_last(*env);
-	if (!last)
-		(*env) = node;
+	if (!*env)
+		*env = node;
 	else
 	{
-		last->next = node;
-		node->prev = last;
+		while ((*env)->next)
+			(*env) = (*env)->next;
+		(*env)->next = node;
+		node->prev = (*env);
 	}
-}
-
-t_env	*env_last(t_env	*env)
-{
-	if (!env)
-		return (env);
-	while (env->next)
-		env = env->next;
-	return (env);
 }
 
 t_env	*env_newnode(t_input *input, char *data)
@@ -60,11 +50,10 @@ void	env_freelst(t_env *env)
 	t_env	*tmp;
 
 	tmp = NULL;
-	env = env_last(env);
 	while (env)
 	{
 		free(env->env);
-		tmp = env->prev;
+		tmp = env->next;
 		free(env);
 		env = tmp;
 	}
