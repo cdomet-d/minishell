@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 11:22:17 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 12:32:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_env_for(t_env *env)
 	printf("%p\n", env);
 	while (env)
 	{
-		printf("env->env > %s\n", env->env);
+		printf("env -> %s\n", env->env);
 		env = env->next;
 	}
 	env = head;

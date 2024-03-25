@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 10:48:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 12:43:02 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <string.h> // strerror
+# include <errno.h> // errno
 # include "libft/libft.h"
 
 typedef enum s_enum
@@ -64,6 +66,9 @@ void	display_dtab(char **dtab);
 void	print_in_for(t_input *input);
 
 /* error handling */
-void	free_all(t_input **lst, char **env);
+void	free_all(t_input **lst, int error_code, char *error_message);
+void	free_env(t_env *lst, int error_code, char *error_message);
+void	print_error(int error_code, char *error_message);
+
 
 #endif

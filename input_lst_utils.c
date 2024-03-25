@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/25 11:22:32 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 12:35:36 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	input_freelst(t_input **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
+		free_dtab((*lst)->data);
 		free(*lst);
 		*lst = temp;
 	}
@@ -35,7 +36,7 @@ void	input_addback(t_input **lst, t_input *node)
 	t_input	*head;
 
 	if (!lst || !node)
-		return ;
+		free_all(lst, errno, NULL) ;
 	if (*lst == NULL)
 		*lst = node;
 	else

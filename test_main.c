@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:50:37 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 11:16:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 12:43:48 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	main(int argc, char *argv[], char *envp[])
 	while (envp[i])
 	{
 		envnew = env_newnode(envp[i]);
+		if (!envnew)
+			free_env(env, errno, NULL);
 		env_addback(&env, envnew);
 		i++;
 	}
@@ -35,9 +37,11 @@ int	main(int argc, char *argv[], char *envp[])
 	while (argv[i])
 	{
 		inew = input_newnode(ft_split(argv[i], ' '), command, env);
+		if (!inew)
+			free_all(&input, errno, NULL);
 		input_addback(&input, inew);
 		i++;
 	}
 	print_in_for(input);
-	env_freelst(env);
+	free_all(&input, EXIT_SUCCESS, NULL);
 }
