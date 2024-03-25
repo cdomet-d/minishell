@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 17:56:52 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/22 20:10:38 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ void	print_env_for(t_env *env)
 	}
 	env = head;
 	printf("==========================\n\n");
+}
+
+t_env	*env_last(t_env	*env)
+{
+	if (!env)
+		return (env);
+	while (env->next)
+		env = env->next;
+	return (env);
 }
 
 void	print_env_back(t_env *env)
