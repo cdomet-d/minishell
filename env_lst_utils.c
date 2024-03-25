@@ -3,19 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/22 20:05:16 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:22:24 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// all exit are to be replaced with free_all funct.
+void	env_freelst(t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = NULL;
+	while (env)
+	{
+		free(env->env);
+		tmp = env->next;
+		free(env);
+		env = tmp;
+	}
+	env = NULL;
+}
+
 void	env_addback(t_env **env, t_env *node)
 {
-	t_env	*ptr;
+	t_env	*head;
 
 	if (!node || !env)
 		return ;
@@ -23,11 +37,12 @@ void	env_addback(t_env **env, t_env *node)
 		*env = node;
 	else
 	{
-		ptr = *env;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = node;
-		node->prev = ptr;
+		head = (*env);
+		while ((*env)->next)
+			(*env) = (*env)->next;
+		(*env)->next = node;
+		node->prev = (*env);
+		(*env) = head;
 	}
 }
 
@@ -44,19 +59,4 @@ t_env	*env_newnode(char *data)
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
-}
-
-void	env_freelst(t_env *env)
-{
-	t_env	*tmp;
-
-	tmp = NULL;
-	while (env)
-	{
-		free(env->env);
-		tmp = env->next;
-		free(env);
-		env = tmp;
-	}
-	env = NULL;
 }

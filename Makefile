@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
+#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/22 19:59:53 by csweetin         ###   ########.fr        #
+#    Updated: 2024/03/25 10:35:31 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	
 $(BUILD_DIR)/%.o:%.c minishell.h $(LIBFT_DIR)/libft.h Makefile
 	@mkdir -p $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $< $(INCLUDES)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(LIBFT_DIR)/$(LIB): FORCE
 	@echo "$(FAINT)"
