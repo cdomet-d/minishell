@@ -24,32 +24,26 @@ void	create_input(t_input **input, t_env **env, char **data, int tok)
 	input_addback(input, new);
 }
 
-char	**build_tab(char *line, int *i, char sep)
+char	**build_tab(char *line, int *i, int word)
 {
 	char	**tab;
-	int		word;
 	int		letter;
 	int		temp;
+	int		quote;
 
 	tab = NULL;
-	word = 0;
+	quote = 0;
+	// word = 0;
 	letter = 0;
-	if (sep == '"' || sep == '\'')
-	{
-		letter = 2;
-		word = 1;
-		*i += 1;
-	}
 	tab = malloc(sizeof(char *) * (word + 1));
 	if (!tab)
 		return (NULL);
 	temp = *i;
-	while (line[temp] != sep)
+	while (line[temp] != ' ' && line[temp] != '>' && line[temp] != '<' && line[temp] != '|')
 	{
 		letter++;
 		temp++;
 	}
-	temp = *i - 1;
 	word = 0;
 	tab[word] = malloc(sizeof(char) * (letter + 1));
 	if (!tab[word])
@@ -58,14 +52,35 @@ char	**build_tab(char *line, int *i, char sep)
 		return (NULL);
 	}
 	letter = 0;
-	if (sep == '"' || sep == '\'')
-		tab[word][letter++] = line[temp++];
-	while (line[temp] != sep)
-		tab[word][letter++] = line[temp++];
-	if (sep == '"' || sep == '\'')
-		tab[word][letter++] = line[temp++];
-	tab[word][letter++] = '\0';
+	while (line[*i] && line[*i] != ' ' && line[*i] != '>' && line[*i] != '<' && line[*i] != '|')
+	{
+		if (line[*i] == '"')
+		{
+			quote++;
+			tab[word][letter++] = line[*i];
+			*i += 1;
+			while (line[*i] && line[*i] != '"')
+			{
+				tab[word][letter++] = line[*i];
+				*i += 1;
+			}
+			if (line[*i] == '"')
+				quote++;
+		}
+		if (line[*i])
+		{
+			tab[word][letter++] = line[*i];
+			*i += 1;
+		}
+	}
+	tab[word][letter] = '\0';
 	tab[word + 1] = NULL;
+	if ((quote % 2) != 0)
+	{
+		write(2, "syntax error\n", 13);
+		free_dtab(tab);
+		tab = NULL;
+	}
 	return (tab);
 }
 
@@ -83,22 +98,16 @@ void	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 	{
 		create_input(input, env, NULL, inredir);
 		*i += 1;
-		while (line[*i] >= '\t' && line[*i] <= '\r')
-		{
-			printf("in\n");
+		while ((line[*i] >= '\t' && line[*i] <= '\r') || line[*i] == ' ')
 			*i += 1;
-		}
-		printf("%d\n", *i);
-		if (line[*i] == '"')
+		if (line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
 		{
-			data = build_tab(line, i, '"');
+			data = build_tab(line, i, 1);
 			if (!data)
 				free_all(input, errno, NULL);
-			create_input(input, env, data, file);
+			if (data)
+				create_input(input, env, data, file);
 		}
-		// while (line[*i + 1] != '<' || line[*i + 1] != '>'
-		// 	|| line[*i + 1] != '|')
-		// 	;
 	}
 }
 
