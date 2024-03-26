@@ -22,12 +22,16 @@ int main(int argc, char **argv, char **envp)
 			break ;
 		tokenization(&input, &env, line);
 	}
+	int i = 1;
 	while (input)
 	{
-		printf("input->tok: %d\n", input->tok);
+		printf("\n- - - node %d - - -\n\n", i);
+		printf("tok: %d\n", input->tok);
 		if (input->data)
-			printf("input->data: %s\n", input->data[0]);
+			printf("data: %s\n", input->data[0]);
+		printf("\n- - - - - - - - - -\n\n");
 		input = input->next;
+		i++;
 	}
 	free_env(env, EXIT_SUCCESS, NULL);
 	free_all(&input, EXIT_SUCCESS, NULL);
