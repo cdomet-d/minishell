@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:19:47 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/26 15:50:40 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:48:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 		{
 			data = build_tab(line, i, 1);
 			if (!data)
-				free_all(input, errno, NULL);
+				input_freelst(input);
 			if (data)
 				create_input(input, env, data, inredir);
 		}
@@ -64,6 +64,7 @@ void	tokenization(t_input **input, t_env **env, char *line)
 			tok_outredir(input, env, line, &i);
 		if (line[i] == '|')
 			create_input(input, env, NULL, pip);
-		i++;
+		if (line[i])
+			i++;
 	}
 }

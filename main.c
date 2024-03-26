@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/26 16:03:06 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:52:37 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int main(int argc, char **argv, char **envp)
 		create_env(envp, &env);
 		line = readline("Minishell > ");
 		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0) //si line == NULL ca s'arrete
-			break ;
+		{
+			env_freelst(env);
+			exit(EXIT_SUCCESS);
+		}
 		tokenization(&input, &env, line);
 		int i = 1;
 		while (input)
@@ -42,9 +45,7 @@ int main(int argc, char **argv, char **envp)
 			input = input->next;
 			i++;
 		}
-		input_freelst(input);
+		input_freelst(&input);
 	}
-	free_env(env, EXIT_SUCCESS, NULL);
-	free_all(&input, EXIT_SUCCESS, NULL);
 	return (0);
 }
