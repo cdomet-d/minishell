@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/26 13:47:09 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 16:20:06 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 void	init_env(char **envp, t_env **env)
 {
@@ -38,7 +38,7 @@ void	init_input(char *argv[], t_input **input, t_env *env)
 	{
 		inew = input_newnode(ft_split(argv[i], ' '), token(argv[i]), env);
 		if (!inew)
-			free_all(input, errno, "Failure while initializing input");
+			fatal_exit(input, errno, "Failure while initializing input");
 		input_addback(input, inew);
 		i++;
 	}

@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/26 14:26:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 16:09:40 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 void	print_in_for(t_input *input)
 {
@@ -65,9 +65,9 @@ t_env	*env_last(t_env	*env)
 	return (env);
 }
 
-void	print_redirs(t_redir count)
+void	print_ops(t_op count)
 {
-	printf("\033[0;34m\033[1m#---- Redirections ----#\n\033[0m");
+	printf("\033[0;34m\033[1m\n#---- Redirections ----#\n\033[0m");
 	printf("Pipes > %d\n", count.pip);
 	if (count.inredir)
 		printf("In redirection : yes\n");

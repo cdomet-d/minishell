@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/26 14:33:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 16:20:06 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,53 +50,31 @@ typedef struct s_input
 	struct s_input	*prev;
 }	t_input;
 
-/*----------------------------------------------------------------------------*/
-
 /*----------------------------- COMMON FUNCTIONS -----------------------------*/
 
-		/* env list utils*/
+/* env list utils*/
 t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
 void	env_freelst(t_env *env);
 void	init_env(char **envp, t_env **env);
 
-		/* input list utils */
+/* input list utils */
 t_input	*input_newnode(char **data, int token, t_env *env);
 void	input_addback(t_input **lst, t_input *node);
 void	input_freelst(t_input **lst);
 
-		/* display */
+/* display */
 t_env	*env_last(t_env	*env);
 void	print_env_for(t_env *env);
 void	print_env_back(t_env *env);
 void	display_dtab(char **dtab);
 void	print_in_for(t_input *input);
 
-		/* error handling */
-void	free_all(t_input **lst, int error_code, char *error_message);
+/* error handling */
+void	fatal_exit(t_input **lst, int error_code, char *error_message);
 void	free_env(t_env *lst, int error_code, char *error_message);
 void	print_error(int error_code, char *error_message);
 
-/*------------------------------- EXEC STRUCTS -------------------------------*/
+/*----------------------------------------------------------------------------*/
 
-typedef struct s_redir
-{
-	int	pip;
-	int	inredir;
-	int	outredir;
-}	t_redir;
-
-/* EXEC FUNCTIONS */
-
-/* local file for exec debug */
-void	init_input(char *argv[], t_input **input, t_env *env);
-void	init_env(char **envp, t_env **env);
-int		token(char *str);
-
-/* exec && exec utils */
-void	print_redirs(t_redir count);
-void	check_redirs(t_input *in, t_redir *counter);
-void	count_brackets(t_input *in, t_redir *counter);
-void	init_redir(t_redir *redir);
-void	exec_cmd(t_input *in);
 #endif
