@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:19:47 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/26 16:48:04 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:51:26 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,18 @@ void	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 	else
 	{
 		*i += 1;
-		while ((line[*i] >= '\t' && line[*i] <= '\r') || line[*i] == ' ')
+		while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r') || line[*i] == ' '))
 			*i += 1;
 		if (line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
 		{
-			data = build_tab(line, i, 1);
+			data = build_tab(input, line, i, 1);
 			if (!data)
 				input_freelst(input);
 			if (data)
 				create_input(input, env, data, inredir);
 		}
+		else
+			print_error(0, "syntax error\n");
 	}
 }
 
