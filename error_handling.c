@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/25 12:46:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 16:00:17 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	print_error(int error_code, char *error_message)
 		ft_putendl_fd(strerror(error_code), STDERR_FILENO);
 	if (error_message)
 		ft_putendl_fd(error_message, STDERR_FILENO);
-	exit(EXIT_FAILURE);
 }
