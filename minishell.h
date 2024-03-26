@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 14:37:44 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 16:20:06 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include <errno.h> // errno
 # include "libft/libft.h"
 
+/*----------------------------- COMMON STRUCTURES ----------------------------*/
+
 typedef enum s_enum
 {
 	pip, // |
-	in_bracket, // <
-	out_bracket, // >
-	append_bracket, // >>
+	inredir, // <
+	outredir, // >
+	append, // >>
 	heredoc, // <<
 	command,
 	file,
@@ -48,6 +50,8 @@ typedef struct s_input
 	struct s_input	*prev;
 }	t_input;
 
+/*----------------------------- COMMON FUNCTIONS -----------------------------*/
+
 /* env list utils*/
 t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
@@ -67,13 +71,10 @@ void	display_dtab(char **dtab);
 void	print_in_for(t_input *input);
 
 /* error handling */
-void	free_all(t_input **lst, int error_code, char *error_message);
+void	fatal_exit(t_input **lst, int error_code, char *error_message);
 void	free_env(t_env *lst, int error_code, char *error_message);
 void	print_error(int error_code, char *error_message);
 
-/* local file for exec debug */
-void	init_input(char *argv[], t_input **input, t_env *env);
-void	init_env(char **envp, t_env **env);
-int	token(char *str);
+/*----------------------------------------------------------------------------*/
 
 #endif
