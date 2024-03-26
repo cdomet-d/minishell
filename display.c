@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 17:33:01 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 14:26:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ void	print_in_for(t_input *input)
 		printf("\033[0;34m\033[1m#---- Node %d ----#\n\033[0m", node++);
 		display_dtab(input->data);
 		printf("token = %u\n", input->tok);
-		// print_env_for(input->env);
 		input = input->next;
 		printf("\033[0;34m\033[1m#----------------#\n\n\033[0m");
 	}
 	input = head;
-	print_redirs(input);
 }
 
 void	print_env_for(t_env *env)
@@ -67,17 +65,17 @@ t_env	*env_last(t_env	*env)
 	return (env);
 }
 
-void	print_redirs(t_input *input)
+void	print_redirs(t_redir count)
 {
-	printf("\033[0;34m\033[1m#---- REDIRECTIONS FIRST UNIT ----#\n\033[0m");
-	printf("Pipes : %ld\n", count_pipes(input));
-	if (count_inredir(input))
-		printf("inredir : yes\n");
+	printf("\033[0;34m\033[1m#---- Redirections ----#\n\033[0m");
+	printf("Pipes > %d\n", count.pip);
+	if (count.inredir)
+		printf("In redirection : yes\n");
 	else
-		printf("inredir : none\n");
-	if (count_outredir(input))
-		printf("outredir : yes\n");
+		printf("In redirection : no\n");
+	if (count.outredir)
+		printf("Out redirection : yes\n");
 	else
-		printf("outredir : none\n");
-	printf("\033[0;34m\033[1m#---------------------------------#\n\n\033[0m");
+		printf("Out redirection : no\n");
+	printf("\033[0;34m\033[1m#-----------------------#\n\n\033[0m");
 }

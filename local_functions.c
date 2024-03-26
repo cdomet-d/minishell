@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 15:51:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 13:47:09 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	token(char *str)
 	if (str[0] == '|')
 		return (pip);
 	else if (str[0] == '<')
-		return (in_bracket);
+		return (inredir);
 	else if (str[0] == '>')
-		return (out_bracket);
+		return (outredir);
 	else
 		return (command);
 }
