@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:40:32 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/26 17:37:34 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:52:32 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ int	count_letter(char *line, int count)
 	return (count);
 }
 
-void	fill_tab(char *line, int *i, char **tab)
+void	fill_tab(char *line, int *i, char **tab, int letter)
 {
 	int	word;
-	int	letter;
 
 	word = 0;
+	tab[word] = NULL;
+	tab[word] = malloc(sizeof(char) * (letter + 1));
+	if (!tab[word])
+		return ;//(free_dtab(tab), NULL);
 	letter = 0;
 	while (line[*i] && line[*i] != ' ' && line[*i] != '>'
 		&& line[*i] != '<' && line[*i] != '|')
@@ -74,7 +77,8 @@ void	fill_tab(char *line, int *i, char **tab)
 		}
 		if (line[*i])
 		{
-			tab[word][letter++] = line[*i];
+			tab[word][letter] = line[*i];
+			letter++;
 			*i += 1;
 		}
 	}
@@ -82,22 +86,24 @@ void	fill_tab(char *line, int *i, char **tab)
 	tab[word + 1] = NULL;
 }
 
-char	**build_tab(char *line, int *i, int word)
+char	**build_tab(t_input **input, char *line, int *i, int word)
 {
 	char	**tab;
 	int		letter;
 
 	tab = NULL;
 	letter = 0;
-	if (word != 1)
-		word = count_word();
+	// if (word != 1)
+	// 	word = count_word();
 	tab = malloc(sizeof(char *) * (word + 1));
 	if (!tab)
 		return (NULL);
 	letter = count_letter(line, *i);
-	tab[word] = malloc(sizeof(char) * (letter + 1));
-	if (!tab[word])
-		return (free_dtab(tab), NULL);
-	fill_tab(line, i, tab);
+	if (letter == -1)
+	{
+		print_error(0, "syntax error\n");
+		input_freelst(input);
+	}
+	fill_tab(line, i, tab, letter);
 	return (tab);
 }
