@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/26 16:52:37 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:16:53 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main(int argc, char **argv, char **envp)
 	t_env   *env;
 	t_input *input;
 	char    *line;
+	t_input	*temp;
 
 	(void)argc;
 	(void)argv;
@@ -35,14 +36,15 @@ int main(int argc, char **argv, char **envp)
 		}
 		tokenization(&input, &env, line);
 		int i = 1;
-		while (input)
+		temp = input;
+		while (temp)
 		{
 			printf("\n- - - node %d - - -\n\n", i);
-			printf("tok: %d\n", input->tok);
-			if (input->data)
-				printf("data: %s\n", input->data[0]);
+			printf("tok: %d\n", temp->tok);
+			if (temp->data)
+				printf("data: %s\n", temp->data[0]);
 			printf("\n- - - - - - - - - -\n\n");
-			input = input->next;
+			temp = temp->next;
 			i++;
 		}
 		input_freelst(&input);
