@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_input_lst.c                                 :+:      :+:    :+:   */
+/*   create_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:40:32 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/27 15:38:24 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:49:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	count_word(char *line, int i, int *word)
 		if (line[i] && line[i] != '>' && line[i] != '<' && line[i] != '|')
 			i++;
 	}
-	if (line[i] == '\0')
+	if ((line[i] == '\0' || line[i] == '>' || line[i] == '<' || line[i] == '|')
+		&& line[i - 1] != ' ')
 		*word += 1;
 }
 
@@ -97,14 +98,12 @@ char	**build_tab(char *line, int *i, int word)
 
 	tab = NULL;
 	letter = 0;
-	if (word != 1)
-		count_word(line, *i, &word);
 	tab = ft_calloc(sizeof(char *), word + 1);
 	if (!tab)
 		return (NULL);
 	j = word;
 	word = 0;
-	while (j > 0)
+	while (j-- > 0)
 	{
 		while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
 				|| line[*i] == ' '))
@@ -115,7 +114,6 @@ char	**build_tab(char *line, int *i, int word)
 			return (free_dtab(tab), NULL);
 		fill_tab(line, i, tab, &word);
 		word++;
-		j--;
 	}
 	tab[word] = NULL;
 	return (tab);
