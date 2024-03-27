@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/27 09:34:28 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/27 17:13:48 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,26 +14,28 @@ NAME := minishell
 LIB := libft.a
 BUILD_DIR := .dir_build
 LIBFT_DIR := libft
+H_DIR := includes
+PATHS := lst_utils/ test_units/ builtins/ error_management/
 
 CC := cc
 CFLAGS := -Werror -Wextra -Wall -g3
 CPPFLAGS = -MMD -MP
 MAKEFLAGS += --no-print-directory
 
-INCLUDES := -lft 
+INCLUDES := -L $(LIBFT_DIR) -lft 
 #-L/usr/local/lib -I/usr/local/include -lreadline
 
-SRCS := display.c \
-		env_lst_utils.c \
-		error_handling.c \
-		exec.c \
-		exec_utils.c \
+SRCS := env_lst_utils.c \
 		input_lst_utils.c \
-		local_functions.c \
-		test_main.c \
-		builtins.c \
+		display.c \
+		init_input.c \
+		export.c \
+		error_handling.c \
+		exec_main.c \
+		export_main.c \
 
-OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
+SRCS := $(foreach path,$(PATHS),$(wildcard $(path)*.c))
+OBJS := $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)
 
 RM := rm -rf
@@ -45,13 +47,13 @@ $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	@echo
 	@echo "$(PURPLE)|========== \t\t Making minishell \t\t ===========|$(RESET)"
 	@echo
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -o $(NAME) $(INCLUDES)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDES)
 	@echo
 	@echo "$(GREEN)|=========== \t\t minishell done ! \t\t ===========|$(RESET)"
 	@echo
 	
-$(BUILD_DIR)/%.o:%.c minishell.h $(LIBFT_DIR)/libft.h Makefile
-	@mkdir -p $(BUILD_DIR)
+$(BUILD_DIR)/%.o: %.c $(LIBFT_DIR)/libft.h $(H_DIR)/minishell.h $(H_DIR)/exec.h Makefile
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(LIBFT_DIR)/$(LIB): FORCE
