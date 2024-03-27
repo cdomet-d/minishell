@@ -6,22 +6,11 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:40:32 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/26 19:52:32 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:38:24 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-void	create_input(t_input **input, t_env **env, char **data, int tok)
-{
-	t_input	*new;
-
-	new = NULL;
-	new = input_newnode(data, tok, *env);
-	if (!new)
-		free_all(input, errno, NULL);
-	input_addback(input, new);
-}
 
 void	count_word(char *line, int i, int *word)
 {
@@ -38,7 +27,8 @@ void	count_word(char *line, int i, int *word)
 		if (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
 		{
 			*word += 1;
-			while (line[i] && (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r')))
+			while (line[i] && (line[i] == ' '
+					|| (line[i] >= '\t' && line[i] <= '\r')))
 				i++;
 		}
 		if (line[i] && line[i] != '>' && line[i] != '<' && line[i] != '|')
@@ -72,7 +62,7 @@ int	count_letter(char *line, int letter)
 
 void	fill_tab(char *line, int *i, char **tab, int *word)
 {
-	int 	letter;
+	int		letter;
 	char	quotetype;
 
 	letter = 0;
@@ -116,7 +106,8 @@ char	**build_tab(char *line, int *i, int word)
 	word = 0;
 	while (j > 0)
 	{
-		while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r') || line[*i] == ' '))
+		while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
+				|| line[*i] == ' '))
 			*i += 1;
 		letter = count_letter(line, *i);
 		tab[word] = ft_calloc(sizeof(char), letter + 1);
@@ -126,6 +117,6 @@ char	**build_tab(char *line, int *i, int word)
 		word++;
 		j--;
 	}
-	tab[word + 1] = NULL;
+	tab[word] = NULL;
 	return (tab);
 }
