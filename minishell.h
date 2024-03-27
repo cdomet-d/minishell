@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/26 15:44:29 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:57:34 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ typedef enum s_enum
 	append, // >>
 	heredoc, // <<
 	command,
-	file,
-	delimiter,
 }	t_tok;
 
 typedef struct s_env

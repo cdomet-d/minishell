@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/26 19:51:49 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:45:20 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ void	create_env(char **envp, t_env **env);
 void	tokenization(t_input **input, t_env **env, char *line);
 void	create_input(t_input **input, t_env **env, char **data, int tok);
 char	**build_tab(char *line, int *i, int word);
+int		check_quote(char *line);
+char	**get_data(t_input **input, char *line, int *i);
 
 #endif

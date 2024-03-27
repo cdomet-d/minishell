@@ -6,7 +6,7 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/26 15:52:21 by csweetin         ###   ########.fr        #
+#    Updated: 2024/03/27 15:43:10 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,11 @@ SRCS := display.c \
 		env_lst_utils.c \
 		input_lst_utils.c \
 		error_handling.c \
-		create_env_lst.c \
+		create_lst.c \
 		main.c \
 		tokenization.c \
-		create_input_lst.c \
+		create_data.c \
+		tokenization_utils.c \
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)
