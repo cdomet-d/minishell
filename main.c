@@ -36,13 +36,21 @@ int main(int argc, char **argv, char **envp)
 		tokenization(&input, &env, line);
 		t_input	*temp;
 		int i = 1;
+		int	j = 0;
 		temp = input;
 		while (temp)
 		{
 			printf("\n- - - node %d - - -\n\n", i);
 			printf("tok: %d\n", temp->tok);
 			if (temp->data)
-				printf("data: %s\n", temp->data[0]);
+			{
+				j = 0;
+				while (temp->data[j])
+				{
+					printf("data[%d]: %s\n", j, temp->data[j]);
+					j++;
+				}
+			}
 			printf("\n- - - - - - - - - -\n\n");
 			temp = temp->next;
 			i++;
