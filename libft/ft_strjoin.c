@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 10:49:51 by cdomet-d          #+#    #+#             */
-/*   Updated: 2023/11/23 12:28:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/27 09:49:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t		strjoin_len;
 	size_t		i;

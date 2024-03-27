@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/26 15:37:21 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/27 09:34:28 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFLAGS := -Werror -Wextra -Wall -g3
 CPPFLAGS = -MMD -MP
 MAKEFLAGS += --no-print-directory
 
-INCLUDES := -lft -L/usr/local/lib -I/usr/local/include -lreadline
+INCLUDES := -lft 
+#-L/usr/local/lib -I/usr/local/include -lreadline
 
 SRCS := display.c \
 		env_lst_utils.c \
@@ -30,6 +31,7 @@ SRCS := display.c \
 		input_lst_utils.c \
 		local_functions.c \
 		test_main.c \
+		builtins.c \
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)

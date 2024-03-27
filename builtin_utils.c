@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/27 09:22:55 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/03/27 09:52:46 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/03/27 09:58:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-// void	exec_cmd(t_input *in)
-// {
-	
-// }
+char    **keep_split(char *str, char sep)
+{
+    size_t  i;
+
+    i = 0;
+    if (!str || !sep)
+        return (NULL);
+    while (str[i] != sep)
+    
+}
+
+size_t  count_sep(char *str, char sep)
+{
+    size_t  i;
+    size_t  csep;
+
+    csep = 0;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == sep)
+            csep++;
+    }
+}
