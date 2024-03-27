@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:50:37 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/25 14:43:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 16:20:06 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -23,6 +23,6 @@ int	main(int argc, char *argv[], char *envp[])
 		return (EXIT_FAILURE);
 	init_env(envp, &env);
 	init_input(argv, &input, env);
-	print_in_for(input);
-	free_all(&input, EXIT_SUCCESS, "Program failed sucessfully");
+	exec_cmd(input);
+	fatal_exit(&input, EXIT_SUCCESS, NULL);
 }

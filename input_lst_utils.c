@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/25 14:42:38 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 16:20:14 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	input_freelst(t_input **lst)
 	temp = NULL;
 	if (!lst || !*lst)
 		return ;
-	if ((*lst)->env)
-		env_freelst((*lst)->env);
+	// if ((*lst)->env)
+	// 	env_freelst((*lst)->env);
 	while (*lst)
 	{
 		temp = (*lst)->next;
@@ -36,7 +36,7 @@ void	input_addback(t_input **lst, t_input *node)
 	t_input	*head;
 
 	if (!lst || !node)
-		free_all(lst, errno, "Input addback failed");
+		return ;
 	if (*lst == NULL)
 		*lst = node;
 	else
