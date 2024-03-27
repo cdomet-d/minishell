@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:19:47 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/27 15:56:49 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:50:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,31 @@ void	tok_outredir(t_input **input, t_env **env, char *line, int *i)
 void	tok_command(t_input **input, t_env **env, char *line, int *i)
 {
 	char	**data;
+	int		word;
 
+	word = 0;
+	count_word(line, *i, &word);
 	data = NULL;
-	data = build_tab(line, i, 0);
+	data = build_tab(line, i, word);
 	if (!data)
 		input_freelst(input);
 	else
 		create_input(input, env, data, command);
 }
 
-void	tok_pipe(t_input **input, t_env **env)
+int	tok_pipe(t_input **input, t_env **env, char *line, int *i)
 {
-	if (!*input)
+	*i += 1;
+	while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
+			|| line[*i] == ' '))
+		*i += 1;
+	if (!*input || line[*i] == '|')
 	{
 		print_error(0, "minishell : syntax error near unexpected token '|'");
-		return ;
+		return (1);
 	}
 	create_input(input, env, NULL, pip);
+	return (0);
 }
 
 void	tokenization(t_input **input, t_env **env, char *line)
@@ -82,10 +90,7 @@ void	tokenization(t_input **input, t_env **env, char *line)
 
 	i = 0;
 	if (check_quote(line))
-	{
-		print_error(0, "minishell : syntax error missing a quote");
-		return ;
-	}
+		return (print_error(0, "minishell : syntax error missing quote"));
 	while (line[i])
 	{
 		while (line[i] && ((line[i] >= '\t' && line[i] <= '\r')
@@ -96,10 +101,11 @@ void	tokenization(t_input **input, t_env **env, char *line)
 		else if (line[i] == '>')
 			tok_outredir(input, env, line, &i);
 		else if (line[i] == '|')
-			tok_pipe(input, env);
+		{
+			if (tok_pipe(input, env, line, &i))
+				return ;
+		}
 		else
 			tok_command(input, env, line, &i);
-		if (line[i])
-			i++;
 	}
 }
