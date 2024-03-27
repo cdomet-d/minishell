@@ -18,7 +18,6 @@ int main(int argc, char **argv, char **envp)
 	t_env   *env;
 	t_input *input;
 	char    *line;
-	t_input	*temp;
 
 	(void)argc;
 	(void)argv;
@@ -35,6 +34,7 @@ int main(int argc, char **argv, char **envp)
 			exit(EXIT_SUCCESS);
 		}
 		tokenization(&input, &env, line);
+		t_input	*temp;
 		int i = 1;
 		temp = input;
 		while (temp)
