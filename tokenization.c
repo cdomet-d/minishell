@@ -51,21 +51,66 @@ void	tok_outredir(t_input **input, t_env **env, char *line, int *i)
 		create_input(input, env, NULL, outredir);
 }
 
+void	tok_command(t_input **input, t_env **env, char *line, int *i)
+{
+	char	**data;
+
+	data = NULL;
+	data = build_tab(line, i, 0);
+	if (!data)
+		input_freelst(input);
+	else
+		create_input(input, env, data, command);
+}
+
+int	check_quote(char *line)
+{
+	int		i;
+	int		quote;
+	char	quotetype;
+	
+	i = 0;
+	quote = 0;
+	while (line[i])
+	{
+		if (line[i] == '"' || line[i] == '\'')
+		{
+			quotetype = line[i++];
+			quote++;
+			while (line[i] && line[i] != quotetype)
+				i++;
+			if (line[i] == quotetype)
+				quote++;
+		}
+		i++;
+	}
+	if ((quote % 2) != 0)
+		return (1);
+	return (0);
+}
+
 void	tokenization(t_input **input, t_env **env, char *line)
 {
 	int	i;
 
 	i = 0;
+	if (check_quote(line))
+	{
+		print_error(0, "syntax error : missing a quote");
+		return ;
+	}
 	while (line[i])
 	{
-		while (line[i] >= '\t' && line[i] <= '\r')
+		while (line[i] && ((line[i] >= '\t' && line[i] <= '\r') || line[i] == ' '))
 			i++;
 		if (line[i] == '<')
 			tok_inredir(input, env, line, &i);
-		if (line[i] == '>')
+		else if (line[i] == '>')
 			tok_outredir(input, env, line, &i);
-		if (line[i] == '|')
+		else if (line[i] == '|')
 			create_input(input, env, NULL, pip);
+		else
+			tok_command(input, env, line, &i);
 		if (line[i])
 			i++;
 	}
