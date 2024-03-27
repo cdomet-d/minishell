@@ -29,14 +29,14 @@ void	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 			*i += 1;
 		if (line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
 		{
-			data = build_tab(input, line, i, 1);
+			data = build_tab(line, i, 1);
 			if (!data)
 				input_freelst(input);
-			if (data)
+			else
 				create_input(input, env, data, inredir);
 		}
 		else
-			print_error(0, "syntax error\n");
+			print_error(0, "syntax error");
 	}
 }
 

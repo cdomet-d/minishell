@@ -18,6 +18,6 @@
 void	create_env(char **envp, t_env **env);
 void	tokenization(t_input **input, t_env **env, char *line);
 void	create_input(t_input **input, t_env **env, char **data, int tok);
-char	**build_tab(t_input **input, char *line, int *i, int word);
+char	**build_tab(char *line, int *i, int word);
 
 #endif
