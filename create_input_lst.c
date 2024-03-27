@@ -36,9 +36,9 @@ int	count_letter(char *line, int count)
 	{
 		if (line[count] == '"' || line[count] == '\'')
 		{
-			quotetype = line[count];
+			quotetype = line[count++];
 			quote++;
-			while (line[count] && line[count] != '"')
+			while (line[count] && line[count] != quotetype)
 				count++;
 			if (line[count] == quotetype)
 				quote++;
@@ -52,15 +52,12 @@ int	count_letter(char *line, int count)
 	return (count);
 }
 
-void	fill_tab(char *line, int *i, char **tab, int letter)
+void	fill_tab(char *line, int *i, char **tab)
 {
 	int	word;
+	int letter;
 
 	word = 0;
-	tab[word] = NULL;
-	tab[word] = malloc(sizeof(char) * (letter + 1));
-	if (!tab[word])
-		return ;//(free_dtab(tab), NULL);
 	letter = 0;
 	while (line[*i] && line[*i] != ' ' && line[*i] != '>'
 		&& line[*i] != '<' && line[*i] != '|')
@@ -86,7 +83,7 @@ void	fill_tab(char *line, int *i, char **tab, int letter)
 	tab[word + 1] = NULL;
 }
 
-char	**build_tab(t_input **input, char *line, int *i, int word)
+char	**build_tab(char *line, int *i, int word)
 {
 	char	**tab;
 	int		letter;
@@ -95,15 +92,21 @@ char	**build_tab(t_input **input, char *line, int *i, int word)
 	letter = 0;
 	// if (word != 1)
 	// 	word = count_word();
-	tab = malloc(sizeof(char *) * (word + 1));
+	tab = ft_calloc(sizeof(char *), word + 1);
 	if (!tab)
 		return (NULL);
 	letter = count_letter(line, *i);
 	if (letter == -1)
 	{
-		print_error(0, "syntax error\n");
-		input_freelst(input);
+		print_error(0, "syntax error");
+		free_dtab(tab);
+		return (NULL);
 	}
-	fill_tab(line, i, tab, letter);
+	word = 0;
+	tab[word] = NULL;
+	tab[word] = ft_calloc(sizeof(char), letter + 1);
+	if (!tab[word])
+		return (free_dtab(tab), NULL);
+	fill_tab(line, i, tab);
 	return (tab);
 }
