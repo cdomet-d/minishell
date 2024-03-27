@@ -23,90 +23,109 @@ void	create_input(t_input **input, t_env **env, char **data, int tok)
 	input_addback(input, new);
 }
 
-int	count_letter(char *line, int count)
+void	count_word(char *line, int i, int *word)
 {
-	int		temp;
-	int		quote;
 	char	quotetype;
 
-	quote = 0;
-	temp = count;
-	while (line[count] && line[count] != ' ' && line[count] != '>'
-		&& line[count] != '<' && line[count] != '|')
+	while (line[i] && line[i] != '>' && line[i] != '<' && line[i] != '|')
 	{
-		if (line[count] == '"' || line[count] == '\'')
+		if (line[i] == '"' || line[i] == '\'')
 		{
-			quotetype = line[count++];
-			quote++;
-			while (line[count] && line[count] != quotetype)
-				count++;
-			if (line[count] == quotetype)
-				quote++;
+			quotetype = line[i++];
+			while (line[i] && line[i] != quotetype)
+				i++;
 		}
-		if (line[count])
-			count++;
+		if (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
+		{
+			*word += 1;
+			while (line[i] && (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r')))
+				i++;
+		}
+		if (line[i] && line[i] != '>' && line[i] != '<' && line[i] != '|')
+			i++;
 	}
-	if ((quote % 2) != 0)
-		return (-1);
-	count -= temp;
-	return (count);
+	if (line[i] == '\0')
+		*word += 1;
 }
 
-void	fill_tab(char *line, int *i, char **tab)
+int	count_letter(char *line, int letter)
 {
-	int	word;
-	int letter;
+	int		temp;
+	char	quotetype;
 
-	word = 0;
+	temp = letter;
+	while (line[letter] && line[letter] != ' ' && line[letter] != '>'
+		&& line[letter] != '<' && line[letter] != '|')
+	{
+		if (line[letter] == '"' || line[letter] == '\'')
+		{
+			quotetype = line[letter++];
+			while (line[letter] && line[letter] != quotetype)
+				letter++;
+		}
+		if (line[letter])
+			letter++;
+	}
+	letter -= temp;
+	return (letter);
+}
+
+void	fill_tab(char *line, int *i, char **tab, int *word)
+{
+	int 	letter;
+	char	quotetype;
+
 	letter = 0;
 	while (line[*i] && line[*i] != ' ' && line[*i] != '>'
 		&& line[*i] != '<' && line[*i] != '|')
 	{
-		if (line[*i] == '"')
+		if (line[*i] == '"' || line[*i] == '\'')
 		{
-			tab[word][letter++] = line[*i];
+			quotetype = line[*i];
+			tab[*word][letter++] = line[*i];
 			*i += 1;
-			while (line[*i] && line[*i] != '"')
+			while (line[*i] && line[*i] != quotetype)
 			{
-				tab[word][letter++] = line[*i];
+				tab[*word][letter++] = line[*i];
 				*i += 1;
 			}
 		}
 		if (line[*i])
 		{
-			tab[word][letter] = line[*i];
-			letter++;
+			tab[*word][letter++] = line[*i];
 			*i += 1;
 		}
 	}
-	tab[word][letter] = '\0';
-	tab[word + 1] = NULL;
+	tab[*word][letter] = '\0';
 }
 
 char	**build_tab(char *line, int *i, int word)
 {
 	char	**tab;
 	int		letter;
+	int		j;
 
 	tab = NULL;
 	letter = 0;
-	// if (word != 1)
-	// 	word = count_word();
+	if (word != 1)
+		count_word(line, *i, &word);
 	tab = ft_calloc(sizeof(char *), word + 1);
 	if (!tab)
 		return (NULL);
-	letter = count_letter(line, *i);
-	if (letter == -1)
-	{
-		print_error(0, "syntax error");
-		free_dtab(tab);
-		return (NULL);
-	}
+	j = word;
 	word = 0;
-	tab[word] = NULL;
-	tab[word] = ft_calloc(sizeof(char), letter + 1);
-	if (!tab[word])
-		return (free_dtab(tab), NULL);
-	fill_tab(line, i, tab);
+	while (j > 0)
+	{
+		while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r') || line[*i] == ' '))
+			*i += 1;
+		letter = count_letter(line, *i);
+		tab[word] = ft_calloc(sizeof(char), letter + 1);
+		if (!tab[word])
+			return (free_dtab(tab), NULL);
+		fill_tab(line, i, tab, &word);
+		word++;
+		j--;
+	}
+	tab[word + 1] = NULL;
 	return (tab);
 }
