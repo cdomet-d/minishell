@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 18:03:55 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:05:28 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 
 	(void)argv;
+	line = NULL;
+	env = NULL;
+	input = NULL;
 	if (argc != 1)
 	{
 		print_error(0, "Error : too many arguments");
 		return (1);
 	}
-	line = NULL;
-	env = NULL;
-	input = NULL;
 	create_env(&input, envp, &env);
 	while (1)
 	{
