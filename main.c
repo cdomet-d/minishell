@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 17:40:36 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:03:55 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ int	main(int argc, char **argv, char **envp)
 	t_input	*input;
 	char	*line;
 
-	(void)argc;
 	(void)argv;
+	if (argc != 1)
+	{
+		print_error(0, "Error : too many arguments");
+		return (1);
+	}
 	line = NULL;
 	env = NULL;
 	input = NULL;
@@ -32,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 			env_freelst(env);
 			exit(EXIT_SUCCESS);
 		}
-		tokenization(&input, &env, line);
+		parsing(&input, &env, line);
 		t_input	*temp;
 		int i = 1;
 		int	j = 0;
