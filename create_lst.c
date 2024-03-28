@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/27 15:38:20 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:39:37 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	create_input(t_input **input, t_env **env, char **data, int tok)
 	new = NULL;
 	new = input_newnode(data, tok, *env);
 	if (!new)
-		free_all(input, errno, NULL);
+	{
+		print_error(EXIT_FAILURE, NULL);
+		input_freelst(input);
+	}
 	input_addback(input, new);
 }
 
-void	create_env(char **envp, t_env **env)
+void	create_env(t_input **input, char **envp, t_env **env)
 {
 	int		i;
 	t_env	*new;
@@ -34,7 +37,7 @@ void	create_env(char **envp, t_env **env)
 	{
 		new = env_newnode(envp[i]);
 		if (!new)
-			free_env(*env, EXIT_FAILURE, NULL);
+			fatal_exit(input, errno, NULL);
 		env_addback(env, new);
 		i++;
 	}
