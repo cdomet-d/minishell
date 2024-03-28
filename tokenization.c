@@ -105,7 +105,7 @@ void	tokenization(t_input **input, t_env **env, char *line)
 			if (tok_pipe(input, env, line, &i))
 				return ;
 		}
-		else
+		else if (line[i])
 			tok_command(input, env, line, &i);
 	}
 }

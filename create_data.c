@@ -18,17 +18,17 @@ void	count_word(char *line, int i, int *word)
 
 	while (line[i] && line[i] != '>' && line[i] != '<' && line[i] != '|')
 	{
-		if (line[i] == '"' || line[i] == '\'')
-		{
-			quotetype = line[i++];
-			while (line[i] && line[i] != quotetype)
-				i++;
-		}
 		if (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
 		{
 			*word += 1;
 			while (line[i] && (line[i] == ' '
 					|| (line[i] >= '\t' && line[i] <= '\r')))
+				i++;
+		}
+		if (line[i] == '"' || line[i] == '\'')
+		{
+			quotetype = line[i++];
+			while (line[i] && line[i] != quotetype)
 				i++;
 		}
 		if (line[i] && line[i] != '>' && line[i] != '<' && line[i] != '|')
