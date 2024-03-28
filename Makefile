@@ -6,7 +6,7 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/26 15:37:21 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/28 16:46:01 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRCS := display.c \
 		input_lst_utils.c \
 		local_functions.c \
 		test_main.c \
-		error_handling.c \
 		create_lst.c \
 		main.c \
 		tokenization.c \
