@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:50:37 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/27 16:07:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:30:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
+#include "exec.h"
 
 // int	main(int argc, char *argv[], char *envp[])
 // {

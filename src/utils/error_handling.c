@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/27 16:07:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:30:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	fatal_exit(t_input **lst, int error_code, char *error_message)
 {

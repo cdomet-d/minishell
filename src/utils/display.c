@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 14:12:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:43:41 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
+#include "exec.h"
 
 void	print_in_for(t_input *input)
 {
@@ -35,18 +35,13 @@ void	print_env_for(t_env *env)
 {
 	t_env	*head;
 	size_t	i;
-	size_t	j;
 
 	head = env;
 	i = 0;
 	printf("==== PRINTING ENV FORWARD ====\n");
 	while (env)
 	{
-		j = 0;
-		printf("env[%ld] > ", i);
-		while (env->env[j] && j < 35)
-			printf("%c", env->env[j++]);
-		printf("\n");
+		printf("env[%-2ld] > %.25s\n", i, env->env);
 		env = env->next;
 		i++;
 	}

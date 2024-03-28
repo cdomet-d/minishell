@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:01:23 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 14:08:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:28:00 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
+#include "exec.h"
 
 char	*split_wsep(char *str, char sep)
 {

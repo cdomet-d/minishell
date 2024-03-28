@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 16:05:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:30:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	env_freelst(t_env *env)
 {

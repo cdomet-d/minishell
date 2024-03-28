@@ -6,11 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:00:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 16:05:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:44:45 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/exec.h"
+#include "exec.h"
 
 void	unset(t_env **env, char *key)
 {
@@ -33,6 +33,6 @@ void	unset(t_env **env, char *key)
 		i++;
 	}
 	(*env) = head;
-	printf("minishell: %s: not a valid identifier\n", key);
+	printf("minishell: %s: not a valid identifier\n\n", key);
 	//return value : 130: No such file or directory
 }
