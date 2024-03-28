@@ -47,7 +47,9 @@ void	syntax_error(char *line, int *i)
 	{
 		ft_putstr_fd("minishell : syntax error near unexpected token ", STDERR_FILENO);
 		ft_putchar_fd(line[*i], STDERR_FILENO);
-		// *i += 1;
+		ft_putchar_fd('\n', STDERR_FILENO);
+		while (line[*i])
+			*i += 1;
 	}
 }
 
@@ -59,7 +61,7 @@ char	**get_data(t_input **input, char *line, int *i)
 	while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
 			|| line[*i] == ' '))
 		*i += 1;
-	if (line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
+	if (line[*i] && line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
 	{
 		data = build_tab(line, i, 1);
 		if (!data)
