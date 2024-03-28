@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/26 16:20:06 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:30:41 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@
 # include <stdbool.h>
 # include <string.h> // strerror
 # include <errno.h> // errno
-# include "libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "libft.h"
 
 /*----------------------------- COMMON STRUCTURES ----------------------------*/
 
@@ -32,6 +30,8 @@ typedef enum s_enum
 	append, // >>
 	heredoc, // <<
 	command,
+	file,
+	delimiter,
 }	t_tok;
 
 typedef struct s_env
@@ -57,6 +57,7 @@ t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
 void	env_freelst(t_env *env);
 void	init_env(char **envp, t_env **env);
+void	env_rmone(t_env **sup, t_env *head);
 
 /* input list utils */
 t_input	*input_newnode(char **data, int token, t_env *env);

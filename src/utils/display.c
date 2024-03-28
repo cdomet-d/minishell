@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/26 16:09:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:43:41 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ void	print_in_for(t_input *input)
 void	print_env_for(t_env *env)
 {
 	t_env	*head;
+	size_t	i;
 
 	head = env;
+	i = 0;
 	printf("==== PRINTING ENV FORWARD ====\n");
-	printf("%p\n", env);
 	while (env)
 	{
-		printf("env -> %s\n", env->env);
+		printf("env[%-2ld] > %.25s\n", i, env->env);
 		env = env->next;
+		i++;
 	}
 	env = head;
 	printf("==========================\n\n");
@@ -53,7 +55,10 @@ void	display_dtab(char **dtab)
 
 	i = 0;
 	while (dtab && dtab[i])
-		printf("%s\n", dtab[i++]);
+	{
+		printf("tab[%ld] > %s\n", i, dtab[i]);
+		i++;
+	}
 }
 
 t_env	*env_last(t_env	*env)

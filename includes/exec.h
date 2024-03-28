@@ -6,13 +6,12 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/26 16:04:18 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 17:46:36 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
-
 # include "minishell.h"
 
 /*------------------------------- EXEC STRUCTS -------------------------------*/
@@ -32,7 +31,7 @@ typedef struct s_fd
 	int	tmpin;
 }	t_fd;
 
-/*------------------------------- EXEC STRUCTS -------------------------------*/
+/*------------------------------ EXEC FUNCTIONS ------------------------------*/
 
 /* local file for exec debug */
 void	init_input(char *argv[], t_input **input, t_env *env);
@@ -43,7 +42,16 @@ int		token(char *str);
 void	print_ops(t_op count);
 void	check_redirs(t_input *in, t_op *counter);
 void	count_brackets(t_input *in, t_op *counter);
-void	exec_cmd(t_input *in);
+// void	exec_cmd(t_input *in);
+
+/*--------------------------------- BUILTINS ---------------------------------*/
+
+/* builtins utils */
+char	*split_wsep(char *str, char sep);
+
+/* builtins */
+void	unset(t_env **env, char *key);
+void	export(t_env *env, char *var);
 
 /*----------------------------------------------------------------------------*/
 
