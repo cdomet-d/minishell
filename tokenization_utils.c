@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:42:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/27 18:26:43 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:17:39 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	syntax_error(char *line, int *i)
 		print_error(0, "syntax error near unexpected token 'newline'");
 	else if (line[*i] == '>' || line[*i] == '<')
 	{
-		ft_putstr_fd("minishell : syntax error near unexpected token ", STDERR_FILENO);
+		ft_putstr_fd("minishell : syntax error near unexpected token ", 2);
 		ft_putchar_fd(line[*i], STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		while (line[*i])
