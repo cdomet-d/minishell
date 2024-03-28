@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 13:51:50 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 14:12:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ void	display_dtab(char **dtab)
 	{
 		printf("tab[%ld] > %s\n", i, dtab[i]);
 		i++;
-
-	}	
+	}
 }
 
 t_env	*env_last(t_env	*env)

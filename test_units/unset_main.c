@@ -6,14 +6,14 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:53:39 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 13:53:46 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 14:12:28 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 // int	main(int argc, char **argv, char **envp)
 // {
 // 	t_env	*env;
-	
+
 // 	// add in if of unset : 
 // 	// printf("Match for %s found in node %ld > %s\n\n", key, i, (*env)->env);
 // 	env = NULL;

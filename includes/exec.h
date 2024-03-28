@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/27 18:05:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 14:13:09 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	count_brackets(t_input *in, t_op *counter);
 /*--------------------------------- BUILTINS ---------------------------------*/
 
 /* builtins utils */
-char *split_wsep(char *str, char sep);
-char *split_wosep(char *str, char sep);
+char	*split_wsep(char *str, char sep);
+char	*split_wosep(char *str, char sep);
 
 /*----------------------------------------------------------------------------*/
 
