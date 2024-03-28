@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 18:30:33 by csweetin         ###   ########.fr       */
+/*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
+/*   Updated: 2024/03/28 18:30:59 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	parsing(t_input **input, t_env **env, char *line)
+void	expand(t_input **input, t_env **env)
 {
-	tokenization(input, env, line);
-	if (input && *input)
-		expand(input, env);
+	(void)input;
+	(void)env;
 }
