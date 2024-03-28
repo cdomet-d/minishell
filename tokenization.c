@@ -75,8 +75,9 @@ int	tok_pipe(t_input **input, t_env **env, char *line, int *i)
 	while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
 			|| line[*i] == ' '))
 		*i += 1;
-	if (!*input || line[*i] == '|')
+	if (!*input || line[*i] == '\0' || line[*i] == '|')
 	{
+		input_freelst(input);
 		print_error(0, "minishell : syntax error near unexpected token '|'");
 		return (1);
 	}
@@ -96,11 +97,11 @@ void	tokenization(t_input **input, t_env **env, char *line)
 		while (line[i] && ((line[i] >= '\t' && line[i] <= '\r')
 				|| line[i] == ' '))
 			i++;
-		if (line[i] == '<')
+		if (line[i] && line[i] == '<')
 			tok_inredir(input, env, line, &i);
-		else if (line[i] == '>')
+		else if (line[i] && line[i] == '>')
 			tok_outredir(input, env, line, &i);
-		else if (line[i] == '|')
+		else if (line[i] && line[i] == '|')
 		{
 			if (tok_pipe(input, env, line, &i))
 				return ;
