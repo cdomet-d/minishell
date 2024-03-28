@@ -28,33 +28,33 @@ int main(int argc, char **argv, char **envp)
 	{
 		create_env(envp, &env);
 		line = readline("Minishell > ");
-		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0) //si line == NULL ca s'arrete
+		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0 && line[0])
 		{
 			env_freelst(env);
 			exit(EXIT_SUCCESS);
 		}
 		tokenization(&input, &env, line);
-		t_input	*temp;
-		int i = 1;
-		int	j = 0;
-		temp = input;
-		while (temp)
-		{
-			printf("\n- - - node %d - - -\n\n", i);
-			printf("tok: %d\n", temp->tok);
-			if (temp->data)
-			{
-				j = 0;
-				while (temp->data[j])
-				{
-					printf("data[%d]: %s\n", j, temp->data[j]);
-					j++;
-				}
-			}
-			printf("\n- - - - - - - - - -\n\n");
-			temp = temp->next;
-			i++;
-		}
+		// t_input	*temp;
+		// int i = 1;
+		// int	j = 0;
+		// temp = input;
+		// while (temp)
+		// {
+		// 	printf("\n- - - node %d - - -\n\n", i);
+		// 	printf("tok: %d\n", temp->tok);
+		// 	if (temp->data)
+		// 	{
+		// 		j = 0;
+		// 		while (temp->data[j])
+		// 		{
+		// 			printf("data[%d]: %s\n", j, temp->data[j]);
+		// 			j++;
+		// 		}
+		// 	}
+		// 	printf("\n- - - - - - - - - -\n\n");
+		// 	temp = temp->next;
+		// 	i++;
+		// }
 		input_freelst(&input);
 	}
 	return (0);
