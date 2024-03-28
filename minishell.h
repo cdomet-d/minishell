@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
 /*   Updated: 2024/03/26 16:20:06 by cdomet-d         ###   ########lyon.fr   */
@@ -19,6 +19,8 @@
 # include <string.h> // strerror
 # include <errno.h> // errno
 # include "libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 /*----------------------------- COMMON STRUCTURES ----------------------------*/
 
@@ -30,8 +32,6 @@ typedef enum s_enum
 	append, // >>
 	heredoc, // <<
 	command,
-	file,
-	delimiter,
 }	t_tok;
 
 typedef struct s_env
