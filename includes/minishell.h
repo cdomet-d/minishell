@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 11:22:32 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 16:04:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
 void	env_freelst(t_env *env);
 void	init_env(char **envp, t_env **env);
-void	env_rmone(t_env **sup);
+void	env_rmone(t_env **sup, t_env *head);
 
 /* input list utils */
 t_input	*input_newnode(char **data, int token, t_env *env);

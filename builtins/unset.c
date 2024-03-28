@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:00:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 14:07:24 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 16:05:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	unset(t_env **env, char *key)
 		if (ft_strncmp(key, (*env)->env, ft_strlen(key)) == 0 && \
 			(*env)->env[ft_strlen(key)] == '=')
 		{
-			env_rmone(env);
+			env_rmone(env, head);
 			return ;
 		}
 		(*env) = (*env)->next;
