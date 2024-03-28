@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/27 17:41:37 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 14:08:10 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-static void exprt_inenv(t_env **env, char *data)
+static void	exprt_inenv(t_env **env, char *data)
 {
 	t_env	*new;
 
@@ -47,7 +47,3 @@ void	export(t_env *env, char *var)
 	env = head;
 	exprt_inenv(&env, var);
 }
-
-
-
-

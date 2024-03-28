@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/27 17:55:10 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/28 14:06:36 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,27 @@ t_env	*env_newnode(char *data)
 
 void	env_rmone(t_env **sup)
 {
-	if (!sup || !(*sup))
+	t_env	*tmp;
+
+	if (!(*sup))
 		return (print_error(errno, "invalid data in env_rmone"));
-	(*sup)->prev->next = (*sup)->next;
-	(*sup)->next->prev = (*sup)->prev;
-	free((*sup)->env);
-	free((*sup));
+	tmp = (*sup);
+	if (!tmp->prev)
+	{
+		(*sup)->next->prev = NULL;
+		(*sup) = (*sup)->next;
+	}
+	else if (!tmp->next)
+	{
+		(*sup)->prev->next = NULL;
+		(*sup) = tmp;
+	}
+	else
+	{
+		(*sup)->prev->next = (*sup)->next;
+		(*sup)->next->prev = (*sup)->prev;
+		(*sup) = tmp;
+	}
+	free(tmp->env);
+	free(tmp);
 }
