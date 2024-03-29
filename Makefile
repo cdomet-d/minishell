@@ -6,7 +6,7 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/29 16:55:46 by csweetin         ###   ########.fr        #
+#    Updated: 2024/03/29 17:19:11 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ DIR_TOKE:= parsing/tokenization/
 SRC_TOKE:=		create_data.c \
 				tokenization.c \
 				tokenization_utils.c \
+				toke_op.c \
 
 PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
