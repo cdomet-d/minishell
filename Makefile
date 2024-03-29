@@ -40,6 +40,7 @@ SRC_TOKE:=		create_data.c \
 PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
+				expansion_utils.c \
 
 SRC += $(PARSE)
 
