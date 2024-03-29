@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-void	create_input(t_input **input, t_env **env, char **data, int tok)
+int	create_input(t_input **input, t_env **env, char **data, int tok)
 {
 	t_input	*new;
 
@@ -22,8 +22,10 @@ void	create_input(t_input **input, t_env **env, char **data, int tok)
 	{
 		print_error(EXIT_FAILURE, NULL);
 		input_freelst(input);
+		return (1);
 	}
 	input_addback(input, new);
+	return (0);
 }
 
 void	create_env(t_input **input, char **envp, t_env **env)

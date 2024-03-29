@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-void	tok_inredir(t_input **input, t_env **env, char *line, int *i)
+int	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 {
 	char	**data;
 	int		tok;
@@ -28,12 +28,13 @@ void	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 	*i += 1;
 	data = get_data(input, line, i);
 	if (!data)
-		input_freelst(input);
-	else
-		create_input(input, env, data, tok);
+		return (1);
+	if (create_input(input, env, data, tok))
+		return (1);
+	return (0);
 }
 
-void	tok_outredir(t_input **input, t_env **env, char *line, int *i)
+int	tok_outredir(t_input **input, t_env **env, char *line, int *i)
 {
 	char	**data;
 	int		tok;
@@ -49,12 +50,13 @@ void	tok_outredir(t_input **input, t_env **env, char *line, int *i)
 	*i += 1;
 	data = get_data(input, line, i);
 	if (!data)
-		input_freelst(input);
-	else
-		create_input(input, env, data, tok);
+		return (1);
+	if (create_input(input, env, data, tok))
+		return (1);
+	return (0);
 }
 
-void	tok_command(t_input **input, t_env **env, char *line, int *i)
+int	tok_command(t_input **input, t_env **env, char *line, int *i)
 {
 	char	**data;
 	int		word;
@@ -64,9 +66,13 @@ void	tok_command(t_input **input, t_env **env, char *line, int *i)
 	data = NULL;
 	data = build_tab(line, i, word);
 	if (!data)
+	{
 		input_freelst(input);
-	else
-		create_input(input, env, data, command);
+		return (1);
+	}
+	if (create_input(input, env, data, command))
+		return (1);
+	return (0);
 }
 
 int	tok_pipe(t_input **input, t_env **env, char *line, int *i)
@@ -81,7 +87,8 @@ int	tok_pipe(t_input **input, t_env **env, char *line, int *i)
 		print_error(0, "minishell : syntax error near unexpected token '|'");
 		return (1);
 	}
-	create_input(input, env, NULL, pip);
+	if (create_input(input, env, NULL, pip))
+		return (1);
 	return (0);
 }
 
@@ -98,15 +105,24 @@ void	tokenization(t_input **input, t_env **env, char *line)
 				|| line[i] == ' '))
 			i++;
 		if (line[i] && line[i] == '<')
-			tok_inredir(input, env, line, &i);
+		{
+			if (tok_inredir(input, env, line, &i))
+				return ;
+		}
 		else if (line[i] && line[i] == '>')
-			tok_outredir(input, env, line, &i);
+		{
+			if (tok_outredir(input, env, line, &i))
+				return ;
+		}
 		else if (line[i] && line[i] == '|')
 		{
 			if (tok_pipe(input, env, line, &i))
 				return ;
 		}
 		else if (line[i])
-			tok_command(input, env, line, &i);
+		{
+			if (tok_command(input, env, line, &i))
+				return ;
+		}
 	}
 }

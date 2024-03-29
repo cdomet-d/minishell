@@ -19,7 +19,7 @@ void	parsing(t_input **input, t_env **env, char *line);
 void	tokenization(t_input **input, t_env **env, char *line);
 void	expand(t_input *node, t_env **env);
 void	create_env(t_input **input, char **envp, t_env **env);
-void	create_input(t_input **input, t_env **env, char **data, int tok);
+int 	create_input(t_input **input, t_env **env, char **data, int tok);
 void	count_word(char *line, int i, int *word);
 char	**build_tab(char *line, int *i, int word);
 char	**get_data(t_input **input, char *line, int *i);
