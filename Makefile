@@ -3,61 +3,83 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/26 15:37:21 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/28 17:36:44 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
 LIB := libft.a
-BUILD_DIR := .dir_build
-LIBFT_DIR := libft
+BUILD_DIR := .dir_build/
+LIBFT_DIR := includes/libft/
+MS_H := includes/minishell.h
+EX_H := includes/exec.h
+HEADERS:= -I includes/ -I includes/libft/
+
+SCR_DIR := src/
 
 CC := cc
-CFLAGS := -Werror -Wextra -Wall -g3
+CFLAGS := -Werror -Wextra -Wall -g3 $(HEADERS)
 CPPFLAGS = -MMD -MP
 MAKEFLAGS += --no-print-directory
 
-INCLUDES := -lft -L/usr/local/lib -I/usr/local/include -lreadline
+INCLUDES := -L $(LIBFT_DIR) -lft 
+#-L/usr/local/lib -I/usr/local/include -lreadline
 
-SRCS := display.c \
-		env_lst_utils.c \
-		error_handling.c \
-		exec.c \
-		exec_utils.c \
-		input_lst_utils.c \
-		local_functions.c \
-		test_main.c \
+# --- LISTS UTILS ----#
+SRC +=  $(addprefix $(DIR_LST), $(SRC_LST))
+DIR_LST:= lst_utils/
+SRC_LST:=		env_lst_utils.c \
+				input_lst_utils.c \
 
-OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
-DEPS := $(OBJS:%.o=%.d)
+# --- BUILTINS ----#
+SRC +=  $(addprefix $(DIR_BUILTIN), $(SRC_BUILTIN))
+DIR_BUILTIN:= builtins/
+SRC_BUILTIN:=	export.c \
+				unset.c \
+				builtin_utils.c \
+
+# --- UTILS ----#
+SRC +=  $(addprefix $(DIR_UTILS), $(SRC_UTILS))
+DIR_UTILS:= utils/
+SRC_UTILS:=		display.c \
+				init_input.c \
+				error_handling.c \
+
+OBJS:= $(addprefix $(BUILD_DIR),$(SRC:%.c=%.o))
+DEPS:= $(OBJS:%.o=%.d)
 
 RM := rm -rf
 
 all: $(NAME)
 bonus : $(BONUS)
 
-$(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
+$(NAME): $(LIBFT_DIR)$(LIB) $(OBJS)
 	@echo
 	@echo "$(PURPLE)|========== \t\t Making minishell \t\t ===========|$(RESET)"
 	@echo
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -o $(NAME) $(INCLUDES)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDES)
 	@echo
 	@echo "$(GREEN)|=========== \t\t minishell done ! \t\t ===========|$(RESET)"
 	@echo
 	
-$(BUILD_DIR)/%.o:%.c minishell.h $(LIBFT_DIR)/libft.h Makefile
-	@mkdir -p $(BUILD_DIR)
+$(BUILD_DIR)%.o: $(SCR_DIR)%.c $(LIBFT_DIR)libft.h $(MS_H) $(EX_H) Makefile
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
-$(LIBFT_DIR)/$(LIB): FORCE
+$(LIBFT_DIR)$(LIB): FORCE
 	@echo "$(FAINT)"
 	$(MAKE) -C $(LIBFT_DIR)
 	@echo "$(RESET)"
 
  -include $(DEPS)
+
+PHONY : print%
+print% :
+	@echo $(patsubst print%,%,$@)=
+	@echo $($(patsubst print%,%,$@))
 
 clean:
 	@echo

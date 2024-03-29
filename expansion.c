@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 14:31:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
+/*   Updated: 2024/03/28 18:30:59 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
-// void	exec_cmd(t_input *in)
-// {
-
-// }
+void	expand(t_input **input, t_env **env)
+{
+	(void)input;
+	(void)env;
+}

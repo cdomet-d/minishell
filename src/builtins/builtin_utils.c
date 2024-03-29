@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 10:49:51 by cdomet-d          #+#    #+#             */
-/*   Updated: 2023/11/23 12:28:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/03/27 17:01:23 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/03/28 17:28:00 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "exec.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*split_wsep(char *str, char sep)
 {
-	size_t		strjoin_len;
-	size_t		i;
-	size_t		j;
-	char		*strjoin;
+	size_t	i;
+	char	*res;
 
-	if (!s1 || !s2)
-		return (NULL);
-	strjoin_len = ft_strlen(s1) + ft_strlen(s2);
-	strjoin = ft_calloc(strjoin_len + 1, sizeof (char));
-	if (!strjoin)
-		return (NULL);
 	i = 0;
-	j = 0;
-	while (s1[j])
-		strjoin[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		strjoin[i++] = s2[j++];
-	return (strjoin);
+	if (!str || !sep)
+		return (NULL);
+	while (str[i] && str[i] != sep)
+		i++;
+	if (i == ft_strlen(str))
+		return (NULL);
+	res = ft_substr(str, 0, i + 1);
+	if (!res)
+		return (NULL);
+	return (res);
 }
