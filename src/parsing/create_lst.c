@@ -21,6 +21,7 @@ int	create_input(t_input **input, t_env **env, char **data, int tok)
 	if (!new)
 	{
 		print_error(EXIT_FAILURE, NULL);
+		free_dtab(data);
 		input_freelst(input);
 		return (1);
 	}
