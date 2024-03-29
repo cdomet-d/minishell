@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/29 13:13:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/29 15:04:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 # include "minishell.h"
 # include "parsing.h"
+# include <sys/types.h> // open
+# include <sys/stat.h> // open
+# include <fcntl.h> // open
+
+# define R 0
+# define W 1
+
+# define SUCCESS 1
 
 /*------------------------------- EXEC STRUCTS -------------------------------*/
 
@@ -28,7 +36,7 @@ typedef struct s_redir
 typedef struct s_fd
 {
 	int	pfd[2];
-	int	ffd[2];
+	int	ffd;
 	int	pid;
 	int	tmpin;
 }	t_fd;
@@ -44,7 +52,9 @@ int		token(char *str);
 void	print_ops(t_op count);
 void	check_redirs(t_input *in, t_op *counter);
 void	count_brackets(t_input *in, t_op *counter);
-// void	exec_cmd(t_input *in);
+void	*exec_cmd(t_input *in);
+void	init_fd(t_fd *fd);
+void	print_fds(t_fd *fd);
 
 /*--------------------------------- BUILTINS ---------------------------------*/
 
@@ -53,7 +63,7 @@ char	*split_wsep(char *str, char sep);
 
 /* builtins */
 void	unset(t_env **env, char *key);
-void	export(t_env *env, char *var);
+void	*export(t_env *env, char *var);
 void	mh_exit(char *line, t_input *in, t_env *env);
 
 /*----------------------------------------------------------------------------*/
