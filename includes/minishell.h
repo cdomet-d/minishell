@@ -19,6 +19,8 @@
 # include <string.h> // strerror
 # include <errno.h> // errno
 # include "libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 /*----------------------------- COMMON STRUCTURES ----------------------------*/
 
@@ -30,8 +32,6 @@ typedef enum s_enum
 	append, // >>
 	heredoc, // <<
 	command,
-	file,
-	delimiter,
 }	t_tok;
 
 typedef struct s_env
