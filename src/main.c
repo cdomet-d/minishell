@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	create_env(&input, envp, &env);
 	while (1)
 	{
-		line = readline("Minishell > ");
+		line = readline("Minishell > "); //besoin de proteger readline ???
 		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0 && line[0])
 		{
 			env_freelst(env);
