@@ -16,6 +16,7 @@ BUILD_DIR := .dir_build/
 LIBFT_DIR := includes/libft/
 MS_H := includes/minishell.h
 EX_H := includes/exec.h
+PA_H := includes/parsing.h
 HEADERS:= -I includes/ -I includes/libft/
 
 SCR_DIR := src/
@@ -25,8 +26,27 @@ CFLAGS := -Werror -Wextra -Wall -g3 $(HEADERS)
 CPPFLAGS = -MMD -MP
 MAKEFLAGS += --no-print-directory
 
-INCLUDES := -L $(LIBFT_DIR) -lft 
-#-L/usr/local/lib -I/usr/local/include -lreadline
+INCLUDES := -L $(LIBFT_DIR) -lft -lreadline
+
+SRC += main.c \
+
+# --- PARSING ----#
+PARSE += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
+DIR_TOKE:= parsing/tokenization/
+SRC_TOKE:=		create_data.c \
+				tokenization.c \
+				tokenization_utils.c \
+
+PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
+DIR_EXPAND:= parsing/expansion/
+SRC_EXPAND:=	expansion.c \
+
+SRC += $(PARSE)
+
+SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
+DIR_PARSE:= parsing/
+SRC_PARSE:=		create_lst.c \
+				parsing.c \
 
 # --- LISTS UTILS ----#
 SRC +=  $(addprefix $(DIR_LST), $(SRC_LST))
@@ -65,7 +85,7 @@ $(NAME): $(LIBFT_DIR)$(LIB) $(OBJS)
 	@echo "$(GREEN)|=========== \t\t minishell done ! \t\t ===========|$(RESET)"
 	@echo
 	
-$(BUILD_DIR)%.o: $(SCR_DIR)%.c $(LIBFT_DIR)libft.h $(MS_H) $(EX_H) Makefile
+$(BUILD_DIR)%.o: $(SCR_DIR)%.c $(LIBFT_DIR)libft.h $(MS_H) $(EX_H) $(PA_H) Makefile
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
