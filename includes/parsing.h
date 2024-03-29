@@ -17,12 +17,13 @@
 
 void	parsing(t_input **input, t_env **env, char *line);
 void	tokenization(t_input **input, t_env **env, char *line);
-void	expand(t_input **input, t_env **env);
+void	expand(t_input *node, t_env **env);
 void	create_env(t_input **input, char **envp, t_env **env);
 void	create_input(t_input **input, t_env **env, char **data, int tok);
-char	**build_tab(char *line, int *i, int word);
-int		check_quote(char *line);
-char	**get_data(t_input **input, char *line, int *i);
 void	count_word(char *line, int i, int *word);
+char	**build_tab(char *line, int *i, int word);
+char	**get_data(t_input **input, char *line, int *i);
+int		check_quote(char *line);
+int	    check_for_dollar(t_input *node);
 
 #endif
