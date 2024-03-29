@@ -14,7 +14,20 @@
 
 void	parsing(t_input **input, t_env **env, char *line)
 {
+	t_input	*node;
+	
+	node = NULL;
 	tokenization(input, env, line);
 	if (input && *input)
-		expand(input, env);
+	{
+		node = *input;
+		while (node)
+		{
+			if (node->tok != heredoc)
+				if (check_for_dollar(node))
+					expand(node, env);
+			node = node->next;
+		}
+	}
+	// remove_quote()
 }
