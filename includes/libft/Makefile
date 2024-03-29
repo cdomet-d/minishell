@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/18 15:26:20 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/29 11:51:26 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,15 +81,13 @@ RM := rm -rf
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo
-	@echo "$(PURPLE)|=========== \t\t Creating libft.a... \t\t ===========|$(BLACK)"
-	@echo
+	@echo "$(RESET)"
+	@echo "$(PINK)$(BOLD) \t • • ┈┈┈┈ ๑ ⋅ ⋯ ୨ \t making libft \t ୧ ⋯ ⋅ ๑ ┈┈┈┈ • •$(RESET)"
+	@echo "$(FAINT)"
 	ar -rcs $(NAME) $(OBJS)
-	@echo
-	@echo "$(GREEN)|=========== \t\t libft.a done ! \t\t ===========|$(BLACK)"
-	@echo
+	@echo "$(RESET)"
 
-$(BUILD_DIR)/%.o:%.c libft.h
+$(BUILD_DIR)/%.o:%.c libft.h Makefile
 	@mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
@@ -105,5 +103,12 @@ re: fclean all
 BLACK=\033[30m
 GREEN=\033[32m
 PURPLE=\033[35m
+PINK=\033[38;5;206m.
+
+RESET=\033[0m
+FAINT=\033[2m
+UNDERLINE=\033[4m
+BOLD=\033[1m
+
 
 .PHONY : clean fclean all re BLACK PURPLE GREEN

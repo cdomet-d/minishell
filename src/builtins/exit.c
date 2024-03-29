@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 14:31:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/03/29 13:28:04 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-// void	exec_cmd(t_input *in)
-// {
-
-// }
+void	mh_exit(char *line, t_input *in, t_env *env)
+{
+	clear_history();
+	if (line)
+		free(line);
+	if (env)
+		env_freelst(env);
+	fatal_exit(&in, 0, NULL);
+	// return value to be determined with signals
+}

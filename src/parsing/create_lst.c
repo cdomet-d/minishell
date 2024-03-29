@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 17:39:37 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:38:37 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	create_input(t_input **input, t_env **env, char **data, int tok)
 	new = input_newnode(data, tok, *env);
 	if (!new)
 	{
-		print_error(EXIT_FAILURE, NULL);
 		input_freelst(input);
+		print_error(EXIT_FAILURE, NULL);
 	}
 	input_addback(input, new);
 }

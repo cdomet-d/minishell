@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:19:47 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/27 18:50:04 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:56:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	tok_pipe(t_input **input, t_env **env, char *line, int *i)
 	return (0);
 }
 
-void	tokenization(t_input **input, t_env **env, char *line)
+void	*tokenization(t_input **input, t_env **env, char *line)
 {
 	int	i;
 
@@ -104,9 +104,10 @@ void	tokenization(t_input **input, t_env **env, char *line)
 		else if (line[i] && line[i] == '|')
 		{
 			if (tok_pipe(input, env, line, &i))
-				return ;
+				return (NULL);
 		}
 		else if (line[i])
 			tok_command(input, env, line, &i);
 	}
+	return (NULL);
 }
