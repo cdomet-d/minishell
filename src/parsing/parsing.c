@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 18:30:33 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:16:45 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	parsing(t_input **input, t_env **env, char *line)
 	// t_input	*node;
 	
 	// node = NULL;
-	tokenization(input, env, line);
+	if (tokenization(input, env, line))
+		return ;
 	// if (input && *input)
 	// {
 	// 	node = *input;
