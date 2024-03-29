@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/29 15:04:44 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/29 17:21:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int		token(char *str);
 
 /* exec && exec utils */
 void	print_ops(t_op count);
-void	check_redirs(t_input *in, t_op *counter);
-void	count_brackets(t_input *in, t_op *counter);
+bool	pipe_true(t_input *in);
 void	*exec_cmd(t_input *in);
 void	init_fd(t_fd *fd);
 void	print_fds(t_fd *fd);

@@ -6,44 +6,24 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/29 13:56:13 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/29 17:21:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	check_redirs(t_input *in, t_op *counter)
+bool	pipe_true(t_input *in)
 {
-	t_input	*head;
+	t_input	*tmp;
 
-	counter->pip = 0;
-	head = in;
-	while (in)
+	tmp = in;
+	while (tmp)
 	{
-		if (in->tok == pip)
-			counter->pip++;
-		in = in->next;
+		if (tmp->tok == pip)
+			return (true);
+		tmp = tmp->next;
 	}
-	in = head;
-	count_brackets(in, counter);
-}
-
-void	count_brackets(t_input *in, t_op *counter)
-{
-	t_input	*head;
-
-	counter->inredir = 0;
-	counter->outredir = 0;
-	head = in;
-	while (in && in->tok != pip)
-	{
-		if (in->tok == inredir)
-			counter->inredir++;
-		if (in->tok == outredir)
-			counter->outredir++;
-		in = in->next;
-	}
-	in = head;
+	return (false);
 }
 
 void	init_fd(t_fd *fd)
