@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 17:39:37 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:48:48 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	create_input(t_input **input, t_env **env, char **data, int tok)
 	new = input_newnode(data, tok, *env);
 	if (!new)
 	{
+		input_freelst(input);
 		print_error(EXIT_FAILURE, NULL);
 		free_dtab(data);
 		input_freelst(input);

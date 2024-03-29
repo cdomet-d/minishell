@@ -6,7 +6,7 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/28 17:36:44 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/29 16:55:46 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ INCLUDES := -L $(LIBFT_DIR) -lft -lreadline
 
 SRC += main.c \
 
-# --- PARSING ----#
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ PARSING ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 PARSE += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
 DIR_TOKE:= parsing/tokenization/
 SRC_TOKE:=		create_data.c \
@@ -49,25 +49,35 @@ DIR_PARSE:= parsing/
 SRC_PARSE:=		create_lst.c \
 				parsing.c \
 
-# --- LISTS UTILS ----#
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ LISTS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_LST), $(SRC_LST))
 DIR_LST:= lst_utils/
 SRC_LST:=		env_lst_utils.c \
 				input_lst_utils.c \
 
-# --- BUILTINS ----#
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ BUILTINS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_BUILTIN), $(SRC_BUILTIN))
 DIR_BUILTIN:= builtins/
 SRC_BUILTIN:=	export.c \
 				unset.c \
+				exit.c \
 				builtin_utils.c \
 
-# --- UTILS ----#
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_UTILS), $(SRC_UTILS))
 DIR_UTILS:= utils/
-SRC_UTILS:=		display.c \
+SRC_UTILS:=		display_data.c \
+				display_structs.c \
 				init_input.c \
 				error_handling.c \
+
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ EXEC ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
+SRC +=  $(addprefix $(DIR_EXEC), $(SRC_EXEC))
+DIR_EXEC:= exec/
+SRC_EXEC:=		exec.c \
+				exec_utils.c \
+
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ RULES ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
 OBJS:= $(addprefix $(BUILD_DIR),$(SRC:%.c=%.o))
 DEPS:= $(OBJS:%.o=%.d)
@@ -79,11 +89,11 @@ bonus : $(BONUS)
 
 $(NAME): $(LIBFT_DIR)$(LIB) $(OBJS)
 	@echo
-	@echo "$(PURPLE)|========== \t\t Making minishell \t\t ===========|$(RESET)"
+	@echo "$(PINK)$(BOLD) \t • • ┈┈┈┈ ๑ ⋅ ⋯ ୨ \t making minishell \t ୧ ⋯ ⋅ ๑ ┈┈┈┈ • •$(RESET)"
 	@echo
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDES)
 	@echo
-	@echo "$(GREEN)|=========== \t\t minishell done ! \t\t ===========|$(RESET)"
+	@echo "$(PINK)$(BOLD) \t• • ┈┈┈┈ ๑ ⋅ ⋯ ୨ \t minishell done ! \t ୧ ⋯ ⋅ ๑ ┈┈┈┈ • •$(RESET)"
 	@echo
 	
 $(BUILD_DIR)%.o: $(SCR_DIR)%.c $(LIBFT_DIR)libft.h $(MS_H) $(EX_H) $(PA_H) Makefile
@@ -92,36 +102,35 @@ $(BUILD_DIR)%.o: $(SCR_DIR)%.c $(LIBFT_DIR)libft.h $(MS_H) $(EX_H) $(PA_H) Makef
 
 $(LIBFT_DIR)$(LIB): FORCE
 	@echo "$(FAINT)"
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFT_DIR)
 	@echo "$(RESET)"
 
  -include $(DEPS)
 
-PHONY : print%
-print% :
-	@echo $(patsubst print%,%,$@)=
-	@echo $($(patsubst print%,%,$@))
-
 clean:
 	@echo
-	@echo "$(CYAN)|========== \t\t Running clean... \t ===========|$(RESET)"
+	@echo "$(PINK)$(BOLD)\t • • ┈┈┈┈ ๑ ⋅ ⋯ ୨ \t cleaning \t ୧ ⋯ ⋅ ๑ ┈┈┈┈ • •$(RESET)"
+	@echo
 	@echo "$(FAINT)"
 	$(RM) $(BUILD_DIR)
 	make -C $(LIBFT_DIR) $@
-	@echo "$(RESET)"
-	@echo "$(CYAN)|=========== \t\t Done ! \t\t ===========|$(RESET)"
-	@echo
+
 	
 fclean: clean
-	@echo "$(CYAN)|========== \t\t Running fclean... \t ===========|$(RESET)"
-	@echo "$(FAINT)"
 	make -C $(LIBFT_DIR) $@
-	$(RM) $(NAME) $(BONUS) out
-	@echo "$(RESET)"
-	@echo "$(CYAN)|========== \t\t Bye <3 \t\t ===========|$(RESET)"
+	$(RM) $(NAME)
+	@echo
+	@echo "$(PINK)$(BOLD)\t • • ┈┈┈┈ ๑ ⋅ ⋯ ୨ \t done ! \t ୧ ⋯ ⋅ ๑ ┈┈┈┈ • •$(RESET)"
 	@echo
 
+	
 re: fclean all
+
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
+
+V_PARAMS:= valgrind --leak-check=full --suppressions=supp.supp --show-leak-kinds=all
+suprun: all
+	$(V_PARAMS) ./$(NAME)
 
 help:
 	@echo "make \t\t $(FAINT)creates the executable$(RESET)"
@@ -137,17 +146,37 @@ kitty:
 	@echo " _.|o o  |_   ) ) "
 	@echo "-(((---(((--------"
 
-# Colors
-BLUE=\033[0;34m
-CYAN=\033[0;36m
-GREEN=\033[32m
-PURPLE=\033[35m
-BG_CYAN=\033[46m
+FORCE : 
+print% :
+	@echo $(patsubst print%,%,$@)=
+	@echo $($(patsubst print%,%,$@))
+
+.PHONY : clean fclean all re help kitty display force print%
 
 # Text
 RESET=\033[0m
 FAINT=\033[2m
 UNDERLINE=\033[4m
+BOLD=\033[1m
 
-FORCE : 
-.PHONY : clean fclean all re help kitty display force
+# Codes d'échappement ANSI pour les couleurs
+RED=\033[0;31m
+GREEN=\033[0;32m
+YELLOW=\033[0;33m
+BLUE=\033[0;34m
+MAGENTA=\033[0;35m
+CYAN=\033[0;36m
+WHITE=\033[0;37m
+PINK=\033[38;5;206m.
+
+# Codes d'échappement ANSI pour le texte en gras
+BOLD=\033[1m
+
+# Codes d'échappement ANSI pour les fonds colorés
+BG_RED=\033[41m
+BG_GREEN=\033[42m
+BG_YELLOW=\033[43m
+BG_BLUE=\033[44m
+BG_MAGENTA=\033[45m
+BG_CYAN=\033[46m
+BG_WHITE=\033[47m

@@ -6,58 +6,33 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 18:05:28 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:54:35 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **envp)
 {
+	char	*line;
 	t_env	*env;
 	t_input	*input;
-	char	*line;
 
-	(void)argv;
 	line = NULL;
 	env = NULL;
 	input = NULL;
 	if (argc != 1)
-	{
-		print_error(0, "Error : too many arguments");
-		return (1);
-	}
+		fatal_exit(NULL, EXIT_FAILURE, "minishell: too many arguments");
 	create_env(&input, envp, &env);
 	while (1)
 	{
 		line = readline("Minishell > "); //besoin de proteger readline ???
 		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0 && line[0])
-		{
-			env_freelst(env);
-			exit(EXIT_SUCCESS);
-		}
+			mh_exit(line, input, env);
 		parsing(&input, &env, line);
-		t_input	*temp;
-		int i = 1;
-		int	j = 0;
-		temp = input;
-		while (temp)
-		{
-			printf("\n- - - node %d - - -\n\n", i);
-			printf("tok: %d\n", temp->tok);
-			if (temp->data)
-			{
-				j = 0;
-				while (temp->data[j])
-				{
-					printf("data[%d]: %s\n", j, temp->data[j]);
-					j++;
-				}
-			}
-			printf("\n- - - - - - - - - -\n\n");
-			temp = temp->next;
-			i++;
-		}
+		exec_cmd(input);
+		// print_in_for(input);
+		free(line);
 		input_freelst(&input);
 	}
 	return (0);
