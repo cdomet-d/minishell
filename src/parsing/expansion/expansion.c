@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 18:30:59 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:49:24 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@
 
 void	expand(t_input *node, t_env **env)
 {
-	(void)node;
+	int	i;
+
 	(void)env;
-	// if (!double_quote())
-	// 	return ;
+	i = 0;
+	while (node->data)
+	{
+		
+	}
 }
