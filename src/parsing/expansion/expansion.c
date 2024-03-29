@@ -12,8 +12,12 @@
 
 #include "parsing.h"
 
-void	expand(t_input **input, t_env **env)
+//si $arg=NULL replace par rien
+
+void	expand(t_input *node, t_env **env)
 {
-	(void)input;
+	(void)node;
 	(void)env;
+	// if (!double_quote())
+	// 	return ;
 }

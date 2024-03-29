@@ -48,8 +48,6 @@ void	syntax_error(char *line, int *i)
 		ft_putstr_fd("minishell : syntax error near unexpected token ", 2);
 		ft_putchar_fd(line[*i], STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
-		while (line[*i])
-			*i += 1;
 	}
 }
 
@@ -68,6 +66,9 @@ char	**get_data(t_input **input, char *line, int *i)
 			input_freelst(input);
 	}
 	else
+	{
+		input_freelst(input);
 		syntax_error(line, i);
+	}
 	return (data);
 }
