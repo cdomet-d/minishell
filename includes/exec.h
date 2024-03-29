@@ -6,13 +6,15 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 17:46:36 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/29 13:13:16 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
+
 # include "minishell.h"
+# include "parsing.h"
 
 /*------------------------------- EXEC STRUCTS -------------------------------*/
 
@@ -52,6 +54,7 @@ char	*split_wsep(char *str, char sep);
 /* builtins */
 void	unset(t_env **env, char *key);
 void	export(t_env *env, char *var);
+void	mh_exit(char *line, t_input *in, t_env *env);
 
 /*----------------------------------------------------------------------------*/
 
