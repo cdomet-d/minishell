@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/29 15:14:21 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/29 19:04:43 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ t_env	*env_newnode(char *data)
 		return (NULL);
 	node->env = ft_strdup(data);
 	if (!node->env)
+	{
+		free(node);
 		return (NULL);
+	}
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

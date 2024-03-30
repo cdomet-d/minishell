@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/29 13:28:04 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/29 18:57:17 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	mh_exit(char *line, t_input *in, t_env *env)
 {
-	clear_history();
+	rl_clear_history();
 	if (line)
 		free(line);
 	if (env)
