@@ -13,12 +13,13 @@
 #include "exec.h"
 #include "parsing.h"
 
-int	main(int argc, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_env	*env;
 	t_input	*input;
 
+	(void)argv;
 	line = NULL;
 	env = NULL;
 	input = NULL;
