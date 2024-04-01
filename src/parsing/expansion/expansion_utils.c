@@ -25,9 +25,16 @@ int	check_for_dollar(t_input *node)
 		j = 0;
 		while (node->data[i][j])
 		{
+			if (node->data[i][j] == '\'')
+			{
+				j++;
+				while (node->data[i][j] && node->data[i][j] != '\'')
+					j++;
+			}
 			if (node->data[i][j] == '$')
 				return (1);
-			j++;
+			if (node->data[i][j])
+				j++;
 		}
 		i++;
 	}
