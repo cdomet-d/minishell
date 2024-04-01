@@ -14,55 +14,29 @@
 
 //si $arg=NULL ou n'existe pas replace par rien
 
-int	str_cmp(char *data, char *env)
+void	nb_word_env(char *str, int *word)
 {
-	int	i;
-
-	i = 0;
-	while (data[i] && env[i] && env[i] != '=')
-	{
-		if (data[i] != env[i])
-			return (1);
-		i++;
-	}
-	if (env[i] != '=' || data[i] != '\0')
-		return (1);
-	return (0);
-}
-
-void	search_env(char *data, t_env **env, int *count)
-{
-	t_env	*node;
 	int		i;
 
 	i = 0;
-	node = *env;
-	while (node)
-	{
-		if (!strcmp(data, node->env))
+	if (!str)
+		return ;
+	while (str[i] && str[i] != '=')
+		i++;
+	i++;
+	while (str[i])
+	{	
+		if ((str[i] != ' ' && str[i] < '\t' && str[i] > '\r')
+			&& (str[i + 1] == '\0' || str[i + 1] == ' ' || (str[i + 1] >= '\t'
+			&& str[i + 1] <= '\r')))
 		{
 			// printf("in\n");
-			while (node->env[i] && node->env[i - 1] != '=')
-				i++;
-			while (node->env[i])
-			{	
-				while (node->env[i] && (node->env[i] == ' '
-					|| (node->env[i] >= '\t' && node->env[i] <= '\r')))
-					i++;
-				if (((i - 1) == 0 && node->env[i - 1] != ' ' && node->env[i - 1] < '\t' && node->env[i - 1] > '\r')
-					&& (node->env[i + 1] == '\0' || (node->env[i + 1] == ' ' || (node->env[i + 1] >= '\t' && node->env[i + 1] <= '\r'))))
-				{
-					*count += 1;
-				}
-				if (node->env[i] != '\0')
-					i++;
-			}
+			*word += 1;
 		}
-		node = node->next;
+		i++;
 	}
 }
-
-void	nbr_word(char **data, t_env **env, int *word)
+void	nb_word(char **data, t_env **env, int *word)
 {
 	int		i;
 	int		j;
@@ -81,7 +55,7 @@ void	nbr_word(char **data, t_env **env, int *word)
 					j++;
 			}
 			if (data[i][j] == '$')
-				search_env(data[i] + (j + 1), env, word);
+				nb_word_env(search_env(data[i] + (j + 1), env), word);
 			if (data[i][j])
 				j++;
 		}
@@ -98,6 +72,6 @@ void	expand(t_input *node, t_env **env)
 	// int	letter;
 
 	word = 0;
-	nbr_word(node->data, env, &word);
+	nb_word(node->data, env, &word);
 	printf("word : %d\n", word);
 }

@@ -40,3 +40,33 @@ int	check_for_dollar(t_input *node)
 	}
 	return (0);
 }
+
+int	ft_strcmp(char *data, char *env)
+{
+	int	i;
+
+	i = 0;
+	while (data[i] && env[i] && env[i] != '=')
+	{
+		if (data[i] != env[i])
+			return (1);
+		i++;
+	}
+	if (env[i] != '=' || data[i] != '\0')
+		return (1);
+	return (0);
+}
+
+char	*search_env(char *data, t_env **env)
+{
+	t_env	*node;
+	
+	node = *env;
+	while (node)
+	{
+		if (!ft_strcmp(data, node->env))
+			return (node->env);
+		node = node->next;
+	}
+	return (NULL);
+}

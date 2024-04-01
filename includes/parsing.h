@@ -40,6 +40,8 @@ void	expand(t_input *node, t_env **env);
 
 /* parsing utils */
 int		check_for_dollar(t_input *node);
+char	*search_env(char *data, t_env **env);
+int     ft_strcmp(char *data, char *env);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 
