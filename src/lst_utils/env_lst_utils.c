@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:33:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/29 15:14:21 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/02 16:36:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,3 +88,19 @@ void	*env_rmone(t_env **sup, t_env *head)
 	free(tmp);
 	return (*sup);
 }
+
+size_t	env_len(t_env *env)
+{
+	t_env	*tmp;
+	size_t	n_nodes;
+
+	tmp = env;
+	n_nodes = 0;
+	while (tmp)
+	{
+		n_nodes++;
+		tmp = tmp->next;
+	}
+	return (n_nodes);
+}
+
