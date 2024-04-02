@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 17:18:15 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:04:21 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ char	**build_tab(char *line, int *i, int word);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-void	expand(t_input *node, t_env **env);
+int		expand(t_input *node, t_env **env);
 
-/* parsing utils */
+/* expand utils */
 int		check_for_dollar(t_input *node);
 char	*search_env(char *data, t_env **env);
-int     ft_strcmp(char *data, char *env);
+int		ft_strcmp(char *data, char *env);
+char	**tab_dup(char **data);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 
