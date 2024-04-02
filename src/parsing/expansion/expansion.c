@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 19:22:01 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:51:27 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,16 @@ void	nb_word_env(char *str, int *word)
 		i++;
 	i++;
 	while (str[i])
-	{	
-		if ((str[i] != ' ' && str[i] < '\t' && str[i] > '\r')
+	{
+		if ((str[i] != ' ' && (str[i] < '\t' || str[i] > '\r'))
 			&& (str[i + 1] == '\0' || str[i + 1] == ' ' || (str[i + 1] >= '\t'
-			&& str[i + 1] <= '\r')))
-		{
-			// printf("in\n");
+					&& str[i + 1] <= '\r')))
 			*word += 1;
-		}
 		i++;
 	}
+	*word -= 1;
 }
+
 void	nb_word(char **data, t_env **env, int *word)
 {
 	int		i;
@@ -64,14 +63,21 @@ void	nb_word(char **data, t_env **env, int *word)
 	}
 }
 
-void	expand(t_input *node, t_env **env)
+int	expand(t_input *node, t_env **env)
 {
+	char	**dup;
+	int		word;
+	// int	letter;
 	// int	i;
 	// int	j;
-	int	word;
-	// int	letter;
 
 	word = 0;
-	nb_word(node->data, env, &word);
-	printf("word : %d\n", word);
+	dup = NULL;
+	dup = tab_dup(node->data);
+	if (!dup)
+		return (1);
+	nb_word(dup, env, &word);
+	// nb_letter();
+	free_dtab(dup);
+	return (0);
 }
