@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 17:16:45 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:49:32 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parsing(t_input **input, t_env **env, char *line)
 {
 	t_input	*node;
-	
+
 	node = NULL;
 	if (tokenization(input, env, line))
 		return ;
@@ -26,7 +26,8 @@ void	parsing(t_input **input, t_env **env, char *line)
 		{
 			if (node->tok != heredoc)
 				if (check_for_dollar(node))
-					expand(node, env);
+					if (expand(node, env))
+						fatal_exit(input, errno, NULL);
 			node = node->next;
 		}
 	}
