@@ -6,11 +6,16 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:07:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 17:09:00 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:09:13 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+int	check_opt(t_input **input)
+{
+	
+}
 
 int	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 {
