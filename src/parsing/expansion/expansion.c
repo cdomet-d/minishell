@@ -146,12 +146,13 @@ int	expand(t_input *node, t_env **env)
 			if (node->data[word][i] == '$')
 			{
 				nb_letter_env(search_env(node->data[word] + (i + 1), env), &letter, &pos);
+				//va falloir declarer une autre variable que word car node->data et newtab ne font pas la meme taille
 			}
 			if (node->data[word][i])
 				i += 1;
 		}
 		printf("letter : %d\n", letter);
-		// newtab = ft_calloc(sizeof(char), letter + 1);
+		// newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		// if (!newtab)
 		// 	return (1);
 		// ft_fill();

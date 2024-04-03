@@ -33,7 +33,7 @@ int		check_quote(char *line);
 void	count_word(char *line, int i, int *word);
 char	**get_data(t_input **input, char *line, int *i);
 char	**build_tab(char *line, int *i, int word);
-char	**tab_join();
+char	**tab_join(char **s1, char **s2);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
