@@ -32,17 +32,20 @@ int	check_opt(t_input **input, char *line, int *i)
 			while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
 			|| line[*i] == ' '))
 				*i += 1;
-			count_word(line, *i, &word);
-			data = build_tab(line, i, word);
-			if (!data)
-				return (input_freelst(input), 1);
-			new = tab_join(ptr->data, data);
-			if (!new)
-				return (1);
-			data = ptr->data;
-			ptr->data = NULL;
-			ptr->data = new;
-			free_dtab(data);
+			if (line[*i] && line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
+			{
+				count_word(line, *i, &word);
+				data = build_tab(line, i, word);
+				if (!data)
+					return (input_freelst(input), 1);
+				new = tab_join(ptr->data, data);
+				if (!new)
+					return (1);
+				data = ptr->data;
+				ptr->data = NULL;
+				ptr->data = new;
+				free_dtab(data);
+			}
 		}
 		ptr = ptr->prev;
 	}
