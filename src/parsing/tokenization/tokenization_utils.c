@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:42:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 16:17:39 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:20:43 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,9 @@ char	**get_data(t_input **input, char *line, int *i)
 		syntax_error(line, i);
 	}
 	return (data);
+}
+
+char	**tab_join()
+{
+
 }

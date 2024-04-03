@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/02 18:04:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:20:57 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		check_quote(char *line);
 void	count_word(char *line, int i, int *word);
 char	**get_data(t_input **input, char *line, int *i);
 char	**build_tab(char *line, int *i, int word);
+char	**tab_join();
 
 /*----------------------------- EXPANSION -----------------------------*/
 
