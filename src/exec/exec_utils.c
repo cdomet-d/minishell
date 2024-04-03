@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/03 16:28:12 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/03 20:20:18 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,23 @@ t_input	*find_redir(t_input	*in, t_tok op)
 		tmp = tmp->next;
 	return (tmp);
 }
+
+t_input	*find_next_pipe(t_input	*in)
+{
+	if (!pipe_true(in))
+		return (NULL);
+	while (in && in->tok != pip)
+		in = in->next;
+	in = in->next;
+	return (in);
+}
+
 void	init_fd(t_fd *fd)
 {
 	fd->pfd[R] = 0;
 	fd->pfd[W] = 0;
 	fd->ffd = 0;
+	fd->ffdout = 0;
 	fd->pid = -1;
 	fd ->tmpin = 0;
 }

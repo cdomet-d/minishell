@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/03 18:25:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/03 20:23:31 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	*exec_cmd(t_input *in)
 	tmp = in;
 	while (tmp)
 	{
+		int incpy = dup(STDIN_FILENO);
 		if (fd.pid == -1)
 		{
 			if (pipe_true(in))
@@ -42,14 +43,16 @@ void	*exec_cmd(t_input *in)
 			}
 			if (op_true(tmp, inredir))
 				in_redir(&fd, tmp);
-			else if (op_true(tmp, outredir))
+			if (op_true(tmp, outredir))
 				out_redir(&fd, tmp);
 			if (tmp->tok == command)
 				execve(in->data[0], in->data, arenvlst(in->env));
 		}
 		while (wait(0) != -1 && errno != ECHILD)
 			;
-		tmp = tmp->next;
+		if (dup2(STDIN_FILENO, incpy) == -1)
+			return (print_error(errno, "duping out to file"));
+		tmp = find_next_pipe(tmp);
 		if (fd.pfd[R] != 0)
 			close (fd.pfd[R]);
 		if (fd.pfd[W] != 0)
@@ -66,13 +69,13 @@ void	*out_redir(t_fd *fd, t_input *in)
 
 	fprintf(stderr, "\033[0;35m\033[1m\n#==== OUTREDIR ====#\n\n\033[0m");
 	tmp = find_redir(in, outredir);
-	fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0777);
+	fd->ffdout = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0777);
 	print_fds(fd);
-	if (fd->ffd == -1)
+	if (fd->ffdout == -1)
 		return (print_error(errno, in->data[0]));
-	if (dup2(fd->ffd, STDOUT_FILENO) == -1)
+	if (dup2(fd->ffdout, STDOUT_FILENO) == -1)
 		return (print_error(errno, "duping out to file"));
-	close(fd->ffd);
+	close(fd->ffdout);
 	fprintf(stderr, "\033[0;35m\033[1m\n#==================#\n\n\033[0m");
 	return ("fdat");
 }
@@ -97,7 +100,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 		return (print_error(errno, "opening infile"));
 	if (dup2(fd->ffd, STDIN_FILENO) == -1)
 		return (print_error(errno, "duping in to file"));
-	// close(fd->ffd);
+	close(fd->ffd);
 	fprintf(stderr, "\033[0;35m\033[1m\n#==================#\n\n\033[0m");
 	return ("fdat");
 }
