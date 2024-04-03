@@ -6,15 +6,34 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:07:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/03 18:09:13 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:18:06 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	check_opt(t_input **input)
+int	check_opt(t_input **input, char *line, int *i)
 {
-	
+	t_input	*ptr;
+	char	**data;
+	int		word;
+
+	word = 0;
+	data = NULL;
+	ptr = *input;
+	while (ptr)
+		ptr = ptr->next;
+	while (ptr && ptr->tok != pip)
+	{
+		if (ptr->tok == command)
+		{
+			count_word(line, *i, &word);
+			data = build_tab(line, i, word);
+			tab_join();
+		}
+		ptr = ptr->prev;
+	}
+	return (0);
 }
 
 int	tok_inredir(t_input **input, t_env **env, char *line, int *i)
