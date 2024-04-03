@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:07:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/03 18:18:06 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:23:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_opt(t_input **input, char *line, int *i)
 		{
 			count_word(line, *i, &word);
 			data = build_tab(line, i, word);
-			tab_join();
+			tab_join(ptr->data, data);
 		}
 		ptr = ptr->prev;
 	}
