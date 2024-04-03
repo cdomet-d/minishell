@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/04/02 18:35:27 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/03 18:27:31 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,7 +127,7 @@ re: fclean all
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
-V_PARAMS:= valgrind --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
+V_PARAMS:= valgrind --log-file="log" --track-fds=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
 suprun: all
 	$(V_PARAMS) ./$(NAME)
 

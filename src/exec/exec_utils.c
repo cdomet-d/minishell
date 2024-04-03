@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/02 17:38:08 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/03 16:28:12 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ bool	pipe_true(t_input *in)
 	return (false);
 }
 
+bool	op_true(t_input *in, t_tok op)
+{
+	t_input	*tmp;
+
+	tmp = in;
+	while (tmp && tmp->tok != pip)
+	{
+		if (tmp->tok == op)
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
+t_input	*find_redir(t_input	*in, t_tok op)
+{
+	t_input *tmp;
+
+	tmp = in;
+	while (tmp && tmp->tok != op)
+		tmp = tmp->next;
+	return (tmp);
+}
 void	init_fd(t_fd *fd)
 {
 	fd->pfd[R] = 0;

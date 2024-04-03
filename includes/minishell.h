@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/02 16:44:30 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/03 17:58:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,20 @@ void	init_env(char **envp, t_env **env);
 void	*env_rmone(t_env **sup, t_env *head);
 size_t	env_len(t_env *env);
 
-
 /* input list utils */
 t_input	*input_newnode(char **data, int token, t_env *env);
 void	input_addback(t_input **lst, t_input *node);
 void	input_freelst(t_input **lst);
-
-/* display */
-void	print_env_for(t_env *env);
-void	display_dtab(char **dtab);
-void	print_in_for(t_input *input);
 
 /* error handling */
 void	fatal_exit(t_input **lst, int error_code, char *error_message);
 void	free_env(t_env *lst, int error_code, char *error_message);
 void	*print_error(int error_code, char *error_message);
 
+/* display */
+void	print_env_for(t_env *env);
+void	display_dtab(char **dtab);
+void	print_in_for(t_input *input);
 /*----------------------------------------------------------------------------*/
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/02 18:30:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/03 17:38:32 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("Minishell > ");
 		if (line)
 		{
+			fprintf(stderr, "input > %s\n", line);
 			if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
 				mh_exit(line, input, env);
 			add_history(line);

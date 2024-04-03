@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/02 17:46:56 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/03 16:21:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <sys/types.h> // open
 # include <sys/stat.h> // open
 # include <fcntl.h> // open
-#include <sys/types.h> // waitpid
-#include <sys/wait.h> // waitpid
+# include <sys/types.h> // waitpid
+# include <sys/wait.h> // waitpid
 
 # define R 0
 # define W 1
@@ -53,11 +53,15 @@ int		token(char *str);
 	/* exec */
 void	*exec_cmd(t_input *in);
 
-/* exec utils */
+	/* exec utils */
+bool	op_true(t_input *in, t_tok op);
+bool	pipe_true(t_input *in);
+
 //converts env->env to char **
 char	**arenvlst(t_env	*env);
-bool	pipe_true(t_input *in);
+t_input	*find_redir(t_input	*in, t_tok op);
 void	init_fd(t_fd *fd);
+
 
 	/* redirections */
 void	*pip_redir(t_fd *fd);
