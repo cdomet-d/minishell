@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/02 17:50:59 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/04 14:23:47 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static void	print_enum(int token)
 {
 	if (token == 0)
-		fprintf(stderr, "%-7s %s\n", "  token", " > pipe");
+		fprintf(stderr, "%-7s %s\n", "  token", "  > pipe");
 	else if (token == 1)
-		fprintf(stderr, "%-7s %s\n", "  token", " > inredir");
+		fprintf(stderr, "%-7s %s\n", "  token", "  > inredir");
 	if (token == 2)
-		fprintf(stderr, "%-7s %s\n", "  token", " > outredir");
+		fprintf(stderr, "%-7s %s\n", "  token", "  > outredir");
 	if (token == 3)
-		fprintf(stderr, "%-7s %s\n", "  token", " > append");
+		fprintf(stderr, "%-7s %s\n", "  token", "  > append");
 	if (token == 4)
-		fprintf(stderr, "%-7s %s\n", "  token", "> heredoc");
+		fprintf(stderr, "%-7s %s\n", "  token", "  > heredoc");
 	if (token == 5)
-		fprintf(stderr, "%-7s %s\n", "  token", " > command");
+		fprintf(stderr, "%-7s %s\n", "  token", "  > command");
 }
 
 void	print_in_for(t_input *input)
@@ -83,5 +83,5 @@ void	print_in_node(t_input *node)
 	fprintf(stderr, "\033[38;5;206m\033[1m#----------- Node -----------#\n\033[0m");
 	display_dtab(node->data);
 	print_enum(node->tok);
-	fprintf(stderr, "\033[38;5;206m\033[1m#----------------------------#\n\n\033[0m");
+	fprintf(stderr, "\033[38;5;206m\033[1m#----------------------------#\n\033[0m");
 }

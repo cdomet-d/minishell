@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:01:23 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 17:28:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/04 17:24:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,32 @@ char	*split_wsep(char *str, char sep)
 	if (!res)
 		return (NULL);
 	return (res);
+}
+
+void	*env_rmone(t_env **sup, t_env *head)
+{
+	t_env	*tmp;
+
+	if (!(*sup))
+		return (print_error(errno, "minishell: invalid data in env_rmone"));
+	tmp = (*sup);
+	if (!tmp->prev)
+	{
+		(*sup)->next->prev = NULL;
+		(*sup) = (*sup)->next;
+	}
+	else if (!tmp->next)
+	{
+		(*sup)->prev->next = NULL;
+		(*sup) = head;
+	}
+	else
+	{
+		(*sup)->prev->next = (*sup)->next;
+		(*sup)->next->prev = (*sup)->prev;
+		(*sup) = head;
+	}
+	free(tmp->env);
+	free(tmp);
+	return (*sup);
 }

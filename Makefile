@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/04/03 18:27:31 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/04 17:43:25 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,8 @@ SRC +=  $(addprefix $(DIR_EXEC), $(SRC_EXEC))
 DIR_EXEC:= exec/
 SRC_EXEC:=		exec.c \
 				exec_utils.c \
+				operators_handling.c \
+				redirections.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ RULES ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
@@ -127,7 +129,7 @@ re: fclean all
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
-V_PARAMS:= valgrind --log-file="log" --track-fds=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
+V_PARAMS:= valgrind --log-file="log" --track-fds=yes --trace-children=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
 suprun: all
 	$(V_PARAMS) ./$(NAME)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/03 20:15:54 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/04 17:34:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define W 1
 
 # define SUCCESS 1
+# define EXE_ERR 1
+# define EXE_OK 0
 
 /*------------------------------- EXEC STRUCTS -------------------------------*/
 
@@ -39,7 +41,6 @@ typedef struct s_fd
 {
 	int	pfd[2];
 	int	ffd;
-	int	ffdout;
 	int	pid;
 	int	tmpin;
 }	t_fd;
@@ -55,14 +56,15 @@ int		token(char *str);
 void	*exec_cmd(t_input *in);
 
 	/* exec utils */
+char	**arenvlst(t_env	*env);
+void	close_fds(t_fd *fd, int code);
+void	init_fds(t_fd *fd);
+
+	/* operators utils */
 bool	op_true(t_input *in, t_tok op);
 bool	pipe_true(t_input *in);
-//converts env->env to char **
-char	**arenvlst(t_env	*env);
 t_input	*find_next_pipe(t_input	*in);
-t_input	*find_redir(t_input	*in, t_tok op);
-void	init_fd(t_fd *fd);
-
+t_input	*find_tok(t_input	*in, t_tok op);
 
 	/* redirections */
 void	*pip_redir(t_fd *fd);
@@ -73,6 +75,7 @@ void	*out_redir(t_fd *fd, t_input *in);
 
 	/* builtins utils */
 char	*split_wsep(char *str, char sep);
+void	*env_rmone(t_env **sup, t_env *head);
 
 	/* builtins */
 void	unset(t_env **env, char *key);

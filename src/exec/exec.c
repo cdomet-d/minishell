@@ -3,117 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/03 20:23:31 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/04 18:49:55 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+static void	*ft_execve(t_input *in, t_fd fd)
+{
+	char	**arenv;
+	t_input	*tmp;
+
+	arenv = NULL;
+	tmp = in;
+	fprintf(stderr, "\033[0;35m\033[1m#---------- EXECVE ----------#\n\033[0m");
+	arenv = arenvlst(tmp->env);
+	tmp = find_tok(tmp, command);
+	print_in_node(tmp);
+	fprintf(stderr, "\033[0;35m\033[1m#----------------------------#\n\033[0m");
+	if (tmp->data[0] && access(tmp->data[0], R_OK) != -1)
+		execve(tmp->data[0], tmp->data, arenv);
+	close_fds(&fd, EXE_ERR);
+	free_dtab(arenv);
+	print_error(errno, NULL);
+	fprintf(stderr, "\033[0;35m\033[1m#----------------------------#\n\033[0m");
+	exit(EXIT_FAILURE);
+}
+
+static void	*redir_exec(t_input *in, t_fd fd)
+{
+	t_input	*tmp;
+
+	fprintf(stderr, "\033[0;35m\033[1m#---------- REDIRS ----------#\n\033[0m");
+	tmp = in;
+	if (pipe_true(tmp))
+		pip_redir(&fd);
+	if (op_true(tmp, inredir) && op_true(tmp, command))
+		in_redir(&fd, tmp);
+	if (op_true(tmp, outredir))
+		out_redir(&fd, tmp);
+	if (op_true(tmp, command))
+		if (!ft_execve(in, fd))
+			return (print_error(errno, "failure in execve"));
+	if (dup2(fd.tmpin, fd.pfd[R]) == -1)
+		return (print_error(errno, "duplicating pipe[R] in child"));
+	return ("OK");
+}
+
+static void	*create_child(t_input *in, t_fd *fd)
+{
+	t_input	*tmp;
+
+	fprintf(stderr, "\033[0;35m\033[1m#---------- CCHILD ----------#\n\033[0m");
+	tmp = in;
+	if (pipe_true(tmp))
+	{
+		if (pipe(fd->pfd) == -1)
+			return (print_error(errno, "opening pipe in exec_cmd"));
+	}
+	fd->pid = fork();
+	if (fd->pid == -1)
+		return (print_error(errno, "opening fork in exec_cmd"));
+	return ("OK");
+}
 
 void	*exec_cmd(t_input *in)
 {
 	t_input	*tmp;
 	t_fd	fd;
 
-	init_fd(&fd);
+	init_fds(&fd);
 	tmp = in;
 	while (tmp)
 	{
-		int incpy = dup(STDIN_FILENO);
 		if (fd.pid == -1)
-		{
-			if (pipe_true(in))
-			{
-				if (pipe(fd.pfd) == -1)
-					return (print_error(errno, "opening pipe in exec_cmd"));
-			}
-			fd.pid = fork();
-			if (fd.pid == -1)
-				return (print_error(errno, "opening fork in exec_cmd"));
-		}
+			if (!create_child(in, &fd))
+				return (print_error(errno, NULL));
 		if (fd.pid == 0)
-		{
-			if (pipe_true(tmp))
-			{
-				pip_redir(&fd);
-				if (dup2(fd.tmpin, fd.pfd[R]) == -1)
-					return (print_error(errno, "duplicating pipe[R] in child"));
-			}
-			if (op_true(tmp, inredir))
-				in_redir(&fd, tmp);
-			if (op_true(tmp, outredir))
-				out_redir(&fd, tmp);
-			if (tmp->tok == command)
-				execve(in->data[0], in->data, arenvlst(in->env));
-		}
-		while (wait(0) != -1 && errno != ECHILD)
-			;
-		if (dup2(STDIN_FILENO, incpy) == -1)
-			return (print_error(errno, "duping out to file"));
+			if (!redir_exec(in, fd))
+				return (print_error(errno, NULL));
+		close_fds(&fd, EXE_OK);
 		tmp = find_next_pipe(tmp);
-		if (fd.pfd[R] != 0)
-			close (fd.pfd[R]);
-		if (fd.pfd[W] != 0)
-			close (fd.pfd[W]);
 	}
+	while (wait(0) != -1 && errno != ECHILD)
+		;
 	if (fd.tmpin != 0)
 		close(fd.tmpin);
 	return ("fckdat");
-}
-
-void	*out_redir(t_fd *fd, t_input *in)
-{
-	t_input	*tmp;
-
-	fprintf(stderr, "\033[0;35m\033[1m\n#==== OUTREDIR ====#\n\n\033[0m");
-	tmp = find_redir(in, outredir);
-	fd->ffdout = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0777);
-	print_fds(fd);
-	if (fd->ffdout == -1)
-		return (print_error(errno, in->data[0]));
-	if (dup2(fd->ffdout, STDOUT_FILENO) == -1)
-		return (print_error(errno, "duping out to file"));
-	close(fd->ffdout);
-	fprintf(stderr, "\033[0;35m\033[1m\n#==================#\n\n\033[0m");
-	return ("fdat");
-}
-
-void	*in_redir(t_fd *fd, t_input *in)
-{
-	t_input	*tmp;
-
-	fprintf(stderr, "\033[0;35m\033[1m\n#==== INREDIR =====#\n\n\033[0m");
-	tmp = find_redir(in, inredir);
-	if (access(tmp->data[0], R_OK) == -1)
-	{
-		print_error(errno, NULL);
-		fd->ffd = open("/dev/null", O_RDONLY);
-		if (fd->ffd == -1)
-			return (print_error(errno, "opening /dev/null"));
-	}
-	else
-		fd->ffd = open(tmp->data[0], O_RDONLY);
-	print_fds(fd);
-	if (fd->ffd == -1)
-		return (print_error(errno, "opening infile"));
-	if (dup2(fd->ffd, STDIN_FILENO) == -1)
-		return (print_error(errno, "duping in to file"));
-	close(fd->ffd);
-	fprintf(stderr, "\033[0;35m\033[1m\n#==================#\n\n\033[0m");
-	return ("fdat");
-}
-
-void	*pip_redir(t_fd *fd)
-{
-	fprintf(stderr, "\033[0;35m\033[1m\n#==== PIPREDIR =====#\n\n\033[0m");
-	if (dup2(fd->tmpin, STDIN_FILENO))
-		return (print_error(errno, "duping tempin to in"));
-	if (dup2(fd->pfd[W], STDOUT_FILENO))
-		return (print_error(errno, "duping pipe[out] to out"));
-	close (fd->pfd[R]);
-	close (fd->pfd[W]);
-	fprintf(stderr, "\033[0;35m\033[1m\n#===================#\n\n\033[0m");
-	return ("hellya");
 }
