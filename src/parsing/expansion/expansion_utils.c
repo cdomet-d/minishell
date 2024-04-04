@@ -60,12 +60,18 @@ int	ft_strcmp(char *data, char *env)
 char	*search_env(char *data, t_env **env)
 {
 	t_env	*node;
+	// int		i;
 
+	// i = 0;
 	node = *env;
 	while (node)
 	{
 		if (!ft_strcmp(data, node->env))
+		{
+			// while (node->env[i] && node->env[i] != '=')
+			// 	i++;
 			return (node->env);
+		}
 		node = node->next;
 	}
 	return (NULL);
