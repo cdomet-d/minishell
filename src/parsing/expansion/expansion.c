@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/04 19:01:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:47:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	expand(t_input *node, t_env **env)
 			}
 		}
 		printf("1 : word : %d letter : %d\n", word, letter);
+		// if (!newtab[word][0]) comment eviter de malloc 2 fois ?? (en faisant ft_fill ?)
 		// newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		// if (!newtab)
 		// 	return (1);
