@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/04 17:41:55 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:01:21 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	expand(t_input *node, t_env **env)
 				letter++;
 			}
 		}
-		printf("word : %d letter : %d\n", word, letter);
+		printf("1 : word : %d letter : %d\n", word, letter);
 		// newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		// if (!newtab)
 		// 	return (1);
