@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/02 18:48:58 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 17:07:28 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ int	ft_strcmp(char *data, char *env)
 	int	i;
 
 	i = 0;
-	while (data[i] && env[i] && env[i] != '=')
+	while (data[i] && env[i] && env[i] != '=' && data[i] != '"'
+		&& data[i] != '\'' && data[i] != '$' && data[i] != ' '
+		&& (data[i] < '\t' || data[i] > '\r'))
 	{
 		if (data[i] != env[i])
 			return (1);
 		i++;
 	}
-	if (env[i] != '=' || data[i] != '\0')
-		return (1);
+	// if (env[i] != '=')
+	// 	return (1);
 	return (0);
 }
 
