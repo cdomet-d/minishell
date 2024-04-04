@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/03 18:20:57 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:53:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		check_quote(char *line);
 void	count_word(char *line, int i, int *word);
 char	**get_data(t_input **input, char *line, int *i);
 char	**build_tab(char *line, int *i, int word);
-int	check_opt(t_input **input, char *line, int *i);
+int	    check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
@@ -44,6 +44,8 @@ int		check_for_dollar(t_input *node);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 char	**tab_dup(char **data);
+void	nb_letter(char *str, t_env **env, int *letter, int *i);
+void	nb_letter_env(char *str, int *letter, int *word, char **newtab);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

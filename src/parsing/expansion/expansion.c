@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:35:25 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 17:41:55 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ void	nb_word(char **data, t_env **env, int *word)
 
 int	expand(t_input *node, t_env **env)
 {
-	// char	**newtab;
+	char	**newtab;
 	// char	**temp;
 	int		word;
 	int		letter;
 	int		i;
 	int		j;
 
-	// newtab = NULL;
+	newtab = NULL;
 	// temp = NULL;
 	word = 0;
 	nb_word(node->data, env, &word);
@@ -91,15 +91,19 @@ int	expand(t_input *node, t_env **env)
 			nb_letter(node->data[i], env, &letter, &j);
 			if (node->data[i][j] == '$')
 			{
-				nb_letter_env(search_env(node->data[i] + (j + 1), env), &letter, &word);
+				j++;
+				nb_letter_env(search_env(node->data[i] + j, env), &letter, &word, newtab);
 				while (node->data[i][j] && node->data[i][j] != '$'
 					&& node->data[i][j] != '"' && node->data[i][j] != '\'')
 					j++;
 			}
 			else if (node->data[i][j])
-				j += 1;
+			{
+				j++;
+				letter++;
+			}
 		}
-	// 	printf("letter : %d\n", letter);
+		printf("word : %d letter : %d\n", word, letter);
 		// newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		// if (!newtab)
 		// 	return (1);
