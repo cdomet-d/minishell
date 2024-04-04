@@ -14,22 +14,22 @@
 
 void	parsing(t_input **input, t_env **env, char *line)
 {
-	// t_input	*node;
+	t_input	*node;
 
-	// node = NULL;
+	node = NULL;
 	if (tokenization(input, env, line))
 		return ;
-	// if (input && *input)
-	// {
-	// 	node = *input;
-	// 	while (node)
-	// 	{
-	// 		if (node->tok != heredoc)
-	// 			if (check_for_dollar(node))
-	// 				if (expand(node, env))
-	// 					fatal_exit(input, errno, NULL);
-	// 		node = node->next;
-	// 	}
-	// }
+	if (input && *input)
+	{
+		node = *input;
+		while (node)
+		{
+			if (node->tok != heredoc)
+				if (check_for_dollar(node))
+					if (expand(node, env))
+						fatal_exit(input, errno, NULL);
+			node = node->next;
+		}
+	}
 	// remove_quote()
 }
