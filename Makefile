@@ -33,16 +33,17 @@ SRC += main.c \
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ PARSING ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 PARSE += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
 DIR_TOKE:= parsing/tokenization/
-SRC_TOKE:=		create_data.c \
-				tokenization.c \
+SRC_TOKE:=		tokenization.c \
 				tokenization_utils.c \
 				toke_type.c \
 				cmd_opt.c \
+				create_data.c \
 
 PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
 				expansion_utils.c \
+				count.c \
 
 SRC += $(PARSE)
 

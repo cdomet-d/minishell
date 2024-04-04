@@ -63,99 +63,48 @@ void	nb_word(char **data, t_env **env, int *word)
 	}
 }
 
-void	letter_env_quote(char *str, int *letter)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i += 1;
-	i += 1;
-	while (str[i])
-	{
-		*letter += 1;
-		i++;
-	}
-}
-
-void	nb_letter_env(char *str, int *letter, int *i)
-{
-	while (str[*i] && str[*i] != '=')
-		*i += 1;
-	*i += 1;
-	printf("str[%d] : %c\n", *i, str[*i]);
-	while (str[*i] && str[*i] != ' ' && (str[*i] < '\t' || str[*i] > '\r'))
-	{
-		*letter += 1;
-		*i += 1;
-	}
-	printf("letter : %d\n", *letter);
-}
-
-void	nb_letter(char *str, t_env **env, int *letter, int *i)
-{
-	if (str[*i] == '\'')
-	{
-		*letter += 1;
-		*i += 1;
-		while (str[*i] && str[*i] != '\'')
-		{
-			*i += 1;
-			*letter += 1;
-		}
-	}
-	if (str[*i] == '"')
-	{
-		*i += 1;
-		*letter += 1;
-		while (str[*i] && str[*i] != '"')
-		{
-			if (str[*i] == '$')
-				letter_env_quote(search_env(str + (*i + 1), env), letter);
-			*i += 1;
-			*letter += 1;
-		}
-	}
-}
-
 int	expand(t_input *node, t_env **env)
 {
 	// char	**newtab;
 	// char	**temp;
 	int		word;
 	int		letter;
-	int		pos;
 	int		i;
+	int		j;
 
 	// newtab = NULL;
 	// temp = NULL;
 	word = 0;
-	pos = 0;
 	nb_word(node->data, env, &word);
+	printf("word : %d\n", word);
 	// newtab = ft_calloc(sizeof(char *), word + 1);
 	// if (!newtab)
 	// 	return (1);
 	word = 0;
-	while (node->data[word])
+	i = 0;
+	while (node->data[i])
 	{
-		i = 0;
+		j = 0;
 		letter = 0;
-		while (node->data[word][i])
+		while (node->data[i][j])
 		{
-			nb_letter(node->data[word], env, &letter, &pos);
-			if (node->data[word][i] == '$')
+			nb_letter(node->data[i], env, &letter, &j);
+			if (node->data[i][j] == '$')
 			{
-				nb_letter_env(search_env(node->data[word] + (i + 1), env), &letter, &pos);
-				//va falloir declarer une autre variable que word car node->data et newtab ne font pas la meme taille
+				nb_letter_env(search_env(node->data[i] + (j + 1), env), &letter, &word);
+				while (node->data[i][j] && node->data[i][j] != '$'
+					&& node->data[i][j] != '"' && node->data[i][j] != '\'')
+					j++;
 			}
-			if (node->data[word][i])
-				i += 1;
+			else if (node->data[i][j])
+				j += 1;
 		}
-		printf("letter : %d\n", letter);
+	// 	printf("letter : %d\n", letter);
 		// newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		// if (!newtab)
 		// 	return (1);
 		// ft_fill();
+		i++;
 		word++;
 	}
 	// temp = node->data;
