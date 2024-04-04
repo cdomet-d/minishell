@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:23:05 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/04 19:32:53 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:44:47 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	letter_env_quote(char *str, int *letter)
 
 void	nb_letter_env(char *str, int *letter, int *word, char **newtab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	(void)newtab;
@@ -66,13 +66,7 @@ void	nb_letter_env(char *str, int *letter, int *word, char **newtab)
 			*letter += 1;
 		}
 	}
-	// if (str[i] == '\0' && (str[i - 1] != ' '
-	// 	&& (str[i - 1] < '\t' || str[i - 1] > '\r')))
-	// {
 	printf("3 : word : %d letter : %d\n", *word, *letter);
-		// *word += 1;
-		// *letter = 0;
-	// }
 }
 
 void	nb_letter(char *str, t_env **env, int *letter, int *i)
