@@ -36,7 +36,8 @@ DIR_TOKE:= parsing/tokenization/
 SRC_TOKE:=		create_data.c \
 				tokenization.c \
 				tokenization_utils.c \
-				toke_op.c \
+				toke_type.c \
+				cmd_opt.c \
 
 PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/

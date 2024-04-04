@@ -12,46 +12,6 @@
 
 #include "parsing.h"
 
-int	check_opt(t_input **input, char *line, int *i)
-{
-	t_input	*ptr;
-	char	**data;
-	char	**new;
-	int		word;
-
-	word = 0;
-	data = NULL;
-	new = NULL;
-	ptr = *input;
-	while (ptr->next)
-		ptr = ptr->next;
-	while (ptr && ptr->tok != pip)
-	{
-		if (ptr->tok == command)
-		{
-			while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
-			|| line[*i] == ' '))
-				*i += 1;
-			if (line[*i] && line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
-			{
-				count_word(line, *i, &word);
-				data = build_tab(line, i, word);
-				if (!data)
-					return (input_freelst(input), 1);
-				new = tab_join(ptr->data, data);
-				if (!new)
-					return (1);
-				data = ptr->data;
-				ptr->data = NULL;
-				ptr->data = new;
-				free_dtab(data);
-			}
-		}
-		ptr = ptr->prev;
-	}
-	return (0);
-}
-
 int	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 {
 	char	**data;
