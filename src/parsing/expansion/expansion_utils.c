@@ -54,25 +54,26 @@ int	ft_strcmp(char *data, char *env)
 			return (1);
 		i++;
 	}
-	// if (env[i] != '=')
-	// 	return (1);
+	if (env[i] != '=')
+		return (1);
 	return (0);
 }
 
 char	*search_env(char *data, t_env **env)
 {
 	t_env	*node;
-	// int		i;
+	int		i;
 
-	// i = 0;
+	i = 0;
 	node = *env;
 	while (node)
 	{
 		if (!ft_strcmp(data, node->env))
 		{
-			// while (node->env[i] && node->env[i] != '=')
-			// 	i++;
-			return (node->env);
+			while (node->env[i] && node->env[i] != '=')
+				i++;
+			i++;
+			return (node->env + i);
 		}
 		node = node->next;
 	}
