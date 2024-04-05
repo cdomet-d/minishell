@@ -37,7 +37,7 @@ int	    check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-int		expand(t_input *node, t_env **env);
+int		expand(t_input *node, t_env **env);//, int fd);
 void	nb_letter(char *str, t_env **env, int *letter, int *i);
 int 	nb_letter_env(char *str, int *letter, int *word, char **newtab);
 void	nb_word(char **data, t_env **env, int *word);

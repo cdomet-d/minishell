@@ -116,7 +116,9 @@ void	ft_fill(char **data, t_env **env, char **newtab)
 	}
 }
 
-int	expand(t_input *node, t_env **env)
+// #include <fcntl.h>
+// #include <stdio.h>
+int	expand(t_input *node, t_env **env)//, int fd)
 {
 	// char	**newtab;
 	// char	**temp;
@@ -129,7 +131,7 @@ int	expand(t_input *node, t_env **env)
 	// temp = NULL;
 	word = 0;
 	nb_word(node->data, env, &word);
-	printf("word : %d\n", word);
+	// dprintf(fd, "%d\n", word);
 	// newtab = ft_calloc(sizeof(char *), word + 1);
 	// if (!newtab)
 	// 	return (1);
