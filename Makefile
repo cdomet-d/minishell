@@ -45,6 +45,7 @@ SRC_EXPAND:=	expansion.c \
 				expansion_utils.c \
 				word_count.c \
 				letter_count.c \
+#				test/main_expand.c \
 
 SRC += $(PARSE)
 
