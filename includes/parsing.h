@@ -38,14 +38,14 @@ int	    check_opt(t_input **input, char *line, int *i);
 /*----------------------------- EXPANSION -----------------------------*/
 
 int		expand(t_input *node, t_env **env);
+void	nb_letter(char *str, t_env **env, int *letter, int *i);
+int 	nb_letter_env(char *str, int *letter, int *word, char **newtab);
+void	nb_word(char **data, t_env **env, int *word);
 
 /* expand utils */
 int		check_for_dollar(t_input *node);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
-char	**tab_dup(char **data);
-void	nb_letter(char *str, t_env **env, int *letter, int *i);
-int 	nb_letter_env(char *str, int *letter, int *word, char **newtab);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

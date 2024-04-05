@@ -43,7 +43,8 @@ PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
 				expansion_utils.c \
-				count.c \
+				word_count.c \
+				letter_count.c \
 
 SRC += $(PARSE)
 
