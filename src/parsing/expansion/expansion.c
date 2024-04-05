@@ -14,16 +14,15 @@
 
 //si $arg=NULL ou n'existe pas replace par rien
 
-void	nb_word_env(char *str, int *word)
+void	nb_word_env(char *str, int *word, char c)
 {
 	int		i;
 
+	(void)c;
 	i = 0;
-	if (!str)
+	if (!str/* || !str[0]*/)
 		return ;
-	while (str[i] && str[i] != '=')
-		i++;
-	i++;
+	printf("str : %s\n", str);
 	while (str[i])
 	{
 		if ((str[i] != ' ' && (str[i] < '\t' || str[i] > '\r'))
@@ -32,6 +31,8 @@ void	nb_word_env(char *str, int *word)
 			*word += 1;
 		i++;
 	}
+	// if ((str[i - 1] == ' ' || (str[i - 1] >= '\t' && str[i - 1] <= '\r')) && (c == '"' || c == '\''))
+	// 	*word += 1;
 	*word -= 1;
 }
 
@@ -40,8 +41,12 @@ void	nb_word(char **data, t_env **env, int *word)
 	int		i;
 	int		j;
 	char	quotetype;
+	char	*str;
+	// bool	dollar;
 
 	i = 0;
+	str = NULL;
+	// dollar = false;
 	while (data[i])
 	{
 		j = 0;
@@ -54,10 +59,25 @@ void	nb_word(char **data, t_env **env, int *word)
 					j++;
 			}
 			if (data[i][j] == '$')
-				nb_word_env(search_env(data[i] + (j + 1), env), word);
+			{
+				str = search_env(data[i] + (j + 1), env);
+				// dollar = true;
+				// if (j != 0 && data[i][j - 1] > 0 && ((!str || !str[0]) || (str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r')))))
+				// 	*word += 1;
+				// j++;
+				// while (data[i][j] && data[i][j] != '$' && data[i][j] != '"'
+				// 	&& data[i][j] != '\'')
+				// {
+				// 	data[i][j] *= -1;
+				// 	j++;
+				// }
+				nb_word_env(str, word, data[i][j]);
+			}
+			// else 
 			if (data[i][j])
 				j++;
 		}
+		// if (dollar == false)
 		*word += 1;
 		i++;
 	}
@@ -169,56 +189,57 @@ void	ft_fill(char **data, t_env **env, char **newtab)
 
 int	expand(t_input *node, t_env **env)
 {
-	char	**newtab;
-	char	**temp;
+	// char	**newtab;
+	// char	**temp;
 	int		word;
-	int		letter;
-	int		i;
-	int		j;
+	// int		letter;
+	// int		i;
+	// int		j;
 
-	newtab = NULL;
-	temp = NULL;
+	// newtab = NULL;
+	// temp = NULL;
 	word = 0;
 	nb_word(node->data, env, &word);
-	newtab = ft_calloc(sizeof(char *), word + 1);
-	if (!newtab)
-		return (1);
-	word = 0;
-	i = 0;
-	while (node->data[i])
-	{
-		j = 0;
-		letter = 0;
-		while (node->data[i][j])
-		{
-			nb_letter(node->data[i], env, &letter, &j);
-			if (node->data[i][j] && node->data[i][j] == '$')
-			{
-				j++;
-				if (nb_letter_env(search_env(node->data[i] + j, env), &letter, &word, newtab))
-					return (free_dtab(newtab), 1);
-				while (node->data[i][j] && node->data[i][j] != '$'
-					&& node->data[i][j] != '"' && node->data[i][j] != '\'')
-					j++;
-			}
-			else if (node->data[i][j])
-			{
-				j++;
-				letter++;
-			}
-		}
-		// printf("1 : word : %d letter : %d\n", word, letter);
-		newtab[word] = ft_calloc(sizeof(char), letter + 1);
-		if (!newtab)
-			return (free_dtab(newtab), 1);
-		// ft_fill(newtab[word], node->data[i], letter);
-		i++;
-		word++;
-	}
-	ft_fill(node->data, env, newtab);
-	temp = node->data;
-	node->data = NULL;
-	node->data = newtab;
-	free_dtab(temp);
+	printf("word : %d\n", word);
+	// newtab = ft_calloc(sizeof(char *), word + 1);
+	// if (!newtab)
+	// 	return (1);
+	// word = 0;
+	// i = 0;
+	// while (node->data[i])
+	// {
+	// 	j = 0;
+	// 	letter = 0;
+	// 	while (node->data[i][j])
+	// 	{
+	// 		nb_letter(node->data[i], env, &letter, &j);
+	// 		if (node->data[i][j] && node->data[i][j] == '$')
+	// 		{
+	// 			j++;
+	// 			if (nb_letter_env(search_env(node->data[i] + j, env), &letter, &word, newtab))
+	// 				return (free_dtab(newtab), 1);
+	// 			while (node->data[i][j] && node->data[i][j] != '$'
+	// 				&& node->data[i][j] != '"' && node->data[i][j] != '\'')
+	// 				j++;
+	// 		}
+	// 		else if (node->data[i][j])
+	// 		{
+	// 			j++;
+	// 			letter++;
+	// 		}
+	// 	}
+	// 	// printf("1 : word : %d letter : %d\n", word, letter);
+	// 	newtab[word] = ft_calloc(sizeof(char), letter + 1);
+	// 	if (!newtab)
+	// 		return (free_dtab(newtab), 1);
+	// 	// ft_fill(newtab[word], node->data[i], letter);
+	// 	i++;
+	// 	word++;
+	// }
+	// ft_fill(node->data, env, newtab);
+	// temp = node->data;
+	// node->data = NULL;
+	// node->data = newtab;
+	// free_dtab(temp);
 	return (0);
 }
