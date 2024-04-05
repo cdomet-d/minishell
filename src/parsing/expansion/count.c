@@ -29,33 +29,32 @@ void	letter_env_quote(char *str, int *letter)
 	}
 }
 
-void	nb_letter_env(char *str, int *letter, int *word, char **newtab)
+int	nb_letter_env(char *str, int *letter, int *word, char **newtab)
 {
 	int	i;
 
 	i = 0;
 	(void)newtab;
 	if (!str)
-		return ;
-	printf("str : %s\n", str);
+		return (0);
+	// printf("str : %s\n", str);
 	while (str[i] && str[i] != '=')
 		i++;
 	i++;
-	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
+	while (str[i] && (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r')))
 		i++;
 	while (str[i])
 	{
 		if (str[i] && (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r')))
 		{
-			printf("2 : word : %d letter : %d\n", *word, *letter);
 			while (str[i] && (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r')))
 				i++;
-			// newtab[*word] = ft_calloc(sizeof(char), letter + 1);
-			// if (!newtab)
-			// 	return (1);
-			// ft_fill();
 			if (str[i])
 			{
+				newtab[*word] = ft_calloc(sizeof(char), *letter + 1);
+				if (!newtab)
+					return (1);
+				// printf("2 : word : %d letter : %d\n", *word, *letter);
 				*letter = 0;
 				*word += 1;
 			}
@@ -66,7 +65,7 @@ void	nb_letter_env(char *str, int *letter, int *word, char **newtab)
 			*letter += 1;
 		}
 	}
-	printf("3 : word : %d letter : %d\n", *word, *letter);
+	return (0);
 }
 
 void	nb_letter(char *str, t_env **env, int *letter, int *i)
@@ -98,7 +97,6 @@ void	nb_letter(char *str, t_env **env, int *letter, int *i)
 			}
 			else if (str[*i])
 			{
-				printf("str[%d] : %c\n", *i, str[*i]);
 				*i += 1;
 				*letter += 1;
 			}

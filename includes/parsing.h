@@ -45,7 +45,7 @@ char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 char	**tab_dup(char **data);
 void	nb_letter(char *str, t_env **env, int *letter, int *i);
-void	nb_letter_env(char *str, int *letter, int *word, char **newtab);
+int 	nb_letter_env(char *str, int *letter, int *word, char **newtab);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 
