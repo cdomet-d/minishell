@@ -29,12 +29,11 @@ void	letter_env_quote(char *str, int *letter)
 	}
 }
 
-int	nb_letter_env(char *str, int *letter, int *word, char **newtab)
+int	nb_letter_env(char *str, int *letter, int *word, char **newtab)//, char *data)
 {
 	int	i;
 
 	i = 0;
-	(void)newtab;
 	if (!str)
 		return (0);
 	// printf("str : %s\n", str);
