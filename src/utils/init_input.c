@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/28 17:30:13 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 12:41:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ void	init_env(char **envp, t_env **env)
 	}
 }
 
+
+static int	token(char *str)
+{
+	if (str[0] == '|')
+		return (pip);
+	else if (str[0] == '<')
+		return (inredir);
+	else if (str[0] == '>')
+		return (outredir);
+	else
+		return (command);
+}
+
 void	init_input(char *argv[], t_input **input, t_env *env)
 {
 	size_t	i;
@@ -42,16 +55,4 @@ void	init_input(char *argv[], t_input **input, t_env *env)
 		input_addback(input, inew);
 		i++;
 	}
-}
-
-int	token(char *str)
-{
-	if (str[0] == '|')
-		return (pip);
-	else if (str[0] == '<')
-		return (inredir);
-	else if (str[0] == '>')
-		return (outredir);
-	else
-		return (command);
 }

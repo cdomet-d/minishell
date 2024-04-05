@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 10:15:57 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 16:06:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_fd
 
 	/* local file for exec debug */
 void	init_input(char *argv[], t_input **input, t_env *env);
-void	init_env(char **envp, t_env **env);
-int		token(char *str);
+// void	init_env(char **envp, t_env **env);
+// int		token(char *str);
 
 	/* exec */
 void	*exec_cmd(t_input *in);
@@ -59,13 +59,15 @@ void	*exec_cmd(t_input *in);
 char	**arenvlst(t_env	*env);
 void	close_fds(t_fd *fd, int code);
 void	init_fds(t_fd *fd);
+void	exe_failure(t_fd *fd, t_input *in, char **arenv);
 
 	/* operators utils */
 bool	op_true(t_input *in, t_tok op);
 bool	pipe_true(t_input *in);
-bool	is_first_pipe(t_input *in);
+bool	is_first_cmd(t_input *in);
+bool	is_last_cmd(t_input *in);
 t_input	*find_next_pipe(t_input	*in);
-t_input	*find_tok(t_input	*in, t_tok op);
+t_input	*find_tok(t_input	*in, t_tok op, bool next);
 
 	/* redirections */
 void	*pip_redir(t_input *tmp, t_fd *fd);
@@ -86,7 +88,7 @@ void	mh_exit(char *line, t_input *in, t_env *env);
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
 void	print_fds(t_fd *fd);
-void	print_in_node(t_input *node);
+void	print_in_node(t_input *node, t_fd *fd, char *str);
 /*----------------------------------------------------------------------------*/
 
 #endif

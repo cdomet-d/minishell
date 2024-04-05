@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/04 17:24:20 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 13:26:09 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	main(int argc, char **argv, char **envp)
 			parsing(&input, &env, line);
 			if (input)
 				exec_cmd(input);
+			input_freelst(&input);
 			free(line);
 		}
-		input_freelst(&input);
 	}
 	env_freelst(env);
 	return (0);

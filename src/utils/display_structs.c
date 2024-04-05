@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/04 14:23:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 16:11:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,12 @@ void	display_dtab(char **dtab)
 	}
 }
 
-void	print_in_node(t_input *node)
+void	print_in_node(t_input *node, t_fd *fd, char *str)
 {
-	fprintf(stderr, "\033[38;5;206m\033[1m#----------- Node -----------#\n\033[0m");
+	fprintf(stderr, "\033[38;5;206m\033[1m#----------- Node %d ---------#\n\033[0m", node->no);
+	fprintf(stderr, "\033[0;34m| %s |\n\033[0m", str);
 	display_dtab(node->data);
 	print_enum(node->tok);
+	print_fds(fd);
 	fprintf(stderr, "\033[38;5;206m\033[1m#----------------------------#\n\033[0m");
 }
