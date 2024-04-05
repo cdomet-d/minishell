@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operators_handling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/04 17:21:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 09:52:23 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,11 @@ t_input	*find_next_pipe(t_input	*in)
 	t_input	*tmp;
 
 	tmp = in;
-	if (!tmp)
-		return (NULL);
 	if (tmp && !pipe_true(tmp))
 		return (NULL);
 	while (tmp && tmp->tok != pip)
 		tmp = tmp->next;
 	tmp = tmp->next;
+	print_in_node(tmp);
 	return (tmp);
 }

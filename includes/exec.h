@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/04 17:34:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 10:15:57 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ void	init_fds(t_fd *fd);
 	/* operators utils */
 bool	op_true(t_input *in, t_tok op);
 bool	pipe_true(t_input *in);
+bool	is_first_pipe(t_input *in);
 t_input	*find_next_pipe(t_input	*in);
 t_input	*find_tok(t_input	*in, t_tok op);
 
 	/* redirections */
-void	*pip_redir(t_fd *fd);
+void	*pip_redir(t_input *tmp, t_fd *fd);
 void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
 

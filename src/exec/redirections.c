@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/04 18:23:30 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 10:16:56 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,17 @@ void	*in_redir(t_fd *fd, t_input *in)
 	return ("fdat");
 }
 
-void	*pip_redir(t_fd *fd)
+void	*pip_redir(t_input *tmp, t_fd *fd)
 {
 	fprintf(stderr, "\033[0;35m\033[1m#---------- PIPRE ----------=#\n\033[0m");
-	if (dup2(fd->tmpin, STDIN_FILENO))
+	if (is_first_pipe(tmp))
+	{
+		if (dup2(fd->pfd[R], STDIN_FILENO) == -1)
+			return (print_error(errno, "duping tempin to in"));
+	}
+	if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 		return (print_error(errno, "duping tempin to in"));
-	if (dup2(fd->pfd[W], STDOUT_FILENO))
+	if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 		return (print_error(errno, "duping pipe[out] to out"));
 	close (fd->pfd[R]);
 	close (fd->pfd[W]);

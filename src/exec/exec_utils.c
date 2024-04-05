@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/04 17:33:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 10:19:34 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,20 @@ char	**arenvlst(t_env	*env)
 		tmp = tmp->next;
 	}
 	return (arenv);
+}
+
+bool	is_first_pipe(t_input *in)
+{
+	t_input *tmp;
+	bool	first;
+
+	tmp = in;
+	first = true;
+	while (tmp)
+	{
+		if (tmp->tok == pip)
+			first = false;
+		tmp = tmp->prev;
+	}
+	return (first);
 }

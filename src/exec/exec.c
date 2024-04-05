@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/04 18:49:55 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/05 10:08:43 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	*redir_exec(t_input *in, t_fd fd)
 	fprintf(stderr, "\033[0;35m\033[1m#---------- REDIRS ----------#\n\033[0m");
 	tmp = in;
 	if (pipe_true(tmp))
-		pip_redir(&fd);
+		pip_redir(tmp, &fd);
 	if (op_true(tmp, inredir) && op_true(tmp, command))
 		in_redir(&fd, tmp);
 	if (op_true(tmp, outredir))
@@ -79,17 +79,20 @@ void	*exec_cmd(t_input *in)
 	tmp = in;
 	while (tmp)
 	{
-		if (fd.pid == -1)
+		if (tmp && fd.pid == -1)
+		{
+			print_in_for(tmp);
 			if (!create_child(in, &fd))
 				return (print_error(errno, NULL));
-		if (fd.pid == 0)
+		}
+		if (tmp && fd.pid == 0)
 			if (!redir_exec(in, fd))
 				return (print_error(errno, NULL));
 		close_fds(&fd, EXE_OK);
 		tmp = find_next_pipe(tmp);
+		while (wait(0) != -1 && errno != ECHILD)
+			;
 	}
-	while (wait(0) != -1 && errno != ECHILD)
-		;
 	if (fd.tmpin != 0)
 		close(fd.tmpin);
 	return ("fckdat");
