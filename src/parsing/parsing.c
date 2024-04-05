@@ -15,14 +15,7 @@
 void	parsing(t_input **input, t_env **env, char *line)
 {
 	t_input	*node;
-	// int		fd;
-
-	// fd = open("src/parsing/expansion/test/result_expand.txt", O_WRONLY);
-	// if (fd == -1)
-	// {
-	// 	printf("shiiiit\n");
-	// 	return ;
-	// }
+	
 	node = NULL;
 	if (tokenization(input, env, line))
 		return ;
@@ -39,6 +32,5 @@ void	parsing(t_input **input, t_env **env, char *line)
 			node = node->next;
 		}
 	}
-	// close(fd);
 	// remove_quote()
 }

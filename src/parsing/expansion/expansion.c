@@ -131,7 +131,7 @@ int	expand(t_input *node, t_env **env)//, int fd)
 	// temp = NULL;
 	word = 0;
 	nb_word(node->data, env, &word);
-	// dprintf(fd, "%d\n", word);
+	printf("word : %d\n", word);
 	// newtab = ft_calloc(sizeof(char *), word + 1);
 	// if (!newtab)
 	// 	return (1);

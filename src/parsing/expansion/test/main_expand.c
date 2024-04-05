@@ -25,6 +25,14 @@
 // 	}
 // 	dup2(fd, STDIN_FILENO);
 // 	close(fd);
+// int		fd;
+
+	// fd = open("src/parsing/expansion/test/result_expand.txt", O_WRONLY);
+	// if (fd == -1)
+	// {
+	// 	printf("shiiiit\n");
+	// 	return ;
+	// }
 // 	while (1)
 // 	{
 // 		line = readline("Minishell > "); //besoin de proteger readline ???
@@ -62,5 +70,6 @@
 // 		free(line);
 // 		input_freelst(&input);
 // 	}
+	// close(fd);
 // 	return (0);
 // }
