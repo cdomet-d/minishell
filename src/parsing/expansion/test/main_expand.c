@@ -1,7 +1,6 @@
 #include "exec.h"
 #include "parsing.h"
 #include <fcntl.h>
-#include <stdio.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -38,29 +37,29 @@ int	main(int argc, char **argv, char **envp)
 		{
 			char    *buffer;
 			int i = 0;
-			// int j = 0;
+			int j = 0;
 			buffer = calloc(sizeof(char), 57);
 			if (!buffer)
 				mh_exit(line, input, env);
-			i = read(fd, buffer, 5);
+			lseek(fd, 0, SEEK_SET);
+			i = read(fd, buffer, 56);
 			if (i == -1 || !buffer[0])
 			{
 				close(fd);
 				free(buffer);
 				mh_exit(line, input, env);
 			}
-			printf("buffer : %s\n", buffer);
-			// char   *result = "1\n1\n1\n1   \n1\n2\n1\n2   \n1\n2\n1\n2   \n2\n2\n2\n2   \n2\n2\n2\n2    \n1\n1\n2\n2";
-			// i = 0;
-			// while (buffer[i])
-			// {
-			// 	if (buffer[i] != result[i])
-			// 		printf("test %d : wrong", j);
-			// 	else
-			// 		printf("test %d : right", j);
-			// 	i += 2;
-			// 	j++;
-			// }
+			char   *result = "1\n1\n1\n1\n1\n2\n1\n2\n1\n2\n1\n2\n2\n2\n2\n2\n2\n2\n2\n2\n1\n1\n2\n2";
+			i = 0;
+			while (buffer[i])
+			{
+				if (buffer[i] != result[i])
+					printf("test %d : wrong\n", j);
+				else
+					printf("test %d : right\n", j);
+				i += 2;
+				j++;
+			}
 			close(fd);
 			free(buffer);
 			mh_exit(line, input, env);
@@ -71,6 +70,5 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		input_freelst(&input);
 	}
-	close(fd);
 	return (0);
 }
