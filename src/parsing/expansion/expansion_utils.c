@@ -73,6 +73,8 @@ char	*search_env(char *data, t_env **env)
 			while (node->env[i] && node->env[i] != '=')
 				i++;
 			i++;
+			if (node->env[i] == '\0')
+				return (NULL);
 			return (node->env + i);
 		}
 		node = node->next;

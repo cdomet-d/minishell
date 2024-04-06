@@ -54,4 +54,13 @@ $arg4""
 $arg5""
 $arg6""
 $arg7""
+$arg
+$yo
+ls$arg
+ls$yo
+$yo$arg0
+$arg$arg0
+$arg$arg
+$yo$yo
+ls$yo$arg1
 exit

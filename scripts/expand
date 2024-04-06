@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export arg=
 export arg0=cha
 export arg1=" cha"
 export arg2="cha "
