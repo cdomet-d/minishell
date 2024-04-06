@@ -40,18 +40,18 @@ int	main(int argc, char **argv, char **envp)
 			char    *buffer;
 			int i = 0;
 			int j = 1;
-			buffer = calloc(sizeof(char), 131);
+			buffer = calloc(sizeof(char), 135);
 			if (!buffer)
 				mh_exit(line, input, env);
 			lseek(fd, 0, SEEK_SET);
-			i = read(fd, buffer, 130);
+			i = read(fd, buffer, 134);
 			if (i == -1 || !buffer[0])
 			{
 				close(fd);
 				free(buffer);
 				mh_exit(line, input, env);
 			}
-			char   *result = "1\n1\n1\n1\n1\n2\n1\n2\n1\n2\n1\n2\n1\n2\n1\n2\n2\n2\n2\n2\n2\n2\n2\n2\n1\n1\n2\n2\n2\n2\n2\n2\n2\n3\n2\n3\n3\n4\n3\n4\n3\n4\n3\n4\n4\n4\n4\n4\n4\n4\n4\n4\n2\n2\n3\n3\n0\n0\n1\n1\n1\n1\n0\n0\n2\n";
+			char   *result = "1\n1\n1\n1\n1\n2\n1\n2\n1\n2\n1\n2\n1\n2\n1\n2\n2\n2\n2\n2\n2\n2\n2\n2\n1\n1\n2\n2\n2\n2\n2\n2\n2\n3\n2\n3\n3\n4\n3\n4\n3\n4\n3\n4\n4\n4\n4\n4\n4\n4\n4\n4\n2\n2\n3\n3\n0\n0\n1\n1\n1\n1\n0\n0\n2\n2\n2\n";
 			i = 0;
 			while (result[i])
 			{
