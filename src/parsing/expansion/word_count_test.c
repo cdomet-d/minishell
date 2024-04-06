@@ -51,7 +51,7 @@ void	nb_word(char **data, t_env **env, int *word)
 			if (data[i][j] == '$')
 			{
 				null = 0;
-				while (!str && data[i][j] == '$')
+				while (!str && data[i][j] && data[i][j] == '$')
 				{
 					str = search_env(data[i] + (j + 1), env);
 					if (!str)
@@ -69,16 +69,18 @@ void	nb_word(char **data, t_env **env, int *word)
 				if (str)
 				{
 					if (null == 0)
-						null = -1;
+						null = 1;
 					if (j != 0 && data[i][j - null] < 0)
 					{
 						len = ft_strlen(tmp) - 1;
-						if (tmp && tmp[len] != ' ' && (tmp[len] < '\t' || tmp[len] > '\r') && (str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r'))))
+						if (tmp && tmp[len] != ' ' && (tmp[len] < '\t' || tmp[len] > '\r')
+							&& (str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r'))))
 							*word += 1;
 					}
 					if (j != 0 && data[i][j - null] > 0 && ((str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r')))))
 						*word += 1;
 					tmp = str;
+					str = null;
 					j++;
 					while (data[i][j] && data[i][j] != '$' && data[i][j] != '"'
 						&& data[i][j] != '\'')
