@@ -97,6 +97,25 @@ void	in_dollar(char *data, t_env **env, int *word, t_exp *var)
 	}
 }
 
+void	revert(char **data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data[i])
+	{
+		j = 0;
+		while (data[i][j])
+		{
+			if (data[i][j] < 0)
+				data[i][j] *= -1;
+			j++;
+		}
+		i++;
+	}
+}
+
 void	nb_word(char **data, t_env **env, int *word)
 {
 	t_exp	var;
@@ -123,4 +142,5 @@ void	nb_word(char **data, t_env **env, int *word)
             *word += 1;
 		i++;
 	}
+	revert(data);
 }
