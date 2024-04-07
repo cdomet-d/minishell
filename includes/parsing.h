@@ -18,6 +18,15 @@
 
 /*----------------------------- PARSING -----------------------------*/
 
+typedef struct s_expand
+{
+    int     j;
+    int     null;
+    char    *str;
+    char    *tmp;
+    bool    dollar;
+} t_exp;
+
 void	parsing(t_input **input, t_env **env, char *line, int fd);
 
 /*----------------------------TOKENIZATION ---------------------------*/
