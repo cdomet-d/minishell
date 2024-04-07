@@ -13,10 +13,8 @@ bool	nb_word_env(char *str, int *word, char c)
 			*word += 1;
 		i++;
 	}
-	if ((str[i - 1] == ' ' || (str[i - 1] >= '\t' && str[i - 1] <= '\r')) && c == '\0')
-    {
+	if ((str[i - 1] == ' ' || (str[i - 1] >= '\t' && str[i - 1] <= '\r')) && (c == '\0'))// || c == '$'))
         return (true);
-    }
     return (false);
 }
 
@@ -56,6 +54,8 @@ void	nb_word(char **data, t_env **env, int *word)
 					str = search_env(data[i] + (j + 1), env);
 					if (!str)
 					{
+						j++;
+						null++;
 						while (data[i][j] && data[i][j] != '$' && data[i][j] != '"'
 							&& data[i][j] != '\'')
 						{
@@ -64,6 +64,9 @@ void	nb_word(char **data, t_env **env, int *word)
 						}
 					}
 				}
+				len = ft_strlen(tmp) - 1;
+				if (!str && data[i][j] == '\0' && tmp && (tmp[len] == ' ' || (tmp[len] >= '\t' && tmp[len] <= '\r')))
+					dollar = true;
 				if (null == ft_strlen(data[i]))
 					dollar = true;
 				if (str)
@@ -77,10 +80,9 @@ void	nb_word(char **data, t_env **env, int *word)
 							&& (str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r'))))
 							*word += 1;
 					}
-					if (j != 0 && data[i][j - null] > 0 && ((str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r')))))
+					if (j != 0 && (j - null) > 0 && data[i][j - null] > 0 && ((str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r')))))
 						*word += 1;
 					tmp = str;
-					str = null;
 					j++;
 					while (data[i][j] && data[i][j] != '$' && data[i][j] != '"'
 						&& data[i][j] != '\'')
@@ -89,12 +91,13 @@ void	nb_word(char **data, t_env **env, int *word)
 						j++;
 					}
 					dollar = nb_word_env(str, word, data[i][j]);
+					str = NULL;
 				}
 			}
 			else if (data[i][j])
 				j++;
 		}
-		if (dollar == false/* && null != ft_strlen(data[i])*/)
+		if (dollar == false)
             *word += 1;
 		i++;
 	}

@@ -43,9 +43,10 @@ PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
 				expansion_utils.c \
-				word_count_test.c \
 				letter_count.c \
 				test/main_expand.c \
+				word_count_test.c \
+#				word_count.c \
 
 SRC += $(PARSE)
 
@@ -133,7 +134,7 @@ re: fclean all
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
-V_PARAMS:= valgrind --leak-check=full --suppressions=supp.supp --show-leak-kinds=all
+V_PARAMS:= valgrind --leak-check=full --suppressions=supp.supp --show-leak-kinds=all -s
 suprun: all
 	$(V_PARAMS) ./$(NAME)
 

@@ -65,4 +65,8 @@ $yo$yo
 ls$yo$arg1
 ls$arg$arg1
 $arg$arg7
+$arg0$arg$arg1
+$arg7$arg
+$arg7$arg$arg0
+$arg7$arg""
 exit
