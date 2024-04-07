@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 16:06:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 18:59:08 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ typedef struct s_redir
 
 typedef struct s_fd
 {
-	int	pfd[2];
-	int	ffd;
-	int	pid;
-	int	tmpin;
+	int		pfd[2];
+	int		ffd;
+	int		pid;
+	int		tmpin;
+	size_t	pnb;
 }	t_fd;
 
 /*------------------------------ EXEC FUNCTIONS ------------------------------*/
@@ -62,11 +63,11 @@ void	init_fds(t_fd *fd);
 void	exe_failure(t_fd *fd, t_input *in, char **arenv);
 
 	/* operators utils */
-bool	op_true(t_input *in, t_tok op);
-bool	pipe_true(t_input *in);
 bool	is_first_cmd(t_input *in);
 bool	is_last_cmd(t_input *in);
-t_input	*find_next_pipe(t_input	*in);
+bool	op_true(t_input *in, t_tok op);
+size_t	count_pipes(t_input *in);
+t_input	*find_next_pipe(t_input	*in, t_fd *fd);
 t_input	*find_tok(t_input	*in, t_tok op, bool next);
 
 	/* redirections */

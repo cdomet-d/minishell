@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 17:18:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 19:48:04 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*out_redir(t_fd *fd, t_input *in)
 	t_input	*tmp;
 
 	tmp = find_tok(in, outredir, false);
-	print_in_node(tmp, fd, "outredir");
 	fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (fd->ffd == -1)
 		return (print_error(errno, in->data[0]));
@@ -43,7 +42,6 @@ void	*in_redir(t_fd *fd, t_input *in)
 	}
 	else
 		fd->ffd = open(tmp->data[0], O_RDONLY);
-	print_in_node(tmp, fd, "inredir");
 	if (fd->ffd == -1)
 		return (print_error(errno, "opening infile"));
 	if (dup2(fd->ffd, STDIN_FILENO) == -1)
@@ -54,29 +52,34 @@ void	*in_redir(t_fd *fd, t_input *in)
 
 void	*pip_redir(t_input *tmp, t_fd *fd)
 {
+	fprintf(stderr, "\033[0;35m\033[1m#---------- PIPREDIR ----------#\n\033[0m");
 	if (is_first_cmd(tmp))
 	{
-		print_in_node(tmp, fd, "piperedir : first cmd");
+		fprintf(stderr, "first... %d\n", fd->pfd[R]);
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "duping pipe[out] to out"));
 	}
-	tmp = find_tok(tmp, command, true);
-	if (is_last_cmd(tmp))
+	else if (is_last_cmd(tmp))
 	{
-		print_in_node(tmp, fd, "pipredir : last cmd");
+		fprintf(stderr, "last... %d\n", fd->pfd[R]);
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
-			return (print_error(errno, "duping tmpin to in"));
+			return (print_error(errno, "in last : duping tmpin to in"));
 	}
-	else
+	else if (!is_first_cmd(tmp) && !is_last_cmd(tmp))
 	{
-		print_in_node(tmp, fd, "pipredir : inbetween cmd");
+		fprintf(stderr, "inbetween... %d\n", fd->pfd[R]);
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
-			return (print_error(errno, "duping tmpin to in"));
+			return (print_error(errno, "in between : duping tmpin to in"));
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "duping pipe[out] to out"));
-		
 	}
-	if (close (fd->pfd[W]) == - 1)
-		print_error(0, "couldn't close fd->pfd[W]");
+	fprintf(stderr, "closing in child... %d\n", fd->pfd[R]);
+	if (fd->pfd[R] != 0)
+		if (close(fd->pfd[R]) == -1)
+			print_error(0, "failed to close fd->pfd[R]");
+	fprintf(stderr, "closing in child... %d\n", fd->pfd[W]);
+	if (fd->pfd[W] != 0)
+		if (close(fd->pfd[W]) == -1)
+			print_error(0, "failed to close fd->pfd[W]");
 	return ("hellya");
 }

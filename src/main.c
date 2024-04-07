@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/05 13:26:09 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 19:20:28 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_env	*env;
 	t_input	*input;
+	int	stop = 0;
 
 	(void)argv;
 	line = NULL;
@@ -25,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		fatal_exit(NULL, EXIT_FAILURE, "minishell: too many arguments");
 	create_env(&input, envp, &env);
-	while (1)
+	while (1 && stop < 15)
 	{
 		line = readline("Minishell > ");
 		if (line)
@@ -39,6 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			input_freelst(&input);
 			free(line);
 		}
+		stop++;
 	}
 	env_freelst(env);
 	return (0);

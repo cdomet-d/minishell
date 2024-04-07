@@ -6,24 +6,28 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 15:32:41 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 19:07:55 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-bool	pipe_true(t_input *in)
+size_t	count_pipes(t_input *in)
 {
 	t_input	*tmp;
+	size_t	npip;
 
+	npip = 0;
 	tmp = in;
 	while (tmp)
 	{
 		if (tmp->tok == pip)
-			return (true);
+			npip++;
 		tmp = tmp->next;
 	}
-	return (false);
+	if (npip == 0)
+		return (npip);
+	return (npip + 1);
 }
 
 bool	op_true(t_input *in, t_tok op)
@@ -52,12 +56,13 @@ t_input	*find_tok(t_input	*in, t_tok op, bool next)
 	return (tmp);
 }
 
-t_input	*find_next_pipe(t_input	*in)
+t_input	*find_next_pipe(t_input	*in, t_fd *fd)
 {
 	t_input	*tmp;
 
 	tmp = in;
-	if (tmp && !pipe_true(tmp))
+	fprintf(stderr, "pdb = %ld\n", fd->pnb);
+	if (fd->pnb == 0)
 		return (NULL);
 	while (tmp && tmp->tok != pip)
 		tmp = tmp->next;

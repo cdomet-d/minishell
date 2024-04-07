@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 17:22:10 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 19:39:56 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,32 @@ void	init_fds(t_fd *fd)
 	fd->pfd[W] = 0;
 	fd->ffd = 0;
 	fd->pid = -1;
-	fd ->tmpin = 0;
+	fd ->tmpin = 1000;
 }
 
 void	close_fds(t_fd *fd, int code)
 {
+	(void)code;
+	fprintf(stderr, "closing... %d\n", fd->pfd[R]);
 	if (fd->pfd[R] != 0)
-		if (close (fd->pfd[R]) == -1)
+		if (close(fd->pfd[R]) == -1)
 			print_error(0, "failed to close fd->pfd[R]");
+	fprintf(stderr, "closing... %d\n", fd->pfd[W]);
 	if (fd->pfd[W] != 0)
-		if (close (fd->pfd[W]) == -1)
+		if (close(fd->pfd[W]) == -1)
 			print_error(0, "failed to close fd->pfd[W]");
-	if (code == EXE_ERR)
-	{
-		if (fd->tmpin != 0)
-			if (close (fd->tmpin) == -1)
-				print_error(0, "failed to close fd->tmpin");
-	}
 	init_fds(fd);
 }
 
 void exe_failure(t_fd *fd, t_input *in, char **arenv)
 {
-	close_fds(fd, EXE_ERR);
+	close(fd->tmpin);
 	free_dtab(arenv);
 	env_freelst(in->env);
 	input_freelst(&in);
 	print_error(errno, NULL);
 }
+
 static size_t	env_len(t_env *env)
 {
 	t_env	*tmp;
@@ -105,10 +103,6 @@ bool	is_first_cmd(t_input *in)
 		if (tmp && tmp->tok == command)
 			first = false;
 	}
-	if (first)
-		fprintf(stderr, "first = true\n");
-	else
-		fprintf(stderr, "first = false\n");
 	return (first);
 }
 
@@ -127,10 +121,6 @@ bool	is_last_cmd(t_input *in)
 		if (tmp && tmp->tok == command)
 			last = false;
 	}
-	if (last)
-		fprintf(stderr, "last = true\n");
-	else
-		fprintf(stderr, "last = false\n");
 	return (last);
 }
 
