@@ -26,7 +26,7 @@ void	nb_word(char **data, t_env **env, int *word)
 	char	*str;
 	char	*tmp;
 	int		len;
-	size_t	null;
+	int		null;
 	bool	dollar;
 
 	i = 0;
@@ -64,18 +64,17 @@ void	nb_word(char **data, t_env **env, int *word)
 						}
 					}
 				}
-				len = ft_strlen(tmp) - 1;
-				if (!str && data[i][j] == '\0' && tmp && (tmp[len] == ' ' || (tmp[len] >= '\t' && tmp[len] <= '\r')))
+				len = (int)ft_strlen(tmp) - 1;
+				if (null == (int)ft_strlen(data[i]))
 					dollar = true;
-				if (null == ft_strlen(data[i]))
+				null++;
+				if (!str && data[i][j] == '\0' && (j - null) > 0 && data[i][j - null] < 0 && tmp && (tmp[len] == ' ' || (tmp[len] >= '\t' && tmp[len] <= '\r')))
 					dollar = true;
 				if (str)
 				{
-					if (null == 0)
-						null = 1;
-					if (j != 0 && data[i][j - null] < 0)
+					if (j != 0 && (j - null) > 0 && data[i][j - null] < 0)
 					{
-						len = ft_strlen(tmp) - 1;
+						len = (int)ft_strlen(tmp) - 1;
 						if (tmp && tmp[len] != ' ' && (tmp[len] < '\t' || tmp[len] > '\r')
 							&& (str && (str[0] == ' ' || (str[0] >= '\t' && str[0] <= '\r'))))
 							*word += 1;
