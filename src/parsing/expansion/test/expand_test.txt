@@ -82,4 +82,5 @@ $arg$arg6
 $arg$arg7
 $arg5$arg$arg$arg""$arg
 ""$arg7$arg$arg$arg""$arg
+$arg0 $arg7
 exit
