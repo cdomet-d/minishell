@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/05 13:10:04 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 22:55:25 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
 /* to be removed : for debug only */
-	int node = 0;
+int	g_node = 0;
 /* ------------------------------ */
 
 void	create_input(t_input **input, t_env **env, char **data, int tok)
 {
 	t_input	*new;
 
-	node++;	
+	g_node++;
 	new = NULL;
 	new = input_newnode(data, tok, *env);
 	if (!new)
@@ -28,7 +28,7 @@ void	create_input(t_input **input, t_env **env, char **data, int tok)
 		input_freelst(input);
 		print_error(EXIT_FAILURE, NULL);
 	}
-	new->no = node;
+	new->no = g_node;
 	input_addback(input, new);
 }
 

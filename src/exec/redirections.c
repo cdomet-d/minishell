@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 19:48:04 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 22:49:40 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,23 @@ void	*in_redir(t_fd *fd, t_input *in)
 
 void	*pip_redir(t_input *tmp, t_fd *fd)
 {
-	fprintf(stderr, "\033[0;35m\033[1m#---------- PIPREDIR ----------#\n\033[0m");
 	if (is_first_cmd(tmp))
 	{
-		fprintf(stderr, "first... %d\n", fd->pfd[R]);
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "duping pipe[out] to out"));
 	}
 	else if (is_last_cmd(tmp))
 	{
-		fprintf(stderr, "last... %d\n", fd->pfd[R]);
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "in last : duping tmpin to in"));
 	}
 	else if (!is_first_cmd(tmp) && !is_last_cmd(tmp))
 	{
-		fprintf(stderr, "inbetween... %d\n", fd->pfd[R]);
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "in between : duping tmpin to in"));
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "duping pipe[out] to out"));
 	}
-	fprintf(stderr, "closing in child... %d\n", fd->pfd[R]);
-	if (fd->pfd[R] != 0)
-		if (close(fd->pfd[R]) == -1)
-			print_error(0, "failed to close fd->pfd[R]");
-	fprintf(stderr, "closing in child... %d\n", fd->pfd[W]);
-	if (fd->pfd[W] != 0)
-		if (close(fd->pfd[W]) == -1)
-			print_error(0, "failed to close fd->pfd[W]");
+	close_pfd(fd);
 	return ("hellya");
 }

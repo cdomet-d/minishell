@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 13:07:04 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 23:34:52 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	*print_error(int error_code, char *error_message);
 void	print_env_for(t_env *env);
 void	display_dtab(char **dtab);
 void	print_in_for(t_input *input);
+
 /*----------------------------------------------------------------------------*/
 
 #endif

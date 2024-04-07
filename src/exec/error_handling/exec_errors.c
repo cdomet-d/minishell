@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   exec_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 12:35:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 12:58:36 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
+/*   Updated: 2024/04/07 23:32:30 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int main(int argc, char **argv)
+void	exe_failure(t_fd *fd, t_input *in, char **arenv)
 {
-	t_input *in;
-
-	in = NULL;
-	(void)argc;
-	init_input(argv, &in, NULL);
-	print_in_for(in);
-	in = in->next->next->next;
-	if (is_first_pipe(in))
-		printf("First pipe");
-	else
-		printf("Not first pipe");
+	close(fd->tmpin);
+	free_dtab(arenv);
+	env_freelst(in->env);
+	input_freelst(&in);
+	print_error(errno, NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 18:59:08 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 23:32:57 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ typedef struct s_fd
 
 /*------------------------------ EXEC FUNCTIONS ------------------------------*/
 
-	/* local file for exec debug */
-void	init_input(char *argv[], t_input **input, t_env *env);
-// void	init_env(char **envp, t_env **env);
-// int		token(char *str);
-
 	/* exec */
 void	*exec_cmd(t_input *in);
 
-	/* exec utils */
-char	**arenvlst(t_env	*env);
-void	close_fds(t_fd *fd, int code);
-void	init_fds(t_fd *fd);
+	/* error_handling */
 void	exe_failure(t_fd *fd, t_input *in, char **arenv);
+
+	/* fd_handling */
+void	close_pfd(t_fd *fd);
+void	init_fds(t_fd *fd);
+void	close_tmpin(t_input *in, t_fd *fd);
+
+	/* arenvlst */
+char	**arenvlst(t_env	*env);
 
 	/* operators utils */
 bool	is_first_cmd(t_input *in);
