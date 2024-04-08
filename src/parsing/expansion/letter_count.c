@@ -115,7 +115,7 @@ void	nb_letter(char **data, t_env **env, char **newtab, int word, int fd)
 			{
 				j++;
 				if (nb_letter_env(search_env(data[i] + j, env), &letter, &word, newtab))
-					return (free_dtab(newtab), 1);
+					return (free_dtab(newtab));
 				while (data[i][j] && data[i][j] != '$'
 					&& data[i][j] != '"' && data[i][j] != '\'')
 					j++;

@@ -120,18 +120,27 @@ int	expand(t_input *node, t_env **env, int fd)
 {
 	char	**newtab;
 	// char	**temp;
-	char	**dup;
+	// char	**dup;
 	int		word;
 
 	newtab = NULL;
-	dup = NULL;
+	// dup = NULL;
 	// temp = NULL;
 	word = 0;
-	dup = tab_dup(node->data);
-	if (!dup)
+	// dup = tab_dup(node->data);
+	// if (!dup)
+	// 	return (1);
+	newtab = nb_word(/*dup, */node->data, env, &word);
+	if (!newtab)
 		return (1);
-	nb_word(dup, node->data, env, &word);
 	dprintf(fd, "%d\n", word);
+	int	i = 0;
+	while (newtab[i])
+	{
+		printf("len : %ld\n", strlen(newtab[i]));
+		printf("newtab : %s\n", newtab[i++]);
+	}
+	free_dtab(newtab);
 	// newtab = ft_calloc(sizeof(char *), word + 1);
 	// if (!newtab)
 	// 	return (1);
