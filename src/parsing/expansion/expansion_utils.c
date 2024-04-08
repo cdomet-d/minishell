@@ -82,38 +82,57 @@ char	*search_env(char *data, t_env **env)
 	return (NULL);
 }
 
-// char	**tab_dup(char **data)
-// {
-// 	char	**dup;
-// 	int		word;
-// 	int		letter;
+void	revert(char **data)
+{
+	int	i;
+	int	j;
 
-// 	dup = NULL;
-// 	word = 0;
-// 	while (data[word])
-// 		word++;
-// 	dup = ft_calloc(sizeof(char *), word + 1);
-// 	if (!dup)
-// 		return (NULL);
-// 	word = 0;
-// 	while (data[word])
-// 	{
-// 		letter = 0;
-// 		while (data[word][letter])
-// 			letter++;
-// 		dup[word] = ft_calloc(sizeof(char), letter + 1);
-// 		if (!dup[word])
-// 			return (free_dtab(dup), NULL);
-// 		letter = 0;
-// 		while (data[word][letter])
-// 		{
-// 			dup[word][letter] = data[word][letter];
-// 			letter++;
-// 		}
-// 		dup[word][letter] = '\0';
-// 		word++;
-// 	}
-// 	dup[word] = NULL;
-// 	// free_dtab(data);
-// 	return (dup);
-// }
+	i = 0;
+	while (data[i])
+	{
+		j = 0;
+		while (data[i][j])
+		{
+			if (data[i][j] < 0)
+				data[i][j] *= -1;
+			j++;
+		}
+		i++;
+	}
+}
+
+char	**tab_dup(char **data)
+{
+	char	**dup;
+	int		word;
+	int		letter;
+
+	dup = NULL;
+	word = 0;
+	while (data[word])
+		word++;
+	dup = ft_calloc(sizeof(char *), word + 1);
+	if (!dup)
+		return (NULL);
+	word = 0;
+	while (data[word])
+	{
+		letter = 0;
+		while (data[word][letter])
+			letter++;
+		dup[word] = ft_calloc(sizeof(char), letter + 1);
+		if (!dup[word])
+			return (free_dtab(dup), NULL);
+		letter = 0;
+		while (data[word][letter])
+		{
+			dup[word][letter] = data[word][letter];
+			letter++;
+		}
+		dup[word][letter] = '\0';
+		word++;
+	}
+	dup[word] = NULL;
+	// free_dtab(data);
+	return (dup);
+}

@@ -19,9 +19,6 @@ void	letter_env_quote(char *str, int *letter)
 	i = 0;
 	if (!str)
 		return ;
-	while (str[i] && str[i] != '=')
-		i++;
-	i++;
 	while (str[i])
 	{
 		*letter += 1;
@@ -36,10 +33,6 @@ int	nb_letter_env(char *str, int *letter, int *word, char **newtab)//, char *dat
 	i = 0;
 	if (!str)
 		return (0);
-	// printf("str : %s\n", str);
-	while (str[i] && str[i] != '=')
-		i++;
-	i++;
 	while (str[i] && (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r')))
 		i++;
 	while (str[i])
@@ -67,38 +60,78 @@ int	nb_letter_env(char *str, int *letter, int *word, char **newtab)//, char *dat
 	return (0);
 }
 
-void	nb_letter(char *str, t_env **env, int *letter, int *i)
+void	single_quote(char *data, int *letter, int *j)
 {
-	if (str[*i] == '\'')
+	*letter += 1;
+	*j += 1;
+	while (data[*j] && data[*j] != '\'')
 	{
+		*j += 1;
 		*letter += 1;
-		*i += 1;
-		while (str[*i] && str[*i] != '\'')
+	}
+}
+
+void	double_quote(char *data, t_env **env, int *letter, int *j)
+{
+	*j += 1;
+	*letter += 1;
+	while (data[*j] && data[*j] != '"')
+	{
+		if (data[*j] == '$')
 		{
-			*i += 1;
+			*j += 1;
+			letter_env_quote(search_env((data + *j), env), letter);
+			while (data[*j] && data[*j] != '$' && data[*j] != '"'
+				&& data[*j] != '\'' && data[*j] != ' '
+				&& (data[*j] < '\t' || data[*j] > '\r'))
+				*j += 1;
+		}
+		else if (data[*j])
+		{
+			*j += 1;
 			*letter += 1;
 		}
 	}
-	if (str[*i] == '"')
+}
+
+void	nb_letter(char **data, t_env **env, char **newtab, int word, int fd)
+{
+	int		letter;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (data[i])
 	{
-		*i += 1;
-		*letter += 1;
-		while (str[*i] && str[*i] != '"')
+		j = 0;
+		letter = 0;
+		while (data[i][j])
 		{
-			if (str[*i] == '$')
+			if (data[i][j] == '\'')
+				single_quote(data[i], &letter, &j);
+			if (data[i][j] == '"')
+				double_quote(data[i], env, &letter, &j);
+			if (data[i][j] && data[i][j] == '$')
 			{
-				*i += 1;
-				letter_env_quote(search_env((str + *i), env), letter);
-				while (str[*i] && str[*i] != '$' && str[*i] != '"'
-					&& str[*i] != '\'' && str[*i] != ' '
-					&& (str[*i] < '\t' || str[*i] > '\r'))
-					*i += 1;
+				j++;
+				if (nb_letter_env(search_env(data[i] + j, env), &letter, &word, newtab))
+					return (free_dtab(newtab), 1);
+				while (data[i][j] && data[i][j] != '$'
+					&& data[i][j] != '"' && data[i][j] != '\'')
+					j++;
 			}
-			else if (str[*i])
+			else if (data[i][j])
 			{
-				*i += 1;
-				*letter += 1;
+				j++;
+				letter++;
 			}
 		}
+		dprintf(fd, "word : %d letter : %d\n", word, letter);
+	// 	newtab[word] = ft_calloc(sizeof(char), letter + 1);
+	// 	if (!newtab)
+	// 		return (free_dtab(newtab), 1);
+	// 	// ft_fill(newtab[word], data[i], letter);
+		i++;
+		word++;
 	}
 }

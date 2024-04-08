@@ -116,57 +116,27 @@ void	ft_fill(char **data, t_env **env, char **newtab)
 	}
 }
 
-// #include <fcntl.h>
-// #include <stdio.h>
 int	expand(t_input *node, t_env **env, int fd)
 {
-	// char	**newtab;
+	char	**newtab;
 	// char	**temp;
+	char	**dup;
 	int		word;
-	// int		letter;
-	// int		i;
-	// int		j;
 
-	// newtab = NULL;
+	newtab = NULL;
+	dup = NULL;
 	// temp = NULL;
 	word = 0;
-	nb_word(node->data, env, &word);
+	dup = tab_dup(node->data);
+	if (!dup)
+		return (1);
+	nb_word(dup, node->data, env, &word);
 	dprintf(fd, "%d\n", word);
 	// newtab = ft_calloc(sizeof(char *), word + 1);
 	// if (!newtab)
 	// 	return (1);
 	// word = 0;
-	// i = 0;
-	// while (node->data[i])
-	// {
-	// 	j = 0;
-	// 	letter = 0;
-	// 	while (node->data[i][j])
-	// 	{
-	// 		nb_letter(node->data[i], env, &letter, &j);
-	// 		if (node->data[i][j] && node->data[i][j] == '$')
-	// 		{
-	// 			j++;
-	// 			if (nb_letter_env(search_env(node->data[i] + j, env), &letter, &word, newtab))
-	// 				return (free_dtab(newtab), 1);
-	// 			while (node->data[i][j] && node->data[i][j] != '$'
-	// 				&& node->data[i][j] != '"' && node->data[i][j] != '\'')
-	// 				j++;
-	// 		}
-	// 		else if (node->data[i][j])
-	// 		{
-	// 			j++;
-	// 			letter++;
-	// 		}
-	// 	}
-	// 	// printf("1 : word : %d letter : %d\n", word, letter);
-	// 	newtab[word] = ft_calloc(sizeof(char), letter + 1);
-	// 	if (!newtab)
-	// 		return (free_dtab(newtab), 1);
-	// 	// ft_fill(newtab[word], node->data[i], letter);
-	// 	i++;
-	// 	word++;
-	// }
+	// nb_letter(node->data, env, newtab, word, fd);
 	// ft_fill(node->data, env, newtab);
 	// temp = node->data;
 	// node->data = NULL;

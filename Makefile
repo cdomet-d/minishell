@@ -31,7 +31,7 @@ INCLUDES := -L $(LIBFT_DIR) -lft -lreadline
 #SRC += main.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ PARSING ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
-PARSE += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
+SRC += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
 DIR_TOKE:= parsing/tokenization/
 SRC_TOKE:=		tokenization.c \
 				tokenization_utils.c \
@@ -39,16 +39,13 @@ SRC_TOKE:=		tokenization.c \
 				cmd_opt.c \
 				create_data.c \
 
-PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
+SRC += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
 				expansion_utils.c \
 				letter_count.c \
-				test/main_expand.c \
 				word_count.c \
-#				word_count_test.c \
-
-SRC += $(PARSE)
+				test/main_expand.c \
 
 SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
 DIR_PARSE:= parsing/

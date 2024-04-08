@@ -20,10 +20,12 @@
 
 typedef struct s_expand
 {
+    int     i;
     int     j;
     int     null;
     char    *str;
     char    *tmp;
+    char    **save;
     bool    dollar;
 } t_exp;
 
@@ -47,14 +49,18 @@ int	    check_opt(t_input **input, char *line, int *i);
 /*----------------------------- EXPANSION -----------------------------*/
 
 int		expand(t_input *node, t_env **env, int fd);
-void	nb_letter(char *str, t_env **env, int *letter, int *i);
+void	nb_word(char **data, char **save, t_env **env, int *word);
+void	nb_letter(char **data, t_env **env, char **newtab, int word, int fd);
+void	double_quote(char *data, t_env **env, int *letter, int *j);
+void	single_quote(char *data, int *letter, int *j);
 int 	nb_letter_env(char *str, int *letter, int *word, char **newtab);
-void	nb_word(char **data, t_env **env, int *word);
 
 /* expand utils */
 int		check_for_dollar(t_input *node);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
+void	revert(char **data);
+char	**tab_dup(char **data);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

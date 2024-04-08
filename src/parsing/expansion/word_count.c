@@ -60,7 +60,7 @@ void	check_var_env(char *data, t_env **env, t_exp *var)
 		var->dollar = true;
 }
 
-void	var_env(char *data,  int *word, t_exp *var)
+void	var_env(char *data, int *word, t_exp *var)
 {
 	int	len;
 
@@ -70,7 +70,10 @@ void	var_env(char *data,  int *word, t_exp *var)
 		len = (int)ft_strlen(var->tmp) - 1;
 		if (var->tmp && var->tmp[len] != ' ' && (var->tmp[len] < '\t' || var->tmp[len] > '\r')
 			&& (var->str && (var->str[0] == ' ' || (var->str[0] >= '\t' && var->str[0] <= '\r'))))
+		{
 			*word += 1;
+			// var->save[var->i][var->j] *= -1;
+		}
 	}
 	if (var->j != 0 && (var->j - var->null) > 0 && data[var->j - var->null] > 0
 		&& ((var->str && (var->str[0] == ' ' || (var->str[0] >= '\t' && var->str[0] <= '\r')))))
@@ -97,50 +100,32 @@ void	in_dollar(char *data, t_env **env, int *word, t_exp *var)
 	}
 }
 
-void	revert(char **data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (data[i])
-	{
-		j = 0;
-		while (data[i][j])
-		{
-			if (data[i][j] < 0)
-				data[i][j] *= -1;
-			j++;
-		}
-		i++;
-	}
-}
-
-void	nb_word(char **data, t_env **env, int *word)
+void	nb_word(char **data, char **save, t_env **env, int *word)
 {
 	t_exp	var;
-	int		i;
 
-	i = 0;
+	var.i = 0;
 	var.null = 0;
 	var.str = NULL;
 	var.tmp = NULL;
-	while (data[i])
+	var.save = save;
+	while (data[var.i])
 	{
 		var.dollar = false;
 		var.j = 0;
-		while (data[i][var.j])
+		while (data[var.i][var.j])
 		{
-			if (data[i][var.j] == '"' || data[i][var.j] == '\'')
-				in_quotes(data[i], &var);
-			if (data[i][var.j] == '$')
-				in_dollar(data[i], env, word, &var);
-			else if (data[i][var.j])
+			if (data[var.i][var.j] == '"' || data[var.i][var.j] == '\'')
+				in_quotes(data[var.i], &var);
+			if (data[var.i][var.j] == '$')
+				in_dollar(data[var.i], env, word, &var);
+			else if (data[var.i][var.j])
 				var.j++;
 		}
 		if (var.dollar == false)
             *word += 1;
-		i++;
+		var.i++;
 	}
-	revert(data);
+	free_dtab(data);
+	// revert(data);
 }
