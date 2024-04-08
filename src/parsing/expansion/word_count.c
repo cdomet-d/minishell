@@ -2,130 +2,140 @@
 
 #include "parsing.h"
 
-bool	nb_word_env(char *str, int *word, char c)
+void	count_in_env(char *str, int *letter)
 {
-	int		i;
+	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
-		if ((str[i] != ' ' && (str[i] < '\t' || str[i] > '\r'))
-			&& (str[i + 1] == ' ' || (str[i + 1] >= '\t'
-					&& str[i + 1] <= '\r')))
-			*word += 1;
+		*letter += 1;
 		i++;
 	}
-	if ((str[i - 1] == ' ' || (str[i - 1] >= '\t' && str[i - 1] <= '\r'))
-		&& c == '\0')
-        return (true);
-    return (false);
 }
 
-void	in_quotes(char *data, t_exp *var)
+void	ft_copy(char *data, char *newtab, t_env **env)
 {
-	char	quotetype;
+	int	i;
+	int	j;
+	int	n;
+	char	*str;
 
-	quotetype = data[var->j];
-	var->j += 1;
-	while (data[var->j] && data[var->j] != quotetype)
-		var->j += 1;
-}
-
-void	check_var_env(char *data, t_env **env, t_exp *var)
-{
-	int	len;
-
-	while (!var->str && data[var->j] && data[var->j] == '$')
+	i = 0;
+	j = 0;
+	n = 0;
+	str = NULL;
+	while (data[i])
 	{
-		var->str = search_env(data + (var->j + 1), env);
-		if (!var->str)
+		if (data[i] == '\'')
 		{
-			var->j += 1;
-			var->null += 1;
-			while (data[var->j] && data[var->j] != '$' && data[var->j] != '"'
-				&& data[var->j] != '\'')
+			newtab[j++] = data[i++];
+			while (data[i] && data[i] != '\'')
+				newtab[j++] = data[i++];
+		}
+		if (data[i] == '$')
+		{
+			i++;
+			n = 0;
+			str = search_env(data + i, env);
+			if (str)
 			{
-				var->null += 1;
-				var->j += 1;
+				while (str[n])
+					newtab[j++] = str[n++];
+			}
+			while (data[i] && data[i] != '$' && data[i] != '\'' && data[i] != '"')
+				i++;
+		}
+		else if (data[i])
+			newtab[j++] = data[i++];
+	}
+}
+
+char	**ft_newtab(char **data, t_env **env)
+{
+	int word;
+	int		letter;
+	char    **newtab;
+	int		j;
+
+	word = 0;
+	newtab = NULL;
+	while (data[word])
+		word++;
+	newtab = ft_calloc(sizeof(char *), word + 1);
+	if (!newtab)
+		return (NULL);
+	word = 0;
+	while (data[word])
+	{
+		letter = 0;
+		j = 0;
+		while (data[word][j])
+		{
+			if (data[word][j] == '\'')
+			{
+				j++;
+				letter++;
+				while (data[word][j] && data[word][j] != '\'')
+				{
+					j++;
+					letter++;
+				}
+			}
+			if (data[word][j] == '$')
+			{
+				j++;
+				count_in_env(search_env(data[word] + j, env), &letter);
+				while (data[word][j] && data[word][j] != '$' && data[word][j] != '\'' && data[word][j] != '"')
+					j++;
+			}
+			else if (data[word][j])
+			{
+				j++;
+				letter++;
 			}
 		}
+		newtab[word] = ft_calloc(sizeof(char), letter + 1);
+		if (!newtab[word])
+			return (free_dtab(newtab), NULL);
+		ft_copy(data[word], newtab[word], env);
+		word++;
 	}
-	if (var->null == (int)ft_strlen(data))
-		var->dollar = true;
-	var->null++;
-	len = (int)ft_strlen(var->tmp) - 1;
-	if (!var->str && data[var->j] == '\0' && (var->j - var->null) > 0
-		&& data[var->j - var->null] < 0 && var->tmp && (var->tmp[len] == ' '
-		|| (var->tmp[len] >= '\t' && var->tmp[len] <= '\r')))
-		var->dollar = true;
+	return (newtab);
 }
 
-void	var_env(char *data, int *word, t_exp *var)
+char	**nb_word(char **data, t_env **env, int *word)
 {
-	int	len;
+	char	**newtab;
+	int		i;
+	int		j;
+	char	quotetype;
 
-	len = 0;
-	if (var->j != 0 && (var->j - var->null) > 0 && data[var->j - var->null] < 0)
+	i = 0;
+	j = 0;
+	quotetype = 0;
+	newtab = ft_newtab(data, env);
+	if (!newtab)
+		return (NULL);
+	while (newtab[i])
 	{
-		len = (int)ft_strlen(var->tmp) - 1;
-		if (var->tmp && var->tmp[len] != ' ' && (var->tmp[len] < '\t' || var->tmp[len] > '\r')
-			&& (var->str && (var->str[0] == ' ' || (var->str[0] >= '\t' && var->str[0] <= '\r'))))
+		while (newtab[i][j])
 		{
-			*word += 1;
-			// var->save[var->i][var->j] *= -1;
+			if (newtab[i][j] == '\'' || newtab[i][j] == '"')
+			{
+				quotetype = newtab[i][j++];
+				while (newtab[i][j] && newtab[i][j] != quotetype)
+					j++;
+			}
+			if ((newtab[i][j] != ' ' && (newtab[i][j] < '\t' || newtab[i][j] > '\r')) && (newtab[i][j + 1] == ' '
+				|| (newtab[i][j + 1] >= '\t' && newtab[i][j + 1] <= '\r') || newtab[i][j + 1] == '\0'))
+				*word += 1;
+			if (newtab[i][j])
+				j++;
 		}
+		i++;
 	}
-	if (var->j != 0 && (var->j - var->null) > 0 && data[var->j - var->null] > 0
-		&& ((var->str && (var->str[0] == ' ' || (var->str[0] >= '\t' && var->str[0] <= '\r')))))
-		*word += 1;
-	var->j += 1;
-	while (data[var->j] && data[var->j] != '$' && data[var->j] != '"'
-		&& data[var->j] != '\'')
-	{
-		data[var->j] *= -1;
-		var->j += 1;
-	}
-}
-
-void	in_dollar(char *data, t_env **env, int *word, t_exp *var)
-{
-	var->null = 0;
-	check_var_env(data, env, var);
-	if (var->str)
-	{
-		var_env(data, word, var);
-		var->dollar = nb_word_env(var->str, word, data[var->j]);
-		var->tmp = var->str;
-		var->str = NULL;
-	}
-}
-
-void	nb_word(char **data, char **save, t_env **env, int *word)
-{
-	t_exp	var;
-
-	var.i = 0;
-	var.null = 0;
-	var.str = NULL;
-	var.tmp = NULL;
-	var.save = save;
-	while (data[var.i])
-	{
-		var.dollar = false;
-		var.j = 0;
-		while (data[var.i][var.j])
-		{
-			if (data[var.i][var.j] == '"' || data[var.i][var.j] == '\'')
-				in_quotes(data[var.i], &var);
-			if (data[var.i][var.j] == '$')
-				in_dollar(data[var.i], env, word, &var);
-			else if (data[var.i][var.j])
-				var.j++;
-		}
-		if (var.dollar == false)
-            *word += 1;
-		var.i++;
-	}
-	free_dtab(data);
-	// revert(data);
+	return (newtab);
 }

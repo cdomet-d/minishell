@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-void	parsing(t_input **input, t_env **env, char *line, int fd)
+void	parsing(t_input **input, t_env **env, char *line)
 {
 	t_input	*node;
 	
@@ -26,7 +26,7 @@ void	parsing(t_input **input, t_env **env, char *line, int fd)
 		{
 			if (node->tok != heredoc)
 				if (check_for_dollar(node))
-					if (expand(node, env, fd))
+					if (expand(node, env))
 						fatal_exit(input, errno, NULL);
 			node = node->next;
 		}
