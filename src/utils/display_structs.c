@@ -12,39 +12,41 @@
 
 #include "exec.h"
 
-static void	print_enum(int token)
+static void	print_enum(int token, int fd)
 {
 	if (token == 0)
-		printf("token > pipe\n");
+		dprintf(fd, "token > pipe\n");
 	else if (token == 1)
-		printf("token > inredir\n");
+		dprintf(fd, "token > inredir\n");
 	if (token == 2)
-		printf("token > outredir\n");
+		dprintf(fd, "token > outredir\n");
 	if (token == 3)
-		printf("token > append\n");
+		dprintf(fd, "token > append\n");
 	if (token == 4)
-		printf("token > heredoc\n");
+		dprintf(fd, "token > heredoc\n");
 	if (token == 5)
-		printf("token > command\n");
+		dprintf(fd, "token > command\n");
 }
 
-void	print_in_for(t_input *input)
+void	print_in_for(t_input *input, int fd)
 {
 	t_input	*head;
 	int		node;
 
 	node = 1;
 	head = input;
-	printf("\033[0;35m\033[1m\n#==== PRINTING INPUT FORWARD ====#\n\n\033[0m");
+	// dprintf(fd, "\033[0;35m\033[1m\n#==== PRINTING INPUT FORWARD ====#\n\n\033[0m");
 	while (input)
 	{
-		printf("\033[0;34m\033[1m#---- Node %d ----#\n\033[0m", node++);
-		display_dtab(input->data);
-		print_enum(input->tok);
+		// dprintf(fd, "\033[0;34m\033[1m#---- Node %d ----#\n\033[0m", node++);
+		dprintf(fd, "---- Node %d ----\n", node++);
+		display_dtab(input->data, fd);
+		print_enum(input->tok, fd);
 		input = input->next;
-		printf("\033[0;34m\033[1m#----------------#\n\n\033[0m");
+		dprintf(fd, "----------------\n");
+		// dprintf(fd, "\033[0;34m\033[1m#----------------#\n\n\033[0m");
 	}
-	printf("\033[0;35m\033[1m#================================#\n\n\033[0m");
+	// dprintf(fd, "\033[0;35m\033[1m#================================#\n\n\033[0m");
 	input = head;
 }
 
@@ -66,14 +68,14 @@ void	print_env_for(t_env *env)
 	printf("==========================\n\n");
 }
 
-void	display_dtab(char **dtab)
+void	display_dtab(char **dtab, int fd)
 {
 	size_t	i;
 
 	i = 0;
 	while (dtab && dtab[i])
 	{
-		printf("tab[%ld] > %s\n", i, dtab[i]);
+		dprintf(fd, "tab[%ld] > %s || len : %ld\n", i, dtab[i], strlen(dtab[i]));
 		i++;
 	}
 }
