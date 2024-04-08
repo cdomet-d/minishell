@@ -119,33 +119,45 @@ void	ft_fill(char **data, t_env **env, char **newtab)
 int	expand(t_input *node, t_env **env, int fd)
 {
 	char	**newtab;
-	// char	**temp;
+	char	**temp;
 	// char	**dup;
 	int		word;
 
+	(void)fd;
 	newtab = NULL;
 	// dup = NULL;
-	// temp = NULL;
+	temp = NULL;
 	word = 0;
 	// dup = tab_dup(node->data);
 	// if (!dup)
 	// 	return (1);
-	newtab = nb_word(/*dup, */node->data, env, &word);
+	temp = nb_word(/*dup, */node->data, env, &word);
+	if (!temp)
+		return (1);
+	int index = 0;
+	while (temp[index])
+	{
+		// dprintf("len : %ld\n", strlen(temp[i]));
+		printf("temp[%d] : %s\n", index, temp[index]);
+		index++;
+	}
+	// dprintf(fd, "%d\n", word);
+	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
 		return (1);
-	dprintf(fd, "%d\n", word);
+	newtab = nb_letter(temp, env, newtab, fd);
+	if (!newtab)
+		return (1);
 	int	i = 0;
 	while (newtab[i])
 	{
-		printf("len : %ld\n", strlen(newtab[i]));
-		printf("newtab : %s\n", newtab[i++]);
+		// dprintf("len : %ld\n", strlen(newtab[i]));
+		printf("newtab[%d] : %s\n", i, newtab[i]);
+		i++;
 	}
+
+	free_dtab(temp);
 	free_dtab(newtab);
-	// newtab = ft_calloc(sizeof(char *), word + 1);
-	// if (!newtab)
-	// 	return (1);
-	// word = 0;
-	// nb_letter(node->data, env, newtab, word, fd);
 	// ft_fill(node->data, env, newtab);
 	// temp = node->data;
 	// node->data = NULL;

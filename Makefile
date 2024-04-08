@@ -43,9 +43,10 @@ SRC += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
 				expansion_utils.c \
-				letter_count.c \
 				word_count_v2.c \
+				letter_count_v2.c \
 				test/main_expand.c \
+#				letter_count.c \
 #				word_count.c \
 
 SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
