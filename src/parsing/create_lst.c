@@ -6,13 +6,13 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 17:02:30 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:50:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	create_input(t_input **input, t_env **env, char **data, int tok)
+int	create_input(t_input **input, t_env **env, char **data, int tok)
 {
 	t_input	*new;
 
