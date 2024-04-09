@@ -1,10 +1,20 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace_var_env.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/09 16:08:39 by csweetin          #+#    #+#             */
+/*   Updated: 2024/04/09 16:41:24 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parsing.h"
 
 void	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 {
-	int	i;
+	int		i;
 	char	*str;
 
 	i = 0;
@@ -39,7 +49,8 @@ void	ft_copy(char *data, char *newtab, t_env **env)
 		{
 			i++;
 			ft_copy_env(data + i, newtab, env, &j);
-			while (data[i] && data[i] != '$' && data[i] != '\'' && data[i] != '"')
+			while (data[i] && data[i] != '$' && data[i] != '\''
+				&& data[i] != '"')
 				i++;
 		}
 		else if (data[i])
@@ -87,7 +98,8 @@ int	letters(char *data, t_env **env)
 		{
 			j++;
 			count_in_env(search_env(data + j, env), &letter);
-			while (data[j] && data[j] != '$' && data[j] != '\'' && data[j] != '"')
+			while (data[j] && data[j] != '$' && data[j] != '\''
+				&& data[j] != '"')
 				j++;
 		}
 		else if (data[j])
@@ -98,5 +110,3 @@ int	letters(char *data, t_env **env)
 	}
 	return (letter);
 }
-
-

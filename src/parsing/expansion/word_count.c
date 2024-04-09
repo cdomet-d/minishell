@@ -1,12 +1,22 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   word_count.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/09 16:08:48 by csweetin          #+#    #+#             */
+/*   Updated: 2024/04/09 16:42:40 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parsing.h"
 
 char	**ft_replace(char **data, t_env **env)
 {
-	int word;
+	int		word;
 	int		letter;
-	char    **newtab;
+	char	**newtab;
 
 	word = 0;
 	newtab = NULL;
@@ -46,7 +56,7 @@ void	nb_word_str(char *newtab, int *word)
 		}
 		if ((newtab[j] != ' ' && (newtab[j] < '\t' || newtab[j] > '\r'))
 			&& (newtab[j + 1] == ' ' || (newtab[j + 1] >= '\t'
-			&& newtab[j + 1] <= '\r') || newtab[j + 1] == '\0'))
+					&& newtab[j + 1] <= '\r') || newtab[j + 1] == '\0'))
 			*word += 1;
 		if (newtab[j])
 			j++;

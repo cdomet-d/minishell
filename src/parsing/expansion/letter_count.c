@@ -1,10 +1,20 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   letter_count.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
+/*   Updated: 2024/04/09 16:40:15 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parsing.h"
 
-void    fill_word(char *new, char *old, int i)
+void	fill_word(char *new, char *old, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (old[j] && i > 0)
@@ -19,7 +29,8 @@ int	nb_letter_str(char *data, int *j, int letter)
 {
 	char	quotetype;
 
-	while (data[*j] && (data[*j] == ' ' || (data[*j] >= '\t' && data[*j] <= '\r')))
+	while (data[*j] && (data[*j] == ' '
+			|| (data[*j] >= '\t' && data[*j] <= '\r')))
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
@@ -45,8 +56,8 @@ int	nb_letter_str(char *data, int *j, int letter)
 
 char	**nb_letter(char **data, char **newtab)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 	int	word;
 	int	letter;
 
@@ -70,4 +81,3 @@ char	**nb_letter(char **data, char **newtab)
 	}
 	return (newtab);
 }
-

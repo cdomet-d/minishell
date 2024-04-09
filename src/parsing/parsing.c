@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/03 17:04:03 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:38:02 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parsing(t_input **input, t_env **env, char *line)
 {
 	t_input	*node;
-	
+
 	node = NULL;
 	if (tokenization(input, env, line))
 		return ;
@@ -26,7 +26,7 @@ void	parsing(t_input **input, t_env **env, char *line)
 		{
 			if (node->tok != heredoc)
 				if (check_for_dollar(node))
-					if (expand(node, env))//, fd))
+					if (expand(node, env))
 						fatal_exit(input, errno, NULL);
 			// else
 				// check if delimiter is in quotes (single or double) or not

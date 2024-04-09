@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_opt.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/09 16:09:30 by csweetin          #+#    #+#             */
+/*   Updated: 2024/04/09 16:25:28 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parsing.h"
 
@@ -75,13 +85,13 @@ int	add_opt(t_input **input, t_input *ptr, char *line, int *i)
 		return (1);
 	free_dtab(ptr->data);
 	ptr->data = new;
-    return (0);
+	return (0);
 }
 
 int	check_opt(t_input **input, char *line, int *i)
 {
 	t_input	*ptr;
-	
+
 	ptr = *input;
 	while (ptr->next)
 		ptr = ptr->next;
@@ -90,9 +100,10 @@ int	check_opt(t_input **input, char *line, int *i)
 		if (ptr->tok == command)
 		{
 			while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
-			|| line[*i] == ' '))
+					|| line[*i] == ' '))
 				*i += 1;
-			if (line[*i] && line[*i] != '<' && line[*i] != '>' && line[*i] != '|')
+			if (line[*i] && line[*i] != '<' && line[*i] != '>'
+				&& line[*i] != '|')
 				if (add_opt(input, ptr, line, i))
 					return (1);
 		}
