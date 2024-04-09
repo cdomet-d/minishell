@@ -18,18 +18,18 @@
 
 /*----------------------------- PARSING -----------------------------*/
 
-typedef struct s_expand
-{
-    int     i;
-    int     j;
-    int     null;
-    char    *str;
-    char    *tmp;
-    char    **save;
-    bool    dollar;
-} t_exp;
+// typedef struct s_expand
+// {
+//     int     i;
+//     int     j;
+//     int     null;
+//     char    *str;
+//     char    *tmp;
+//     char    **save;
+//     bool    dollar;
+// } t_exp;
 
-void	parsing(t_input **input, t_env **env, char *line, int fd);
+void	parsing(t_input **input, t_env **env, char *line);//, int fd);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
@@ -48,20 +48,17 @@ int	    check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-int		expand(t_input *node, t_env **env, int fd);
-char    **nb_word(char **data, t_env **env, int *word);
-char	**ft_replace(char **data, t_env **env);
+int		expand(t_input *node, t_env **env);//, int fd);
+int	    letters(char *data, t_env **env);
+void	ft_copy(char *data, char *newtab, t_env **env);
 char 	**nb_letter(char **data, char **newtab);
-void	double_quote(char *data, t_env **env, int *letter, int *j);
-void	single_quote(char *data, int *letter, int *j);
-int 	nb_letter_env(char *str, int *letter, int *word, char **newtab);
 
 /* expand utils */
 int		check_for_dollar(t_input *node);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
-void	revert(char **data);
-char	**tab_dup(char **data);
+// void	revert(char **data);
+// char	**tab_dup(char **data);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

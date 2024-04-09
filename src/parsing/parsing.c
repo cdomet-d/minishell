@@ -12,12 +12,11 @@
 
 #include "parsing.h"
 
-void	parsing(t_input **input, t_env **env, char *line, int fd)
+void	parsing(t_input **input, t_env **env, char *line)//, int fd)
 {
 	t_input	*node;
 	
 	node = NULL;
-	// (void)fd;
 	if (tokenization(input, env, line))
 		return ;
 	if (input && *input)
@@ -27,10 +26,14 @@ void	parsing(t_input **input, t_env **env, char *line, int fd)
 		{
 			if (node->tok != heredoc)
 				if (check_for_dollar(node))
-					if (expand(node, env, fd))
+					if (expand(node, env))//, fd))
 						fatal_exit(input, errno, NULL);
+			// else
+				// check if delimiter is in quotes (single or double) or not
 			node = node->next;
 		}
 	}
-	// remove_quote()
+	//remove_quote()
+	//find_builtin()
+	//find_path()
 }

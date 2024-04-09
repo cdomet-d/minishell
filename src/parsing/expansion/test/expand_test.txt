@@ -85,4 +85,5 @@ $arg5$arg$arg$arg""$arg
 $arg0 $arg7
 $arg0" $arg4"'$arg1'
 $arg5 $arg0 $arg7"$arg" "       "'hey' | $arg3 > out
+$arg0 < infile $arg1 > out $arg3
 exit

@@ -73,10 +73,8 @@ int	add_opt(t_input **input, t_input *ptr, char *line, int *i)
 	new = tab_join(ptr->data, data);
 	if (!new)
 		return (1);
-	data = ptr->data;
-	ptr->data = NULL;
+	free_dtab(ptr->data);
 	ptr->data = new;
-	free_dtab(data);
     return (0);
 }
 

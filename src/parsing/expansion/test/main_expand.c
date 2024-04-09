@@ -47,12 +47,12 @@ int	main(int argc, char **argv, char **envp)
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	fd = open("src/parsing/expansion/test/result_expand.txt", O_RDWR, O_TRUNC);
-	if (fd == -1)
-	{
-		printf("shiiiit\n");
-		return (1);
-	}
+	// fd = open("src/parsing/expansion/test/result_expand.txt", O_RDWR, O_TRUNC);
+	// if (fd == -1)
+	// {
+	// 	printf("shiiiit\n");
+	// 	return (1);
+	// }
 	while (1)
 	{
 		line = readline("Minishell > "); //besoin de proteger readline ???
@@ -72,11 +72,11 @@ int	main(int argc, char **argv, char **envp)
 			// 	mh_exit(line, input, env);
 			// }
 			// print_words(buffer);
-			close(fd);
+			// close(fd);
 			// free(buffer);
 			mh_exit(line, input, env);
 		}
-		parsing(&input, &env, line, fd);
+		parsing(&input, &env, line);//, fd);
 		// exec_cmd(input);
 		print_in_for(input);
 		free(line);

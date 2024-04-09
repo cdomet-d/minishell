@@ -88,29 +88,4 @@ int	letters(char *data, t_env **env)
 	return (letter);
 }
 
-char	**ft_replace(char **data, t_env **env)
-{
-	int word;
-	int		letter;
-	char    **newtab;
 
-	word = 0;
-	newtab = NULL;
-	while (data[word])
-		word++;
-	newtab = ft_calloc(sizeof(char *), word + 1);
-	if (!newtab)
-		return (NULL);
-	word = 0;
-	while (data[word])
-	{
-		letter = letters(data[word], env);
-		newtab[word] = ft_calloc(sizeof(char), letter + 1);
-		if (!newtab[word])
-			return (free_dtab(newtab), NULL);
-		ft_copy(data[word], newtab[word], env);
-		word++;
-	}
-	newtab[word] = NULL;
-	return (newtab);
-}
