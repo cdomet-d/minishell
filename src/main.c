@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("Minishell > "); //besoin de proteger readline ???
 		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0 && line[0])
 			mh_exit(line, input, env);
-		parsing(&input, &env, line, 1);
+		parsing(&input, &env, line);
 		// exec_cmd(input);
 		print_in_for(input);
 		free(line);
