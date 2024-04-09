@@ -3,7 +3,6 @@
 #include "parsing.h"
 
 
-
 char	**nb_word(char **data, t_env **env, int *word)
 {
 	char	**newtab;
@@ -12,13 +11,13 @@ char	**nb_word(char **data, t_env **env, int *word)
 	char	quotetype;
 
 	i = 0;
-	j = 0;
 	quotetype = 0;
 	newtab = ft_replace(data, env);
 	if (!newtab)
 		return (NULL);
 	while (newtab[i])
 	{
+		j = 0;
 		while (newtab[i][j])
 		{
 			if (newtab[i][j] == '\'' || newtab[i][j] == '"')

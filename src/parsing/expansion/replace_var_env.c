@@ -53,12 +53,46 @@ void	ft_copy(char *data, char *newtab, t_env **env)
 	}
 }
 
+int	letters(char *data, t_env **env)
+{
+	int	letter;
+	int	j;
+
+	letter = 0;
+	j = 0;
+	while (data[j])
+	{
+		if (data[j] == '\'')
+		{
+			j++;
+			letter++;
+			while (data[j] && data[j] != '\'')
+			{
+				j++;
+				letter++;
+			}
+		}
+		if (data[j] == '$')
+		{
+			j++;
+			count_in_env(search_env(data + j, env), &letter);
+			while (data[j] && data[j] != '$' && data[j] != '\'' && data[j] != '"')
+				j++;
+		}
+		else if (data[j])
+		{
+			j++;
+			letter++;
+		}
+	}
+	return (letter);
+}
+
 char	**ft_replace(char **data, t_env **env)
 {
 	int word;
 	int		letter;
 	char    **newtab;
-	int		j;
 
 	word = 0;
 	newtab = NULL;
@@ -70,38 +104,13 @@ char	**ft_replace(char **data, t_env **env)
 	word = 0;
 	while (data[word])
 	{
-		letter = 0;
-		j = 0;
-		while (data[word][j])
-		{
-			if (data[word][j] == '\'')
-			{
-				j++;
-				letter++;
-				while (data[word][j] && data[word][j] != '\'')
-				{
-					j++;
-					letter++;
-				}
-			}
-			if (data[word][j] == '$')
-			{
-				j++;
-				count_in_env(search_env(data[word] + j, env), &letter);
-				while (data[word][j] && data[word][j] != '$' && data[word][j] != '\'' && data[word][j] != '"')
-					j++;
-			}
-			else if (data[word][j])
-			{
-				j++;
-				letter++;
-			}
-		}
+		letter = letters(data[word], env);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
 			return (free_dtab(newtab), NULL);
 		ft_copy(data[word], newtab[word], env);
 		word++;
 	}
+	newtab[word] = NULL;
 	return (newtab);
 }

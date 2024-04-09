@@ -73,7 +73,8 @@ void	display_dtab(char **dtab)
 	i = 0;
 	while (dtab && dtab[i])
 	{
-		printf("tab[%ld] > %s || len : %ld\n", i, dtab[i], strlen(dtab[i]));
+		// printf("tab[%ld] > %s --> len : %ld\n", i, dtab[i], strlen(dtab[i]));
+		printf("tab[%ld] > %s\n", i, dtab[i]);
 		i++;
 	}
 }

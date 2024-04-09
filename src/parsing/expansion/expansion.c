@@ -12,16 +12,18 @@
 
 #include "parsing.h"
 
-int	expand(t_input *node, t_env **env)
+int	expand(t_input *node, t_env **env, int fd)
 {
 	char	**newtab;
 	char	**temp;
 	int		word;
 
+	(void)fd;
 	newtab = NULL;
 	temp = NULL;
 	word = 0;
 	temp = nb_word(node->data, env, &word);
+	// dprintf(fd, "%d\n", word);
 	if (!temp)
 		return (1);
 	newtab = ft_calloc(sizeof(char *), word + 1);

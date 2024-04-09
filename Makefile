@@ -28,7 +28,7 @@ MAKEFLAGS += --no-print-directory
 
 INCLUDES := -L $(LIBFT_DIR) -lft -lreadline
 
-SRC += main.c \
+#SRC += main.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ PARSING ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
@@ -42,11 +42,11 @@ SRC_TOKE:=		tokenization.c \
 SRC += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
+				test/main_expand.c \
 				expansion_utils.c \
 				letter_count.c \
+				replace_var_env.c \
 				word_count.c \
-				replace_var_env.c
-#test/main_expand.c \
 
 SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
 DIR_PARSE:= parsing/

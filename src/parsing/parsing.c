@@ -12,11 +12,12 @@
 
 #include "parsing.h"
 
-void	parsing(t_input **input, t_env **env, char *line)
+void	parsing(t_input **input, t_env **env, char *line, int fd)
 {
 	t_input	*node;
 	
 	node = NULL;
+	// (void)fd;
 	if (tokenization(input, env, line))
 		return ;
 	if (input && *input)
@@ -26,7 +27,7 @@ void	parsing(t_input **input, t_env **env, char *line)
 		{
 			if (node->tok != heredoc)
 				if (check_for_dollar(node))
-					if (expand(node, env))
+					if (expand(node, env, fd))
 						fatal_exit(input, errno, NULL);
 			node = node->next;
 		}

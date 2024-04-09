@@ -29,7 +29,7 @@ typedef struct s_expand
     bool    dollar;
 } t_exp;
 
-void	parsing(t_input **input, t_env **env, char *line);
+void	parsing(t_input **input, t_env **env, char *line, int fd);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
@@ -48,8 +48,8 @@ int	    check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-int		expand(t_input *node, t_env **env);
-char    **nb_word(char **data, /*char **save, */t_env **env, int *word);
+int		expand(t_input *node, t_env **env, int fd);
+char    **nb_word(char **data, t_env **env, int *word);
 char	**ft_replace(char **data, t_env **env);
 char 	**nb_letter(char **data, char **newtab);
 void	double_quote(char *data, t_env **env, int *letter, int *j);
