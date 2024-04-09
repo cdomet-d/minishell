@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 19:07:55 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 14:39:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_input	*find_next_pipe(t_input	*in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
-	fprintf(stderr, "pdb = %ld\n", fd->pnb);
 	if (fd->pnb == 0)
 		return (NULL);
 	while (tmp && tmp->tok != pip)

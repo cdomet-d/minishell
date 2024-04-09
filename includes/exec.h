@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 23:32:57 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 18:09:24 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_input	*find_tok(t_input	*in, t_tok op, bool next);
 void	*pip_redir(t_input *tmp, t_fd *fd);
 void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
+void	*app_redir(t_fd *fd, t_input *in);
 
 /*--------------------------------- BUILTINS ---------------------------------*/
 
@@ -90,6 +91,7 @@ void	mh_exit(char *line, t_input *in, t_env *env);
 void	print_ops(t_op count);
 void	print_fds(t_fd *fd);
 void	print_in_node(t_input *node, t_fd *fd, char *str);
+void	pmin(t_input *input);
 /*----------------------------------------------------------------------------*/
 
 #endif

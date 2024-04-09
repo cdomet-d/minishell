@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/07 23:32:03 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 15:20:46 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,17 @@ void	free_env(t_env *lst, int error_code, char *error_message)
 
 void	*print_error(int error_code, char *error_message)
 {
-	if (error_code)
+	ft_putstr_fd("\033[1;31m", 2);
+	if (error_code && !error_message)
 		ft_putendl_fd(strerror(error_code), STDERR_FILENO);
-	if (error_message)
+	else if (!error_code && error_message)
 		ft_putendl_fd(error_message, STDERR_FILENO);
+	else if (error_code && error_message)
+	{
+		ft_putstr_fd(error_message, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(strerror(error_code), STDERR_FILENO);
+	}
+	ft_putstr_fd("\033[0m", 2);
 	return (NULL);
 }
