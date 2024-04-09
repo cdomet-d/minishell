@@ -50,6 +50,7 @@ int	    check_opt(t_input **input, char *line, int *i);
 
 int		expand(t_input *node, t_env **env);
 char    **nb_word(char **data, /*char **save, */t_env **env, int *word);
+char	**ft_replace(char **data, t_env **env);
 char 	**nb_letter(char **data, char **newtab);
 void	double_quote(char *data, t_env **env, int *letter, int *j);
 void	single_quote(char *data, int *letter, int *j);

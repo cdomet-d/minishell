@@ -12,41 +12,39 @@
 
 #include "exec.h"
 
-static void	print_enum(int token, int fd)
+static void	print_enum(int token)
 {
 	if (token == 0)
-		dprintf(fd, "token > pipe\n");
+		printf("token > pipe\n");
 	else if (token == 1)
-		dprintf(fd, "token > inredir\n");
+		printf("token > inredir\n");
 	if (token == 2)
-		dprintf(fd, "token > outredir\n");
+		printf("token > outredir\n");
 	if (token == 3)
-		dprintf(fd, "token > append\n");
+		printf("token > append\n");
 	if (token == 4)
-		dprintf(fd, "token > heredoc\n");
+		printf("token > heredoc\n");
 	if (token == 5)
-		dprintf(fd, "token > command\n");
+		printf("token > command\n");
 }
 
-void	print_in_for(t_input *input, int fd)
+void	print_in_for(t_input *input)
 {
 	t_input	*head;
 	int		node;
 
 	node = 1;
 	head = input;
-	// dprintf(fd, "\033[0;35m\033[1m\n#==== PRINTING INPUT FORWARD ====#\n\n\033[0m");
+	printf("\033[0;35m\033[1m\n#==== PRINTING INPUT FORWARD ====#\n\n\033[0m");
 	while (input)
 	{
-		// dprintf(fd, "\033[0;34m\033[1m#---- Node %d ----#\n\033[0m", node++);
-		dprintf(fd, "---- Node %d ----\n", node++);
-		display_dtab(input->data, fd);
-		print_enum(input->tok, fd);
+		printf("\033[0;34m\033[1m#---- Node %d ----#\n\033[0m", node++);
+		display_dtab(input->data);
+		print_enum(input->tok);
 		input = input->next;
-		dprintf(fd, "----------------\n");
-		// dprintf(fd, "\033[0;34m\033[1m#----------------#\n\n\033[0m");
+		printf("\033[0;34m\033[1m#----------------#\n\n\033[0m");
 	}
-	// dprintf(fd, "\033[0;35m\033[1m#================================#\n\n\033[0m");
+	printf("\033[0;35m\033[1m#================================#\n\n\033[0m");
 	input = head;
 }
 
@@ -68,14 +66,14 @@ void	print_env_for(t_env *env)
 	printf("==========================\n\n");
 }
 
-void	display_dtab(char **dtab, int fd)
+void	display_dtab(char **dtab)
 {
 	size_t	i;
 
 	i = 0;
 	while (dtab && dtab[i])
 	{
-		dprintf(fd, "tab[%ld] > %s || len : %ld\n", i, dtab[i], strlen(dtab[i]));
+		printf("tab[%ld] > %s || len : %ld\n", i, dtab[i], strlen(dtab[i]));
 		i++;
 	}
 }

@@ -66,8 +66,8 @@ void	input_freelst(t_input **lst);
 
 /* display */
 void	print_env_for(t_env *env);
-void	display_dtab(char **dtab, int fd);
-void	print_in_for(t_input *input, int fd);
+void	display_dtab(char **dtab);
+void	print_in_for(t_input *input);
 
 /* error handling */
 void	fatal_exit(t_input **lst, int error_code, char *error_message);

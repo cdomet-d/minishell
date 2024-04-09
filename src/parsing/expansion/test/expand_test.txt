@@ -83,4 +83,6 @@ $arg$arg7
 $arg5$arg$arg$arg""$arg
 ""$arg7$arg$arg$arg""$arg
 $arg0 $arg7
+$arg0" $arg4"'$arg1'
+$arg5 $arg0 $arg7"$arg" "       "'hey' | $arg3 > out
 exit
