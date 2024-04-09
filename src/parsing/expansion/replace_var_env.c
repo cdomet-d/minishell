@@ -2,6 +2,51 @@
 
 #include "parsing.h"
 
+void	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
+{
+	int	i;
+	char	*str;
+
+	i = 0;
+	str = search_env(data, env);
+	if (str)
+	{
+		while (str[i])
+		{
+			newtab[*j] = str[i];
+			*j += 1;
+			i++;
+		}
+	}
+}
+
+void	ft_copy(char *data, char *newtab, t_env **env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (data[i])
+	{
+		if (data[i] == '\'')
+		{
+			newtab[j++] = data[i++];
+			while (data[i] && data[i] != '\'')
+				newtab[j++] = data[i++];
+		}
+		if (data[i] == '$')
+		{
+			i++;
+			ft_copy_env(data + i, newtab, env, &j);
+			while (data[i] && data[i] != '$' && data[i] != '\'' && data[i] != '"')
+				i++;
+		}
+		else if (data[i])
+			newtab[j++] = data[i++];
+	}
+}
+
 void	count_in_env(char *str, int *letter)
 {
 	int	i;
@@ -16,40 +61,14 @@ void	count_in_env(char *str, int *letter)
 	}
 }
 
-void	ft_copy(char *data, char *newtab, t_env **env)
+void	in_quotes(char *data, int *j, int *letter)
 {
-	int	i;
-	int	j;
-	int	n;
-	char	*str;
-
-	i = 0;
-	j = 0;
-	n = 0;
-	str = NULL;
-	while (data[i])
+	*j += 1;
+	*letter += 1;
+	while (data[*j] && data[*j] != '\'')
 	{
-		if (data[i] == '\'')
-		{
-			newtab[j++] = data[i++];
-			while (data[i] && data[i] != '\'')
-				newtab[j++] = data[i++];
-		}
-		if (data[i] == '$')
-		{
-			i++;
-			n = 0;
-			str = search_env(data + i, env);
-			if (str)
-			{
-				while (str[n])
-					newtab[j++] = str[n++];
-			}
-			while (data[i] && data[i] != '$' && data[i] != '\'' && data[i] != '"')
-				i++;
-		}
-		else if (data[i])
-			newtab[j++] = data[i++];
+		*j += 1;
+		*letter += 1;
 	}
 }
 
@@ -63,15 +82,7 @@ int	letters(char *data, t_env **env)
 	while (data[j])
 	{
 		if (data[j] == '\'')
-		{
-			j++;
-			letter++;
-			while (data[j] && data[j] != '\'')
-			{
-				j++;
-				letter++;
-			}
-		}
+			in_quotes(data, &j, &letter);
 		if (data[j] == '$')
 		{
 			j++;
