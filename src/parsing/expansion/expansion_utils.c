@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/04 17:07:28 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:48:47 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,58 +81,3 @@ char	*search_env(char *data, t_env **env)
 	}
 	return (NULL);
 }
-
-// void	revert(char **data)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (data[i])
-// 	{
-// 		j = 0;
-// 		while (data[i][j])
-// 		{
-// 			if (data[i][j] < 0)
-// 				data[i][j] *= -1;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-
-// char	**tab_dup(char **data)
-// {
-// 	char	**dup;
-// 	int		word;
-// 	int		letter;
-
-// 	dup = NULL;
-// 	word = 0;
-// 	while (data[word])
-// 		word++;
-// 	dup = ft_calloc(sizeof(char *), word + 1);
-// 	if (!dup)
-// 		return (NULL);
-// 	word = 0;
-// 	while (data[word])
-// 	{
-// 		letter = 0;
-// 		while (data[word][letter])
-// 			letter++;
-// 		dup[word] = ft_calloc(sizeof(char), letter + 1);
-// 		if (!dup[word])
-// 			return (free_dtab(dup), NULL);
-// 		letter = 0;
-// 		while (data[word][letter])
-// 		{
-// 			dup[word][letter] = data[word][letter];
-// 			letter++;
-// 		}
-// 		dup[word][letter] = '\0';
-// 		word++;
-// 	}
-// 	dup[word] = NULL;
-// 	// free_dtab(data);
-// 	return (dup);
-// }
