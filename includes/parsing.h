@@ -6,9 +6,10 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 16:39:04 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:46:53 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PARSING_H
 # define PARSING_H
@@ -19,6 +20,8 @@
 /*----------------------------- PARSING -----------------------------*/
 
 void	parsing(t_input **input, t_env **env, char *line);
+void	init_all(char **str, char **envp, t_env **env, t_input **input);
+void	process_line(char *line, t_input *input, t_env *env);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
