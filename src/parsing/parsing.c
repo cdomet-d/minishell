@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-void	parsing(t_input **input, t_env **env, char *line)//, int fd)
+void	parsing(t_input **input, t_env **env, char *line)
 {
 	t_input	*node;
 	

@@ -2,6 +2,17 @@
 
 #include "parsing.h"
 
+// typedef struct s_expand
+// {
+//     int     i;
+//     int     j;
+//     int     null;
+//     char    *str;
+//     char    *tmp;
+//     char    **save;
+//     bool    dollar;
+// } t_exp;
+
 // bool	nb_word_env(char *str, int *word, char c)
 // {
 // 	int		i;

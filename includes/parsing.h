@@ -18,18 +18,7 @@
 
 /*----------------------------- PARSING -----------------------------*/
 
-// typedef struct s_expand
-// {
-//     int     i;
-//     int     j;
-//     int     null;
-//     char    *str;
-//     char    *tmp;
-//     char    **save;
-//     bool    dollar;
-// } t_exp;
-
-void	parsing(t_input **input, t_env **env, char *line);//, int fd);
+void	parsing(t_input **input, t_env **env, char *line);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
@@ -48,10 +37,11 @@ int	    check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-int		expand(t_input *node, t_env **env);//, int fd);
+int		expand(t_input *node, t_env **env);
+char	**nb_word(char **data, t_env **env, int *word);
+char 	**nb_letter(char **data, char **newtab);
 int	    letters(char *data, t_env **env);
 void	ft_copy(char *data, char *newtab, t_env **env);
-char 	**nb_letter(char **data, char **newtab);
 
 /* expand utils */
 int		check_for_dollar(t_input *node);
