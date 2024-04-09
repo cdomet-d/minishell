@@ -5,3 +5,6 @@ norminette
 if [ -f "out" ]; then
 	rm out
 fi
+if [ -f "log" ]; then
+	rm log
+fi

@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 17:18:15 by csweetin         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/04/09 17:04:44 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PARSING_H
 # define PARSING_H
@@ -30,5 +31,7 @@ int		tok_inredir(t_input **input, t_env **env, char *line, int *i);
 int		tok_outredir(t_input **input, t_env **env, char *line, int *i);
 int		tok_command(t_input **input, t_env **env, char *line, int *i);
 int		tok_pipe(t_input **input, t_env **env, char *line, int *i);
+void	init_all(char **str, char **envp, t_env **env, t_input **input);
+void	process_line(char *line, t_input *input, t_env *env);
 
 #endif

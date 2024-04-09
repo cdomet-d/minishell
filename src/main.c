@@ -5,36 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 15:46:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 17:23:04 by csweetin         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/04/09 17:06:54 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "exec.h"
 #include "parsing.h"
 
-int	main(int argc, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_env	*env;
 	t_input	*input;
 
-	line = NULL;
-	env = NULL;
-	input = NULL;
 	if (argc != 1)
 		fatal_exit(NULL, EXIT_FAILURE, "minishell: too many arguments");
-	create_env(&input, envp, &env);
+	(void)argv;
+	init_all(&line, envp, &env, &input);
 	while (1)
 	{
-		line = readline("Minishell > "); //besoin de proteger readline ???
-		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0 && line[0])
-			mh_exit(line, input, env);
-		parsing(&input, &env, line);
-		// exec_cmd(input);
-		print_in_for(input);
-		free(line);
-		input_freelst(&input);
+		line = readline("Minishell > ");
+		if (line)
+			process_line(line, input, env);
 	}
+	env_freelst(env);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/29 14:56:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/07 23:34:52 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_input
 	char			**data;
 	t_tok			tok;
 	t_env			*env;
+	int				no;
 	struct s_input	*next;
 	struct s_input	*prev;
 }	t_input;
@@ -57,22 +58,21 @@ t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
 void	env_freelst(t_env *env);
 void	init_env(char **envp, t_env **env);
-void	*env_rmone(t_env **sup, t_env *head);
 
 /* input list utils */
 t_input	*input_newnode(char **data, int token, t_env *env);
 void	input_addback(t_input **lst, t_input *node);
 void	input_freelst(t_input **lst);
 
-/* display */
-void	print_env_for(t_env *env);
-void	display_dtab(char **dtab);
-void	print_in_for(t_input *input);
-
 /* error handling */
 void	fatal_exit(t_input **lst, int error_code, char *error_message);
 void	free_env(t_env *lst, int error_code, char *error_message);
 void	*print_error(int error_code, char *error_message);
+
+/* display */
+void	print_env_for(t_env *env);
+void	display_dtab(char **dtab);
+void	print_in_for(t_input *input);
 
 /*----------------------------------------------------------------------------*/
 
