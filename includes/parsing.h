@@ -22,6 +22,7 @@
 void	parsing(t_input **input, t_env **env, char *line);
 void	init_all(char **str, char **envp, t_env **env, t_input **input);
 void	process_line(char *line, t_input *input, t_env *env);
+void    cmd_path(t_input **input, t_env **env);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
@@ -50,8 +51,6 @@ void	ft_copy(char *data, char *newtab, t_env **env);
 int		check_for_dollar(t_input *node);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
-// void	revert(char **data);
-// char	**tab_dup(char **data);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

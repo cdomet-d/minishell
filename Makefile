@@ -47,12 +47,12 @@ SRC_EXPAND:=	expansion.c \
 				letter_count.c \
 				replace_var_env.c \
 				expansion_utils.c \
-#test/main_expand.c \
 
 SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
 DIR_PARSE:= parsing/
 SRC_PARSE:=		create_lst.c \
 				parsing.c \
+				cmd_path.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ LISTS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_LST), $(SRC_LST))

@@ -35,5 +35,5 @@ void	parsing(t_input **input, t_env **env, char *line)
 	}
 	//remove_quote()
 	//find_builtin()
-	//find_path()
+	cmd_path(input, env);
 }
