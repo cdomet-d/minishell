@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 22:53:52 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 17:54:42 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 
 static void	*create_child(t_fd *fd)
 {
-	fprintf(stderr, "PID : %d\n", getpid());
+	// fprintf(stderr, "PID : %d\n", getpid());
 	if (fd->pnb != 0)
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "opening pipe in exec_cmd"));

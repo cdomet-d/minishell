@@ -6,7 +6,7 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/09 17:00:07 by csweetin         ###   ########.fr        #
+#    Updated: 2024/04/09 17:41:01 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,19 +32,22 @@ INCLUDES := -L $(LIBFT_DIR) -lft -lreadline
 SRC += main.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ PARSING ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
-PARSE += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
+SRC += $(addprefix $(DIR_TOKE), $(SRC_TOKE))
 DIR_TOKE:= parsing/tokenization/
-SRC_TOKE:=		create_data.c \
-				tokenization.c \
+SRC_TOKE:=		tokenization.c \
 				tokenization_utils.c \
-				toke_op.c \
+				toke_type.c \
+				cmd_opt.c \
+				create_data.c \
 
-PARSE += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
+SRC += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
+				word_count.c \
+				letter_count.c \
+				replace_var_env.c \
 				expansion_utils.c \
-
-SRC += $(PARSE)
+#test/main_expand.c \
 
 SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
 DIR_PARSE:= parsing/

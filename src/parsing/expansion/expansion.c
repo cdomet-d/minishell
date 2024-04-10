@@ -6,58 +6,32 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 19:22:01 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:47:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-//si $arg=NULL ou n'existe pas replace par rien
-
-void	command_expand()
+int	expand(t_input *node, t_env **env)
 {
+	char	**newtab;
+	char	**temp;
+	int		word;
 
-}
-
-char	*search_env(char *data, t_env **env)
-{
-	char	*var;
-	t_env	*node;
-
-	(void)data;
-	var = NULL;
-	node = *env;
-	while (node->env)
-	{
-		node = node->next;
-	}
-	return (var);
-}
-
-void	op_expand(char *data, t_env **env)
-{
-	int	i;
-
-	i = 0;
-	while (data[i])
-	{
-		if (data[i++] == '\'')
-		{
-			while (data[i] && data[i] != '\'')
-				i++;
-		}
-		if (data[i] == '$')
-			search_env(data + i, env);
-		if (data[i])
-			i++;
-	}
-}
-
-void	expand(t_input *node, t_env **env)
-{
-	(void)env;
-	if (node->tok == command)
-		command_expand();
-	else
-		op_expand(node->data[0], env);
+	newtab = NULL;
+	temp = NULL;
+	word = 0;
+	temp = nb_word(node->data, env, &word);
+	if (!temp)
+		return (1);
+	newtab = ft_calloc(sizeof(char *), word + 1);
+	if (!newtab)
+		return (1);
+	newtab = nb_letter(temp, newtab);
+	if (!newtab)
+		return (1);
+	free_dtab(node->data);
+	node->data = newtab;
+	free_dtab(temp);
+	return (0);
 }

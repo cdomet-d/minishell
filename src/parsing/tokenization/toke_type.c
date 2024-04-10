@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:07:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/29 17:09:00 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:23:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 		return (1);
 	if (create_input(input, env, data, tok))
 		return (1);
+	if (check_opt(input, line, i))
+		return (1);
 	return (0);
 }
 
@@ -52,6 +54,8 @@ int	tok_outredir(t_input **input, t_env **env, char *line, int *i)
 	if (!data)
 		return (1);
 	if (create_input(input, env, data, tok))
+		return (1);
+	if (check_opt(input, line, i))
 		return (1);
 	return (0);
 }

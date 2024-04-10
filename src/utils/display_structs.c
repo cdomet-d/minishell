@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 16:11:15 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 18:35:48 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	display_dtab(char **dtab)
 	i = 0;
 	while (dtab && dtab[i])
 	{
+		// fprintf(stderr, "tab[%ld] > %s --> len : %ld\n", i, dtab[i], strlen(dtab[i]));
 		fprintf(stderr, "  tab[%02ld] > %s\n", i, dtab[i]);
 		i++;
 	}

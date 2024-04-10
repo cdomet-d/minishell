@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export arg=
+export arg0=cha
+export arg1=" cha"
+export arg2="cha "
+export arg3=" cha "
+export arg4="cha sweet"
+export arg5=" cha sweet"
+export arg6="cha sweet "
+export arg7=" cha sweet "
