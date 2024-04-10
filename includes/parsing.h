@@ -22,7 +22,7 @@
 void	parsing(t_input **input, t_env **env, char *line);
 void	init_all(char **str, char **envp, t_env **env, t_input **input);
 void	process_line(char *line, t_input *input, t_env *env);
-void    cmd_path(t_input **input, t_env **env);
+int		cmd_path(t_input **input, t_env **env);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
@@ -46,6 +46,7 @@ char	**nb_word(char **data, t_env **env, int *word);
 char	**nb_letter(char **data, char **newtab);
 int		letters(char *data, t_env **env);
 void	ft_copy(char *data, char *newtab, t_env **env);
+void	fill_word(char *new, char *old, int i);
 
 /* expand utils */
 int		check_for_dollar(t_input *node);
