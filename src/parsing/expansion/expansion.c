@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/10 16:03:56 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:13:33 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**expand(char **data, t_env **env)
 	temp = NULL;
 	word = 0;
 	temp = nb_word(data, env, &word);
-	if (!temp)
+	if (!temp || word == 0)
 		return (NULL);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
