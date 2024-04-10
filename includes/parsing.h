@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 17:46:53 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:04:22 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-int		expand(t_input *node, t_env **env);
+char	**expand(char **data, t_env **env);
 char	**nb_word(char **data, t_env **env, int *word);
 char	**nb_letter(char **data, char **newtab);
 int		letters(char *data, t_env **env);
