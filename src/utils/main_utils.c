@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:08:34 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/07 22:27:13 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 18:36:37 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	process_line(char *line, t_input *input, t_env *env)
 	parsing(&input, &env, line);
 	if (input)
 		exec_cmd(input);
+	// print_in_for(input);
 	input_freelst(&input);
 	free(line);
 }

@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:42:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 16:17:39 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:22:55 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	syntax_error(char *line, int *i)
 		ft_putstr_fd("minishell : syntax error near unexpected token ", 2);
 		ft_putchar_fd(line[*i], STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
-		while (line[*i])
-			*i += 1;
 	}
 }
 
@@ -68,6 +66,9 @@ char	**get_data(t_input **input, char *line, int *i)
 			input_freelst(input);
 	}
 	else
+	{
+		input_freelst(input);
 		syntax_error(line, i);
+	}
 	return (data);
 }

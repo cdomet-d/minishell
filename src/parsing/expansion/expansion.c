@@ -6,14 +6,32 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/28 18:30:59 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:47:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	expand(t_input **input, t_env **env)
+int	expand(t_input *node, t_env **env)
 {
-	(void)input;
-	(void)env;
+	char	**newtab;
+	char	**temp;
+	int		word;
+
+	newtab = NULL;
+	temp = NULL;
+	word = 0;
+	temp = nb_word(node->data, env, &word);
+	if (!temp)
+		return (1);
+	newtab = ft_calloc(sizeof(char *), word + 1);
+	if (!newtab)
+		return (1);
+	newtab = nb_letter(temp, newtab);
+	if (!newtab)
+		return (1);
+	free_dtab(node->data);
+	node->data = newtab;
+	free_dtab(temp);
+	return (0);
 }
