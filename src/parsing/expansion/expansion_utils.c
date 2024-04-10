@@ -6,11 +6,32 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 16:48:47 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:30:37 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+int	in_quotes(t_input *node, int i, int *j)
+{
+	if (node->data[i][*j] == '\'')
+	{
+		*j += 1;
+		while (node->data[i][*j] && node->data[i][*j] != '\'')
+			*j += 1;
+	}
+	if (node->data[i][*j] == '"')
+	{
+		*j += 1;
+		while (node->data[i][*j] && node->data[i][*j] != '"')
+		{
+			if (node->data[i][*j] == '$')
+				return (1);
+			*j += 1;
+		}
+	}
+	return (0);
+}
 
 int	check_for_dollar(t_input *node)
 {
@@ -25,12 +46,8 @@ int	check_for_dollar(t_input *node)
 		j = 0;
 		while (node->data[i][j])
 		{
-			if (node->data[i][j] == '\'')
-			{
-				j++;
-				while (node->data[i][j] && node->data[i][j] != '\'')
-					j++;
-			}
+			if (in_quotes(node, i, &j))
+				return (1);
 			if (node->data[i][j] == '$')
 				return (1);
 			if (node->data[i][j])
