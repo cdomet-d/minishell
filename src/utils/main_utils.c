@@ -22,11 +22,11 @@ void	init_all(char **str, char **envp, t_env **env, t_input **input)
 
 void	process_line(char *line, t_input *input, t_env *env)
 {
-	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
+	if (ft_strncmp(line, "exit", 5) == 0)
 		mh_exit(line, input, env);
 	add_history(line);
 	parsing(&input, &env, line);
-	// print_in_for(input);
+	print_in_for(input);
 	if (input)
 		exec_cmd(input);
 	input_freelst(&input);
