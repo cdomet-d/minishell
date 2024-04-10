@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/09 18:09:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/10 16:11:12 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 
 static void	*create_child(t_fd *fd)
 {
-	fprintf(stderr, "%.20s\n", "-- create_child ------------------");
+	// fprintf(stderr, "%.20s\n", "-- create_child ------------------");
 	if (fd->pnb != 0)
 	{
-		fprintf(stderr, "%.20s\n", "-- pipe ------------------");
+		// fprintf(stderr, "%.20s\n", "-- pipe ------------------");
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "create_child (piping)"));
 	}
 	fd->pid = fork();
 	{
-		fprintf(stderr, "%.20s\n", "-- fork ------------------");
+		// fprintf(stderr, "%.20s\n", "-- fork ------------------");
 		if (fd->pid == -1)
 			return (print_error(errno, "create_child (forking)"));
 	}
@@ -79,7 +79,7 @@ void	*exec_cmd(t_input *in)
 	init_fds(&fd);
 	tmp = in;
 	fd.pnb = count_pipes(tmp);
-	pmin(tmp);
+	// pmin(tmp);
 	while (tmp)
 	{
 		if (fd.pid != 0)
