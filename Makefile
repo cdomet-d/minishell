@@ -45,8 +45,9 @@ DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
 				word_count.c \
 				letter_count.c \
-				replace_var_env.c \
 				expansion_utils.c \
+				replace_var_env_v2.c \
+#				replace_var_env.c \
 
 SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
 DIR_PARSE:= parsing/

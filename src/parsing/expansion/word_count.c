@@ -29,6 +29,8 @@ char	**ft_replace(char **data, t_env **env)
 	while (data[word])
 	{
 		letter = letters(data[word], env);
+		if (letter == 0 && !data[word + 1])
+			return (free(newtab), NULL);
 		// printf("letter : %d\n", letter);
 		// if (letter > 0)
 		// {

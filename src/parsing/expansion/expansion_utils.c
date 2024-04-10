@@ -58,20 +58,41 @@ int	check_for_dollar(t_input *node)
 	return (0);
 }
 
+// int	ft_strcmp(char *data, char *env)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (data[i] && env[i] && env[i] != '=' && data[i] != '"'
+// 		&& data[i] != '\'' && data[i] != '$' && data[i] != ' '
+// 		&& (data[i] < '\t' || data[i] > '\r'))
+// 	{
+// 		if (data[i] != env[i])
+// 			return (1);
+// 		i++;
+// 	}
+// 	if (env[i] != '=')
+// 		return (1);
+// 	return (0);
+// }
+
 int	ft_strcmp(char *data, char *env)
 {
 	int	i;
 
 	i = 0;
 	while (data[i] && env[i] && env[i] != '=' && data[i] != '"'
-		&& data[i] != '\'' && data[i] != '$' && data[i] != ' '
-		&& (data[i] < '\t' || data[i] > '\r'))
+		&& data[i] > 0 && data[i] != '$' && data[i] != ' '
+		&& (data[i] < '\t' || data[i] > '\r')  && data[i] != '-')
 	{
 		if (data[i] != env[i])
 			return (1);
 		i++;
 	}
-	if (env[i] != '=')
+	if (env[i] && env[i] != '=')
+		return (1);
+	if (data[i] && data[i] != '"' && data[i] > 0 && data[i] != '$' && data[i] != ' '
+		&& (data[i] < '\t' || data[i] > '\r') && data[i] != '-')
 		return (1);
 	return (0);
 }
