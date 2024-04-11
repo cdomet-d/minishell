@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   split_env_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 19:48:12 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:08:39 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+char	**nb_letter(char **data, char **newtab)
+{
+	int	i;
+	int	j;
+	int	word;
+	int	letter;
+
+	i = 0;
+	word = 0;
+	while (data[i])
+	{
+		j = 0;
+		while (data[i][j])
+		{
+			letter = nb_letter_str(data[i], &j, 0);
+			newtab[word] = ft_calloc(sizeof(char), letter + 1);
+			if (!newtab[word])
+				return (free_dtab(newtab), NULL);
+			fill_word(newtab[word], data[i] + (j - letter), letter);
+			word += 1;
+			if (data[i][j])
+				j++;
+		}
+		i++;
+	}
+	return (newtab);
+}
 
 void	nb_word_str(char *newtab, int *word)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_utils.c                                  :+:      :+:    :+:   */
+/*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 19:20:42 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:05:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,27 +100,4 @@ char	*search_env(char *data, t_env **env)
 	return (NULL);
 }
 
-void	put_in_neg(char *data)
-{
-	int	i;
 
-	i = 0;
-	while (data[i])
-	{
-		if (data[i] == '"')
-		{
-			i++;
-			while (data[i] && data[i] != '"')
-				i++;
-		}
-		if (data[i] == '\'')
-		{
-			data[i++] *= -1;
-			while (data[i] && data[i] != '\'')
-				data[i++] *= -1;
-			data[i++] *= -1;
-		}
-		else if (data[i])
-			i++;
-	}
-}
