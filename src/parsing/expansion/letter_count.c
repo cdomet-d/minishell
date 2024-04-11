@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 16:40:15 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:40:16 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	fill_word(char *new, char *old, int i)
 	j = 0;
 	while (old[j] && i > 0)
 	{
-		if (old[j] < 0)
-			old[j] *= -1;
 		new[j] = old[j];
 		j++;
 		i--;
@@ -29,16 +27,19 @@ void	fill_word(char *new, char *old, int i)
 
 int	nb_letter_str(char *data, int *j, int letter)
 {
+	char	quotetype;
+
 	while (data[*j] && (data[*j] == ' '
 			|| (data[*j] >= '\t' && data[*j] <= '\r')))
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
-		if (data[*j] && data[*j] == '"')
+		if (data[*j] == '"' || data[*j] == '\'')
 		{
+			quotetype = data[*j];
 			*j += 1;
 			letter += 1;
-			while (data[*j] && data[*j] != '"')
+			while (data[*j] && data[*j] != quotetype)
 			{
 				letter += 1;
 				*j += 1;

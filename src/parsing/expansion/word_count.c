@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:48 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/10 20:52:38 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:38:54 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,15 @@ char	**ft_replace(char **data, t_env **env, int rv)
 void	nb_word_str(char *newtab, int *word)
 {
 	int		j;
+	char	quotetype;
 
 	j = 0;
 	while (newtab[j])
 	{
-		if (newtab[j] == '"')
+		if (newtab[j] == '"' || newtab[j] == '\'')
 		{
-			j++;
-			while (newtab[j] && newtab[j] != '"')
+			quotetype = newtab[j++];
+			while (newtab[j] && newtab[j] != quotetype)
 				j++;
 		}
 		if ((newtab[j] != ' ' && (newtab[j] < '\t' || newtab[j] > '\r'))

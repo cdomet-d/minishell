@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/10 20:30:37 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:44:11 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,13 @@ int	check_for_dollar(t_input *node)
 	return (0);
 }
 
-// int	ft_strcmp(char *data, char *env)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (data[i] && env[i] && env[i] != '=' && data[i] != '"'
-// 		&& data[i] != '\'' && data[i] != '$' && data[i] != ' '
-// 		&& (data[i] < '\t' || data[i] > '\r'))
-// 	{
-// 		if (data[i] != env[i])
-// 			return (1);
-// 		i++;
-// 	}
-// 	if (env[i] != '=')
-// 		return (1);
-// 	return (0);
-// }
-
 int	ft_strcmp(char *data, char *env)
 {
 	int	i;
 
 	i = 0;
-	while (data[i] && env[i] && env[i] != '=' && data[i] != '"'
-		&& data[i] > 0 && data[i] != '$' && data[i] != ' '
-		&& (data[i] < '\t' || data[i] > '\r')  && data[i] != '-')
+	while (data[i] && env[i] && env[i] != '='
+		&& (ft_isalnum(data[i]) || data[i] == '_'))
 	{
 		if (data[i] != env[i])
 			return (1);
@@ -91,8 +72,7 @@ int	ft_strcmp(char *data, char *env)
 	}
 	if (env[i] && env[i] != '=')
 		return (1);
-	if (data[i] && data[i] != '"' && data[i] > 0 && data[i] != '$' && data[i] != ' '
-		&& (data[i] < '\t' || data[i] > '\r') && data[i] != '-')
+	if (data[i] && (ft_isalnum(data[i]) || data[i] == '_'))
 		return (1);
 	return (0);
 }
