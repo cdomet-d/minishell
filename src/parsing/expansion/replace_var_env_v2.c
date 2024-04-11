@@ -107,7 +107,7 @@ int	letters(char *data, t_env **env)
 				&& (data[j] > '\t' || data[j] < '\r') && data[j] != '-')
 				j++;
 		}
-		if (data[j] < 0)
+		if (data[j] && data[j] < 0)
         {
             while (data[j] && data[j] < 0)
                 j++;

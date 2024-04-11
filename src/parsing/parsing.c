@@ -15,7 +15,9 @@
 int	search_for_expand(t_input **input, t_env **env)
 {
 	t_input	*node;
+	char	**newtab;
 
+	newtab = NULL;
 	node = NULL;
 	node = *input;
 	while (node)
@@ -24,12 +26,15 @@ int	search_for_expand(t_input **input, t_env **env)
 		{
 			if (check_for_dollar(node))
 			{
-				node->data = expand(node->data, env);
-				if (!node->data)
+				newtab = expand(node->data, env);
+				if (!newtab || !newtab[0])
 				{
+					free_dtab(newtab);
 					input_freelst(input);
 					return (1);
 				}
+				free_dtab(node->data);
+				node->data = newtab;
 			}
 		}
 		// else

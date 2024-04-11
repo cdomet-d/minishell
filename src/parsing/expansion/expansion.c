@@ -24,16 +24,12 @@ char	**expand(char **data, t_env **env)
 	temp = nb_word(data, env, &word);
 	if (!temp)
 		return (NULL);
-	// else if (word == 0)
-	// 	return (free_dtab(temp), NULL);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
 		return (NULL);
 	newtab = nb_letter(temp, newtab);
 	if (!newtab)
 		return (NULL);
-	free_dtab(data);
-	data = newtab;
 	free_dtab(temp);
-	return (data);
+	return (newtab);
 }

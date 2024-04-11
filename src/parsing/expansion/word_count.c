@@ -29,16 +29,10 @@ char	**ft_replace(char **data, t_env **env)
 	while (data[word])
 	{
 		letter = letters(data[word], env);
-		// if (letter == 0 && !data[word + 1])
-		// 	return (free(newtab), NULL);
-		// printf("letter : %d\n", letter);
-		// if (letter > 0)
-		// {
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
 			return (free_dtab(newtab), NULL);
 		ft_copy(data[word], newtab[word], env);
-		// }
 		word++;
 	}
 	newtab[word] = NULL;
@@ -76,11 +70,8 @@ char	**nb_word(char **data, t_env **env, int *word)
 
 	i = 0;
 	newtab = ft_replace(data, env);
-	if (!newtab)// || !newtab[0])
-		return (/*free_dtab(newtab), */NULL);
-	while (newtab[i])
-		printf("newtab : %s\n", newtab[i++]);
-	i = 0;
+	if (!newtab)
+		return (NULL);
 	while (newtab[i])
 	{
 		nb_word_str(newtab[i], word);
