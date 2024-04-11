@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arenvlst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 23:25:31 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 15:02:45 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**arenvlst(t_env	*env)
 	i = 0;
 	arenv = malloc(sizeof(char *) * (env_len(env) + 1));
 	if (!arenv)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "arenvlst (malloc)"));
 	arenv[env_len(env)] = 0;
 	while (tmp)
 	{
@@ -48,7 +48,7 @@ char	**arenvlst(t_env	*env)
 		if (!arenv[i])
 		{
 			free_dtab(arenv);
-			return (print_error(errno, NULL));
+			return (print_error(errno, "arenvlst (malloc 2)"));
 		}
 		i++;
 		tmp = tmp->next;

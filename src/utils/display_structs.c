@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/09 18:35:48 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:31:26 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,33 @@
 static void	print_enum(int token)
 {
 	if (token == 0)
-		fprintf(stderr, "%-7s %s\n", "  token", "  > pipe");
+		fprintf(stderr, "%-7s %s ", "  token", "  > pipe");
 	else if (token == 1)
-		fprintf(stderr, "%-7s %s\n", "  token", "  > inredir");
+		fprintf(stderr, "%-7s %s ", "  token", "  > inredir");
 	if (token == 2)
-		fprintf(stderr, "%-7s %s\n", "  token", "  > outredir");
+		fprintf(stderr, "%-7s %s ", "  token", "  > outredir");
 	if (token == 3)
-		fprintf(stderr, "%-7s %s\n", "  token", "  > append");
+		fprintf(stderr, "%-7s %s ", "  token", "  > append");
 	if (token == 4)
-		fprintf(stderr, "%-7s %s\n", "  token", "  > heredoc");
+		fprintf(stderr, "%-7s %s ", "  token", "  > heredoc");
 	if (token == 5)
-		fprintf(stderr, "%-7s %s\n", "  token", "  > command");
+		fprintf(stderr, "%-7s %s ", "  token", "  > command");
+}
+
+static void	qpenum(int token)
+{
+	if (token == 0)
+		fprintf(stderr, "%s ", "pipe");
+	else if (token == 1)
+		fprintf(stderr, "%s ", "inredir");
+	if (token == 2)
+		fprintf(stderr, "%s ", "outredir");
+	if (token == 3)
+		fprintf(stderr, "%s ", "append");
+	if (token == 4)
+		fprintf(stderr, "%s ", "heredoc");
+	if (token == 5)
+		fprintf(stderr, "%s ", "command");
 }
 
 void	print_in_for(t_input *input)
@@ -48,6 +64,21 @@ void	print_in_for(t_input *input)
 	input = head;
 }
 
+void	pmin(t_input *input)
+{
+	t_input	*head;
+
+	head = input;
+	fprintf(stderr, "%.20s\n", "-- intoks ------------------");
+	while (input)
+	{
+		qpenum(input->tok);
+		input = input->next;
+	}
+	fprintf(stderr, "%.21s\n", "\n--------------------------------------------\n");
+	input = head;
+}
+
 void	print_env_for(t_env *env)
 {
 	t_env	*head;
@@ -58,7 +89,7 @@ void	print_env_for(t_env *env)
 	fprintf(stderr, "==== PRINTING ENV FORWARD ====\n");
 	while (env)
 	{
-		fprintf(stderr, "env[%2ld] > %.25s\n", i, env->env);
+		fprintf(stderr, "env[%2ld] > \033[0;34m%.20s\n\033[0m", i, env->env);
 		env = env->next;
 		i++;
 	}
