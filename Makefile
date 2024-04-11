@@ -6,7 +6,7 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/09 17:41:01 by csweetin         ###   ########.fr        #
+#    Updated: 2024/04/11 19:49:04 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ SRC_TOKE:=		tokenization.c \
 SRC += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
 SRC_EXPAND:=	expansion.c \
-				word_count.c \
 				letter_count.c \
 				expansion_utils.c \
 				replace_var_env.c \

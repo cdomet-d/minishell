@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 19:21:38 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:48:37 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,31 @@ int	letters(char *data, t_env **env)
 		}
 	}
 	return (letter);
+}
+
+char	**ft_replace(char **data, t_env **env, int rv)
+{
+	int		word;
+	int		letter;
+	char	**newtab;
+
+	word = 0;
+	newtab = NULL;
+	while (data[word])
+		word++;
+	newtab = ft_calloc(sizeof(char *), word + 1);
+	if (!newtab)
+		return (NULL);
+	word = 0;
+	while (data[word])
+	{
+		letter = letters(data[word], env);
+		newtab[word] = ft_calloc(sizeof(char), letter + 1);
+		if (!newtab[word])
+			return (free_dtab(newtab), NULL);
+		ft_copy(data[word], newtab[word], env, rv);
+		word++;
+	}
+	newtab[word] = NULL;
+	return (newtab);
 }

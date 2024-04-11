@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 19:20:26 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:51:58 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	**nb_letter(char **data, char **newtab);
 int		letters(char *data, t_env **env);
 void	ft_copy(char *data, char *newtab, t_env **env, int rv);
 void	fill_word(char *new, char *old, int i);
+char	**ft_replace(char **data, t_env **env, int rv);
 
 /* expand utils */
 int		check_for_dollar(t_input *node);
