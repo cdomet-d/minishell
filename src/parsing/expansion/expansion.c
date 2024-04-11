@@ -24,8 +24,8 @@ char	**expand(char **data, t_env **env)
 	temp = nb_word(data, env, &word);
 	if (!temp)
 		return (NULL);
-	else if (word == 0)
-		return (free_dtab(temp), NULL);
+	// else if (word == 0)
+	// 	return (free_dtab(temp), NULL);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
 		return (NULL);

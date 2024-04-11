@@ -29,8 +29,8 @@ char	**ft_replace(char **data, t_env **env)
 	while (data[word])
 	{
 		letter = letters(data[word], env);
-		if (letter == 0 && !data[word + 1])
-			return (free(newtab), NULL);
+		// if (letter == 0 && !data[word + 1])
+		// 	return (free(newtab), NULL);
 		// printf("letter : %d\n", letter);
 		// if (letter > 0)
 		// {
@@ -78,6 +78,9 @@ char	**nb_word(char **data, t_env **env, int *word)
 	newtab = ft_replace(data, env);
 	if (!newtab)// || !newtab[0])
 		return (/*free_dtab(newtab), */NULL);
+	while (newtab[i])
+		printf("newtab : %s\n", newtab[i++]);
+	i = 0;
 	while (newtab[i])
 	{
 		nb_word_str(newtab[i], word);
