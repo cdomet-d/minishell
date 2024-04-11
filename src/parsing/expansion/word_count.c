@@ -42,16 +42,14 @@ char	**ft_replace(char **data, t_env **env)
 void	nb_word_str(char *newtab, int *word)
 {
 	int		j;
-	char	quotetype;
 
 	j = 0;
-	quotetype = 0;
 	while (newtab[j])
 	{
-		if (newtab[j] == '\'' || newtab[j] == '"')
+		if (newtab[j] == '"')
 		{
-			quotetype = newtab[j++];
-			while (newtab[j] && newtab[j] != quotetype)
+			j++;
+			while (newtab[j] && newtab[j] != '"')
 				j++;
 		}
 		if ((newtab[j] != ' ' && (newtab[j] < '\t' || newtab[j] > '\r'))

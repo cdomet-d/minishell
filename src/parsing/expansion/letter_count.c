@@ -19,6 +19,8 @@ void	fill_word(char *new, char *old, int i)
 	j = 0;
 	while (old[j] && i > 0)
 	{
+		if (old[j] < 0)
+			old[j] *= -1;
 		new[j] = old[j];
 		j++;
 		i--;
@@ -27,19 +29,16 @@ void	fill_word(char *new, char *old, int i)
 
 int	nb_letter_str(char *data, int *j, int letter)
 {
-	char	quotetype;
-
 	while (data[*j] && (data[*j] == ' '
 			|| (data[*j] >= '\t' && data[*j] <= '\r')))
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
-		if (data[*j] && (data[*j] == '\'' || data[*j] == '"'))
+		if (data[*j] && data[*j] == '"')
 		{
-			quotetype = data[*j];
 			*j += 1;
 			letter += 1;
-			while (data[*j] && data[*j] != quotetype)
+			while (data[*j] && data[*j] != '"')
 			{
 				letter += 1;
 				*j += 1;
