@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_handling.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:39:05 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/07 22:54:08 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/09 18:09:31 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	close_pfd(t_fd *fd)
 {
 	if (fd->pfd[R] != 0)
 		if (close(fd->pfd[R]) == -1)
-			print_error(0, "failed to close fd->pfd[R]");
+			print_error(0, "close_pfd (fd->pfd[R])");
 	if (fd->pfd[W] != 0)
 		if (close(fd->pfd[W]) == -1)
-			print_error(0, "failed to close fd->pfd[W]");
+			print_error(0, "close_pfd (fd->pfd[W])");
 	init_fds(fd);
 }
 
@@ -36,6 +36,6 @@ void	close_tmpin(t_input *in, t_fd *fd)
 {
 	if (count_pipes(in) > 0)
 		if (close(fd->tmpin) == -1)
-			print_error(0, "failed to close tmpin");
+			print_error(0, "close_tmpin (tmpin)");
 	init_fds(fd);
 }
