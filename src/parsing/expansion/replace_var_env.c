@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 18:46:51 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:21:38 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,6 @@ void	count_in_env(char *str, int *letter)
 	}
 }
 
-void	put_in_neg(char *data)
-{
-	int	i;
-
-	i = 0;
-	while (data[i])
-	{
-		if (data[i] == '"')
-		{
-			i++;
-			while (data[i] && data[i] != '"')
-				i++;
-		}
-		if (data[i] == '\'')
-		{
-			data[i++] *= -1;
-			while (data[i] && data[i] != '\'')
-				data[i++] *= -1;
-			data[i++] *= -1;
-		}
-		else if (data[i])
-			i++;
-	}
-}
-
 int	letters(char *data, t_env **env)
 {
 	int	letter;
@@ -110,7 +85,6 @@ int	letters(char *data, t_env **env)
 
 	letter = 0;
 	j = 0;
-	put_in_neg(data);
 	while (data[j])
 	{
 		if (data[j] == '$' && !ft_isdigit(data[j + 1]))
