@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	search_for_expand(t_input **input, t_env **env)
+int	search_for_expand(t_input **input, t_env **env, int rv)
 {
 	t_input	*node;
 	char	**newtab;
@@ -26,7 +26,7 @@ int	search_for_expand(t_input **input, t_env **env)
 		{
 			if (check_for_dollar(node))
 			{
-				newtab = expand(node->data, env);
+				newtab = expand(node->data, env, rv);
 				if (!newtab || !newtab[0])
 				{
 					free_dtab(newtab);
@@ -44,11 +44,11 @@ int	search_for_expand(t_input **input, t_env **env)
 	return (0);
 }
 
-void	parsing(t_input **input, t_env **env, char *line)
+void	parsing(t_input **input, t_env **env, char *line, int rv)
 {
 	if (tokenization(input, env, line))
 		return ;
-	if (search_for_expand(input, env))
+	if (search_for_expand(input, env, rv))
 		return ;
 	//remove_quote()
 	//find_builtin()

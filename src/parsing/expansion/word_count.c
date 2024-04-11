@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-char	**ft_replace(char **data, t_env **env)
+char	**ft_replace(char **data, t_env **env, int rv)
 {
 	int		word;
 	int		letter;
@@ -32,7 +32,7 @@ char	**ft_replace(char **data, t_env **env)
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
 			return (free_dtab(newtab), NULL);
-		ft_copy(data[word], newtab[word], env);
+		ft_copy(data[word], newtab[word], env, rv);
 		word++;
 	}
 	newtab[word] = NULL;
@@ -61,13 +61,13 @@ void	nb_word_str(char *newtab, int *word)
 	}
 }
 
-char	**nb_word(char **data, t_env **env, int *word)
+char	**nb_word(char **data, t_env **env, int *word, int rv)
 {
 	char	**newtab;
 	int		i;
 
 	i = 0;
-	newtab = ft_replace(data, env);
+	newtab = ft_replace(data, env, rv);
 	if (!newtab)
 		return (NULL);
 	while (newtab[i])

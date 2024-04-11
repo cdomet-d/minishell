@@ -25,7 +25,7 @@ void	process_line(char *line, t_input *input, t_env *env)
 	if (ft_strncmp(line, "exit", 5) == 0)
 		mh_exit(line, input, env);
 	add_history(line);
-	parsing(&input, &env, line);
+	parsing(&input, &env, line, 0);
 	print_in_for(input);
 	if (input)
 		exec_cmd(input);

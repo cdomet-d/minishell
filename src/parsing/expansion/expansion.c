@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-char	**expand(char **data, t_env **env)
+char	**expand(char **data, t_env **env, int rv)
 {
 	char	**newtab;
 	char	**temp;
@@ -21,7 +21,7 @@ char	**expand(char **data, t_env **env)
 	newtab = NULL;
 	temp = NULL;
 	word = 0;
-	temp = nb_word(data, env, &word);
+	temp = nb_word(data, env, &word, rv);
 	if (!temp)
 		return (NULL);
 	newtab = ft_calloc(sizeof(char *), word + 1);

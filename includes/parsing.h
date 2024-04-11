@@ -19,7 +19,7 @@
 
 /*----------------------------- PARSING -----------------------------*/
 
-void	parsing(t_input **input, t_env **env, char *line);
+void	parsing(t_input **input, t_env **env, char *line, int rv);
 void	init_all(char **str, char **envp, t_env **env, t_input **input);
 void	process_line(char *line, t_input *input, t_env *env);
 int		cmd_path(t_input **input, t_env **env);
@@ -41,11 +41,11 @@ int		check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-char	**expand(char **data, t_env **env);
-char	**nb_word(char **data, t_env **env, int *word);
+char	**expand(char **data, t_env **env, int rv);
+char	**nb_word(char **data, t_env **env, int *word, int rv);
 char	**nb_letter(char **data, char **newtab);
 int		letters(char *data, t_env **env);
-void	ft_copy(char *data, char *newtab, t_env **env);
+void	ft_copy(char *data, char *newtab, t_env **env, int rv);
 void	fill_word(char *new, char *old, int i);
 
 /* expand utils */
