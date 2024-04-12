@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/10 16:31:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/12 17:42:44 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	print_in_for(t_input *input)
 		display_dtab(input->data);
 		print_enum(input->tok);
 		input = input->next;
-		fprintf(stderr, "\033[38;5;206m\033[1m#------------------------------#\n\n\033[0m");
+		fprintf(stderr, "\033[38;5;206m\033[1m\n#------------------------------#\n\n\033[0m");
 	}
 	fprintf(stderr, "\033[0;35m\033[1m#================================#\n\n\033[0m");
 	input = head;
