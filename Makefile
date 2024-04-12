@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
+#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/11 20:04:08 by csweetin         ###   ########.fr        #
+#    Updated: 2024/04/12 13:25:17 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRC +=  $(addprefix $(DIR_EXEC), $(SRC_EXEC))
 DIR_EXEC:= exec/
 SRC_EXEC:=		exec.c \
 				redirections.c \
+				heredoc.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(UTILS_SUBDIR), $(SRC_SUBUTILS))
 UTILS_SUBDIR:=utils/

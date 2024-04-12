@@ -1,7 +1,9 @@
 #!/bin/bash
 
 make fclean
-norminette
+norminette includes
+norminette src/exec
+norminette src/builtins
 if [ -f "out" ]; then
 	rm out
 fi

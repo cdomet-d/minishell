@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/10 16:30:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/12 18:10:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ static void	*ft_execve(t_input *in, t_fd fd)
 	char	**arenv;
 	t_input	*tmp;
 
+	fprintf(stderr, "%.20s\n", "-- execve ---------------------------------");
 	arenv = NULL;
 	tmp = in;
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
 		(print_error(errno, "Failed to allocate arenv in execve"));
 	tmp = find_tok(tmp, command, false);
+	printf("%.20s\n", tmp->data[0]);
 	if (tmp->data[0] && access(tmp->data[0], R_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	print_error(errno, tmp->data[0]);
@@ -41,6 +43,9 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
 			return (NULL);
+	if (op_true(tmp, heredoc))
+		if (!h_redir(fd, tmp))
+			return (NULL);
 	if (op_true(tmp, outredir))
 		if (!out_redir(fd, tmp))
 			return (NULL);
@@ -48,27 +53,33 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 		if (!app_redir(fd, tmp))
 			return (NULL);
 	if (op_true(tmp, command))
-		ft_execve(in, *fd);
+		ft_execve(tmp, *fd);
 	exe_failure(fd, in, NULL);
 	return ((int *)false);
 }
 
 static void	*create_child(t_fd *fd)
 {
-	// fprintf(stderr, "%.20s\n", "-- create_child ------------------");
+	fprintf(stderr, "%.20s\n", "-- create_child ------------------");
 	if (fd->pnb != 0)
 	{
-		// fprintf(stderr, "%.20s\n", "-- pipe ------------------");
+		fprintf(stderr, "%.20s\n", "-- pipe ------------------");
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "create_child (piping)"));
 	}
 	fd->pid = fork();
 	{
-		// fprintf(stderr, "%.20s\n", "-- fork ------------------");
+		fprintf(stderr, "%.20s\n", "-- fork ------------------");
 		if (fd->pid == -1)
 			return (print_error(errno, "create_child (forking)"));
 	}
 	return ("OK");
+}
+
+static void	wait_for_children(void)
+{
+	while (wait(0) != -1 && errno != ECHILD)
+		;
 }
 
 void	*exec_cmd(t_input *in)
@@ -79,7 +90,7 @@ void	*exec_cmd(t_input *in)
 	init_fds(&fd);
 	tmp = in;
 	fd.pnb = count_pipes(tmp);
-	// pmin(tmp);
+	pmin(tmp);
 	while (tmp)
 	{
 		if (fd.pid != 0)
@@ -96,7 +107,7 @@ void	*exec_cmd(t_input *in)
 				return (print_error(errno, "exec_cmd (dup pfd[R]) to tmpin"));
 		close_pfd(&fd);
 	}
-	while (wait(0) != -1 && errno != ECHILD)
-		;
+	wait_for_children();
+	close_tmpin(in, &fd);
 	return ((int *)true);
 }

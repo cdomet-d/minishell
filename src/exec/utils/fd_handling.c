@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:39:05 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/09 18:09:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/12 13:18:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	init_fds(t_fd *fd)
 {
 	fd->pfd[R] = 0;
 	fd->pfd[W] = 0;
+	fd->hfd = 0;
 	fd->ffd = 0;
+	fd ->tmpin = 0;
 	fd->pid = -1;
-	fd ->tmpin = 1000;
 }
 
 void	close_pfd(t_fd *fd)

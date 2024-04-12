@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/09 18:09:24 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/12 18:03:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_redir
 typedef struct s_fd
 {
 	int		pfd[2];
+	int		hfd;
 	int		ffd;
 	int		pid;
 	int		tmpin;
@@ -75,6 +76,8 @@ void	*pip_redir(t_input *tmp, t_fd *fd);
 void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
 void	*app_redir(t_fd *fd, t_input *in);
+void	*h_redir(t_fd *fd, t_input *in);
+void	*create_hfile(t_fd *fd, t_input *in);
 
 /*--------------------------------- BUILTINS ---------------------------------*/
 
