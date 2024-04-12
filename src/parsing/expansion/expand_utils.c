@@ -12,27 +12,6 @@
 
 #include "parsing.h"
 
-int	in_quotes(t_input *node, int i, int *j)
-{
-	if (node->data[i][*j] == '\'')
-	{
-		*j += 1;
-		while (node->data[i][*j] && node->data[i][*j] != '\'')
-			*j += 1;
-	}
-	if (node->data[i][*j] == '"')
-	{
-		*j += 1;
-		while (node->data[i][*j] && node->data[i][*j] != '"')
-		{
-			if (node->data[i][*j] == '$')
-				return (1);
-			*j += 1;
-		}
-	}
-	return (0);
-}
-
 int	check_for_dollar(t_input *node)
 {
 	int	i;
@@ -46,11 +25,14 @@ int	check_for_dollar(t_input *node)
 		j = 0;
 		while (node->data[i][j])
 		{
-			if (in_quotes(node, i, &j))
-				return (1);
 			if (node->data[i][j] == '$')
 				return (1);
-			if (node->data[i][j])
+			if (node->data[i][j] < 0)
+			{
+				while (node->data[i][j] < 0)
+					j++;
+			}
+			else if (node->data[i][j])
 				j++;
 		}
 		i++;

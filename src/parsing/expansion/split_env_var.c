@@ -69,12 +69,6 @@ char	**nb_word(char **data, t_env **env, int *word, int rv)
 	int		i;
 
 	i = 0;
-	while (data[i])
-	{
-		put_in_neg(data[i]);
-		i++;
-	}
-	i = 0;
 	newtab = ft_replace(data, env, rv);
 	if (!newtab)
 		return (NULL);
