@@ -93,7 +93,7 @@ void	in_dollar(char *data, t_env **env, int *letter, int *j)
 	}
 }
 
-int	letters(char *data, t_env **env)
+int	nb_letter(char *data, t_env **env)
 {
 	int	letter;
 	int	j;
@@ -121,7 +121,7 @@ int	letters(char *data, t_env **env)
 	return (letter);
 }
 
-char	**ft_replace(char **data, t_env **env, int rv)
+char	**expand(char **data, t_env **env, int rv)
 {
 	int		word;
 	int		letter;
@@ -137,7 +137,7 @@ char	**ft_replace(char **data, t_env **env, int rv)
 	word = 0;
 	while (data[word])
 	{
-		letter = letters(data[word], env);
+		letter = nb_letter(data[word], env);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
 			return (free_dtab(newtab), NULL);

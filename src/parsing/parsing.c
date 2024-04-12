@@ -52,7 +52,7 @@ int	search_for_expand(t_input **input, t_env **env, int rv)
 			}
 			if (check_for_dollar(node))
 			{
-				newtab = expand(node->data, env, rv);
+				newtab = expand_split(node->data, env, rv);
 				if (!newtab || !newtab[0])
 				{
 					free_dtab(newtab);

@@ -42,10 +42,10 @@ SRC_TOKE:=		tokenization.c \
 
 SRC += $(addprefix $(DIR_EXPAND), $(SRC_EXPAND))
 DIR_EXPAND:= parsing/expansion/
-SRC_EXPAND:=	split_env_var.c \
-				split_env_var_utils.c \
-				expand_utils.c \
+SRC_EXPAND:=	expand_split.c \
+				expand_split_utils.c \
 				expand.c \
+				expand_utils.c \
 
 SRC +=  $(addprefix $(DIR_PARSE), $(SRC_PARSE))
 DIR_PARSE:= parsing/

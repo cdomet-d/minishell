@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-char	**nb_letter(char **data, char **newtab)
+char	**split_tab(char **data, char **newtab)
 {
 	int	i;
 	int	j;
@@ -69,7 +69,7 @@ char	**nb_word(char **data, t_env **env, int *word, int rv)
 	int		i;
 
 	i = 0;
-	newtab = ft_replace(data, env, rv);
+	newtab = expand(data, env, rv);
 	if (!newtab)
 		return (NULL);
 	while (newtab[i])
@@ -80,7 +80,7 @@ char	**nb_word(char **data, t_env **env, int *word, int rv)
 	return (newtab);
 }
 
-char	**expand(char **data, t_env **env, int rv)
+char	**expand_split(char **data, t_env **env, int rv)
 {
 	char	**newtab;
 	char	**temp;
@@ -92,10 +92,11 @@ char	**expand(char **data, t_env **env, int rv)
 	temp = nb_word(data, env, &word, rv);
 	if (!temp)
 		return (NULL);
+	//rajouter fonction pour verif sil y a besoin de split ??
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
 		return (NULL);
-	newtab = nb_letter(temp, newtab);
+	newtab = split_tab(temp, newtab);
 	if (!newtab)
 		return (NULL);
 	free_dtab(temp);

@@ -41,13 +41,13 @@ int		check_opt(t_input **input, char *line, int *i);
 
 /*----------------------------- EXPANSION -----------------------------*/
 
-char	**expand(char **data, t_env **env, int rv);
+char	**expand_split(char **data, t_env **env, int rv);
 char	**nb_word(char **data, t_env **env, int *word, int rv);
 int		nb_letter_str(char *data, int *j, int letter);
-int		letters(char *data, t_env **env);
+int		nb_letter(char *data, t_env **env);
 void	ft_copy(char *data, char *newtab, t_env **env, int rv);
 void	fill_word(char *new, char *old, int i);
-char	**ft_replace(char **data, t_env **env, int rv);
+char	**expand(char **data, t_env **env, int rv);
 
 /* expand utils */
 int		check_for_dollar(t_input *node);
