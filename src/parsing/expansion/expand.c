@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   replace_var_env.c                                  :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 19:55:50 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/12 21:22:52 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	j = 0;
 	while (data[i])
 	{
-		if (data[i] == '$' && !ft_isdigit(data[i + 1]))
+		if (data[i] == '$' && (ft_isalnum(data[i + 1]) || data[i + 1] == '_'))
 		{
 			i++;
-			if (data[i] == '?')
+			if (data[i] && data[i] == '?')
 			{
 				newtab[j++] = 48 + rv;
 				i++;
 			}
+			else if (data[i] && ft_isdigit(data[i]))
+				i++;
 			else if (data[i])
 			{
 				ft_copy_env(data + i, newtab, env, &j);
@@ -64,7 +66,7 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	}
 }
 
-void	in_dollar(char *data, t_env **env, int *letter, int *j)
+void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 {
 	char	*str;
 	int		i;
@@ -77,6 +79,8 @@ void	in_dollar(char *data, t_env **env, int *letter, int *j)
 		*j += 1;
 		*letter += 1;
 	}
+	else if (data[*j] && ft_isdigit(data[*j]))
+		*j += 1;
 	else if (data[*j])
 	{
 		str = search_env(data + *j, env);
@@ -102,8 +106,8 @@ int	nb_letter(char *data, t_env **env)
 	j = 0;
 	while (data[j])
 	{
-		if (data[j] == '$' && !ft_isdigit(data[j + 1]))
-			in_dollar(data, env, &letter, &j);
+		if (data[j] == '$' && (ft_isalnum(data[j + 1]) || data[j + 1] == '_'))
+			nb_letter_env(data, env, &letter, &j);
 		else if (data[j] < 0)
 		{
 			while (data[j] && data[j] < 0)
