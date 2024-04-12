@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/10 17:51:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:41:33 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,51 @@ void	revert(t_input *node)
 	}
 }
 
-int	search_for_expand(t_input **input, t_env **env, int rv)
+int	search_for_expand(t_input *node, t_env **env, int rv)
 {
-	t_input	*node;
 	char	**newtab;
 	int		i;
 
 	newtab = NULL;
-	node = NULL;
-	node = *input;
-	while (node)
+	i = 0;
+	if (!node->data)
+		return (0);
+	while (node->data[i])
 	{
-		i = 0;
-		if (node->tok != heredoc)
-		{
-			while (node->data[i])
-			{
-				put_in_neg(node->data[i]);
-				i++;
-			}
-			if (check_for_dollar(node))
-			{
-				newtab = expand_split(node->data, env, rv);
-				if (!newtab || !newtab[0])
-				{
-					free_dtab(newtab);
-					input_freelst(input);
-					return (1);
-				}
-				free_dtab(node->data);
-				node->data = newtab;
-			}
-			else
-				revert(node);
-		}
-		// else
-			// check if delimiter is in quotes (single or double) or not
-		node = node->next;
+		put_in_neg(node->data[i]);
+		i++;
 	}
+	if (check_for_dollar(node))
+	{
+		newtab = expand_split(node->data, env, rv);
+		if (!newtab || !newtab[0])
+			return (free_dtab(newtab), 1);
+		free_dtab(node->data);
+		node->data = newtab;
+	}
+	else
+		revert(node);
 	return (0);
 }
 
 void	parsing(t_input **input, t_env **env, char *line, int rv)
 {
+	t_input	*node;
+
 	if (tokenization(input, env, line))
 		return ;
-	if (search_for_expand(input, env, rv))
-		return ;
+	node = *input;
+	while (node)
+	{
+		if (node->tok != heredoc)
+		{
+			if (search_for_expand(node, env, rv))
+				return (input_freelst(input));
+		}
+		// else
+		// check if delimiter is in quotes (single or double) or not
+		node = node->next;
+	}
 	//remove_quote()
 	//find_builtin()
 	cmd_path(input, env);

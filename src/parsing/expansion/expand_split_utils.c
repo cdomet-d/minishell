@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_env_var_utils.c                              :+:      :+:    :+:   */
+/*   expand_split_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 20:08:53 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:02:25 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,32 @@ void	put_in_neg(char *data)
 		else if (data[i])
 			i++;
 	}
+}
+
+int	check_ws(char **tab)
+{
+	char	quotetype;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j])
+		{
+			if (tab[i][j] == '"' || tab[i][j] == '\'')
+			{
+				quotetype = tab[i][j++];
+				while (tab[i][j] && tab[i][j] != quotetype)
+					j++;
+			}
+			if (tab[i][j] == ' ' || (tab[i][j] >= '\t' && tab[i][j] <= '\r'))
+				return (1);
+			if (tab[i][j])
+				j++;
+		}
+		i++;
+	}
+	return (0);
 }

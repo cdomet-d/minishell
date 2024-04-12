@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_env_var.c                                    :+:      :+:    :+:   */
+/*   expand_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 20:08:39 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:22:20 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,44 +40,33 @@ char	**split_tab(char **data, char **newtab)
 	return (newtab);
 }
 
-void	nb_word_str(char *newtab, int *word)
+void	nb_word(char **tab, int *word)
 {
+	int		i;
 	int		j;
 	char	quotetype;
 
-	j = 0;
-	while (newtab[j])
+	i = 0;
+	while (tab[i])
 	{
-		if (newtab[j] == '"' || newtab[j] == '\'')
+		j = 0;
+		while (tab[i][j])
 		{
-			quotetype = newtab[j++];
-			while (newtab[j] && newtab[j] != quotetype)
+			if (tab[i][j] == '"' || tab[i][j] == '\'')
+			{
+				quotetype = tab[i][j++];
+				while (tab[i][j] && tab[i][j] != quotetype)
+					j++;
+			}
+			if ((tab[i][j] != ' ' && (tab[i][j] < '\t' || tab[i][j] > '\r'))
+				&& (tab[i][j + 1] == ' ' || (tab[i][j + 1] >= '\t'
+						&& tab[i][j + 1] <= '\r') || tab[i][j + 1] == '\0'))
+				*word += 1;
+			if (tab[i][j])
 				j++;
 		}
-		if ((newtab[j] != ' ' && (newtab[j] < '\t' || newtab[j] > '\r'))
-			&& (newtab[j + 1] == ' ' || (newtab[j + 1] >= '\t'
-					&& newtab[j + 1] <= '\r') || newtab[j + 1] == '\0'))
-			*word += 1;
-		if (newtab[j])
-			j++;
-	}
-}
-
-char	**nb_word(char **data, t_env **env, int *word, int rv)
-{
-	char	**newtab;
-	int		i;
-
-	i = 0;
-	newtab = expand(data, env, rv);
-	if (!newtab)
-		return (NULL);
-	while (newtab[i])
-	{
-		nb_word_str(newtab[i], word);
 		i++;
 	}
-	return (newtab);
 }
 
 char	**expand_split(char **data, t_env **env, int rv)
@@ -89,10 +78,12 @@ char	**expand_split(char **data, t_env **env, int rv)
 	newtab = NULL;
 	temp = NULL;
 	word = 0;
-	temp = nb_word(data, env, &word, rv);
+	temp = expand(data, env, rv);
 	if (!temp)
 		return (NULL);
-	//rajouter fonction pour verif sil y a besoin de split ??
+	// if (!check_ws(temp))
+	// 	return (temp); SI UN WORD EST VIDE IL FAUT SPLIT !!!!
+	nb_word(temp, &word);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
 		return (NULL);
