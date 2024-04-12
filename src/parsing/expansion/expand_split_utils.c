@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/12 18:02:25 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:10:12 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	check_ws(char **tab)
 	while (tab[i])
 	{
 		j = 0;
+		if (!tab[i][j])
+			return (1);
 		while (tab[i][j])
 		{
 			if (tab[i][j] == '"' || tab[i][j] == '\'')
