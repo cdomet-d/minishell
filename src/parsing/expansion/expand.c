@@ -64,17 +64,32 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	}
 }
 
-void	count_in_env(char *str, int *letter)
+void	in_dollar(char *data, t_env **env, int *letter, int *j)
 {
-	int	i;
+	char	*str;
+	int		i;
 
 	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
+	str = NULL;
+	*j += 1;
+	if (data[*j] && data[*j] == '?')
 	{
+		*j += 1;
 		*letter += 1;
-		i++;
+	}
+	else if (data[*j])
+	{
+		str = search_env(data + *j, env);
+		if (str)
+		{
+			while (str[i])
+			{
+				*letter += 1;
+				i++;
+			}
+		}
+		while (data[*j] && (ft_isalnum(data[*j]) || data[*j] == '_'))
+			*j += 1;
 	}
 }
 
@@ -88,20 +103,7 @@ int	letters(char *data, t_env **env)
 	while (data[j])
 	{
 		if (data[j] == '$' && !ft_isdigit(data[j + 1]))
-		{
-			j++;
-			if (data[j] && data[j] == '?')
-			{
-				j++;
-				letter++;
-			}
-			else if (data[j])
-			{
-				count_in_env(search_env(data + j, env), &letter);
-				while (data[j] && (ft_isalnum(data[j]) || data[j] == '_'))
-					j++;
-			}
-		}
+			in_dollar(data, env, &letter, &j);
 		else if (data[j] < 0)
 		{
 			while (data[j] && data[j] < 0)
