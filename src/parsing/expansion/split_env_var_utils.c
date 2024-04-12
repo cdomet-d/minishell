@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   letter_count.c                                     :+:      :+:    :+:   */
+/*   split_env_var_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 16:40:15 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:08:53 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	nb_letter_str(char *data, int *j, int letter)
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
-		if (data[*j] && (data[*j] == '\'' || data[*j] == '"'))
+		if (data[*j] == '"' || data[*j] == '\'')
 		{
 			quotetype = data[*j];
 			*j += 1;
@@ -54,30 +54,27 @@ int	nb_letter_str(char *data, int *j, int letter)
 	return (letter);
 }
 
-char	**nb_letter(char **data, char **newtab)
+void	put_in_neg(char *data)
 {
 	int	i;
-	int	j;
-	int	word;
-	int	letter;
 
 	i = 0;
-	word = 0;
 	while (data[i])
 	{
-		j = 0;
-		while (data[i][j])
+		if (data[i] == '"')
 		{
-			letter = nb_letter_str(data[i], &j, 0);
-			newtab[word] = ft_calloc(sizeof(char), letter + 1);
-			if (!newtab[word])
-				return (free_dtab(newtab), NULL);
-			fill_word(newtab[word], data[i] + (j - letter), letter);
-			word += 1;
-			if (data[i][j])
-				j++;
+			i++;
+			while (data[i] && data[i] != '"')
+				i++;
 		}
-		i++;
+		if (data[i] == '\'')
+		{
+			data[i++] *= -1;
+			while (data[i] && data[i] != '\'')
+				data[i++] *= -1;
+			data[i++] *= -1;
+		}
+		else if (data[i])
+			i++;
 	}
-	return (newtab);
 }

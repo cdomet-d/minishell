@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:08:34 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/09 18:36:37 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:11:29 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	init_all(char **str, char **envp, t_env **env, t_input **input)
 
 void	process_line(char *line, t_input *input, t_env *env)
 {
-	if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
+	if (ft_strncmp(line, "exit", 5) == 0)
 		mh_exit(line, input, env);
 	add_history(line);
-	parsing(&input, &env, line);
+	parsing(&input, &env, line, 0);
+	print_in_for(input);
 	if (input)
 		exec_cmd(input);
-	// print_in_for(input);
 	input_freelst(&input);
 	free(line);
 }
