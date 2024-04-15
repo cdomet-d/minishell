@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/12 17:41:33 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:41:24 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int	search_expand(t_input *node, t_env **env, int rv)
 		free_dtab(node->data);
 		node->data = newtab;
 	}
-	else
-		revert(node);
+	revert(node);
 	return (0);
 }
 

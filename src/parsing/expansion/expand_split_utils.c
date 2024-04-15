@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/12 20:10:12 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:41:20 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	put_in_neg(char *data)
 
 int	check_ws(char **tab)
 {
-	char	quotetype;
 	int		i;
 	int		j;
 
@@ -51,10 +50,9 @@ int	check_ws(char **tab)
 			return (1);
 		while (tab[i][j])
 		{
-			if (tab[i][j] == '"' || tab[i][j] == '\'')
+			if (tab[i][j] == '"')
 			{
-				quotetype = tab[i][j++];
-				while (tab[i][j] && tab[i][j] != quotetype)
+				while (tab[i][j] && tab[i][j] != '"')
 					j++;
 			}
 			if (tab[i][j] == ' ' || (tab[i][j] >= '\t' && tab[i][j] <= '\r'))

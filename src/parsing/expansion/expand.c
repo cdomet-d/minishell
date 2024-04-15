@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:23:34 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:43:09 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 	return (i);
 }
 
-void	ft_copy_rv(char *newtab, int *j, int *i, int rv)
-{
-	newtab[*j] = 48 + rv;
-	*i += 1;
-	*j += 1;
-}
-
 void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 {
 	int	i;
@@ -55,16 +48,14 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 		{
 			i++;
 			if (data[i] && data[i] == '?')
-				ft_copy_rv(newtab, &j, &i, rv);
+			{
+				newtab[j++] = 48 + rv;
+				i++;
+			}
 			else if (data[i] && ft_isdigit(data[i]))
 				i++;
 			else if (data[i])
 				i += ft_copy_env(data + i, newtab, env, &j);
-		}
-		else if (data[i] < 0)
-		{
-			while (data[i] && data[i] < 0)
-				newtab[j++] = data[i++] * -1;
 		}
 		else if (data[i])
 			newtab[j++] = data[i++];
