@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/12 18:10:44 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/15 18:35:00 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static void	*ft_execve(t_input *in, t_fd fd)
 	char	**arenv;
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- execve ---------------------------------");
+	fprintf(stderr, "\033[0;32m%.20s\033[0m\n", "-- execve ---------------------------------");
 	arenv = NULL;
 	tmp = in;
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
 		(print_error(errno, "Failed to allocate arenv in execve"));
 	tmp = find_tok(tmp, command, false);
-	printf("%.20s\n", tmp->data[0]);
+	fprintf(stderr, "%.20s\n", tmp->data[0]);
 	if (tmp->data[0] && access(tmp->data[0], R_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	print_error(errno, tmp->data[0]);
@@ -43,9 +43,9 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
 			return (NULL);
-	if (op_true(tmp, heredoc))
-		if (!h_redir(fd, tmp))
-			return (NULL);
+	// if (op_true(tmp, heredoc))
+		// if (!h_redir(fd, tmp))
+		// 	return (NULL);
 	if (op_true(tmp, outredir))
 		if (!out_redir(fd, tmp))
 			return (NULL);
@@ -78,6 +78,7 @@ static void	*create_child(t_fd *fd)
 
 static void	wait_for_children(void)
 {
+	fprintf(stderr, "%.20s\n", "-- wait_for_children ------------------");
 	while (wait(0) != -1 && errno != ECHILD)
 		;
 }
@@ -100,14 +101,18 @@ void	*exec_cmd(t_input *in)
 			if (!redir_exec(tmp, &fd))
 				return (print_error(errno, "exec_cmd (redir_exec)"));
 		if (fd.pnb != 0)
+		{
 			fd.pnb--;
+			if (fd.tmpin != -1)
+				if (close(fd.tmpin) == -1)
+					return (print_error(errno, "exec_cmd (closing tmpin)"));
+			if (close(fd.pfd[W]) == -1)
+				return (print_error(errno, "exec_cmd (closing tmpin)"));
+			fd.tmpin = fd.pfd[R];
+		}
 		tmp = find_next_pipe(tmp, &fd);
-		if (fd.pnb != 0)
-			if (dup2(fd.pfd[R], fd.tmpin) == -1)
-				return (print_error(errno, "exec_cmd (dup pfd[R]) to tmpin"));
-		close_pfd(&fd);
 	}
-	wait_for_children();
 	close_tmpin(in, &fd);
+	wait_for_children();
 	return ((int *)true);
 }

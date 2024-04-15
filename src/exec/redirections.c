@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/12 18:08:25 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/15 17:12:34 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,17 +105,17 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 	return ((int *)true);
 }
 
-void	*h_redir(t_fd *fd, t_input *in)
-{
-	fprintf(stderr, "%.20s\n", "-- h_redir -----------------------------------");
-	create_hfile(fd, in);
-	if (dup2(fd->hfd, STDIN_FILENO) == -1)
-	{
-		if (close (fd->hfd) == -1)
-			return (print_error(errno, "h_redir (closing hfd)"));
-		return (print_error(errno, "h_redir (duping hdf to in)"));
-	}
-	if (close (fd->hfd) == -1)
-		return (print_error(errno, "h_redir (closing hfd)"));
-	return ((int *) true);
-}
+// void	*h_redir(t_fd *fd, t_input *in)
+// {
+// 	fprintf(stderr, "%.20s\n", "-- h_redir -----------------------------------");
+// 	create_hfile(fd, in);
+// 	if (dup2(fd->hfd, STDIN_FILENO) == -1)
+// 	{
+// 		if (close (fd->hfd) == -1)
+// 			return (print_error(errno, "h_redir (closing hfd)"));
+// 		return (print_error(errno, "h_redir (duping hdf to in)"));
+// 	}
+// 	if (close (fd->hfd) == -1)
+// 		return (print_error(errno, "h_redir (closing hfd)"));
+// 	return ((int *) true);
+// }

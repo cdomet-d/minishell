@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/12 18:03:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/15 17:11:43 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_fd
 void	*exec_cmd(t_input *in);
 
 	/* error_handling */
-void	exe_failure(t_fd *fd, t_input *in, char **arenv);
+void	*exe_failure(t_fd *fd, t_input *in, char **arenv);
 
 	/* fd_handling */
 void	close_pfd(t_fd *fd);
@@ -77,7 +77,7 @@ void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
 void	*app_redir(t_fd *fd, t_input *in);
 void	*h_redir(t_fd *fd, t_input *in);
-void	*create_hfile(t_fd *fd, t_input *in);
+void	*create_hdocs(t_fd *fd, t_input *in);
 
 /*--------------------------------- BUILTINS ---------------------------------*/
 
