@@ -72,8 +72,8 @@ void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 	char	*str;
 	int		i;
 
-	i = 0;
 	str = NULL;
+	i = 0;
 	*j += 1;
 	if (data[*j] && data[*j] == '?')
 	{
@@ -87,11 +87,8 @@ void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 		str = search_env(data + *j, env);
 		if (str)
 		{
-			while (str[i])
-			{
+			while (str[i++])
 				*letter += 1;
-				i++;
-			}
 		}
 		while (data[*j] && (ft_isalnum(data[*j]) || data[*j] == '_'))
 			*j += 1;
