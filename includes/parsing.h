@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/12 18:02:20 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:14:22 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,8 @@ int		check_opt(t_input **input, char *line, int *i);
 /*----------------------------- EXPANSION -----------------------------*/
 
 char	**expand_split(char **data, t_env **env, int rv);
-// int		nb_letter_str(char *data, int *j, int letter);
-// int		nb_letter(char *data, t_env **env);
-// void	ft_copy(char *data, char *newtab, t_env **env, int rv);
-void	fill_word(char *new, char *old, int i);
 char	**expand(char **data, t_env **env, int rv);
+void	fill_word(char *new, char *old, int i);
 
 /* expand utils */
 int		search_dollar(char **data);
