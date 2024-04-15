@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-void	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
+int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 {
 	int		i;
 	char	*str;
@@ -28,6 +28,17 @@ void	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 			i++;
 		}
 	}
+	i = 0;
+	while (data[i] && (ft_isalnum(data[i]) || data[i] == '_'))
+		i++;
+	return (i);
+}
+
+void	ft_copy_rv(char *newtab, int *j, int *i, int rv)
+{
+	newtab[*j] = 48 + rv;
+	*i += 1;
+	*j += 1;
 }
 
 void	ft_copy(char *data, char *newtab, t_env **env, int rv)
@@ -39,23 +50,16 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	j = 0;
 	while (data[i])
 	{
-		if (data[i] == '$' && (ft_isalnum(data[i + 1]) || data[i + 1] == '_'
-			|| data[i + 1] == '?'))
+		if (data[i] == '$' && data[i + 1] && (ft_isalnum(data[i + 1])
+			|| data[i + 1] == '_' || data[i + 1] == '?'))
 		{
 			i++;
 			if (data[i] && data[i] == '?')
-			{
-				newtab[j++] = 48 + rv;
-				i++;
-			}
+				ft_copy_rv(newtab, &j, &i, rv);
 			else if (data[i] && ft_isdigit(data[i]))
 				i++;
 			else if (data[i])
-			{
-				ft_copy_env(data + i, newtab, env, &j);
-				while (data[i] && (ft_isalnum(data[i]) || data[i] == '_'))
-					i++;
-			}
+				i += ft_copy_env(data + i, newtab, env, &j);
 		}
 		else if (data[i] < 0)
 		{
@@ -104,8 +108,8 @@ int	nb_letter(char *data, t_env **env)
 	j = 0;
 	while (data[j])
 	{
-		if (data[j] == '$' && (ft_isalnum(data[j + 1]) || data[j + 1] == '_'
-			|| data[j + 1] == '?'))
+		if (data[j] == '$' && data[j + 1] && (ft_isalnum(data[j + 1])
+			|| data[j + 1] == '_' || data[j + 1] == '?'))
 			nb_letter_env(data, env, &letter, &j);
 		else if (data[j] < 0)
 		{
