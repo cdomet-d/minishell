@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:50:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:14:38 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,16 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 		{
 			if (search_expand(node, env, rv))
 				return (input_freelst(input));
-			if (search_quotes(node))
-				return (input_freelst(input));
-			if (node->tok == command)
-				find_builtin(node);
-			if (node->tok == command)
-				if (cmd_path(node, env))
-					return (input_freelst(input));
 		}
-		// else
-		// check if delimiter is in quotes (single or double) or not
+		else if (node->data[0][0] != '"' && node->data[0][0] != '\'')
+			node->data[0][0] *= -1;
+		if (search_quotes(node))
+			return (input_freelst(input));
+		if (node->tok == command)
+			find_builtin(node);
+		if (node->tok == command)
+			if (cmd_path(node, env))
+				return (input_freelst(input));
 		node = node->next;
 	}
 }
