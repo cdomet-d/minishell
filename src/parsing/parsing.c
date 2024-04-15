@@ -31,7 +31,7 @@ void	revert(t_input *node)
 	}
 }
 
-int	search_for_expand(t_input *node, t_env **env, int rv)
+int	search_expand(t_input *node, t_env **env, int rv)
 {
 	char	**newtab;
 	int		i;
@@ -45,7 +45,7 @@ int	search_for_expand(t_input *node, t_env **env, int rv)
 		put_in_neg(node->data[i]);
 		i++;
 	}
-	if (check_for_dollar(node->data))
+	if (search_dollar(node->data))
 	{
 		newtab = expand_split(node->data, env, rv);
 		if (!newtab || !newtab[0])
@@ -88,24 +88,6 @@ int	search_quotes(t_input *node)
 	return (0);
 }
 
-void	find_builtin(t_input *node)
-{
-	if (!ft_strncmp(node->data[0], "echo", 5))
-		node->tok = ms_echo;
-	if (!ft_strncmp(node->data[0], "cd", 3))
-		node->tok = ms_cd;
-	if (!ft_strncmp(node->data[0], "pwd", 4))
-		node->tok = ms_pwd;
-	if (!ft_strncmp(node->data[0], "export", 7))
-		node->tok = ms_export;
-	if (!ft_strncmp(node->data[0], "unset", 6))
-		node->tok = ms_unset;
-	if (!ft_strncmp(node->data[0], "env", 4))
-		node->tok = ms_env;
-	if (!ft_strncmp(node->data[0], "exit", 5))
-		node->tok = ms_exit;
-}
-
 void	parsing(t_input **input, t_env **env, char *line, int rv)
 {
 	t_input	*node;
@@ -117,16 +99,18 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 	{
 		if (node->tok != heredoc)
 		{
-			if (search_for_expand(node, env, rv))
+			if (search_expand(node, env, rv))
 				return (input_freelst(input));
 			if (search_quotes(node))
 				return (input_freelst(input));
 			if (node->tok == command)
-				find_builtin(node);		
+				find_builtin(node);
+			if (node->tok == command)
+				if (cmd_path(node, env))
+					return (input_freelst(input));
 		}
 		// else
 		// check if delimiter is in quotes (single or double) or not
 		node = node->next;
 	}
-	cmd_path(input, env);
 }

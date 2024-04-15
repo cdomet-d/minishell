@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	check_for_dollar(char **data)
+int	search_dollar(char **data)
 {
 	int	i;
 	int	j;

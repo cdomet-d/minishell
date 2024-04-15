@@ -22,8 +22,9 @@
 void	parsing(t_input **input, t_env **env, char *line, int rv);
 void	init_all(char **str, char **envp, t_env **env, t_input **input);
 void	process_line(char *line, t_input *input, t_env *env);
-int		cmd_path(t_input **input, t_env **env);
+int		cmd_path(t_input *input, t_env **env);
 char	*rm_quotes(char *str);
+void	find_builtin(t_input *node);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
@@ -50,7 +51,7 @@ void	fill_word(char *new, char *old, int i);
 char	**expand(char **data, t_env **env, int rv);
 
 /* expand utils */
-int		check_for_dollar(char **data);
+int		search_dollar(char **data);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 void	put_in_neg(char *data);

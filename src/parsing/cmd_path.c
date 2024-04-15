@@ -68,7 +68,7 @@ int	path_slash(char *cmd)
 	return (0);
 }
 
-int	check_path(t_input *input, t_env **env)
+int	cmd_path(t_input *input, t_env **env)
 {
 	t_env	*node;
 	char	*path;
@@ -89,26 +89,6 @@ int	check_path(t_input *input, t_env **env)
 				free(input->data[0]);
 				input->data[0] = path;
 				return (0);
-			}
-		}
-		node = node->next;
-	}
-	return (0);
-}
-
-int	cmd_path(t_input **input, t_env **env)
-{
-	t_input		*node;
-
-	node = *input;
-	while (node)
-	{
-		if (node->tok == command)
-		{
-			if (check_path(node, env))
-			{
-				input_freelst(input);
-				return (1);
 			}
 		}
 		node = node->next;
