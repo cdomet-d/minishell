@@ -23,6 +23,7 @@ void	parsing(t_input **input, t_env **env, char *line, int rv);
 void	init_all(char **str, char **envp, t_env **env, t_input **input);
 void	process_line(char *line, t_input *input, t_env *env);
 int		cmd_path(t_input **input, t_env **env);
+int     rm_quotes(t_input **input);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
@@ -42,9 +43,9 @@ int		check_opt(t_input **input, char *line, int *i);
 /*----------------------------- EXPANSION -----------------------------*/
 
 char	**expand_split(char **data, t_env **env, int rv);
-int		nb_letter_str(char *data, int *j, int letter);
-int		nb_letter(char *data, t_env **env);
-void	ft_copy(char *data, char *newtab, t_env **env, int rv);
+// int		nb_letter_str(char *data, int *j, int letter);
+// int		nb_letter(char *data, t_env **env);
+// void	ft_copy(char *data, char *newtab, t_env **env, int rv);
 void	fill_word(char *new, char *old, int i);
 char	**expand(char **data, t_env **env, int rv);
 

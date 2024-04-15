@@ -76,7 +76,7 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 		// check if delimiter is in quotes (single or double) or not
 		node = node->next;
 	}
-	//remove_quote()
+	rm_quotes(input);
 	//find_builtin()
 	cmd_path(input, env);
 }

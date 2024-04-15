@@ -52,6 +52,7 @@ DIR_PARSE:= parsing/
 SRC_PARSE:=		create_lst.c \
 				parsing.c \
 				cmd_path.c \
+				rm_quotes.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ LISTS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_LST), $(SRC_LST))
