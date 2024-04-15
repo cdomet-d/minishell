@@ -58,6 +58,36 @@ int	search_for_expand(t_input *node, t_env **env, int rv)
 	return (0);
 }
 
+int	search_quotes(t_input *node)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	if (!node->data)
+		return (0);
+	while (node->data[i])
+	{
+		j = 0;
+		while (node->data[i][j])
+		{
+			if (node->data[i][j] == '"' || node->data[i][j] == '\'')
+			{
+				temp = rm_quotes(node->data[i]);
+				if (!temp)
+					return (1);
+				free(node->data[i]);
+				node->data[i] = temp;
+				break ;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	parsing(t_input **input, t_env **env, char *line, int rv)
 {
 	t_input	*node;
@@ -71,12 +101,13 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 		{
 			if (search_for_expand(node, env, rv))
 				return (input_freelst(input));
+			if (search_quotes(node))
+				return (input_freelst(input));
 		}
 		// else
 		// check if delimiter is in quotes (single or double) or not
 		node = node->next;
 	}
-	rm_quotes(input);
 	//find_builtin()
 	cmd_path(input, env);
 }

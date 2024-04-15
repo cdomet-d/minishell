@@ -23,7 +23,7 @@ void	parsing(t_input **input, t_env **env, char *line, int rv);
 void	init_all(char **str, char **envp, t_env **env, t_input **input);
 void	process_line(char *line, t_input *input, t_env *env);
 int		cmd_path(t_input **input, t_env **env);
-int     rm_quotes(t_input **input);
+char	*rm_quotes(char *str);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
