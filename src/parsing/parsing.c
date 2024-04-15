@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:41:24 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:50:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	search_quotes(t_input *node)
 	int		j;
 	char	*temp;
 
-	i = 0;
+	i = -1;
 	if (!node->data)
 		return (0);
-	while (node->data[i])
+	while (node->data[++i])
 	{
 		j = 0;
 		while (node->data[i][j])
@@ -82,7 +82,6 @@ int	search_quotes(t_input *node)
 			}
 			j++;
 		}
-		i++;
 	}
 	return (0);
 }
