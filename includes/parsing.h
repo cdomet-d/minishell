@@ -50,7 +50,7 @@ void	fill_word(char *new, char *old, int i);
 char	**expand(char **data, t_env **env, int rv);
 
 /* expand utils */
-int		check_for_dollar(t_input *node);
+int		check_for_dollar(char **data);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 void	put_in_neg(char *data);

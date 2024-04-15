@@ -45,7 +45,7 @@ int	search_for_expand(t_input *node, t_env **env, int rv)
 		put_in_neg(node->data[i]);
 		i++;
 	}
-	if (check_for_dollar(node))
+	if (check_for_dollar(node->data))
 	{
 		newtab = expand_split(node->data, env, rv);
 		if (!newtab || !newtab[0])

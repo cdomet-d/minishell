@@ -12,27 +12,27 @@
 
 #include "parsing.h"
 
-int	check_for_dollar(t_input *node)
+int	check_for_dollar(char **data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	if (!node->data)
+	if (!data)
 		return (0);
-	while (node->data[i])
+	while (data[i])
 	{
 		j = 0;
-		while (node->data[i][j])
+		while (data[i][j])
 		{
-			if (node->data[i][j] == '$')
+			if (data[i][j] == '$')
 				return (1);
-			if (node->data[i][j] < 0)
+			if (data[i][j] < 0)
 			{
-				while (node->data[i][j] < 0)
+				while (data[i][j] < 0)
 					j++;
 			}
-			else if (node->data[i][j])
+			else if (data[i][j])
 				j++;
 		}
 		i++;
