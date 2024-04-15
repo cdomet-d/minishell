@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/12 21:22:52 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:23:34 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	while (data[i])
 	{
 		if (data[i] == '$' && data[i + 1] && (ft_isalnum(data[i + 1])
-			|| data[i + 1] == '_' || data[i + 1] == '?'))
+				|| data[i + 1] == '_' || data[i + 1] == '?'))
 		{
 			i++;
 			if (data[i] && data[i] == '?')
@@ -109,7 +109,7 @@ int	nb_letter(char *data, t_env **env)
 	while (data[j])
 	{
 		if (data[j] == '$' && data[j + 1] && (ft_isalnum(data[j + 1])
-			|| data[j + 1] == '_' || data[j + 1] == '?'))
+				|| data[j + 1] == '_' || data[j + 1] == '?'))
 			nb_letter_env(data, env, &letter, &j);
 		else if (data[j] < 0)
 		{

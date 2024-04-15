@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rm_quotes.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
+/*   Updated: 2024/04/15 16:23:10 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parsing.h"
 
@@ -57,7 +67,7 @@ char	*rm_quotes(char *str)
 {
 	char	*new;
 	int		len;
-	
+
 	len = len_str(str);
 	new = ft_calloc(sizeof(char), len + 1);
 	if (!new)

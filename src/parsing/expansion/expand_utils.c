@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 20:05:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:24:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,3 @@ char	*search_env(char *data, t_env **env)
 	}
 	return (NULL);
 }
-
-
