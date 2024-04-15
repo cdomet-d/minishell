@@ -26,6 +26,20 @@ static void	print_enum(int token)
 		fprintf(stderr, "%-7s %s ", "  token", "  > heredoc");
 	if (token == 5)
 		fprintf(stderr, "%-7s %s ", "  token", "  > command");
+	if (token == 6)
+		fprintf(stderr, "%-7s %s ", "  token", "  > echo");
+	if (token == 7)
+		fprintf(stderr, "%-7s %s ", "  token", "  > cd");
+	if (token == 8)
+		fprintf(stderr, "%-7s %s ", "  token", "  > pwd");
+	if (token == 9)
+		fprintf(stderr, "%-7s %s ", "  token", "  > export");
+	if (token == 10)
+		fprintf(stderr, "%-7s %s ", "  token", "  > unset");
+	if (token == 11)
+		fprintf(stderr, "%-7s %s ", "  token", "  > env");
+	if (token == 12)
+		fprintf(stderr, "%-7s %s ", "  token", "  > exit");
 }
 
 static void	qpenum(int token)
