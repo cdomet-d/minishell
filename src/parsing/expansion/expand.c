@@ -39,7 +39,8 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	j = 0;
 	while (data[i])
 	{
-		if (data[i] == '$' && (ft_isalnum(data[i + 1]) || data[i + 1] == '_'))
+		if (data[i] == '$' && (ft_isalnum(data[i + 1]) || data[i + 1] == '_'
+			|| data[i + 1] == '?'))
 		{
 			i++;
 			if (data[i] && data[i] == '?')
@@ -106,7 +107,8 @@ int	nb_letter(char *data, t_env **env)
 	j = 0;
 	while (data[j])
 	{
-		if (data[j] == '$' && (ft_isalnum(data[j + 1]) || data[j + 1] == '_'))
+		if (data[j] == '$' && (ft_isalnum(data[j + 1]) || data[j + 1] == '_'
+			|| data[j + 1] == '?'))
 			nb_letter_env(data, env, &letter, &j);
 		else if (data[j] < 0)
 		{
