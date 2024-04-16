@@ -2,7 +2,7 @@
 
 #include "exec.h"
 
-int	env(t_input *node, int fd)
+int	env(t_input *node)
 {
 	if (node->data[1])
 	{
@@ -12,7 +12,7 @@ int	env(t_input *node, int fd)
 	}
 	while (node->env)
 	{
-		if (ft_putstr_fd(node->env->env, fd) == -1)
+		if (ft_putstr_fd(node->env->env, 1) == -1)
 			return (1);
 		node->env = node->env->next;
 	}
