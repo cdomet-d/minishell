@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/16 14:03:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/16 17:28:02 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 	while (op_true(tmp, inredir))
 	{
 		fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+		pmin(tmp);
 		if (access(tmp->data[0], R_OK) == -1)
 		{
 			print_error(errno, NULL);
@@ -101,6 +102,7 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
 	}
+	fprintf(stderr, "%.20s\n", "-- in child ---------------------------------");
 	close_pfd(fd);
 	return ((int *)true);
 }

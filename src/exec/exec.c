@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/16 14:31:52 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/16 17:55:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
+	pmin(tmp);
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (exe_failure(fd, in, NULL));
@@ -75,7 +76,6 @@ static void	*create_child(t_fd *fd)
 
 static void	wait_for_children(void)
 {
-	fprintf(stderr, "%.20s\n", "-- wait_for_children ------------------");
 	while (wait(0) != -1 && errno != ECHILD)
 		;
 }
@@ -89,8 +89,8 @@ void	*exec_cmd(t_input *in)
 	tmp = in;
 	fd.pnb = count_pipes(tmp);
 	pmin(tmp);
-	create_hdocs(&fd, in);
-	pmin(in);
+	// create_hdocs(&fd, in);
+	// pmin(in);
 	while (tmp)
 	{
 		if (fd.pid != 0)
@@ -111,6 +111,8 @@ void	*exec_cmd(t_input *in)
 		}
 		tmp = find_next_pipe(tmp, &fd);
 	}
+	fprintf(stdin, "%.20s\n", "-- stdin ---------------------------------");
+	fprintf(stdin, "%.20s\n", "-- stdout ---------------------------------");
 	close_tmpin(in, &fd);
 	wait_for_children();
 	return ((int *)true);

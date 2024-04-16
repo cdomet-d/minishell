@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/16 15:00:01 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/16 17:58:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ static void	print_enum(int token)
 		fprintf(stderr, "%-7s %s ", "  token", "  > heredoc");
 	if (token == 5)
 		fprintf(stderr, "%-7s %s ", "  token", "  > command");
+	if (token == 6)
+		fprintf(stderr, "%-7s %s ", "  token", "  > echo");
+	if (token == 7)
+		fprintf(stderr, "%-7s %s ", "  token", "  > cd");
+	if (token == 8)
+		fprintf(stderr, "%-7s %s ", "  token", "  > pwd");
+	if (token == 9)
+		fprintf(stderr, "%-7s %s ", "  token", "  > export");
+	if (token == 10)
+		fprintf(stderr, "%-7s %s ", "  token", "  > unset");
+	if (token == 11)
+		fprintf(stderr, "%-7s %s ", "  token", "  > env");
+	if (token == 12)
+		fprintf(stderr, "%-7s %s ", "  token", "  > exit");
 }
 
 static void	qpenum(int token)
@@ -58,7 +72,7 @@ void	print_in_for(t_input *input)
 		display_dtab(input->data);
 		print_enum(input->tok);
 		input = input->next;
-		fprintf(stderr, "\033[38;5;206m\033[1m#------------------------------#\n\n\033[0m");
+		fprintf(stderr, "\033[38;5;206m\033[1m\n#------------------------------#\n\n\033[0m");
 	}
 	fprintf(stderr, "\033[0;35m\033[1m\n#================================#\n\n\033[0m");
 	input = head;
@@ -71,12 +85,12 @@ void	pmin(t_input *input)
 
 	i = 0;
 	head = input;
-	fprintf(stderr, "%.20s\n", "\033[2m-- intoks ------------------");
+	fprintf(stderr, "%.20s\n", "\033[2m-- intoks ---------------------------------");
 	while (input)
 	{
 		qpenum(input->tok);
-		while (input->data && input->data[i])
-			fprintf(stderr, "[%s] ", input->data[i++]);
+		if (input->data)
+			display_dtab(input->data);
 		input = input->next;
 	}
 	fprintf(stderr, "%.21s\n\033[0m", "\n--------------------------------------------\n");
@@ -106,12 +120,13 @@ void	display_dtab(char **dtab)
 	size_t	i;
 
 	i = 0;
+	fprintf(stderr, "(");
 	while (dtab && dtab[i])
 	{
-		// fprintf(stderr, "tab[%ld] > %s --> len : %ld\n", i, dtab[i], strlen(dtab[i]));
-		fprintf(stderr, "  tab[%02ld] > %s\n", i, dtab[i]);
+		fprintf(stderr, "[%s]", dtab[i]);
 		i++;
 	}
+	fprintf(stderr, ") ");
 }
 
 void	print_in_node(t_input *node, t_fd *fd, char *str)

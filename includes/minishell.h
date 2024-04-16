@@ -32,6 +32,13 @@ typedef enum s_enum
 	append, // >>
 	heredoc, // <<
 	command,
+	ms_echo,
+	ms_cd,
+	ms_pwd,
+	ms_export,
+	ms_unset,
+	ms_env,
+	ms_exit,
 }	t_tok;
 
 typedef struct s_env
