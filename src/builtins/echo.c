@@ -2,9 +2,9 @@
 
 #include "exec.h"
 
-int echo(char **data)
+int	echo(char **data)
 {
-	int 	i;
+	int		i;
 	bool	opt;
 
 	i = 0;
