@@ -87,7 +87,7 @@ int	cmd_path(t_input *input, t_env **env)
 	t_env	*node;
 
 	node = *env;
-	if (!input->data)
+	if (!input->data || !input->data[0][0])
 		return (0);
 	if (path_slash(input->data[0]))
 		return (0);
