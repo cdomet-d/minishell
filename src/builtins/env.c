@@ -14,6 +14,8 @@ int	env(t_input *node)
 	{
 		if (ft_putstr_fd(node->env->env, 1) == -1)
 			return (1);
+		if (write(1, "\n", 1) == -1)
+			return (1);
 		node->env = node->env->next;
 	}
 	return (0);
