@@ -43,7 +43,7 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	j = 0;
 	while (data[i])
 	{
-		if (data[i] == '$' && data[i + 1] && (ft_isalnum(data[i + 1])
+		if (data[i] == '$' && data[i + 1] && (ft_isalpha(data[i + 1])
 				|| data[i + 1] == '_' || data[i + 1] == '?'))
 		{
 			i++;
@@ -52,8 +52,6 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 				newtab[j++] = 48 + rv;
 				i++;
 			}
-			else if (data[i] && ft_isdigit(data[i]))
-				i++;
 			else if (data[i])
 				i += ft_copy_env(data + i, newtab, env, &j);
 		}
@@ -75,8 +73,6 @@ void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 		*j += 1;
 		*letter += 1;
 	}
-	else if (data[*j] && ft_isdigit(data[*j]))
-		*j += 1;
 	else if (data[*j])
 	{
 		str = search_env(data + *j, env);
@@ -99,7 +95,7 @@ int	nb_letter(char *data, t_env **env)
 	j = 0;
 	while (data[j])
 	{
-		if (data[j] == '$' && data[j + 1] && (ft_isalnum(data[j + 1])
+		if (data[j] == '$' && data[j + 1] && (ft_isalpha(data[j + 1])
 				|| data[j + 1] == '_' || data[j + 1] == '?'))
 			nb_letter_env(data, env, &letter, &j);
 		else if (data[j] < 0)
