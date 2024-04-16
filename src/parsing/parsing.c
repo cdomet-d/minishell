@@ -18,6 +18,8 @@ void	revert(t_input *node)
 	int	j;
 
 	i = 0;
+	if (!node->data)
+		return ;
 	while (node->data[i])
 	{
 		j = 0;
