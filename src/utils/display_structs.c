@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/10 16:31:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/16 15:00:01 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,26 @@ void	print_in_for(t_input *input)
 		input = input->next;
 		fprintf(stderr, "\033[38;5;206m\033[1m#------------------------------#\n\n\033[0m");
 	}
-	fprintf(stderr, "\033[0;35m\033[1m#================================#\n\n\033[0m");
+	fprintf(stderr, "\033[0;35m\033[1m\n#================================#\n\n\033[0m");
 	input = head;
 }
 
 void	pmin(t_input *input)
 {
 	t_input	*head;
+	size_t	i;
 
+	i = 0;
 	head = input;
-	fprintf(stderr, "%.20s\n", "-- intoks ------------------");
+	fprintf(stderr, "%.20s\n", "\033[2m-- intoks ------------------");
 	while (input)
 	{
 		qpenum(input->tok);
+		while (input->data && input->data[i])
+			fprintf(stderr, "[%s] ", input->data[i++]);
 		input = input->next;
 	}
-	fprintf(stderr, "%.21s\n", "\n--------------------------------------------\n");
+	fprintf(stderr, "%.21s\n\033[0m", "\n--------------------------------------------\n");
 	input = head;
 }
 

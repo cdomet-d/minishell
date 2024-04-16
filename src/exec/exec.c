@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/15 18:35:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/16 14:31:52 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,16 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 	tmp = in;
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
-			return (NULL);
+			return (exe_failure(fd, in, NULL));
 	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
-			return (NULL);
-	// if (op_true(tmp, heredoc))
-		// if (!h_redir(fd, tmp))
-		// 	return (NULL);
+			return (exe_failure(fd, in, NULL));
 	if (op_true(tmp, outredir))
 		if (!out_redir(fd, tmp))
-			return (NULL);
+			return (exe_failure(fd, in, NULL));
 	if (op_true(tmp, append))
 		if (!app_redir(fd, tmp))
-			return (NULL);
+			return (exe_failure(fd, in, NULL));
 	if (op_true(tmp, command))
 		ft_execve(tmp, *fd);
 	exe_failure(fd, in, NULL);
@@ -92,6 +89,8 @@ void	*exec_cmd(t_input *in)
 	tmp = in;
 	fd.pnb = count_pipes(tmp);
 	pmin(tmp);
+	create_hdocs(&fd, in);
+	pmin(in);
 	while (tmp)
 	{
 		if (fd.pid != 0)

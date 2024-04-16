@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/15 17:09:37 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/16 15:58:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	*h_gnl(int fd, t_input *in)
 {
 	char *line;
 
-	fprintf(stderr, "%.20s\n", "-- create_gnl -----------------------------");
-	fprintf(stderr, "\033[0;36mdelimiter [%s]\033[0m\n", in->data[0]);
+	fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
+	fprintf(stderr, "\033[2mdelim : [%s]\033[0m\n", in->data[0]);
 	line = get_next_line(STDIN_FILENO);
 	if (!line)
 		return (print_error(errno, "heredoc(GNL))"));
@@ -45,13 +45,14 @@ static char	*gen_filename(int fn)
 	char	*strfn;
 	char	*filename;
 
+	fprintf(stderr, "%.20s\n", "-- gen_filename -----------------------------");
 	strfn = ft_itoa(fn);
 	if (!strfn)
 		return (print_error(errno, "gen_filename (itoa fn)"));
-	filename = ft_strjoin("tmp", strfn);
+	filename = ft_strjoin("tmp_", strfn);
 	if (!filename)
 		return (print_error(errno, "gen_filename (strjoin filename)"));
-	printf("%s\n", filename);
+	fprintf(stderr, "\033[2mfile [%.20s]\033[0m\n", filename);
 	free(strfn);
 	return (filename);
 }
@@ -64,10 +65,6 @@ static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 		return (print_error(errno, "create_hfile (opening tmp)"));
 	if (!h_gnl(fd->hfd, tmp))
 		return (print_error(errno, "create_hfile (h_gnl)"));
-	// create inredir
-	// assign filename to inredir->data[0]
-	// insert inredir before command
-	// free heredoc
 	if (close(fd->hfd) == -1)
 		return (print_error(errno, "create_hfile (closing hfd)"));
 	tmp->tok = inredir;
@@ -86,9 +83,10 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	{
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
 			return (print_error(errno, "prep h_file (creating a file)"));
+		tmp->data[0] = gen_filename(fn);
+		tmp->tok = inredir;
 		tmp = find_tok(tmp, heredoc, true);
 		fn++;
 	}
-	print_in_for(in);
 	return ((int *) true);
 }
