@@ -43,8 +43,8 @@ int	check_ws(char **tab)
 	int		i;
 	int		j;
 
-	i = 0;
-	while (tab[i])
+	i = -1;
+	while (tab[++i])
 	{
 		j = 0;
 		if (!tab[i][j])
@@ -62,7 +62,6 @@ int	check_ws(char **tab)
 			if (tab[i][j])
 				j++;
 		}
-		i++;
 	}
 	return (0);
 }

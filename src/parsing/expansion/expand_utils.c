@@ -76,3 +76,10 @@ char	*search_env(char *data, t_env **env)
 	}
 	return (NULL);
 }
+
+void	ft_copy_rv(char *newtab, int *j, int *i, int rv)
+{
+	newtab[*j] = 48 + rv;
+	*j += 1;		
+	*i += 1;		
+}

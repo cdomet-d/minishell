@@ -50,10 +50,7 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 		{
 			i++;
 			if (data[i] && data[i] == '?')
-			{
-				newtab[j++] = 48 + rv;
-				i++;
-			}
+				ft_copy_rv(newtab, &j, &i, rv);
 			else if (data[i])
 				i += ft_copy_env(data + i, newtab, env, &j);
 		}
