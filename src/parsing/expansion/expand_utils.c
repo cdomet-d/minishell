@@ -6,51 +6,28 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/11 20:05:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:09:45 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	in_quotes(t_input *node, int i, int *j)
-{
-	if (node->data[i][*j] == '\'')
-	{
-		*j += 1;
-		while (node->data[i][*j] && node->data[i][*j] != '\'')
-			*j += 1;
-	}
-	if (node->data[i][*j] == '"')
-	{
-		*j += 1;
-		while (node->data[i][*j] && node->data[i][*j] != '"')
-		{
-			if (node->data[i][*j] == '$')
-				return (1);
-			*j += 1;
-		}
-	}
-	return (0);
-}
-
-int	check_for_dollar(t_input *node)
+int	search_dollar(char **data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	if (!node->data)
+	if (!data)
 		return (0);
-	while (node->data[i])
+	while (data[i])
 	{
 		j = 0;
-		while (node->data[i][j])
+		while (data[i][j])
 		{
-			if (in_quotes(node, i, &j))
+			if (data[i][j] == '$')
 				return (1);
-			if (node->data[i][j] == '$')
-				return (1);
-			if (node->data[i][j])
+			else if (data[i][j])
 				j++;
 		}
 		i++;
@@ -100,4 +77,9 @@ char	*search_env(char *data, t_env **env)
 	return (NULL);
 }
 
-
+void	ft_copy_rv(char *newtab, int *j, int *i, int rv)
+{
+	newtab[*j] = 48 + rv;
+	*j += 1;
+	*i += 1;
+}

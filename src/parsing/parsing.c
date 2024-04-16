@@ -6,51 +6,114 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/10 17:51:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:14:38 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	search_for_expand(t_input **input, t_env **env, int rv)
+void	revert(t_input *node)
 {
-	t_input	*node;
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!node->data)
+		return ;
+	while (node->data[i])
+	{
+		j = 0;
+		while (node->data[i][j])
+		{
+			if (node->data[i][j] < 0)
+				node->data[i][j] *= -1;
+			j++;
+		}
+		i++;
+	}
+}
+
+int	search_expand(t_input *node, t_env **env, int rv)
+{
 	char	**newtab;
+	int		i;
 
 	newtab = NULL;
-	node = NULL;
-	node = *input;
-	while (node)
+	i = 0;
+	if (!node->data)
+		return (0);
+	while (node->data[i])
 	{
-		if (node->tok != heredoc)
+		put_in_neg(node->data[i]);
+		i++;
+	}
+	if (search_dollar(node->data))
+	{
+		newtab = expand_split(node->data, env, rv);
+		if (!newtab || !newtab[0])
+			return (free_dtab(newtab), 1);
+		free_dtab(node->data);
+		node->data = newtab;
+	}
+	else
+		revert(node);
+	return (0);
+}
+
+int	search_quotes(t_input *node)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = -1;
+	if (!node->data)
+		return (0);
+	while (node->data[++i])
+	{
+		j = 0;
+		while (node->data[i][j])
 		{
-			if (check_for_dollar(node))
+			if (node->data[i][j] == '"' || node->data[i][j] == '\'')
 			{
-				newtab = expand(node->data, env, rv);
-				if (!newtab || !newtab[0])
-				{
-					free_dtab(newtab);
-					input_freelst(input);
+				temp = rm_quotes(node->data[i]);
+				if (!temp)
 					return (1);
-				}
-				free_dtab(node->data);
-				node->data = newtab;
+				free(node->data[i]);
+				node->data[i] = temp;
+				break ;
 			}
+			j++;
 		}
-		// else
-			// check if delimiter is in quotes (single or double) or not
-		node = node->next;
 	}
 	return (0);
 }
 
 void	parsing(t_input **input, t_env **env, char *line, int rv)
 {
+	t_input	*node;
+
 	if (tokenization(input, env, line))
 		return ;
-	if (search_for_expand(input, env, rv))
-		return ;
-	//remove_quote()
-	//find_builtin()
-	cmd_path(input, env);
+	node = *input;
+	while (node)
+	{
+		if (node->tok != heredoc)
+		{
+			if (search_expand(node, env, rv))
+				return (input_freelst(input));
+		}
+		else if (node->data[0][0] != '"' && node->data[0][0] != '\'')
+			node->data[0][0] *= -1;
+		if (search_quotes(node))
+			return (input_freelst(input));
+		else
+			revert(node);
+		if (node->tok == command)
+			find_builtin(node);
+		if (node->tok == command)
+			if (cmd_path(node, env))
+				return (input_freelst(input));
+		node = node->next;
+	}
 }
