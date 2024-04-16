@@ -27,11 +27,6 @@ int	search_dollar(char **data)
 		{
 			if (data[i][j] == '$')
 				return (1);
-			if (data[i][j] < 0)
-			{
-				while (data[i][j] < 0)
-					j++;
-			}
 			else if (data[i][j])
 				j++;
 		}

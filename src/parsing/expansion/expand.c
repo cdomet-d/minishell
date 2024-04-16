@@ -23,6 +23,8 @@ int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 	{
 		while (str[i])
 		{
+			if (str[i] == '\'' || str[i] == '"')
+				str[i] *= -1;
 			newtab[*j] = str[i];
 			*j += 1;
 			i++;
@@ -56,7 +58,11 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 				i += ft_copy_env(data + i, newtab, env, &j);
 		}
 		else if (data[i])
+		{
+			if (data[i] < 0)
+				data[i] *= -1;
 			newtab[j++] = data[i++];
+		}
 	}
 }
 

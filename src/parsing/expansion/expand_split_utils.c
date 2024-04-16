@@ -39,6 +39,7 @@ void	put_in_neg(char *data)
 
 int	check_ws(char **tab)
 {
+	char	quotetype;
 	int		i;
 	int		j;
 
@@ -50,9 +51,10 @@ int	check_ws(char **tab)
 			return (1);
 		while (tab[i][j])
 		{
-			if (tab[i][j] == '"')
+			if (tab[i][j] == '"' || tab[i][j] == '\'')
 			{
-				while (tab[i][j] && tab[i][j] != '"')
+				quotetype = tab[i][j++];
+				while (tab[i][j] && tab[i][j] != quotetype)
 					j++;
 			}
 			if (tab[i][j] == ' ' || (tab[i][j] >= '\t' && tab[i][j] <= '\r'))
