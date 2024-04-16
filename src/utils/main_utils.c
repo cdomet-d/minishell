@@ -26,9 +26,9 @@ void	process_line(char *line, t_input *input, t_env *env)
 		mh_exit(line, input, env);
 	add_history(line);
 	parsing(&input, &env, line, 0);
-	print_in_for(input);
-	// if (input)
-	// 	exec_cmd(input);
+	// print_in_for(input);
+	if (input)
+		exec_cmd(input);
 	input_freelst(&input);
 	free(line);
 }
