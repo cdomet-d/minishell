@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:24:04 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:09:45 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ char	*search_env(char *data, t_env **env)
 void	ft_copy_rv(char *newtab, int *j, int *i, int rv)
 {
 	newtab[*j] = 48 + rv;
-	*j += 1;		
-	*i += 1;		
+	*j += 1;
+	*i += 1;
 }
