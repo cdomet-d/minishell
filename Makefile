@@ -68,6 +68,7 @@ SRC_BUILTIN:=	export.c \
 				unset.c \
 				exit.c \
 				echo.c \
+				env.c \
 				builtin_utils.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
