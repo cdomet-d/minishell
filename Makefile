@@ -67,6 +67,7 @@ DIR_BUILTIN:= builtins/
 SRC_BUILTIN:=	export.c \
 				unset.c \
 				exit.c \
+				echo.c \
 				builtin_utils.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
