@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 17:14:22 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:12:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PARSING_H
 # define PARSING_H
