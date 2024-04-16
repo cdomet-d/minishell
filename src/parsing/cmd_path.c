@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 18:47:41 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:31:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	cmd_path(t_input *input, t_env **env)
 	t_env	*node;
 
 	node = *env;
-	if (!input->data[0][0])
+	if (!input->data)
 		return (0);
 	if (path_slash(input->data[0]))
 		return (0);
