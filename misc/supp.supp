@@ -4,3 +4,29 @@
 	...
 	obj:*/libreadline.so.*
 }
+
+{
+   ls
+   Memcheck:Leak
+   fun:malloc
+   obj:/usr/bin/ls
+   ...
+}
+
+{
+   grep
+   Memcheck:Leak
+   fun:malloc
+   fun:calloc
+   obj:/usr/bin/grep
+   ...
+}
+
+{
+   ls
+   Memcheck:Leak
+   fun:malloc
+   fun:calloc
+   obj:/usr/bin/ls
+   ...
+}

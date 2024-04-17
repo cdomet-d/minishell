@@ -1,5 +1,4 @@
 #!/bin/bash
 
 # greping log to find leaks
-grep "total heap usage" log
-grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
+grep "Open file descriptor" mini_log

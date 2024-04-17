@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/10 16:11:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/17 17:58:40 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	*out_redir(t_fd *fd, t_input *in)
 	t_input	*tmp;
 
 	tmp = find_tok(in, outredir, false);
+	// pmin(tmp, "outredir");
 	while (op_true(tmp, outredir))
 	{
-		// fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
+		//fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
 		fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0777);
 		if (fd->ffd == -1)
 			return (print_error(errno, "outredir (opening out)"));
@@ -40,7 +41,7 @@ void	*app_redir(t_fd *fd, t_input *in)
 	tmp = find_tok(in, append, false);
 	while (op_true(tmp, append))
 	{
-		// fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
+		//fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
 		fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0777);
 		if (fd->ffd == -1)
 			return (print_error(errno, "appredir (opening out)"));
@@ -61,7 +62,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 	tmp = find_tok(in, inredir, false);
 	while (op_true(tmp, inredir))
 	{
-		// fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+		//fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
 		if (access(tmp->data[0], R_OK) == -1)
 		{
 			print_error(errno, NULL);
@@ -83,7 +84,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 
 void	*pip_redir(t_input *tmp, t_fd *fd)
 {
-	// fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
+	//fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
 	if (is_first_cmd(tmp))
 	{
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
@@ -101,6 +102,10 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
 	}
+	//fprintf(stderr, "%.20s\n", "-- in child ---------------------------------");
+	if (fd->tmpin != -1)
+		if (close(fd->tmpin) == -1)
+				print_error(errno, "close_exec (tmpin)");
 	close_pfd(fd);
 	return ((int *)true);
 }
