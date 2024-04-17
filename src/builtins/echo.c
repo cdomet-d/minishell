@@ -2,7 +2,7 @@
 
 #include "exec.h"
 
-int	echo(char **data, int fd)
+int	echo(char **data)
 {
 	int		i;
 	bool	opt;
@@ -18,13 +18,13 @@ int	echo(char **data, int fd)
 		}
 		while (data[i])
 		{
-			if (ft_putstr_fd(data[i], fd) == -1)
+			if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
 				return (1);
 			i++;
 		}
 	}
 	if (opt == false)
-		if (write(1, "\n", fd) == -1)
+		if (write(STDOUT_FILENO, "\n", 1) == -1)
 			return (1);
 	return (0);
 }

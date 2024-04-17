@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:23:00 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:21:10 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	find_builtin(t_input *node)
 {
+	if (!node->data)
+		return ;
 	if (!ft_strncmp(node->data[0], "echo", 5))
 		node->tok = ms_echo;
 	if (!ft_strncmp(node->data[0], "cd", 3))
