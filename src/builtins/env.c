@@ -20,17 +20,3 @@ int	env(t_input *node)
 	}
 	return (0);
 }
-
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_input	**input = NULL;
-// 	t_env	**envi = NULL;
-
-// 	(void)argc;
-// 	create_env(input, envp, envi);
-// 	create_input(input, envi, argv + 1, ms_env);
-// 	env(*input);
-// 	fatal_exit(input, EXIT_SUCCESS, "ras");
-// 	return (0);
-// }
