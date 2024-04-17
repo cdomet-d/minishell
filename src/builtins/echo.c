@@ -18,13 +18,13 @@ int	echo(char **data)
 		}
 		while (data[i])
 		{
-			if (ft_putstr_fd(data[i], 1) == -1)
+			if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
 				return (1);
 			i++;
 		}
 	}
 	if (opt == false)
-		if (write(1, "\n", 1) == -1)
+		if (write(STDOUT_FILENO, "\n", 1) == -1)
 			return (1);
 	return (0);
 }
