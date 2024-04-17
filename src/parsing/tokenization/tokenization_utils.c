@@ -43,7 +43,7 @@ void	syntax_error(char *line, int *i)
 {
 	if (line[*i] == '\0')
 		print_error(0, "syntax error near unexpected token 'newline'");
-	else if (line[*i] == '>' || line[*i] == '<')
+	else if (line[*i] == '>' || line[*i] == '<' || line[*i] == '|')
 	{
 		ft_putstr_fd("minishell : syntax error near unexpected token ", 2);
 		ft_putchar_fd(line[*i], STDERR_FILENO);
