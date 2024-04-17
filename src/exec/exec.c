@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/16 17:55:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/17 12:05:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
-	pmin(tmp);
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (exe_failure(fd, in, NULL));
@@ -58,16 +57,16 @@ static void	*redir_exec(t_input *in, t_fd *fd)
 
 static void	*create_child(t_fd *fd)
 {
-	fprintf(stderr, "%.20s\n", "-- create_child ------------------");
+	// fprintf(stderr, "%.20s\n", "-- create_child ------------------");
 	if (fd->pnb != 0)
 	{
-		fprintf(stderr, "%.20s\n", "-- pipe ------------------");
+		// fprintf(stderr, "%.20s\n", "-- pipe ------------------");
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "create_child (piping)"));
 	}
 	fd->pid = fork();
 	{
-		fprintf(stderr, "%.20s\n", "-- fork ------------------");
+		// fprintf(stderr, "%.20s\n", "-- fork ------------------");
 		if (fd->pid == -1)
 			return (print_error(errno, "create_child (forking)"));
 	}
@@ -88,9 +87,9 @@ void	*exec_cmd(t_input *in)
 	init_fds(&fd);
 	tmp = in;
 	fd.pnb = count_pipes(tmp);
-	pmin(tmp);
-	// create_hdocs(&fd, in);
-	// pmin(in);
+	pmin(tmp, "in main");
+	if (op_true(tmp, heredoc))
+		create_hdocs(&fd, in);
 	while (tmp)
 	{
 		if (fd.pid != 0)
@@ -111,8 +110,6 @@ void	*exec_cmd(t_input *in)
 		}
 		tmp = find_next_pipe(tmp, &fd);
 	}
-	fprintf(stdin, "%.20s\n", "-- stdin ---------------------------------");
-	fprintf(stdin, "%.20s\n", "-- stdout ---------------------------------");
 	close_tmpin(in, &fd);
 	wait_for_children();
 	return ((int *)true);

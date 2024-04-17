@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/16 17:28:02 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/17 11:33:37 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*out_redir(t_fd *fd, t_input *in)
 	t_input	*tmp;
 
 	tmp = find_tok(in, outredir, false);
+	pmin(tmp, "outredir");
 	while (op_true(tmp, outredir))
 	{
 		fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
@@ -62,7 +63,6 @@ void	*in_redir(t_fd *fd, t_input *in)
 	while (op_true(tmp, inredir))
 	{
 		fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
-		pmin(tmp);
 		if (access(tmp->data[0], R_OK) == -1)
 		{
 			print_error(errno, NULL);
@@ -102,7 +102,7 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
 	}
-	fprintf(stderr, "%.20s\n", "-- in child ---------------------------------");
+	// fprintf(stderr, "%.20s\n", "-- in child ---------------------------------");
 	close_pfd(fd);
 	return ((int *)true);
 }

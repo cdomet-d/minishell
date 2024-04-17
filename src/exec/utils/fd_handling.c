@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:39:05 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/15 18:31:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/17 11:53:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_fds(t_fd *fd)
 
 void	close_pfd(t_fd *fd)
 {
-	fprintf(stderr, "%.20s\n", "-- close_pfd ------------------");
+	// fprintf(stderr, "%.20s\n", "-- close_pfd ------------------");
 	if (fd->pfd[R] != 0)
 		if (close(fd->pfd[R]) == -1)
 			print_error(0, "close_pfd (fd->pfd[R])");
@@ -36,9 +36,11 @@ void	close_pfd(t_fd *fd)
 
 void	close_tmpin(t_input *in, t_fd *fd)
 {
-	fprintf(stderr, "%.20s\n", "-- close_tmpin ------------------");
 	if (count_pipes(in) > 0)
+	{
+		fprintf(stderr, "%.20s\n", "-- close_tmpin ------------------");
 		if (close(fd->pfd[R]) == -1)
 			print_error(errno, "close_tmpin (tmpin)");
+	}
 	init_fds(fd);
 }

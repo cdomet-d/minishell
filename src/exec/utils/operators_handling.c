@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/16 17:25:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/17 11:35:07 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ t_input	*find_tok(t_input	*in, t_tok op, bool next)
 	tmp = in;
 	if (next)
 		tmp = tmp->next;
-	while (tmp && tmp->tok != op)
+	while (tmp && tmp->tok != pip)
+	{
+		if (tmp->tok == op)
+			return (tmp);
 		tmp = tmp->next;
+	}
 	return (tmp);
 }
 

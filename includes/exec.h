@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/15 17:11:43 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/17 12:08:34 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	*pip_redir(t_input *tmp, t_fd *fd);
 void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
 void	*app_redir(t_fd *fd, t_input *in);
-void	*h_redir(t_fd *fd, t_input *in);
 void	*create_hdocs(t_fd *fd, t_input *in);
 
 /*--------------------------------- BUILTINS ---------------------------------*/
@@ -94,7 +93,9 @@ void	mh_exit(char *line, t_input *in, t_env *env);
 void	print_ops(t_op count);
 void	print_fds(t_fd *fd);
 void	print_in_node(t_input *node, t_fd *fd, char *str);
-void	pmin(t_input *input);
+void	pmin(t_input *input, char *str);
+void	print_enum(int token);
+
 /*----------------------------------------------------------------------------*/
 
 #endif
