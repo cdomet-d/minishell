@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/05 16:10:10 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/17 13:32:38 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ void	print_ops(t_op count)
 
 void	print_fds(t_fd *fd)
 {
-	fprintf(stderr, "\033[0;34m\033[1m\n{FDS}\n\033[0m");
-	fprintf(stderr, "%-21s%d\n", "  fd->pfd[R]", fd->pfd[R]);
-	fprintf(stderr, "%-21s%d\n", "  fd->pfd[W]", fd->pfd[W]);
-	fprintf(stderr, "%-21s%d\n", "  fd->tmpin", fd->tmpin);
-	fprintf(stderr, "%-21s%d\n", "  fd->ffd", fd->ffd);
-	fprintf(stderr, "%-21s%d\n", "  fd->pid", fd->pid);
+	fprintf(stderr, "%.20s\n", "== fds =================================");
+	fprintf(stderr, "pfd[R] - %d || pfd[W] - %d || tmpin = %d\n", fd->pfd[R], 
+	fd->pfd[W], fd->tmpin);
 }

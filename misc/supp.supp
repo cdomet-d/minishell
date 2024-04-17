@@ -21,3 +21,12 @@
    obj:/usr/bin/grep
    ...
 }
+
+{
+   ls
+   Memcheck:Leak
+   fun:malloc
+   fun:calloc
+   obj:/usr/bin/ls
+   ...
+}

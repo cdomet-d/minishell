@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/17 12:07:29 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/17 15:28:40 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRC_BUILTIN:=	export.c \
 				exit.c \
 				echo.c \
 				env.c \
+				pwd.c \
 				builtin_utils.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
@@ -147,7 +148,8 @@ fclean: clean
 	
 re: fclean all
 
-V_PARAMS:= valgrind --log-file="log" --track-fds=yes --trace-children=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
+V_PARAMS:= valgrind --log-file="mini_log" --trace-children=yes --track-fds=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
+
 run: all
 	$(V_PARAMS) ./$(NAME)
 
