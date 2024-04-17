@@ -9,7 +9,7 @@ int	pwd(char **data)
 	str = NULL;
 	if (data[1])
 	{
-		if (ft_putstr_fd("pwd : too many arguments\n", stderr) == -1)
+		if (ft_putstr_fd("pwd : too many arguments\n", 2) == -1)
 			return (1);
 		return (0);
 	}
