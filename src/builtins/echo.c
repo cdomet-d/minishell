@@ -1,10 +1,6 @@
 //HEADER
 
-// #include "exec.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
+#include "exec.h"
 
 int	echo(char **data)
 {
@@ -15,29 +11,22 @@ int	echo(char **data)
 	opt = false;
 	if (data && data[0])
 	{
-		if (!/*ft_*/strncmp(data[i], "-n", 3))
+		if (!ft_strncmp(data[i], "-n", 3))
 		{
 			i++;
 			opt = true;
 		}
 		while (data[i])
 		{
-			// if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
-			// 	return (1);
-			printf("%s", data[i]);
-			printf("%c", ' ');
+			if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
+				return (1);
+			if (write(1, " ", 1) == -1)
+				return (1);
 			i++;
 		}
 	}
-	printf("\n");
-	// if (opt == false)
-		// if (write(1, "\n", 1) == -1)
-			// return (1);
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	echo(argv + 1);
+	if (opt == false)
+		if (write(1, "\n", 1) == -1)
+			return (1);
 	return (0);
 }
