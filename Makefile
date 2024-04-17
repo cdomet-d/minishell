@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
+#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/16 17:02:12 by csweetin         ###   ########.fr        #
+#    Updated: 2024/04/17 15:28:40 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ SRC_BUILTIN:=	export.c \
 SRC +=  $(addprefix $(DIR_UTILS), $(SRC_UTILS))
 DIR_UTILS:= utils/
 SRC_UTILS:=		display_data.c \
-				display_structs.c \
+				display_structs_q.c \
+				display_structs_v.c \
 				error_handling.c \
 				main_utils.c \
 
@@ -86,6 +87,7 @@ SRC +=  $(addprefix $(DIR_EXEC), $(SRC_EXEC))
 DIR_EXEC:= exec/
 SRC_EXEC:=		exec.c \
 				redirections.c \
+				heredoc.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(UTILS_SUBDIR), $(SRC_SUBUTILS))
 UTILS_SUBDIR:=utils/
@@ -146,7 +148,8 @@ fclean: clean
 	
 re: fclean all
 
-V_PARAMS:= valgrind --log-file="log" --track-fds=yes --trace-children=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
+V_PARAMS:= valgrind --log-file="mini_log" --trace-children=yes --track-fds=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
+
 run: all
 	$(V_PARAMS) ./$(NAME)
 
