@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/17 12:06:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 18:46:01 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ static void	*h_gnl(int fd, t_input *in)
 	{
 		if (line)
 		{
-			// check_for_dollar()
-			// expand(&line, &tmp->env, 0);
+			// if (search_dollar())
+			// {
+			// 	expand(&line, &tmp->env, 0);
+			// 	revert();
+			// }
 			if (write(fd, line, ft_strlen(line)) == -1)
 				return (print_error(errno, "heredoc (write))"));
 			free (line);

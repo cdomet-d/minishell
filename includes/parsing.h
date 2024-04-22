@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/22 18:21:33 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:45:09 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	process_line(char *line, t_input *input, t_env *env);
 int		cmd_path(t_input *input, t_env **env);
 char	*rm_quotes(char *str);
 void	find_builtin(t_input *node);
+void	revert(t_input *node);
 
 /*----------------------------TOKENIZATION ---------------------------*/
 
