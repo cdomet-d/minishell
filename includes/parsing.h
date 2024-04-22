@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/16 16:15:02 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 17:09:01 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 void	put_in_neg(char *data);
 int		check_ws(char **tab);
+void	fill_word(char *data, char *newtab, int *j);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

@@ -6,29 +6,36 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:43:43 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:08:40 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	fill_word(char *new, char *old, int i)
+void	create_tab(char **data, char **newtab)
 {
+	int	i;
 	int	j;
+	int	word;
 
-	j = 0;
-	while (old[j] && i > 0)
+	i = 0;
+	word = 0;
+	while (data[i])
 	{
-		new[j] = old[j];
-		j++;
-		i--;
+		j = 0;
+		while (data[i][j])
+		{
+			while (data[i][j] && (data[i][j] == ' '
+					|| (data[i][j] >= '\t' && data[i][j] <= '\r')))
+				j++;
+			while (data[i][j] && data[i][j] != ' '
+				&& (data[i][j] < '\t' || data[i][j] > '\r'))
+				fill_word(data[i], newtab[word], &j);
+			word++;
+		}
+		i++;
 	}
 }
-
-// void	fill_word(char **data, char **newtab)
-// {
-	
-// }
 
 int	nb_letter_str(char *data, int *j, int letter)
 {
@@ -37,8 +44,9 @@ int	nb_letter_str(char *data, int *j, int letter)
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
-		// if (data[*j] == '$' && data[*j + 1] && (data[*j + 1] == '"' || data[*j + 1] == '\''))
-		// 	*j += 1;
+		if (data[*j] == '$' && data[*j + 1]
+			&& (data[*j + 1] == '"' || data[*j + 1] == '\''))
+			*j += 1;
 		if (data[*j] == '"')
 		{
 			*j += 1;
@@ -76,14 +84,13 @@ char	**split_tab(char **data, char **newtab)
 			newtab[word] = ft_calloc(sizeof(char), letter + 1);
 			if (!newtab[word])
 				return (free_dtab(newtab), NULL);
-			fill_word(newtab[word], data[i] + (j - letter), letter);
 			word += 1;
 			if (data[i][j])
 				j++;
 		}
 		i++;
 	}
-	// fill_word(data, newtab);
+	create_tab(data, newtab);
 	return (newtab);
 }
 
