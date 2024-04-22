@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/22 17:09:01 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:21:33 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 void	put_in_neg(char *data);
 int		check_ws(char **tab);
-void	fill_word(char *data, char *newtab, int *j);
+void	fill_word(char *data, char *newtab, int *j, int *letter);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

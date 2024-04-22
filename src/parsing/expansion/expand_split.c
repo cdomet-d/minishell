@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/22 17:08:40 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:38:54 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	create_tab(char **data, char **newtab)
 	int	i;
 	int	j;
 	int	word;
+	int	letter;
 
 	i = 0;
 	word = 0;
@@ -25,12 +26,13 @@ void	create_tab(char **data, char **newtab)
 		j = 0;
 		while (data[i][j])
 		{
+			letter = 0;
 			while (data[i][j] && (data[i][j] == ' '
 					|| (data[i][j] >= '\t' && data[i][j] <= '\r')))
 				j++;
 			while (data[i][j] && data[i][j] != ' '
 				&& (data[i][j] < '\t' || data[i][j] > '\r'))
-				fill_word(data[i], newtab[word], &j);
+				fill_word(data[i], newtab[word], &j, &letter);
 			word++;
 		}
 		i++;
