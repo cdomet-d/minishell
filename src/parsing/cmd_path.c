@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/16 17:31:31 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:29:26 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	path_len(char *env, int *i)
 	}
 	return (len);
 }
+
 char	*find_path(char *cmd, char *env)
 {
 	char	*path;
