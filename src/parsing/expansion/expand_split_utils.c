@@ -27,34 +27,31 @@ void	put_in_neg(char *data)
 		}
 		if (data[i] == '\'')
 		{
-			data[i++] *= -1;
+			i++;
 			while (data[i] && data[i] != '\'')
 				data[i++] *= -1;
-			data[i++] *= -1;
 		}
-		else if (data[i])
+		if (data[i])
 			i++;
 	}
 }
 
 int	check_ws(char **tab)
 {
-	char	quotetype;
 	int		i;
 	int		j;
 
-	i = -1;
-	while (tab[++i])
+	i = 0;
+	while (tab[i])
 	{
 		j = 0;
 		if (!tab[i][j])
 			return (1);
 		while (tab[i][j])
 		{
-			if (tab[i][j] == '"' || tab[i][j] == '\'')
+			if (tab[i][j] == '"')
 			{
-				quotetype = tab[i][j++];
-				while (tab[i][j] && tab[i][j] != quotetype)
+				while (tab[i][j] && tab[i][j] != '"')
 					j++;
 			}
 			if (tab[i][j] == ' ' || (tab[i][j] >= '\t' && tab[i][j] <= '\r'))
@@ -62,6 +59,7 @@ int	check_ws(char **tab)
 			if (tab[i][j])
 				j++;
 		}
+		i++;
 	}
 	return (0);
 }

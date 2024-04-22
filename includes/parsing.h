@@ -52,7 +52,6 @@ char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 void	put_in_neg(char *data);
 int		check_ws(char **tab);
-void	ft_copy_rv(char *newtab, int *j, int *i, int rv);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

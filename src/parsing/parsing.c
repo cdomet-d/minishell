@@ -57,8 +57,6 @@ int	search_expand(t_input *node, t_env **env, int rv)
 		free_dtab(node->data);
 		node->data = newtab;
 	}
-	else
-		revert(node);
 	return (0);
 }
 
@@ -109,8 +107,7 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 			node->data[0][0] *= -1;
 		if (search_quotes(node))
 			return (input_freelst(input));
-		else
-			revert(node);
+		revert(node);
 		if (node->tok == command)
 			find_builtin(node);
 		if (node->tok == command)
