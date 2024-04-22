@@ -24,7 +24,6 @@ int	path_len(char *env, int *i)
 	}
 	return (len);
 }
-
 char	*find_path(char *cmd, char *env)
 {
 	char	*path;
@@ -40,9 +39,9 @@ char	*find_path(char *cmd, char *env)
 		path = ft_calloc(sizeof(char), size + 2);
 		if (!path)
 			return (NULL);
-		fill_word(path, env + (i - letter), letter);
+		ft_strlcpy(path, env + (i - letter), letter + 1);
 		path[letter++] = '/';
-		fill_word(path + letter, cmd, (int)ft_strlen(cmd));
+		ft_strlcpy(path + letter, cmd, (int)ft_strlen(cmd) + 1);
 		if (access(path, X_OK) == 0)
 			return (path);
 		free(path);
