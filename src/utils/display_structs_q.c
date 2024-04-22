@@ -45,9 +45,9 @@ static void	qpenum(int token)
 void	pmin(t_input *input, char *str)
 {
 	t_input	*head;
-	size_t	i;
+	// size_t	i;
 
-	i = 0;
+	// i = 0;
 	head = input;
 	fprintf(stderr, "\033[2m%.20s\n", "-- pmin ------------------");
 	if (str)

@@ -9,7 +9,7 @@ int	echo(char **data)
 
 	i = 0;
 	opt = false;
-	if (data)
+	if (data && data[0])
 	{
 		if (!ft_strncmp(data[i], "-n", 3))
 		{
@@ -20,11 +20,13 @@ int	echo(char **data)
 		{
 			if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
 				return (1);
+			if (write(1, " ", 1) == -1)
+				return (1);
 			i++;
 		}
 	}
 	if (opt == false)
-		if (write(STDOUT_FILENO, "\n", 1) == -1)
+		if (write(1, "\n", 1) == -1)
 			return (1);
 	return (0);
 }
