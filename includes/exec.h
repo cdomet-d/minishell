@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 11:11:18 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 17:32:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ t_input	*find_tok(t_input	*in, t_tok op, bool next);
 
 	/* builtins_exec */
 int builtin_true(t_input *in);
-void exec_builtin(t_input *in);
+void exec_builtin(t_input **in);
 
 	/* redirections utils */
-bool	is_first_cmd(t_input *in);
-bool	is_last_cmd(t_input *in);
+bool	is_first(t_input *in, t_tok token);
+bool	is_last(t_input *in, t_tok token);
 
 	/* exec_utils */
 void	*save_pipin(t_fd *fd);
-void	*create_child(t_fd *fd);
+void	*create_child(t_input *in, t_fd *fd);
 void	wait_for_children(void);
 
 
@@ -100,8 +100,11 @@ char	*split_wsep(char *str, char sep);
 void	*env_rmone(t_env **sup, t_env *head);
 
 	/* builtins */
-void	unset(t_env **env, char *key);
-void	*export(t_env *env, char *var);
+int		echo(char **data);
+int		env(t_input *node);
+int		pwd(char **data);
+void	*export(t_input **in, char *var);
+void	*unset(t_env **env, char *key);
 void	mh_exit(char *line, t_input *in, t_env *env);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/

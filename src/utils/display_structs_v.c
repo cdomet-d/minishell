@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:59:40 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/17 12:07:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 15:36:20 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_enum(int token)
 
 void	print_in_node(t_input *node, t_fd *fd, char *str)
 {
-	fprintf(stderr, "\033[38;5;206m\033[1m#----------- Node %d ---------#\n\033[0m", node->no);
+	fprintf(stderr, "\033[38;5;206m\033[1m#----------- Node ---------#\n\033[0m");
 	fprintf(stderr, "\033[0;34m| %s |\n\033[0m", str);
 	display_dtab(node->data);
 	print_enum(node->tok);
@@ -81,7 +81,7 @@ void	print_env_for(t_env *env)
 	head = env;
 	i = 0;
 	fprintf(stderr, "==== PRINTING ENV FORWARD ====\n");
-	while (env)
+	while (env && i < 10)
 	{
 		fprintf(stderr, "env[%2ld] > \033[0;34m%.20s\n\033[0m", i, env->env);
 		env = env->next;

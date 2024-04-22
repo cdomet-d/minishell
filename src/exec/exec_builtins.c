@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 11:01:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 17:43:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int builtin_true(t_input *in)
 	t_input	*tmp;
 
 	tmp = in;
-	while (tmp && tmp->tok != pip)
+	while (tmp && tmp != pip)
 	{
 		if (tmp->tok == ms_cd)
 			return (ms_cd);
@@ -38,27 +38,32 @@ int builtin_true(t_input *in)
 	return (false);
 }
 
-void exec_builtin(t_input *in)
+void exec_builtin(t_input **in)
 {
 	t_input	*tmp;
 
-	tmp = in;
-	if (tmp->tok == ms_cd)
+	tmp = (*in);
+	// if (builtin_true(tmp) == ms_cd)
 		// return (ms_cd);
-	if (tmp->tok == ms_echo)
-	{
-		printf("%d\n", tmp->tok);
-		pmin(tmp, "in echo");
+	if (builtin_true(tmp) == ms_echo)
 		echo(tmp->data);
-	}
-	if (tmp->tok == ms_pwd)
+	if (builtin_true(tmp) == ms_pwd)
 		pwd(tmp->data);
-	if (tmp->tok == ms_env)
+	if (builtin_true(tmp) == ms_env)
 		env(tmp);
-	if (tmp->tok == ms_exit)
+	if (builtin_true(tmp) == ms_exit)
 		mh_exit(NULL, tmp, tmp->env);
-	if (tmp->tok == ms_export)
-		export(tmp->env, tmp->data[1]);
-	if (tmp->tok == ms_unset)
-		unset(&tmp->env, tmp->data[1]);
+	if (builtin_true(tmp) == ms_export)
+		export(&tmp, tmp->data[1]);
+	if (builtin_true(tmp) == ms_unset)
+		unset(&(*in)->env, tmp->data[1]);
 }
+
+// void builtin_redirs(t_input *tmp, t_fd *fd)
+// {
+// 	int	tmpstdin;
+// 	int	tmpstdout;
+	
+// 	tmpstdin = STDIN_FILENO;
+// 	tmpstdout = STDOUT_FILENO;
+// }

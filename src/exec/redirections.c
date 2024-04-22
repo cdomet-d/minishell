@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/17 17:58:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 17:13:07 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	*out_redir(t_fd *fd, t_input *in)
 	t_input	*tmp;
 
 	tmp = find_tok(in, outredir, false);
-	// pmin(tmp, "outredir");
+	pmin(tmp, "outredir");
 	while (op_true(tmp, outredir))
 	{
-		//fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
-		fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0777);
+		fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
+		fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
 		if (fd->ffd == -1)
 			return (print_error(errno, "outredir (opening out)"));
-		if (op_true(in, command))
+		if (op_true(in, command) || builtin_true(in))
 			if (dup2(fd->ffd, STDOUT_FILENO) == -1)
 				return (print_error(errno, "outredir (duping out)"));
 		if (close(fd->ffd) == -1)
@@ -41,11 +41,11 @@ void	*app_redir(t_fd *fd, t_input *in)
 	tmp = find_tok(in, append, false);
 	while (op_true(tmp, append))
 	{
-		//fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
-		fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0777);
+		fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
+		fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0644);
 		if (fd->ffd == -1)
 			return (print_error(errno, "appredir (opening out)"));
-		if (op_true(in, command))
+		if (op_true(in, command) || builtin_true(in))
 			if (dup2(fd->ffd, STDOUT_FILENO) == -1)
 				return (print_error(errno, "appredir (duping out)"));
 		if (close(fd->ffd) == -1)
@@ -62,7 +62,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 	tmp = find_tok(in, inredir, false);
 	while (op_true(tmp, inredir))
 	{
-		//fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+		fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
 		if (access(tmp->data[0], R_OK) == -1)
 		{
 			print_error(errno, NULL);
@@ -84,19 +84,22 @@ void	*in_redir(t_fd *fd, t_input *in)
 
 void	*pip_redir(t_input *tmp, t_fd *fd)
 {
-	//fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
-	if (is_first_cmd(tmp))
+	fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
+	if (is_first(tmp, command))
 	{
+		fprintf(stderr, "%.20s\n", "-- first ---------------------------------");
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ifc, pipe[W] to out"));
 	}
-	else if (is_last_cmd(tmp))
+	else if (is_last(tmp, command))
 	{
+		fprintf(stderr, "%.20s\n", "-- last ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ilc, tmpin to in"));
 	}
-	else if (!is_first_cmd(tmp) && !is_last_cmd(tmp))
+	else if (!is_first(tmp, command) && !is_last(tmp, command))
 	{
+		fprintf(stderr, "%.20s\n", "-- neither ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, tmpin to in"));
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)

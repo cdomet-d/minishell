@@ -7,9 +7,10 @@ int	echo(char **data)
 	int		i;
 	bool	opt;
 
-	i = 0;
+	i = 1;
 	opt = false;
-	if (data && data[0])
+	fprintf(stderr, "%.20s\n", "-- echo ---------------------------------");
+	if (data && data[i])
 	{
 		if (!ft_strncmp(data[i], "-n", 3))
 		{

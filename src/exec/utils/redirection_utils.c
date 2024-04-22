@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/18 14:04:43 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 17:14:47 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-bool	is_first_cmd(t_input *in)
+bool	is_first(t_input *in, t_tok token)
 {
 	t_input	*tmp;
 	bool	first;
@@ -24,13 +24,13 @@ bool	is_first_cmd(t_input *in)
 	while (tmp)
 	{
 		tmp = tmp->prev;
-		if (tmp && tmp->tok == command)
+		if (tmp && tmp->tok == token)
 			first = false;
 	}
 	return (first);
 }
 
-bool	is_last_cmd(t_input *in)
+bool	is_last(t_input *in, t_tok token)
 {
 	t_input	*tmp;
 	bool	last;
@@ -42,7 +42,7 @@ bool	is_last_cmd(t_input *in)
 	while (tmp)
 	{
 		tmp = tmp->next;
-		if (tmp && tmp->tok == command)
+		if (tmp && tmp->tok == token)
 			last = false;
 	}
 	return (last);

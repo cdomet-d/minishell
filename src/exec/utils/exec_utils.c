@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/18 14:06:17 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 16:56:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@ void	wait_for_children(void)
 		;
 }
 
-void	*create_child(t_fd *fd)
+void	*create_child(t_input *in, t_fd *fd)
 {
-	// fprintf(stderr, "%.20s\n", "-- create_child ------------------");
 	if (fd->pnb != 0)
 	{
-		// fprintf(stderr, "%.20s\n", "-- pipe ------------------");
+		fprintf(stderr, "%.20s\n", "-- pipe ------------------");
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "create_child (piping)"));
+		print_fds(fd);
 	}
-	fd->pid = fork();
+	if (op_true(in, command))
 	{
-		// fprintf(stderr, "%.20s\n", "-- fork ------------------");
+		fprintf(stderr, "%.20s\n", "-- fork ------------------");
+		fd->pid = fork();
 		if (fd->pid == -1)
 			return (print_error(errno, "create_child (forking)"));
 	}
