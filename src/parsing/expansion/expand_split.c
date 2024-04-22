@@ -25,6 +25,11 @@ void	fill_word(char *new, char *old, int i)
 	}
 }
 
+// void	fill_word(char **data, char **newtab)
+// {
+	
+// }
+
 int	nb_letter_str(char *data, int *j, int letter)
 {
 	while (data[*j] && (data[*j] == ' '
@@ -32,6 +37,8 @@ int	nb_letter_str(char *data, int *j, int letter)
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
+		// if (data[*j] == '$' && data[*j + 1] && (data[*j + 1] == '"' || data[*j + 1] == '\''))
+		// 	*j += 1;
 		if (data[*j] == '"')
 		{
 			*j += 1;
@@ -76,6 +83,7 @@ char	**split_tab(char **data, char **newtab)
 		}
 		i++;
 	}
+	// fill_word(data, newtab);
 	return (newtab);
 }
 
