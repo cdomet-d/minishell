@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/17 18:01:34 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/22 10:52:58 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,42 @@ void	*exec_cmd(t_input *in);
 	/* error_handling */
 void	*exe_failure(t_fd *fd, t_input *in, char **arenv);
 
-	/* fd_handling */
-void	close_pfd(t_fd *fd);
-void	init_fds(t_fd *fd);
-void	close_pipe_write(t_fd *fd);
-void	close_pipe_read(t_fd *fd);
-
 	/* arenvlst */
 char	**arenvlst(t_env	*env);
 
+	/* fd_handling */
+void	close_pfd(t_fd *fd);
+void	close_pipe_read(t_fd *fd);
+void	close_pipe_write(t_fd *fd);
+void	init_fds(t_fd *fd);
+
 	/* operators utils */
-bool	is_first_cmd(t_input *in);
-bool	is_last_cmd(t_input *in);
 bool	op_true(t_input *in, t_tok op);
 size_t	count_pipes(t_input *in);
 t_input	*find_next_pipe(t_input	*in, t_fd *fd);
 t_input	*find_tok(t_input	*in, t_tok op, bool next);
 
+	/* builtins_exec */
+int builtin_true(t_input *in);
+void exec_builtin(t_input *in);
+
+	/* redirections utils */
+bool	is_first_cmd(t_input *in);
+bool	is_last_cmd(t_input *in);
+
+	/* exec_utils */
+void	*save_pipin(t_fd *fd);
+void	*create_child(t_fd *fd);
+void	wait_for_children(void);
+
+
 	/* redirections */
-void	*pip_redir(t_input *tmp, t_fd *fd);
+void	*app_redir(t_fd *fd, t_input *in);
 void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
-void	*app_redir(t_fd *fd, t_input *in);
+void	*pip_redir(t_input *tmp, t_fd *fd);
+
+	/* heredoc */
 void	*create_hdocs(t_fd *fd, t_input *in);
 
 /*--------------------------------- BUILTINS ---------------------------------*/
@@ -89,6 +103,10 @@ void	*env_rmone(t_env **sup, t_env *head);
 void	unset(t_env **env, char *key);
 void	*export(t_env *env, char *var);
 void	mh_exit(char *line, t_input *in, t_env *env);
+int		echo(char **data);
+int		env(t_input *node);
+int	pwd(char **data);
+
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
