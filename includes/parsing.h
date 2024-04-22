@@ -44,7 +44,6 @@ int		check_opt(t_input **input, char *line, int *i);
 
 char	**expand_split(char **data, t_env **env, int rv);
 char	**expand(char **data, t_env **env, int rv);
-void	fill_word(char *new, char *old, int i);
 
 /* expand utils */
 int		search_dollar(char **data);
