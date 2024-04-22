@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 19:03:09 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:22:45 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*export(t_env *env, char *var)
 	if (!env || !var)
 		return (print_error(errno, "NULL param in export"));
 	if (check_arg(var))
-		return ;
+		return (NULL);
 	key = split_wsep(var, '=');
 	if (!key)
 		return (print_error(errno, NULL));
