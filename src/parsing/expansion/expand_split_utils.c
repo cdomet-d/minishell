@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 19:28:05 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:35:34 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	put_in_neg(char *data, char quote1, char quote2)
 	i = 0;
 	while (data[i])
 	{
-		if (data[i] == quote1)//'"')
+		if (data[i] == quote1)
 		{
 			i++;
-			while (data[i] && data[i] != quote1)//'"')
+			while (data[i] && data[i] != quote1)
 				i++;
 		}
-		if (data[i] == quote2)//'\'')
+		if (data[i] == quote2)
 		{
 			i++;
-			while (data[i] && data[i] != quote2)//'\'')
+			while (data[i] && data[i] != quote2)
 				data[i++] *= -1;
 		}
 		if (data[i])

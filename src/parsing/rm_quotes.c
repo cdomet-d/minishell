@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 19:32:04 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:34:42 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,9 @@ int	len_str(char *str)
 	while (str[i])
 	{
 		if ((str[i] == '$' && str[i + 1]
-				&& (str[i + 1] == '"' || str[i + 1] == '\'')) || str[i] == '\'')
+				&& (str[i + 1] == '"' || str[i + 1] == '\''))
+			|| str[i] == '\'' || str[i] == '"')
 			i++;
-		else if (str[i] == '"')
-		{
-			i++;
-			while (str[i] && str[i] != '"')
-			{
-				i++;
-				len++;
-			}
-			i++;
-		}
 		else if (str[i])
 		{
 			i++;
@@ -54,15 +45,8 @@ void	fill_str(char *new, char *str)
 	{
 		if ((str[i] == '$' && str[i + 1]
 				&& (str[i + 1] == '"' || str[i + 1] == '\''))
-				|| str[i] == '\'' || str[i] == '"')
+			|| str[i] == '\'' || str[i] == '"')
 			i++;
-		// else if (str[i] == '"')
-		// {
-		// 	i++;
-		// 	while (str[i] && str[i] != '"')
-		// 		new[j++] = str[i++];
-		// 	i++;
-		// }
 		else if (str[i])
 			new[j++] = str[i++];
 	}
