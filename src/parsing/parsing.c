@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 18:43:18 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:29:12 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	search_expand(t_input *node, t_env **env, int rv)
 	if (!node->data)
 		return (0);
 	while (node->data[++i])
-		put_in_neg(node->data[i]);
+		put_in_neg(node->data[i], '"', '\'');
 	if (search_dollar(node->data))
 	{
 		newtab = expand_split(node->data, env, rv);

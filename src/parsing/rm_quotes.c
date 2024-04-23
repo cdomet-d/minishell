@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 19:23:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:32:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,16 @@ void	fill_str(char *new, char *str)
 	while (str[i])
 	{
 		if ((str[i] == '$' && str[i + 1]
-				&& (str[i + 1] == '"' || str[i + 1] == '\'')) || str[i] == '\'')
+				&& (str[i + 1] == '"' || str[i + 1] == '\''))
+				|| str[i] == '\'' || str[i] == '"')
 			i++;
-		else if (str[i] == '"')
-		{
-			i++;
-			while (str[i] && str[i] != '"')
-				new[j++] = str[i++];
-			i++;
-		}
+		// else if (str[i] == '"')
+		// {
+		// 	i++;
+		// 	while (str[i] && str[i] != '"')
+		// 		new[j++] = str[i++];
+		// 	i++;
+		// }
 		else if (str[i])
 			new[j++] = str[i++];
 	}
@@ -72,6 +73,7 @@ char	*rm_quotes(char *str)
 	char	*new;
 	int		len;
 
+	put_in_neg(str, '\'', '"');
 	len = len_str(str);
 	new = ft_calloc(sizeof(char), len + 1);
 	if (!new)

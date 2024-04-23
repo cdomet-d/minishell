@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 17:43:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:28:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**expand(char **data, t_env **env, int rv);
 int		search_dollar(char **data);
 char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
-void	put_in_neg(char *data);
+void	put_in_neg(char *data, char quote1, char quote2);
 int		check_ws(char **tab);
 void	fill_word(char *data, char *newtab, int *j, int *letter);
 
