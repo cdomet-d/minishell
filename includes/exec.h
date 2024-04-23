@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 17:32:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 12:49:48 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	wait_for_children(void);
 void	*app_redir(t_fd *fd, t_input *in);
 void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
-void	*pip_redir(t_input *tmp, t_fd *fd);
+void	*pip_redir(t_input *tmp, t_fd *fd, t_tok token);
 
 	/* heredoc */
 void	*create_hdocs(t_fd *fd, t_input *in);
@@ -101,7 +101,7 @@ void	*env_rmone(t_env **sup, t_env *head);
 
 	/* builtins */
 int		echo(char **data);
-int		env(t_input *node);
+void	*env(t_input *node);
 int		pwd(char **data);
 void	*export(t_input **in, char *var);
 void	*unset(t_env **env, char *key);

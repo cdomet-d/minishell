@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 17:13:07 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 12:56:56 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,23 @@ void	*in_redir(t_fd *fd, t_input *in)
 	return ((int *)true);
 }
 
-void	*pip_redir(t_input *tmp, t_fd *fd)
+void	*pip_redir(t_input *tmp, t_fd *fd, t_tok token)
 {
 	fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
-	if (is_first(tmp, command))
+	print_fds(fd);
+	if (is_first(tmp, token))
 	{
 		fprintf(stderr, "%.20s\n", "-- first ---------------------------------");
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ifc, pipe[W] to out"));
 	}
-	else if (is_last(tmp, command))
+	else if (is_last(tmp, token))
 	{
 		fprintf(stderr, "%.20s\n", "-- last ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ilc, tmpin to in"));
 	}
-	else if (!is_first(tmp, command) && !is_last(tmp, command))
+	else if (!is_first(tmp, token) && !is_last(tmp, token))
 	{
 		fprintf(stderr, "%.20s\n", "-- neither ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
@@ -106,9 +107,11 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
 	}
 	//fprintf(stderr, "%.20s\n", "-- in child ---------------------------------");
-	if (fd->tmpin != -1)
+	if (fd->pid == 0 && fd->tmpin != -1)
+	{
 		if (close(fd->tmpin) == -1)
 				print_error(errno, "close_exec (tmpin)");
-	close_pfd(fd);
+		close_pfd(fd);
+	}
 	return ((int *)true);
 }

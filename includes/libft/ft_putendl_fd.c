@@ -6,14 +6,21 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 11:57:42 by cdomet-d          #+#    #+#             */
-/*   Updated: 2023/11/23 12:06:38 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 12:46:35 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+ssize_t	ft_putendl_fd(char *s, int fd)
 {
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	ssize_t	len;
+	
+	len = write(fd, s, ft_strlen(s));
+	if (len == -1)
+		return (len);
+	len += write(fd, "\n", 1);
+	if (len == -1)
+		return (len);
+	return (len);
 }
