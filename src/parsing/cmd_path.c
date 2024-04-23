@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/22 15:29:26 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:36:43 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ int	path_len(char *env, int *i)
 		len++;
 	}
 	return (len);
+}
+
+int	check_path(char *path)
+{
+	struct stat	buf;
+
+	if (access(path, X_OK) == 0)
+	{
+		stat(path, &buf);
+		if (S_ISDIR(buf.st_mode))
+			return (0);
+		return (1);
+	}
+	return (0);
 }
 
 char	*find_path(char *cmd, char *env)
@@ -43,7 +57,7 @@ char	*find_path(char *cmd, char *env)
 		ft_strlcpy(path, env + (i - letter), letter + 1);
 		path[letter++] = '/';
 		ft_strlcpy(path + letter, cmd, (int)ft_strlen(cmd) + 1);
-		if (access(path, X_OK) == 0)
+		if (check_path(path))
 			return (path);
 		free(path);
 		path = NULL;
