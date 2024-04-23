@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 18:45:29 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:23:21 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ int	len_str(char *str)
 {
 	int		i;
 	int		len;
-	char	quotetype;
 
 	i = 0;
 	len = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == '\''))
+		if ((str[i] == '$' && str[i + 1]
+				&& (str[i + 1] == '"' || str[i + 1] == '\'')) || str[i] == '\'')
 			i++;
-		if (str[i] == '"' || str[i] == '\'')
+		else if (str[i] == '"')
 		{
-			quotetype = str[i++];
-			while (str[i] && str[i] != quotetype)
+			i++;
+			while (str[i] && str[i] != '"')
 			{
 				i++;
 				len++;
 			}
 			i++;
 		}
-		else
+		else if (str[i])
 		{
 			i++;
 			len++;
@@ -47,22 +47,22 @@ void	fill_str(char *new, char *str)
 {
 	int		i;
 	int		j;
-	char	quotetype;
 
 	i = 0;
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == '\''))
+		if ((str[i] == '$' && str[i + 1]
+				&& (str[i + 1] == '"' || str[i + 1] == '\'')) || str[i] == '\'')
 			i++;
-		if (str[i] == '"' || str[i] == '\'')
+		else if (str[i] == '"')
 		{
-			quotetype = str[i++];
-			while (str[i] && str[i] != quotetype)
+			i++;
+			while (str[i] && str[i] != '"')
 				new[j++] = str[i++];
 			i++;
 		}
-		else
+		else if (str[i])
 			new[j++] = str[i++];
 	}
 }
