@@ -25,10 +25,13 @@ static void	*h_gnl(int fd, t_input *in)
 	{
 		if (line)
 		{
-			// if (search_dollar())
+			// if (in->data[0][0] < 0)
 			// {
-			// 	expand(&line, &tmp->env, 0);
-			// 	revert();
+			// 	if (search_dollar(line))
+			// 	{
+			// 		expand(&line, &tmp->env, 0);
+			// 		revert(line);
+			// 	}
 			// }
 			if (write(fd, line, ft_strlen(line)) == -1)
 				return (print_error(errno, "heredoc (write))"));
