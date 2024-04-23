@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 15:33:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 16:05:35 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_input
 /* env list utils*/
 t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
-void	env_freelst(t_env *env);
+void	env_freelst(t_env **env);
 void	init_env(char **envp, t_env **env);
 
 /* input list utils */

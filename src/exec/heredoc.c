@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/17 12:06:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 16:48:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 		tmp = find_tok(tmp, heredoc, true);
 		fn++;
 	}
-	pmin(in, "in create_hdocs");
 	return ((int *) true);
 }

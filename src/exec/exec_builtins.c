@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 12:38:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 17:46:01 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int builtin_true(t_input *in)
+t_tok builtin_true(t_input *in)
 {
 	t_input	*tmp;
 
@@ -44,38 +44,15 @@ void exec_builtin(t_input **in)
 
 	tmp = (*in);
 	// if (builtin_true(tmp) == ms_cd)
-		// return (ms_cd);
+	// 	return (ms_cd);
 	if (builtin_true(tmp) == ms_echo)
-	{	
-		fprintf(stderr, "%.20s\n", "-- echo ---------------------------------");
 		echo(tmp->data);
-	}
-	if (builtin_true(tmp) == ms_pwd)
-	{
-		fprintf(stderr, "%.20s\n", "-- pwd ---------------------------------");
+	else if (builtin_true(tmp) == ms_pwd)
 		pwd(tmp->data);
-	}
-	if (builtin_true(tmp) == ms_env)
-	{
-		fprintf(stderr, "%.20s\n", "-- env ---------------------------------");
-		env(tmp);
-	}
-	if (builtin_true(tmp) == ms_exit)
-	{
-		fprintf(stderr, "%.20s\n", "-- exit ---------------------------------");
-		mh_exit(NULL, tmp, tmp->env);
-	}
-	if (builtin_true(tmp) == ms_export)
-	{
-		fprintf(stderr, "%.20s\n", "-- exit ---------------------------------");
+	else if (builtin_true(tmp) == ms_env)
+			env(tmp);
+	else if (builtin_true(tmp) == ms_export)
 		export(&tmp, tmp->data[1]);
-	}
-	if (builtin_true(tmp) == ms_unset)
-	{
-		fprintf(stderr, "%.20s\n", "-- exit ---------------------------------");
+	else if (builtin_true(tmp) == ms_unset)
 		unset(&(*in)->env, tmp->data[1]);
-	}
-	fprintf(stderr, "%.20s\n", "-- end exec_builtins ---------------------------------");
 }
-
-

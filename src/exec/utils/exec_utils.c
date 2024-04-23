@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 12:16:14 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 14:26:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	*create_child(t_input *in, t_fd *fd)
 		fprintf(stderr, "%.20s\n", "-- pipe ------------------");
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "create_child (piping)"));
-		// print_fds(fd);
 	}
 	if (op_true(in, command))
 	{

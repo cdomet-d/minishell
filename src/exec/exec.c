@@ -6,20 +6,18 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 14:06:04 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 17:45:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static void	*ft_execve(t_input *in, t_fd fd)
+static void	*ft_execve(t_input *in)
 {
 	char	**arenv;
 	t_input	*tmp;
 
-	(void)fd;
-	fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- execve ---------------------------------");
-	fprintf(stderr, "\033[0;36m%.20s || %d\033[0m\n", "-- execve  ---------------------------------", fd.pid);
+	fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- execve ------------------");
 	tmp = find_tok(in, command, false);
 	pmin(tmp, "execve");
 	if (!tmp->data)
@@ -36,13 +34,10 @@ static void	*ft_execve(t_input *in, t_fd fd)
 	return ((int *)false);
 }
 
-static void *redir_builtins(t_input *tmp, t_fd *fd)
+static void	*redir_builtins(t_input *tmp, t_fd *fd)
 {
-
-
-	pmin(tmp, NULL);
 	if (fd->pnb != 0)
-		if (!pip_redir(tmp, fd, builtin_true(tmp)))
+		if (!pip_redir(tmp, fd))
 			return (print_error(errno, "redir_builtins 1"));
 	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
@@ -61,8 +56,9 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
+	pmin(tmp, "in redir_cmd");
 	if (fd->pnb != 0)
-		if (!pip_redir(tmp, fd, command))
+		if (!pip_redir(tmp, fd))
 			return (NULL);
 	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
@@ -74,7 +70,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 		if (!app_redir(fd, tmp))
 			return (NULL);
 	if (op_true(tmp, command))
-		ft_execve(tmp, *fd);
+		ft_execve(tmp);
 	return ((int *)false);
 }
 
@@ -82,8 +78,8 @@ void	*exec_cmd(t_input *in)
 {
 	t_input	*tmp;
 	t_fd	fd;
-	int	tmpstdin;
-	int	tmpstdout;
+	int		tmpstdin;
+	int		tmpstdout;
 
 	init_fds(&fd);
 	fd.pnb = count_pipes(in);
@@ -95,29 +91,28 @@ void	*exec_cmd(t_input *in)
 	{
 		if (fd.pid != 0)
 		{
-			if (builtin_true(tmp))
+			if (builtin_true(tmp) && builtin_true(tmp) != ms_exit)
 			{
 				if (fd.pnb != 0)
 				{
-					fprintf(stderr, "%.20s\n", "-- pipe (bins) ------------------");
+					fprintf(stderr, "%.20s\n", "-- pipe (bins) --------------");
 					if (pipe(fd.pfd) == -1)
 						return (print_error(errno, "builtins (piping)"));
 				}
-				fprintf(stderr, "%.20s\n", "-- builtin ---------------------------------");
-				tmpstdin = STDIN_FILENO;
-				tmpstdout = STDOUT_FILENO;
+				fprintf(stderr, "%.20s\n", "-- builtin ----------------------");
+				tmpstdin = dup(STDIN_FILENO);
+				tmpstdout = dup(STDOUT_FILENO);
 				if (!redir_builtins(tmp, &fd))
 					return (print_error(errno, "exec_cmd (redirections)"));
 				exec_builtin(&tmp);
 				if (fd.pnb != 0)
 					save_pipin(&fd);
 				if (dup2(tmpstdin, STDIN_FILENO) == -1)
-					return (print_error(errno, "redir_builtins (reopening STDIN"));
-				// close(tmpstdin);
+					return (print_error(errno, "redir_b (reopening STDIN"));
 				if (dup2(tmpstdout, STDOUT_FILENO) == -1)
-					return (print_error(errno, "redir_builtins (reopening STDOUT"));
-				// close(tmpstdout);
-				fprintf(stderr, "%.20s\n", "-- increment ---------------------------------");
+					return (print_error(errno, "redir_b (reopening STDOUT"));
+				close(tmpstdin);
+				close(tmpstdout);
 				tmp = find_next_pipe(tmp, &fd);
 			}
 		}
@@ -125,8 +120,22 @@ void	*exec_cmd(t_input *in)
 			if (!create_child(tmp, &fd))
 				return (print_error(errno, "exec_cmd (create_child)"));
 		if (tmp && fd.pid == 0)
+		{
+			if (builtin_true(tmp) == ms_exit)
+			{
+				print_fds(&fd);
+				if (count_pipes(in))
+				{
+					close_pfd(&fd);
+					if (fd.tmpin != -1)
+						if (close(fd.tmpin) == -1)
+							print_error(errno, "close_cmd (tmpin)");
+				}
+				mh_exit(NULL, in, &in->env);
+			}
 			if (!redir_cmd(tmp, &fd))
-				exe_failure(&fd, in, NULL);
+				exe_failure(in);
+		}
 		if (fd.pnb != 0)
 			save_pipin(&fd);
 		tmp = find_next_pipe(tmp, &fd);

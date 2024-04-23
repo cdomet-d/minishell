@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/18 14:15:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 16:12:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	fatal_exit(t_input **lst, int error_code, char *error_message)
 {
-	if (lst && (*lst) && (*lst)->env)
-		env_freelst((*lst)->env);
+	if (lst && (*lst) && (*lst)->env && (*lst)->env)
+		env_freelst(&(*lst)->env);
 	if (lst && (*lst))
 		input_freelst(lst);
 	if (error_code || error_message)
@@ -30,7 +30,7 @@ void	fatal_exit(t_input **lst, int error_code, char *error_message)
 void	free_env(t_env *lst, int error_code, char *error_message)
 {
 	if (lst)
-		env_freelst(lst);
+		env_freelst(&lst);
 	if (error_code || error_message)
 		print_error(error_code, error_message);
 	if (error_code > 0)

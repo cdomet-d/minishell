@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 12:56:56 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 16:48:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*out_redir(t_fd *fd, t_input *in)
 	t_input	*tmp;
 
 	tmp = find_tok(in, outredir, false);
-	pmin(tmp, "outredir");
 	while (op_true(tmp, outredir))
 	{
 		fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
@@ -82,23 +81,22 @@ void	*in_redir(t_fd *fd, t_input *in)
 	return ((int *)true);
 }
 
-void	*pip_redir(t_input *tmp, t_fd *fd, t_tok token)
+void	*pip_redir(t_input *tmp, t_fd *fd)
 {
 	fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
-	print_fds(fd);
-	if (is_first(tmp, token))
+	if (is_first(tmp))
 	{
 		fprintf(stderr, "%.20s\n", "-- first ---------------------------------");
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ifc, pipe[W] to out"));
 	}
-	else if (is_last(tmp, token))
+	else if (is_last(tmp))
 	{
 		fprintf(stderr, "%.20s\n", "-- last ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ilc, tmpin to in"));
 	}
-	else if (!is_first(tmp, token) && !is_last(tmp, token))
+	else if (!is_first(tmp) && !is_last(tmp))
 	{
 		fprintf(stderr, "%.20s\n", "-- neither ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
@@ -106,11 +104,10 @@ void	*pip_redir(t_input *tmp, t_fd *fd, t_tok token)
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
 	}
-	//fprintf(stderr, "%.20s\n", "-- in child ---------------------------------");
 	if (fd->pid == 0 && fd->tmpin != -1)
 	{
 		if (close(fd->tmpin) == -1)
-				print_error(errno, "close_exec (tmpin)");
+			print_error(errno, "close_exec (tmpin)");
 		close_pfd(fd);
 	}
 	return ((int *)true);

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 12:49:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/23 17:15:14 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_fd
 void	*exec_cmd(t_input *in);
 
 	/* error_handling */
-void	*exe_failure(t_fd *fd, t_input *in, char **arenv);
+void	*exe_failure(t_input *in);
 
 	/* arenvlst */
 char	**arenvlst(t_env	*env);
@@ -71,12 +71,12 @@ t_input	*find_next_pipe(t_input	*in, t_fd *fd);
 t_input	*find_tok(t_input	*in, t_tok op, bool next);
 
 	/* builtins_exec */
-int builtin_true(t_input *in);
+t_tok builtin_true(t_input *in);
 void exec_builtin(t_input **in);
 
 	/* redirections utils */
-bool	is_first(t_input *in, t_tok token);
-bool	is_last(t_input *in, t_tok token);
+bool	is_first(t_input *in);
+bool	is_last(t_input *in);
 
 	/* exec_utils */
 void	*save_pipin(t_fd *fd);
@@ -88,7 +88,7 @@ void	wait_for_children(void);
 void	*app_redir(t_fd *fd, t_input *in);
 void	*in_redir(t_fd *fd, t_input *in);
 void	*out_redir(t_fd *fd, t_input *in);
-void	*pip_redir(t_input *tmp, t_fd *fd, t_tok token);
+void	*pip_redir(t_input *tmp, t_fd *fd);
 
 	/* heredoc */
 void	*create_hdocs(t_fd *fd, t_input *in);
@@ -105,7 +105,7 @@ void	*env(t_input *node);
 int		pwd(char **data);
 void	*export(t_input **in, char *var);
 void	*unset(t_env **env, char *key);
-void	mh_exit(char *line, t_input *in, t_env *env);
+void	mh_exit(char *line, t_input *in, t_env **env);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
