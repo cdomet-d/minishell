@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 18:34:02 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:43:18 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 	t_input	*node;
 
 	if (tokenization(input, env, line))
-		return ((void)print_error(errno, "minishell fail"));
+		return ;//((void)print_error(errno, "minishell fail"));
 	node = *input;
 	while (node)
 	{
