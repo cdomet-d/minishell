@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:08:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/22 18:38:19 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:46:36 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,4 @@ int	check_ws(char **tab)
 		i++;
 	}
 	return (0);
-}
-
-void	fill_word(char *data, char *newtab, int *j, int *letter)
-{
-	if (data[*j] == '$' && data[*j + 1]
-		&& (data[*j + 1] == '"' || data[*j + 1] == '\''))
-		*j += 1;
-	if (data[*j] == '"')
-	{
-		newtab[*letter] = data[*j];
-		*letter += 1;
-		*j += 1;
-		while (data[*j] && data[*j] != '"')
-		{
-			newtab[*letter] = data[*j];
-			*letter += 1;
-			*j += 1;
-		}
-	}
-	if (data[*j])
-	{
-		newtab[*letter] = data[*j];
-		*letter += 1;
-		*j += 1;
-	}
 }

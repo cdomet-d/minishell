@@ -6,38 +6,11 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/22 18:38:54 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:46:53 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-void	create_tab(char **data, char **newtab)
-{
-	int	i;
-	int	j;
-	int	word;
-	int	letter;
-
-	i = 0;
-	word = 0;
-	while (data[i])
-	{
-		j = 0;
-		while (data[i][j])
-		{
-			letter = 0;
-			while (data[i][j] && (data[i][j] == ' '
-					|| (data[i][j] >= '\t' && data[i][j] <= '\r')))
-				j++;
-			while (data[i][j] && data[i][j] != ' '
-				&& (data[i][j] < '\t' || data[i][j] > '\r'))
-				fill_word(data[i], newtab[word], &j, &letter);
-			word++;
-		}
-		i++;
-	}
-}
 
 int	nb_letter_str(char *data, int *j, int letter)
 {
@@ -46,9 +19,6 @@ int	nb_letter_str(char *data, int *j, int letter)
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
-		if (data[*j] == '$' && data[*j + 1]
-			&& (data[*j + 1] == '"' || data[*j + 1] == '\''))
-			*j += 1;
 		if (data[*j] == '"')
 		{
 			*j += 1;
@@ -86,13 +56,13 @@ char	**split_tab(char **data, char **newtab)
 			newtab[word] = ft_calloc(sizeof(char), letter + 1);
 			if (!newtab[word])
 				return (free_dtab(newtab), NULL);
+			ft_strlcpy(newtab[word], data[i] + (j - letter), letter + 1);
 			word += 1;
 			if (data[i][j])
 				j++;
 		}
 		i++;
 	}
-	create_tab(data, newtab);
 	return (newtab);
 }
 

@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:23:10 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:45:29 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	len_str(char *str)
 	len = 0;
 	while (str[i])
 	{
+		if (str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == '\''))
+			i++;
 		if (str[i] == '"' || str[i] == '\'')
 		{
 			quotetype = str[i++];
@@ -51,6 +53,8 @@ void	fill_str(char *new, char *str)
 	j = 0;
 	while (str[i])
 	{
+		if (str[i] == '$' && (str[i + 1] == '"' || str[i + 1] == '\''))
+			i++;
 		if (str[i] == '"' || str[i] == '\'')
 		{
 			quotetype = str[i++];
