@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/22 18:45:09 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:43:21 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	parsing(t_input **input, t_env **env, char *line, int rv);
 void	init_all(char **str, char **envp, t_env **env, t_input **input);
 void	process_line(char *line, t_input *input, t_env *env);
 int		cmd_path(t_input *input, t_env **env);
+int		path_len(char *env, int *i);
+int		check_path(char **path);
 char	*rm_quotes(char *str);
 void	find_builtin(t_input *node);
 void	revert(t_input *node);
