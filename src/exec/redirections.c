@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 14:07:41 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 15:10:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ void	*out_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
+	fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
 	tmp = find_tok(in, outredir, false);
+	if (!tmp)
+		return (print_error(0, "minishell: no such token"));
+	if (tmp->data[1])
+		return (print_error(0, "minishell: ambiguous redirection"));
 	while (op_true(tmp, outredir))
 	{
-		fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
 		fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
 		if (fd->ffd == -1)
 			return (print_error(errno, "outredir (opening out)"));
@@ -37,10 +41,14 @@ void	*app_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
+	fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
 	tmp = find_tok(in, append, false);
+	if (!tmp)
+		return (print_error(0, "minishell: no such token"));
+	if (tmp->data[1])
+		return (print_error(0, "minishell: ambiguous redirection"));
 	while (op_true(tmp, append))
 	{
-		fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
 		fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0644);
 		if (fd->ffd == -1)
 			return (print_error(errno, "appredir (opening out)"));
@@ -58,21 +66,22 @@ void	*in_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
+	fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
 	tmp = find_tok(in, inredir, false);
+	if (!tmp)
+		return (print_error(0, "minishell: no such token"));
+	if (tmp->data[1])
+		return (print_error(0, "minishell: ambiguous redirection"));
 	while (op_true(tmp, inredir))
 	{
-		fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
-		if (access(tmp->data[0], R_OK) == -1)
+		fd->ffd = open(tmp->data[0], O_RDONLY);
+		if (fd->ffd == -1)
 		{
-			print_error(errno, NULL);
+			print_error(errno, "inredir (opening in)");
 			fd->ffd = open("/dev/null", O_RDONLY);
 			if (fd->ffd == -1)
 				return (print_error(errno, "inredir (opening /dev/null)"));
 		}
-		else
-			fd->ffd = open(tmp->data[0], O_RDONLY);
-		if (fd->ffd == -1)
-			return (print_error(errno, "inredir (opening in)"));
 		if (dup2(fd->ffd, STDIN_FILENO) == -1)
 			return (print_error(errno, "inredir (duping in"));
 		close(fd->ffd);

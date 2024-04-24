@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 11:57:42 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 12:46:35 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 15:03:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 ssize_t	ft_putendl_fd(char *s, int fd)
 {
 	ssize_t	len;
-	
+
 	len = write(fd, s, ft_strlen(s));
 	if (len == -1)
 		return (len);

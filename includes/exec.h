@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 13:52:20 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 15:03:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	close_pfd(t_fd *fd);
 void	close_pipe_read(t_fd *fd);
 void	close_pipe_write(t_fd *fd);
 void	init_fds(t_fd *fd, t_input *in);
-void	reset_stds(int	tmpstdin, int tmpstdout);
+void	reset_stds(int tmpstdin, int tmpstdout);
 
 	/* operators utils */
 bool	op_true(t_input *in, t_tok op);
@@ -85,7 +85,6 @@ bool	is_last(t_input *in);
 void	*save_pipin(t_fd *fd);
 void	*create_child(t_input *in, t_fd *fd);
 void	close_and_wait(t_input *in, t_fd *fd);	
-
 
 	/* redirections */
 void	*app_redir(t_fd *fd, t_input *in);
