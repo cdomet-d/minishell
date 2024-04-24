@@ -26,7 +26,6 @@ int	echo(char **data)
 
 	i = 1;
 	opt = false;
-	fprintf(stderr, "%.20s\n", "-- echo ---------------------------------");
 	if (data && data[i])
 	{
 		if (!cmp_opt(data[i]))
