@@ -57,7 +57,6 @@ void	*export(t_env *env, char *var)
 	if (!env || !var)
 		return (print_error(errno, "NULL param in export"));
 	// if (check_arg(var))
-	// 	return (NULL);
 	key = split_wsep(var, '=');
 	if (!key)
 		return (print_error(errno, NULL));
