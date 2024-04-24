@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 16:12:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 13:56:51 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	*errjoin(int error_code, char *error_message)
 {
 	char	*error;
 	char	*tmp;
-	
+
 	tmp = ft_strjoin(error_message, ": ");
 	if (!tmp)
 		return (NULL);
@@ -57,13 +57,13 @@ static void	*errjoin(int error_code, char *error_message)
 void	*print_error(int error_code, char *error_message)
 {
 	char	*err;
-	
+
 	if (error_code && !error_message)
 	{
 		ft_putstr_fd("\033[0;31m", 2);
 		ft_putendl_fd(strerror(error_code), STDERR_FILENO);
 		ft_putstr_fd("\033[0m", 2);
-	}	
+	}
 	else if (!error_code && error_message)
 	{
 		ft_putstr_fd("\033[0;31m", 2);

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 17:15:14 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 13:52:20 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ char	**arenvlst(t_env	*env);
 void	close_pfd(t_fd *fd);
 void	close_pipe_read(t_fd *fd);
 void	close_pipe_write(t_fd *fd);
-void	init_fds(t_fd *fd);
+void	init_fds(t_fd *fd, t_input *in);
+void	reset_stds(int	tmpstdin, int tmpstdout);
 
 	/* operators utils */
 bool	op_true(t_input *in, t_tok op);
@@ -71,8 +72,10 @@ t_input	*find_next_pipe(t_input	*in, t_fd *fd);
 t_input	*find_tok(t_input	*in, t_tok op, bool next);
 
 	/* builtins_exec */
-t_tok builtin_true(t_input *in);
-void exec_builtin(t_input **in);
+t_tok	builtin_true(t_input *in);
+void	exec_builtin(t_input **in);
+void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp);
+void	*redir_builtins(t_fd *fd, t_input *tmp);
 
 	/* redirections utils */
 bool	is_first(t_input *in);
@@ -81,7 +84,7 @@ bool	is_last(t_input *in);
 	/* exec_utils */
 void	*save_pipin(t_fd *fd);
 void	*create_child(t_input *in, t_fd *fd);
-void	wait_for_children(void);
+void	close_and_wait(t_input *in, t_fd *fd);	
 
 
 	/* redirections */

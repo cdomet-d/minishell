@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 16:48:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 14:07:41 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,16 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 	fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
 	if (is_first(tmp))
 	{
-		fprintf(stderr, "%.20s\n", "-- first ---------------------------------");
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ifc, pipe[W] to out"));
 	}
 	else if (is_last(tmp))
 	{
-		fprintf(stderr, "%.20s\n", "-- last ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ilc, tmpin to in"));
 	}
 	else if (!is_first(tmp) && !is_last(tmp))
 	{
-		fprintf(stderr, "%.20s\n", "-- neither ---------------------------------");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, tmpin to in"));
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)

@@ -6,28 +6,27 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 14:26:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 13:51:03 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	wait_for_children(void)
+void	close_and_wait(t_input *in, t_fd *fd)
 {
+	if (count_pipes(in))
+		close_pipe_read(fd);
 	while (wait(0) != -1 && errno != ECHILD)
 		;
 }
 
 void	*create_child(t_input *in, t_fd *fd)
 {
-	if (fd->pnb != 0)
+	if (fd->pnb != 0 && (op_true(in, command) || builtin_true(in)))
 	{
 		fprintf(stderr, "%.20s\n", "-- pipe ------------------");
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "create_child (piping)"));
-	}
-	if (op_true(in, command))
-	{
 		fprintf(stderr, "%.20s\n", "-- fork ------------------");
 		fd->pid = fork();
 		if (fd->pid == -1)
