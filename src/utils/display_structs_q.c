@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/17 12:04:32 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/18 14:30:36 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	pmin(t_input *input, char *str)
 	// i = 0;
 	head = input;
 	fprintf(stderr, "\033[2m%.20s\n", "-- pmin ------------------");
-	fprintf(stderr, "\033[2m%.20s\n", str);
+	if (str)
+		fprintf(stderr, "\033[2m%.20s\n", str);
 	while (input)
 	{
 		qpenum(input->tok);

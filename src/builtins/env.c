@@ -2,21 +2,15 @@
 
 #include "exec.h"
 
-int	env(t_input *node)
+void	*env(t_input *node)
 {
 	if (node->data[1])
-	{
-		if (ft_putstr_fd("env : too many arguments\n", 2) == -1)
-			return (1);
-		return (0);
-	}
+		return (print_error(E2BIG, "env (too many arguments)"));
 	while (node->env)
 	{
-		if (ft_putstr_fd(node->env->env, STDOUT_FILENO) == -1)
-			return (1);
-		if (write(STDOUT_FILENO, "\n", 1) == -1)
-			return (1);
+		if (ft_putendl_fd(node->env->env, STDOUT_FILENO) == -1)
+			return (print_error(errno, "env (writing to STDOUT"));
 		node->env = node->env->next;
 	}
-	return (0);
+	return ((int *)true);
 }
