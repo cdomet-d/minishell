@@ -54,7 +54,6 @@ char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 void	put_in_neg(char *data, char quote1, char quote2);
 int		check_ws(char **tab);
-void	fill_word(char *data, char *newtab, int *j, int *letter);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 
