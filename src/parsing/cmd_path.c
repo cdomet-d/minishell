@@ -26,7 +26,7 @@ char	*find_path(char *cmd, char *env)
 		size = letter + (int)ft_strlen(cmd);
 		path = ft_calloc(sizeof(char), size + 2);
 		if (!path)
-			return (NULL);
+			return (print_error(errno, NULL));
 		ft_strlcpy(path, env + (i - letter), letter + 1);
 		path[letter++] = '/';
 		ft_strlcpy(path + letter, cmd, (int)ft_strlen(cmd) + 1);

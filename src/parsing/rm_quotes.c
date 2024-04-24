@@ -61,7 +61,7 @@ char	*rm_quotes(char *str)
 	len = len_str(str);
 	new = ft_calloc(sizeof(char), len + 1);
 	if (!new)
-		return (NULL);
+		return (print_error(errno, NULL));
 	fill_str(new, str);
 	return (new);
 }
