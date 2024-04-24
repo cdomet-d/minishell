@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 15:04:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 19:20:59 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,34 @@
 static void	*h_gnl(int fd, t_input *in)
 {
 	char	*line;
+	char	**temp;
+	char	*tempdata;
 
 	fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
 	fprintf(stderr, "\033[2mdelim : [%s]\033[0m\n", in->data[0]);
 	line = get_next_line(STDIN_FILENO);
 	if (!line)
 		return (print_error(errno, "heredoc(GNL))"));
-	while (ft_strncmp(line, in->data[0], (ft_strlen(in->data[0]))) != 0)
+	tempdata = ft_strdup(in->data[0]);
+	if (!tempdata)
+		return (print_error(errno, NULL));
+	if (in->data[0][0] < 0)
+		tempdata[0] *= -1;
+	while (ft_strncmp(line, tempdata, (ft_strlen(in->data[0]))) != 0)
 	{
 		if (line)
 		{
-			// if (in->data[0][0] < 0)
-			// {
-			// 	if (search_dollar(line))
-			// 	{
-			//		temp = expand(&line, &tmp->env, 0);
-			// 		if (!temp)
-			//			return ();
-			//		line = temp;
-			// 		revert(line);
-			// 	}
-			// 	in->data[0][0] *= -1;
-			// }
+			if (in->data[0][0] < 0)
+			{
+				if (search_dollar(&line))
+				{
+					temp = expand(&line, &in->env, 0);
+					if (!temp)
+						return (print_error(errno, NULL));
+					line = temp[0];
+					// revert(&line);
+				}
+			}
 			if (write(fd, line, ft_strlen(line)) == -1)
 				return (print_error(errno, "heredoc (write))"));
 			free (line);
@@ -45,6 +51,8 @@ static void	*h_gnl(int fd, t_input *in)
 		if (!line)
 			return (print_error(errno, "heredoc (GNL))"));
 	}
+	free(tempdata);
+	in->data[0][0] *= -1;
 	if (line)
 		free(line);
 	return ((int *) true);

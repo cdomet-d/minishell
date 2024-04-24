@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 19:29:12 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:29:06 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 			if (search_expand(node, env, rv))
 				return (input_freelst(input));
 		}
-		else if (node->data[0][0] != '"' && node->data[0][0] != '\'')
-			node->data[0][0] *= -1;
+		// else if (node->data[0][0] != '"' && node->data[0][0] != '\'')     //creer un tok heredocexpand ????
+		// 	node->data[0][0] *= -1;
 		if (search_quotes(node))
 			return (input_freelst(input));
 		revert(node);
