@@ -23,31 +23,31 @@ static void	*exprt_inenv(t_env **env, char *data)
 	return (new);
 }
 
-int	check_arg(char *var)
-{
-	int	i;
+// int	check_arg(char *var)
+// {
+// 	int	i;
 
-	i = 0;
-	if (var[0] != '_' || !ft_isalpha(var[0]))
-	{
-		print_error(errno, "minishell: export: '");
-		print_error(errno, var);
-		print_error(errno, "': not a valid identifier");
-		return (1);
-	}
-	while (var[i])
-	{
-		if (var[i] != '_' || !ft_isalnum(var[i]))
-		{
-			print_error(errno, "minishell: export: '");
-			print_error(errno, var);
-			print_error(errno, "': not a valid identifier");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (var[0] != '_' || !ft_isalpha(var[0]))
+// 	{
+// 		print_error(errno, "minishell: export: '");
+// 		print_error(errno, var);
+// 		print_error(errno, "': not a valid identifier");
+// 		return (1);
+// 	}
+// 	while (var[i])
+// 	{
+// 		if (var[i] != '_' || !ft_isalnum(var[i]))
+// 		{
+// 			print_error(errno, "minishell: export: '");
+// 			print_error(errno, var);
+// 			print_error(errno, "': not a valid identifier");
+// 			return (1);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 void	*export(t_env *env, char *var)
 {
@@ -56,8 +56,8 @@ void	*export(t_env *env, char *var)
 
 	if (!env || !var)
 		return (print_error(errno, "NULL param in export"));
-	if (check_arg(var))
-		return (NULL);
+	// if (check_arg(var))
+	// 	return (NULL);
 	key = split_wsep(var, '=');
 	if (!key)
 		return (print_error(errno, NULL));
