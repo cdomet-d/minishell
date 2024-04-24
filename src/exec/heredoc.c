@@ -29,7 +29,10 @@ static void	*h_gnl(int fd, t_input *in)
 			// {
 			// 	if (search_dollar(line))
 			// 	{
-			// 		expand(&line, &tmp->env, 0);
+			//		temp = expand(&line, &tmp->env, 0);
+			// 		if (!temp)
+			//			return ();
+			//		line = temp;
 			// 		revert(line);
 			// 	}
 			// 	in->data[0][0] *= -1;
