@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/24 16:30:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 17:06:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	input_freelst(t_input **lst)
 		return ;
 	while (*lst)
 	{
-		fprintf(stderr, "%.20s\n", "-- free input -----------------------------");
 		temp = (*lst)->next;
 		free_dtab((*lst)->data);
 		free(*lst);

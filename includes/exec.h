@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 16:26:56 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 17:15:20 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_fd
 void	*exec_cmd(t_input *in);
 
 	/* error_handling */
-void	*exe_failure(t_input *in);
+void	*exe_failure(t_fd *fd, t_input *in);
 
 	/* arenvlst */
 char	**arenvlst(t_env	*env);
