@@ -1,14 +1,16 @@
-dir="src/exec/utils"
+#!/bin/bash
+
+dir="src/exec"
 for file in "$dir"/*.c; do
-    if [ -f "$file" ]; then
-        filename=$(basename "$file")
-        functions=$(grep -oE '[a-z].*	.*[a-z].*\([^)]*\)' "$file")
-        if [ ${#functions[@]} -gt 0 ]; then
-            echo "/* $filename */"
-            for func in "${functions[@]}"; do
-                echo "$func"
-            done
+	if [ -f "$file" ]; then
+		filename=$(basename "$file")
+		functions=$(grep -oE '[a-z].*	.*[a-z].*\([^)]*\)' "$file")
+		if [ ${#functions[@]} -gt 0 ]; then
+			echo "/* $filename */"
+			for func in "${functions[@]}"; do
+				echo "$func_ws"
+			done
 			echo
-        fi
-    fi
+		fi
+	fi
 done
