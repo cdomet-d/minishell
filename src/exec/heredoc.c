@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 18:46:01 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:59:01 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 		tmp = find_tok(tmp, heredoc, true);
 		fn++;
 	}
-	pmin(in, "in create_hdocs");
 	return ((int *) true);
 }

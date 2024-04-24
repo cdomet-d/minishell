@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/22 19:22:45 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:29:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,33 @@ static void	*exprt_inenv(t_env **env, char *data)
 // 	return (0);
 // }
 
-void	*export(t_env *env, char *var)
+void	*export(t_input **in, char *var)
 {
 	char	*key;
 	t_env	*head;
-
-	if (!env || !var)
+	
+	fprintf(stderr, "%.20s\n", "-- export ---------------------------------");
+	if (!(*in)->env || !var)
 		return (print_error(errno, "NULL param in export"));
 	// if (check_arg(var))
 	key = split_wsep(var, '=');
 	if (!key)
 		return (print_error(errno, NULL));
-	head = env;
-	while (env)
+	head = (*in)->env;
+	while ((*in)->env)
 	{
-		if (ft_strncmp(key, env->env, ft_strlen(key)) == 0)
+		if (ft_strncmp(key, (*in)->env->env, ft_strlen(key)) == 0)
 		{
-			free(env->env);
+			free((*in)->env->env);
 			free(key);
-			return (env->env = ft_strdup(var));
+			(*in)->env->env = ft_strdup(var);
+			(*in)->env = head;
+			return ((*env));
 		}
-		env = env->next;
+		(*in)->env = (*in)->env->next;
 	}
 	free(key);
-	env = head;
-	return (exprt_inenv(&env, var));
+	(*in)->env = head;
+	exprt_inenv(&(*in)->env, var);
+	return (in);
 }

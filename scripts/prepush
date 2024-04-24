@@ -7,6 +7,6 @@ norminette src/builtins
 if [ -f "out" ]; then
 	rm out
 fi
-if [ -f "log" ]; then
-	rm log
+if [ -f "mini_log" ]; then
+	rm mini_log
 fi

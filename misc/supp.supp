@@ -16,8 +16,8 @@
 {
    grep
    Memcheck:Leak
+   match-leak-kinds: all
    fun:malloc
-   fun:calloc
    obj:/usr/bin/grep
    ...
 }

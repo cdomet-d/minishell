@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 15:33:49 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:09:17 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 /*----------------------------- COMMON STRUCTURES ----------------------------*/
 
-typedef enum s_enum
+typedef enum e_enum
 {
 	pip, // |
 	inredir, // <
@@ -54,7 +54,6 @@ typedef struct s_input
 	char			**data;
 	t_tok			tok;
 	t_env			*env;
-	int				no;
 	struct s_input	*next;
 	struct s_input	*prev;
 }	t_input;
@@ -64,7 +63,7 @@ typedef struct s_input
 /* env list utils*/
 t_env	*env_newnode(char *data);
 void	env_addback(t_env **env, t_env *node);
-void	env_freelst(t_env *env);
+void	env_freelst(t_env **env);
 void	init_env(char **envp, t_env **env);
 
 /* input list utils */
