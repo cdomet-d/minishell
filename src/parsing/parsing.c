@@ -94,7 +94,7 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 	t_input	*node;
 
 	if (tokenization(input, env, line))
-		return ;//((void)print_error(errno, "minishell fail"));
+		return ;
 	node = *input;
 	while (node)
 	{

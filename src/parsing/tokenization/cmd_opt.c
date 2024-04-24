@@ -33,7 +33,7 @@ int	fill_tab_join(char **tab, char **newtab, int *word)
 		letter = ft_strlen(tab[i]);
 		newtab[*word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[*word])
-			return (1);
+			return (print_error(errno, NULL), 1);
 		letter = 0;
 		while (tab[i][letter])
 		{
@@ -56,7 +56,7 @@ char	**tab_join(char **s1, char **s2)
 	word = tab_len(s1) + tab_len(s2);
 	tab = ft_calloc(sizeof(char *), (word + 1));
 	if (!tab)
-		return (NULL);
+		return (free_dtab(s2), print_error(errno, NULL));
 	word = 0;
 	if (fill_tab_join(s1, tab, &word))
 		return (free_dtab(tab), free_dtab(s2), NULL);
@@ -82,7 +82,7 @@ int	add_opt(t_input **input, t_input *ptr, char *line, int *i)
 		return (input_freelst(input), 1);
 	new = tab_join(ptr->data, data);
 	if (!new)
-		return (1);
+		return (input_freelst(input), 1);
 	free_dtab(ptr->data);
 	ptr->data = new;
 	return (0);
