@@ -32,6 +32,7 @@ static void	*h_gnl(int fd, t_input *in)
 			// 		expand(&line, &tmp->env, 0);
 			// 		revert(line);
 			// 	}
+			// 	in->data[0][0] *= -1;
 			// }
 			if (write(fd, line, ft_strlen(line)) == -1)
 				return (print_error(errno, "heredoc (write))"));
