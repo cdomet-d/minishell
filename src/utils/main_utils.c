@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:08:34 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/23 17:15:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 16:24:10 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	process_line(char *line, t_input *input, t_env *env)
 	parsing(&input, &env, line, 0);
 	if (input)
 		exec_cmd(input);
+	pmin(input, "before freelist");
 	input_freelst(&input);
+	pmin(input, "after freelist");
 	free(line);
 }

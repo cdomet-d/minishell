@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 16:05:45 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 15:39:54 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("Minishell > ");
 		if (line)
 			process_line(line, input, env);
+		pmin(input, "main");
 	}
 	env_freelst(&env);
 	return (0);
