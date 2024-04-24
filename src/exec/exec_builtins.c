@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 14:33:08 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 17:23:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exec_builtin(t_input **in)
 	else if (builtin_true(tmp) == ms_env)
 		env(tmp);
 	else if (builtin_true(tmp) == ms_export)
-		export(&tmp, tmp->data[1]);
+		export(&tmp, tmp->data);
 	else if (builtin_true(tmp) == ms_unset)
 		unset(&(*in)->env, tmp->data[1]);
 }
