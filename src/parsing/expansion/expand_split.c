@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 18:46:53 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:16:59 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	**expand_split(char **data, t_env **env, int rv)
 	if (!check_ws(temp))
 		return (temp);
 	nb_word(temp, &word);
-	newtab =ft_calloc(sizeof(char *), word + 1);
+	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
 		return (free_dtab(temp), print_error(errno, NULL));
 	newtab = split_tab(temp, newtab);
