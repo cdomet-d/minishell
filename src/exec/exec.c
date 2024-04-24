@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 15:03:07 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 17:20:06 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	fprintf(stderr, "%.20s\n", "-- redir_cmd ----------------------");
+	pmin(in, "redir");
 	tmp = in;
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
@@ -54,7 +55,8 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	if (builtin_true(tmp))
 		exec_builtin(&tmp);
 	if (op_true(tmp, command))
-		ft_execve(tmp);
+		if (!ft_execve(tmp))
+			return (NULL);
 	return ((int *)false);
 }
 
@@ -78,7 +80,7 @@ void	*exec_cmd(t_input *in)
 				return (print_error(errno, "exec_cmd (create_child)"));
 		if (tmp && fd.pid == 0)
 			if (!redir_cmd(tmp, &fd))
-				exe_failure(in);
+				exe_failure(&fd, in);
 		if (fd.pnb != 0)
 			save_pipin(&fd);
 		tmp = find_next_pipe(tmp, &fd);

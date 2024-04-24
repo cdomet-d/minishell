@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:39:05 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/24 14:09:02 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 17:21:30 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void	init_fds(t_fd *fd, t_input *in)
 void	close_pipe_read(t_fd *fd)
 {
 	// fprintf(stderr, "%.20s\n", "-- close_pfd[R] ------------------");
-	if (close(fd->pfd[R]) == -1)
-		print_error(errno, "close_read (pfd[R])");
+	if (fd->pfd[R] != -1)
+		if (close(fd->pfd[R]) == -1)
+			print_error(errno, "close_read (pfd[R])");
 }
 
 void	close_pipe_write(t_fd *fd)
 {
 	// fprintf(stderr, "%.20s\n", "-- close_pfd[W] ------------------");
-	if (close(fd->pfd[W]) == -1)
-		print_error(errno, "close_write (pfd[W])");
+	if (fd->pfd[W] != -1)
+		if (close(fd->pfd[W]) == -1)
+			print_error(errno, "close_write (pfd[W])");
 }
 
 void	close_pfd(t_fd *fd)

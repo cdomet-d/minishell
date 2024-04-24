@@ -6,15 +6,16 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/24 14:51:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 17:23:41 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	*exe_failure(t_input *in)
+void	*exe_failure(t_fd *fd, t_input *in)
 {
 	fprintf(stderr, "%.20s\n", "-- killchild --------------------------------");
+	close_pfd(fd);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
