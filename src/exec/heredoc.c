@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 13:59:01 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 15:04:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*gen_filename(int fn)
 	char	*strfn;
 	char	*filename;
 
-	// fprintf(stderr, "%.20s\n", "-- gen_filename -----------------------------");
+	// fprintf(stderr, "%.20s\n", "-- gen_filename --------------------------");
 	strfn = ft_itoa(fn);
 	if (!strfn)
 		return (print_error(errno, "gen_filename (itoa fn)"));
@@ -59,7 +59,7 @@ static char	*gen_filename(int fn)
 
 static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 {
-	// fprintf(stderr, "%.20s\n", "-- create_hfile -----------------------------");
+	// fprintf(stderr, "%.20s\n", "-- create_hfile --------------------------");
 	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (fd->hfd == -1)
 		return (print_error(errno, "create_hfile (opening tmp)"));

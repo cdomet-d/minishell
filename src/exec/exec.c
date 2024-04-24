@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 14:08:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 15:03:07 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 {
 	t_input	*tmp;
 
+	fprintf(stderr, "%.20s\n", "-- redir_cmd ----------------------");
 	tmp = in;
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
@@ -70,7 +71,8 @@ void	*exec_cmd(t_input *in)
 			return (print_error(errno, "exec_cmd (creating heredoc)"));
 	while (tmp)
 	{
-		handle_bt_nopipe(&fd, in, tmp);
+		if (fd.pid != 0 && !count_pipes(in) && builtin_true(tmp))
+			handle_bt_nopipe(&fd, in, tmp);
 		if (fd.pid != 0)
 			if (!create_child(tmp, &fd))
 				return (print_error(errno, "exec_cmd (create_child)"));

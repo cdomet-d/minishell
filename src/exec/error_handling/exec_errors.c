@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/23 16:38:14 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/24 14:51:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*exe_failure(t_input *in)
 {
-	fprintf(stderr, "%.20s\n", "-- execfail ---------------------------------");
+	fprintf(stderr, "%.20s\n", "-- killchild --------------------------------");
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
