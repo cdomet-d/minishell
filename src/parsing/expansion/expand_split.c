@@ -55,7 +55,7 @@ char	**split_tab(char **data, char **newtab)
 			letter = nb_letter_str(data[i], &j, 0);
 			newtab[word] = ft_calloc(sizeof(char), letter + 1);
 			if (!newtab[word])
-				return (free_dtab(newtab), NULL);
+				return (free_dtab(newtab), print_error(errno, NULL));
 			ft_strlcpy(newtab[word], data[i] + (j - letter), letter + 1);
 			word += 1;
 			if (data[i][j])
@@ -108,12 +108,12 @@ char	**expand_split(char **data, t_env **env, int rv)
 	if (!check_ws(temp))
 		return (temp);
 	nb_word(temp, &word);
-	newtab = ft_calloc(sizeof(char *), word + 1);
+	newtab =ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (NULL);
+		return (free_dtab(temp), print_error(errno, NULL));
 	newtab = split_tab(temp, newtab);
 	if (!newtab)
-		return (NULL);
+		return (free_dtab(temp), NULL);
 	free_dtab(temp);
 	return (newtab);
 }
