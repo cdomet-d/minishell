@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 17:23:27 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:31:15 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_fd
 void	*exec_cmd(t_input *in);
 
 	/* error_handling */
-void	*exe_failure(t_input *in);
+void	*exe_failure(t_fd *fd, t_input *in);
 
 	/* arenvlst */
 char	**arenvlst(t_env	*env);

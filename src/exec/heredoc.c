@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 19:20:59 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:30:55 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 	if (close(fd->hfd) == -1)
 		return (print_error(errno, "create_hfile (closing hfd)"));
 	tmp->tok = inredir;
+	free(filename);
 	return ((int *) true);
 }
 
@@ -101,6 +102,7 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	{
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
 			return (print_error(errno, "prep h_file (creating a file)"));
+		free(tmp->data[0]);
 		tmp->data[0] = gen_filename(fn);
 		tmp->tok = inredir;
 		tmp = find_tok(tmp, heredoc, true);

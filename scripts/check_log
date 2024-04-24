@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# greping log to find leaks
-grep "Open file descriptor" mini_log
