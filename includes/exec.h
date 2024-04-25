@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 16:11:58 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:44:56 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	*env_rmone(t_env **sup, t_env *head);
 void	mh_exit(char *line, t_input *in, t_env **env);
 
 /* export.c */
-void	*export(t_input **in, char *var);
+void	*export(t_input **in, char **var);
 
 /* env.c */
 void	*env(t_input *node);

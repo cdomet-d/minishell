@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 18:27:40 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:51:19 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	*exprt_inenv(t_env **env, char *data)
 {
 	t_env	*new;
 
+	// printf("in\n");
 	new = env_newnode(data);
 	if (!new)
 		return (NULL);
@@ -49,18 +50,30 @@ int	check_arg(char *var)
 	return (0);
 }
 
+int	change_var(t_input **in, char *var, char *key)
+{
+	while ((*in)->env)
+	{
+		if (ft_strncmp(key, (*in)->env->env, ft_strlen(key)) == 0)
+		{
+			free((*in)->env->env);
+			free(key);
+			(*in)->env->env = ft_strdup(var);
+			return (1);
+		}
+		(*in)->env = (*in)->env->next;
+	}
+	return (0);
+}
+
 void	*export(t_input **in, char **var)
 {
 	char	*key;
-	t_env	*head;
 	int		i;
-	bool	n;
 
 	i = 1;
-	n = false;
 	if ((*in)->env && !var[i])
 		return (NULL);//sort_env((*in)->env));
-	head = (*in)->env;
 	while (var[i])
 	{
 		if (!check_arg(var[i]))
@@ -68,22 +81,9 @@ void	*export(t_input **in, char **var)
 			key = split_wsep(var[i], '=');
 			if (!key)
 				return (print_error(errno, NULL));
-			while ((*in)->env)
-			{
-				if (ft_strncmp(key, (*in)->env->env, ft_strlen(key)) == 0)
-				{
-					n = true;
-					free((*in)->env->env);
-					free(key);
-					(*in)->env->env = ft_strdup(var[i]);
-					break ;
-				}
-				(*in)->env = (*in)->env->next;
-			}
-			free(key);
-			(*in)->env = head;
-			if (n == false)
+			if (!change_var(in, var[i], key))
 				exprt_inenv(&(*in)->env, var[i]);
+			free(key);
 		}
 		i++;
 	}
