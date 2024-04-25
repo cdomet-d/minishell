@@ -6,24 +6,11 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/16 17:31:31 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:42:16 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int	path_len(char *env, int *i)
-{
-	int	len;
-
-	len = 0;
-	while (env[*i] && env[*i] != ':')
-	{
-		*i += 1;
-		len++;
-	}
-	return (len);
-}
 
 char	*find_path(char *cmd, char *env)
 {
@@ -39,11 +26,11 @@ char	*find_path(char *cmd, char *env)
 		size = letter + (int)ft_strlen(cmd);
 		path = ft_calloc(sizeof(char), size + 2);
 		if (!path)
-			return (NULL);
-		fill_word(path, env + (i - letter), letter);
+			return (print_error(errno, NULL));
+		ft_strlcpy(path, env + (i - letter), letter + 1);
 		path[letter++] = '/';
-		fill_word(path + letter, cmd, (int)ft_strlen(cmd));
-		if (access(path, X_OK) == 0)
+		ft_strlcpy(path + letter, cmd, (int)ft_strlen(cmd) + 1);
+		if (check_path(&path))
 			return (path);
 		free(path);
 		path = NULL;

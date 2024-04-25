@@ -100,7 +100,7 @@ char	**build_tab(char *line, int *i, int word)
 	letter = 0;
 	tab = ft_calloc(sizeof(char *), word + 1);
 	if (!tab)
-		return (NULL);
+		return (print_error(errno, NULL));
 	j = word;
 	word = 0;
 	while (j-- > 0)
@@ -111,7 +111,7 @@ char	**build_tab(char *line, int *i, int word)
 		letter = count_letter(line, *i);
 		tab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!tab[word])
-			return (free_dtab(tab), NULL);
+			return (free_dtab(tab), print_error(errno, NULL));
 		fill_tab(line, i, tab, &word);
 		word++;
 	}

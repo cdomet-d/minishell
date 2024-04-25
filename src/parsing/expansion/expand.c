@@ -50,16 +50,15 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 		{
 			i++;
 			if (data[i] && data[i] == '?')
-				ft_copy_rv(newtab, &j, &i, rv);
+			{
+				newtab[j++] = 48 + rv;
+				i++;
+			}
 			else if (data[i])
 				i += ft_copy_env(data + i, newtab, env, &j);
 		}
 		else if (data[i])
-		{
-			if (data[i] < 0)
-				data[i] *= -1;
 			newtab[j++] = data[i++];
-		}
 	}
 }
 
@@ -101,14 +100,6 @@ int	nb_letter(char *data, t_env **env)
 		if (data[j] == '$' && data[j + 1] && (ft_isalpha(data[j + 1])
 				|| data[j + 1] == '_' || data[j + 1] == '?'))
 			nb_letter_env(data, env, &letter, &j);
-		else if (data[j] < 0)
-		{
-			while (data[j] && data[j] < 0)
-			{
-				j++;
-				letter++;
-			}
-		}
 		else if (data[j])
 		{
 			j++;
@@ -130,14 +121,14 @@ char	**expand(char **data, t_env **env, int rv)
 		word++;
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (NULL);
+		return (print_error(errno, NULL));
 	word = 0;
 	while (data[word])
 	{
 		letter = nb_letter(data[word], env);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
-			return (free_dtab(newtab), NULL);
+			return (free_dtab(newtab), print_error(errno, NULL));
 		ft_copy(data[word], newtab[word], env, rv);
 		word++;
 	}

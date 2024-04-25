@@ -2,6 +2,23 @@
 
 #include "exec.h"
 
+int	cmp_opt(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (arg[0] != '-')
+		return (1);
+	i++;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	echo(char **data)
 {
 	int		i;
@@ -9,10 +26,9 @@ int	echo(char **data)
 
 	i = 1;
 	opt = false;
-	fprintf(stderr, "%.20s\n", "-- echo ---------------------------------");
 	if (data && data[i])
 	{
-		if (!ft_strncmp(data[i], "-n", 3))
+		if (!cmp_opt(data[i]))
 		{
 			i++;
 			opt = true;

@@ -20,7 +20,7 @@ int	create_input(t_input **input, t_env **env, char **data, int tok)
 	new = input_newnode(data, tok, *env);
 	if (!new)
 	{
-		print_error(EXIT_FAILURE, NULL);
+		print_error(errno, NULL);
 		free_dtab(data);
 		input_freelst(input);
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 14:36:50 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/25 17:28:11 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	*env_rmone(t_env **sup, t_env *head);
 void	mh_exit(char *line, t_input *in, t_env **env);
 
 /* export.c */
-void	*export(t_input **in, char *var);
+void	*export(t_input **in);
 
 /* env.c */
 void	*env(t_input *node);

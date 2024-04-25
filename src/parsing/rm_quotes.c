@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:23:10 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:34:42 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,16 @@ int	len_str(char *str)
 {
 	int		i;
 	int		len;
-	char	quotetype;
 
 	i = 0;
 	len = 0;
 	while (str[i])
 	{
-		if (str[i] == '"' || str[i] == '\'')
-		{
-			quotetype = str[i++];
-			while (str[i] && str[i] != quotetype)
-			{
-				i++;
-				len++;
-			}
+		if ((str[i] == '$' && str[i + 1]
+				&& (str[i + 1] == '"' || str[i + 1] == '\''))
+			|| str[i] == '\'' || str[i] == '"')
 			i++;
-		}
-		else
+		else if (str[i])
 		{
 			i++;
 			len++;
@@ -45,20 +38,16 @@ void	fill_str(char *new, char *str)
 {
 	int		i;
 	int		j;
-	char	quotetype;
 
 	i = 0;
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '"' || str[i] == '\'')
-		{
-			quotetype = str[i++];
-			while (str[i] && str[i] != quotetype)
-				new[j++] = str[i++];
+		if ((str[i] == '$' && str[i + 1]
+				&& (str[i + 1] == '"' || str[i + 1] == '\''))
+			|| str[i] == '\'' || str[i] == '"')
 			i++;
-		}
-		else
+		else if (str[i])
 			new[j++] = str[i++];
 	}
 }
@@ -68,10 +57,11 @@ char	*rm_quotes(char *str)
 	char	*new;
 	int		len;
 
+	put_in_neg(str, '\'', '"');
 	len = len_str(str);
 	new = ft_calloc(sizeof(char), len + 1);
 	if (!new)
-		return (NULL);
+		return (print_error(errno, NULL));
 	fill_str(new, str);
 	return (new);
 }
