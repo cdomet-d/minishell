@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 19:30:55 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:34:02 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static void	*h_gnl(int fd, t_input *in)
 {
 	char	*line;
-	char	**temp;
+	char	*temp;
 	char	*tempdata;
+	int		letter;
 
 	fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
 	fprintf(stderr, "\033[2mdelim : [%s]\033[0m\n", in->data[0]);
@@ -36,10 +37,12 @@ static void	*h_gnl(int fd, t_input *in)
 			{
 				if (search_dollar(&line))
 				{
-					temp = expand(&line, &in->env, 0);
+					letter = nb_letter(line, &(in)->env);
+					temp = ft_calloc(sizeof(char), letter + 1);
 					if (!temp)
-						return (print_error(errno, NULL));
-					line = temp[0];
+						return (free(temp), print_error(errno, NULL));
+					ft_copy(line, temp, &(in)->env, 0);
+					line = temp;
 					// revert(&line);
 				}
 			}
