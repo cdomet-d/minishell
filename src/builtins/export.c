@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 16:51:19 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:04:58 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	*exprt_inenv(t_env **env, char *data)
 {
 	t_env	*new;
 
-	// printf("in\n");
 	new = env_newnode(data);
 	if (!new)
 		return (NULL);
@@ -59,6 +58,8 @@ int	change_var(t_input **in, char *var, char *key)
 			free((*in)->env->env);
 			free(key);
 			(*in)->env->env = ft_strdup(var);
+			if (!(*in)->env->env)
+				return (-1);
 			return (1);
 		}
 		(*in)->env = (*in)->env->next;
@@ -70,6 +71,7 @@ void	*export(t_input **in, char **var)
 {
 	char	*key;
 	int		i;
+	int		rv;
 
 	i = 1;
 	if ((*in)->env && !var[i])
@@ -81,9 +83,13 @@ void	*export(t_input **in, char **var)
 			key = split_wsep(var[i], '=');
 			if (!key)
 				return (print_error(errno, NULL));
-			if (!change_var(in, var[i], key))
-				exprt_inenv(&(*in)->env, var[i]);
+			rv = change_var(in, var[i], key);
 			free(key);
+			if (rv == -1)
+				return (NULL);
+			if (!rv)
+				if (!exprt_inenv(&(*in)->env, var[i]))
+					return (NULL);
 		}
 		i++;
 	}
