@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 17:04:58 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:37:12 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,13 @@ int	check_arg(char *var)
 	return (0);
 }
 
-int	change_var(t_input **in, char *var, char *key)
+int	change_var(t_input **in, char *var)
 {
+	char	*key;
+
+	key = split_wsep(var, '=');
+	if (!key)
+		return (-1);
 	while ((*in)->env)
 	{
 		if (ft_strncmp(key, (*in)->env->env, ft_strlen(key)) == 0)
@@ -64,31 +69,30 @@ int	change_var(t_input **in, char *var, char *key)
 		}
 		(*in)->env = (*in)->env->next;
 	}
+	free(key);
 	return (0);
 }
 
-void	*export(t_input **in, char **var)
+void	*export(t_input **in)
 {
-	char	*key;
 	int		i;
 	int		rv;
+	t_env	*head;
 
 	i = 1;
-	if ((*in)->env && !var[i])
+	head = (*in)->env;
+	if ((*in)->env && !(*in)->data[i])
 		return (NULL);//sort_env((*in)->env));
-	while (var[i])
+	while ((*in)->data[i])
 	{
-		if (!check_arg(var[i]))
+		if (!check_arg((*in)->data[i]))
 		{
-			key = split_wsep(var[i], '=');
-			if (!key)
-				return (print_error(errno, NULL));
-			rv = change_var(in, var[i], key);
-			free(key);
+			rv = change_var(in, (*in)->data[i]);
 			if (rv == -1)
-				return (NULL);
+				return (print_error(errno, NULL));
+			(*in)->env = head;
 			if (!rv)
-				if (!exprt_inenv(&(*in)->env, var[i]))
+				if (!exprt_inenv(&(*in)->env, (*in)->data[i]))
 					return (NULL);
 		}
 		i++;
