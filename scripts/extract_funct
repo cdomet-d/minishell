@@ -1,12 +1,27 @@
 #!/bin/bash
 
-dir="src/exec"
-for file in $dir/*.c; do
-	filename=$(basename "$file")
-	function=$(grep -oE '\b[a-zA-Z_][a-zA-Z0-9_]*\s+[a-zA-Z_][a-zA-Z0-9_]*\([^)]*\)' "$file")
-    if [ -n "$function" ]; then
-        echo "/* $filename */"
-        echo "$function"
-        echo "--------------------"  
-    fi
+if [ $# == 1 ]; then
+	dir="$1"
+else
+	dir="."
+fi
+find "$dir" -type f -name "*.c" | while read -r file; do
+	if [ -f "$file" ]; then
+		dirname=$(dirname "$file")
+		dirname=$(basename "$dirname")
+		filename=$(basename "$file")
+		functions=$(grep -oE '[a-z].*	.*[a-z].*\([^)]*\)' "$file" | grep -v "static" | tr "\n" ";" | sed 's/;/;\n/g')
+		if [ ${#functions[@]} -gt 0 ]; then
+			if [ "$dirname" != "$prevdir" ]; then
+				printf "%.30s\n" "// $dirname ------------------------------------"
+				prevdir="$dirname"
+				echo
+			fi
+			echo "/* $filename */"
+			for func in "${functions[@]}"; do
+				echo "$func"
+			done
+			echo
+		fi
+	fi
 done

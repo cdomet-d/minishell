@@ -1,9 +1,10 @@
 #!/bin/bash
 
 if [ $# == 1 ]; then
+	bash scripts/prep
 	git add .
 	git commit -m "$1"
 	git push
 else
-	echo "Wrong format"
+	echo "gimme the commit message u animal"
 fi
