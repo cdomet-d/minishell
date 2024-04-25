@@ -1,0 +1,85 @@
+// tokenization --------------
+
+/* create_data.c */
+void	count_word(char *line, int i, int *word);
+int	count_letter(char *line, int letter);
+void	fill_tab(char *line, int *i, char **tab, int *word);
+char	**build_tab(char *line, int *i, int word);
+
+/* cmd_opt.c */
+int	tab_len(char **tab);
+int	fill_tab_join(char **tab, char **newtab, int *word);
+char	**tab_join(char **s1, char **s2);
+int	add_opt(t_input **input, t_input *ptr, char *line, int *i);
+int	check_opt(t_input **input, char *line, int *i);
+
+/* toke_type.c */
+int	tok_inredir(t_input **input, t_env **env, char *line, int *i);
+int	tok_outredir(t_input **input, t_env **env, char *line, int *i);
+int	tok_command(t_input **input, t_env **env, char *line, int *i);
+int	tok_pipe(t_input **input, t_env **env, char *line, int *i);
+
+/* tokenization.c */
+int	loop_content(t_input **input, t_env **env, char *line, int *i);
+int	tokenization(t_input **input, t_env **env, char *line);
+
+/* tokenization_utils.c */
+int	check_quote(char *line);
+void	syntax_error(char *line, int *i);
+char	**get_data(t_input **input, char *line, int *i);
+
+// parsing -------------------
+
+/* create_lst.c */
+int	create_input(t_input **input, t_env **env, char **data, int tok);
+void	create_env(t_input **input, char **envp, t_env **env);
+
+// expansion -----------------
+
+/* expand.c */
+int	ft_copy_env(char *data, char *newtab, t_env **env, int *j);
+void	ft_copy(char *data, char *newtab, t_env **env, int rv);
+void	nb_letter_env(char *data, t_env **env, int *letter, int *j);
+int	nb_letter(char *data, t_env **env);
+char	**expand(char **data, t_env **env, int rv);
+
+/* expand_split.c */
+void	fill_word(char *new, char *old, int i);
+int	nb_letter_str(char *data, int *j, int letter);
+char	**split_tab(char **data, char **newtab);
+void	nb_word(char **tab, int *word);
+char	**expand_split(char **data, t_env **env, int rv);
+
+/* expand_split_utils.c */
+void	put_in_neg(char *data);
+int	check_ws(char **tab);
+
+/* expand_utils.c */
+int	search_dollar(char **data);
+int	ft_strcmp(char *data, char *env);
+char	*search_env(char *data, t_env **env);
+void	ft_copy_rv(char *newtab, int *j, int *i, int rv);
+
+// parsing -------------------
+
+/* rm_quotes.c */
+int	len_str(char *str);
+void	fill_str(char *new, char *str);
+char	*rm_quotes(char *str);
+
+/* cmd_path.c */
+int	path_len(char *env, int *i);
+char	*find_path(char *cmd, char *env);
+int	path_slash(char *cmd);
+int	put_path(t_input *input, t_env	*node);
+int	cmd_path(t_input *input, t_env **env);
+
+/* parsing.c */
+void	revert(t_input *node);
+int	search_expand(t_input *node, t_env **env, int rv);
+int	search_quotes(t_input *node);
+void	parsing(t_input **input, t_env **env, char *line, int rv);
+
+/* toke_builtin.c */
+void	find_builtin(t_input *node);
+

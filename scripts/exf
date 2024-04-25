@@ -1,8 +1,8 @@
 #!/bin/bash
 
-mkdir scripts/output
-if [ $# == 1 ]; then
-	bash scripts/extract_funct > scripts/ouput/"$1"
+mkdir -p scripts/output
+if [ $# == 1 ];then
+	bash scripts/extract_funct "$1" > "scripts/output/fncts"
 else
-	bash scripts/extract_funct > scripts/output/functs
+	bash scripts/extract_funct > "scripts/output/fncts"
 fi

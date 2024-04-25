@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/24 12:26:24 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/25 15:25:01 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,7 @@ SRC_SUBUTILS:=	arenvlst.c \
 				buitin_utils.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(ERR_SUBDIR), $(SRC_SUBERR))
-ERR_SUBDIR:=error_handling/
+ERR_SUBDIR:= error_handling/
 SRC_SUBERR:=	exec_errors.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ RULES ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
@@ -140,11 +140,13 @@ clean:
 	@echo "$(FAINT)"
 	$(RM) $(BUILD_DIR)
 	make -C $(LIBFT_DIR) $@
+	@echo "$(R)"
 
 fclean: clean
+	@echo -n "$(FAINT)"
 	make -C $(LIBFT_DIR) $@
 	$(RM) $(NAME)
-	@echo
+	@echo "$(R)"
 	@echo "$(PB)\t • • ┈┈┈┈ ๑ ⋅ ⋯ ୨ \t done ! \t ୧ ⋯ ⋅ ๑ ┈┈┈┈ • •$(R)"
 	@echo
 

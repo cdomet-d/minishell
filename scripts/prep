@@ -11,8 +11,8 @@ if [ -f "mini_log" ]; then
 	rm mini_log
 fi
 
-if [ -f "script/output "]; then
-	rm script/output
+if [ -d "scripts/output" ]; then
+	rm -r scripts/output
 fi
 
 rm norm
