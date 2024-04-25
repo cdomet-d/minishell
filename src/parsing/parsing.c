@@ -76,6 +76,7 @@ int	search_quotes(t_input *node)
 		{
 			if (node->data[i][j] == '"' || node->data[i][j] == '\'')
 			{
+				//if (node->tok == heredoc) node->tok = heredocex
 				temp = rm_quotes(node->data[i]);
 				if (!temp)
 					return (1);
@@ -103,7 +104,7 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 			if (search_expand(node, env, rv))
 				return (input_freelst(input));
 		}
-		// else if (node->data[0][0] != '"' && node->data[0][0] != '\'')     //creer un tok heredocexpand ????
+		// else if (node->data[0][0] != '"' && node->data[0][0] != '\'')     //creer un tok heredocexpand ????    (<< st"op" cat) !!!
 		// 	node->data[0][0] *= -1;
 		if (search_quotes(node))
 			return (input_freelst(input));
