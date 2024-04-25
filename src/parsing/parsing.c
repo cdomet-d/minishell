@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/24 19:29:06 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:24:40 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	search_quotes(t_input *node)
 		{
 			if (node->data[i][j] == '"' || node->data[i][j] == '\'')
 			{
-				//if (node->tok == heredoc) node->tok = heredocex
 				temp = rm_quotes(node->data[i]);
 				if (!temp)
 					return (1);
@@ -90,9 +89,27 @@ int	search_quotes(t_input *node)
 	return (0);
 }
 
+int	check_delim(t_input *node)
+{
+	int	i;
+
+	i = 0;
+	if (node->tok != heredoc)
+		return (0);
+	while (node->data[0][i])
+	{
+		if (node->data[0][i] == '"' || node->data[0][i] == '\'')
+			return (0);
+		i++;
+	}
+	node->data[0][0] *= -1;
+	return (1);
+}
+
 void	parsing(t_input **input, t_env **env, char *line, int rv)
 {
 	t_input	*node;
+	int		delim;
 
 	if (tokenization(input, env, line))
 		return ;
@@ -104,11 +121,11 @@ void	parsing(t_input **input, t_env **env, char *line, int rv)
 			if (search_expand(node, env, rv))
 				return (input_freelst(input));
 		}
-		// else if (node->data[0][0] != '"' && node->data[0][0] != '\'')     //creer un tok heredocexpand ????    (<< st"op" cat) !!!
-		// 	node->data[0][0] *= -1;
+		delim = check_delim(node);
 		if (search_quotes(node))
 			return (input_freelst(input));
-		revert(node);
+		if (!delim)
+			revert(node);
 		if (node->tok == command)
 			find_builtin(node);
 		if (node->tok == command)
