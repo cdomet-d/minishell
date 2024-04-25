@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Texte
+R='\033[0m'
+FAINT='\033[2m'
+UNDERLINE='\033[4m'
+BOLD='\033[1m'
+
+# Couleurs du texte
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+PINK='\033[38;5;206m'
+
+# Texte en gras
+BOLD='\033[1m'
+
+# Couleurs de fond
+BG_RED='\033[41m'
+BG_GREEN='\033[42m'
+BG_YELLOW='\033[43m'
+BG_BLUE='\033[44m'
+BG_MAGENTA='\033[45m'
+BG_CYAN='\033[46m'
+BG_WHITE='\033[47m'
+
+echo
+echo -e "${WHITE} ${BOLD} ${BG_MAGENTA}#-------- SCRIPT USES --------#${R}"
+echo
+echo -e "${BOLD} exf:${R} greps all files in the directory given in argument and return the output in a file in scripts/output. \n If no directory is given, greps from cwd."
+echo -e "${BOLD} prep:${R} preps your repo to be pushed.\n - Runs fclean\n - Deletes test files\n - Removes script/output if it was created. \nIf given -n, it will run norminette and output only lines in which there is an issue (it can be a bit long depending on your repo's size)"
+echo -e "${BOLD} push:${R} takes your commit message in arg and git adds, commits and push for you. It 'git add .' so sue me if you don't like it :*. It wont work without a commit message."
+echo -e "${BOLD} extract_funct:${R} script used by exf to extract functions. Can be used as a standalone, but it will output on STDOUT"
