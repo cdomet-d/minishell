@@ -1,0 +1,18 @@
+#!/bin/bash
+
+make fclean
+norminette > norm
+grep -v "OK" norm
+
+if [ -f "out" ]; then
+	rm out
+fi
+if [ -f "mini_log" ]; then
+	rm mini_log
+fi
+
+if [ -f "script/output "]; then
+	rm script/output
+fi
+
+rm norm

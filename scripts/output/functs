@@ -1,0 +1,384 @@
+// libft ---------------------
+
+/* ft_lstdelone.c */
+void	ft_lstdelone(t_list *lst, void (*del)(void*);
+
+/* ft_lstclear.c */
+void	ft_lstclear(t_list **lst, void (*del)(void*);
+
+/* ft_lstadd_back.c */
+void	ft_lstadd_back(t_list **lst, t_list *new);
+
+/* ft_isspace.c */
+size_t	ft_isspace(char c);
+
+/* ft_isdigit_negative.c */
+int	ft_isdigit_negative(int c);
+
+/* ft_isalpha.c */
+int	ft_isalpha(int c);
+
+/* ft_free_dtab.c */
+void	free_dtab(char **dtab);
+
+/* ft_calloc.c */
+void	*ft_calloc(size_t nmemb, size_t size);
+
+/* ft_atoi_intmax.c */
+long	ft_atoi_intmax(char *nptr);
+
+/* get_next_line_utils.c */
+ssize_t	ft_len(const char *s, char c);
+char	*ft_join_buff(char *buff, char *read);
+char	*ft_free(char *s1, char *s2);
+
+/* get_next_line.c */
+char	*get_next_line(int fd);
+char	*ft_read(char *buff, int *check, int fd);
+char	*ft_split_buff(char *buff, char *leftover);
+
+/* ft_toupper.c */
+int	ft_toupper(int c);
+
+/* ft_tolower.c */
+int	ft_tolower(int c);
+
+/* ft_substr.c */
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+
+/* ft_strtrim.c */
+char	*ft_strtrim(char const *s1, char const *set);
+
+/* ft_strrchr.c */
+char	*ft_strrchr(const char *s, int c);
+
+/* ft_strnstr.c */
+char	*ft_strnstr(const char *big, const char *little, size_t len);
+
+/* ft_strncmp.c */
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
+/* ft_strmapi.c */
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char);
+
+/* ft_strlen.c */
+size_t	ft_strlen(const char *s);
+
+/* ft_strlcpy.c */
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+
+/* ft_strlcat.c */
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
+
+/* ft_strjoin.c */
+char	*ft_strjoin(char *s1, char *s2);
+
+/* ft_striteri.c */
+void	ft_striteri(char *s, void (*f)(unsigned int, char*);
+
+/* ft_strdup.c */
+char	*ft_strdup(const char *s);
+
+/* ft_strchr.c */
+char	*ft_strchr(const char *s, int c);
+
+/* ft_split.c */
+char	**ft_split(char const *s, char c);
+
+/* ft_putstr_fd.c */
+ssize_t	ft_putstr_fd(char *s, int fd);
+
+/* ft_putnbrs.c */
+ssize_t	ft_putnbr_base(int long nbr, char *base, int *count);
+ssize_t	ft_p_putnbr(size_t nbr, int *count);
+ssize_t	ft_u_putnbr_base(unsigned int nbr, char *base, int *count);
+
+/* ft_putnbr_fd.c */
+void	ft_putnbr_fd(int n, int fd);
+
+/* ft_putendl_fd.c */
+ssize_t	ft_putendl_fd(char *s, int fd);
+
+/* ft_putchar_fd.c */
+ssize_t	ft_putchar_fd(char c, int fd);
+
+/* ft_printf.c */
+ssize_t	read_str(char flag, va_list arg_list);
+int		__attribute__ ((format (printf, 1, 2);
+
+/* ft_print_nums.c */
+ssize_t	printd(va_list arg_list, char flag);
+ssize_t	printx(va_list arg_list, char flag);
+ssize_t	printp(va_list arg_list);
+ssize_t	printpercent(void);
+
+/* ft_print_chars.c */
+ssize_t	printc(va_list arg_list);
+ssize_t	printstr(va_list arg_list);
+
+/* ft_memset.c */
+void	*ft_memset(void *s, int c, size_t n);
+
+/* ft_memmove.c */
+void	*ft_memmove(void *dest, const void *src, size_t n);
+
+/* ft_memcpy.c */
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+/* ft_memcmp.c */
+int	ft_memcmp(const void *s1, const void *s2, size_t n);
+
+/* ft_memchr.c */
+void	*ft_memchr(const void *s, int c, size_t n);
+
+/* ft_lstsize.c */
+int	ft_lstsize(t_list *lst);
+
+/* ft_lstnew.c */
+t_list	*ft_lstnew(void *content);
+
+/* ft_lstmap.c */
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *);
+
+/* ft_lstlast.c */
+t_list	*ft_lstlast(t_list *lst);
+
+/* ft_lstiter.c */
+void	ft_lstiter(t_list *lst, void (*f)(void *);
+
+/* ft_lstfree.c */
+t_list	*ft_lstfree(t_list **lst);
+
+/* ft_lstadd_front.c */
+void	ft_lstadd_front(t_list **lst, t_list *new);
+
+/* ft_itoa.c */
+char	*ft_itoa(int n);
+
+/* ft_isprint.c */
+int	ft_isprint(int c);
+
+/* ft_isdigit.c */
+int	ft_isdigit(int c);
+
+/* ft_isascii.c */
+int	ft_isascii(int c);
+
+/* ft_isalnum.c */
+int	ft_isalnum(int c);
+
+/* ft_dstrlen.c */
+size_t	ft_dstrlen(char **s);
+
+/* ft_bzero.c */
+void	ft_bzero(void *s, size_t n);
+
+/* ft_atoi.c */
+int	ft_atoi(char *nptr);
+
+// builtins ------------------
+
+/* unset.c */
+void	*unset(t_env **env, char *key);
+
+/* builtin_utils.c */
+char	*split_wsep(char *str, char sep);
+void	*env_rmone(t_env **sup, t_env *head);
+
+/* exit.c */
+void	mh_exit(char *line, t_input *in, t_env **env);
+
+/* export.c */
+void	*export(t_input **in, char *var);
+
+/* env.c */
+void	*env(t_input *node);
+
+/* echo.c */
+int	echo(char **data);
+
+/* pwd.c */
+int	pwd(char **data);
+
+// lst_utils -----------------
+
+/* input_lst_utils.c */
+void	input_freelst(t_input **lst);
+void	input_addback(t_input **lst, t_input *node);
+t_input	*input_newnode(char **data, int token, t_env *env);
+
+/* env_lst_utils.c */
+void	env_freelst(t_env **env);
+void	env_addback(t_env **env, t_env *node);
+t_env	*env_newnode(char *data);
+
+// utils ---------------------
+
+/* display_data.c */
+void	print_ops(t_op count);
+void	print_fds(t_fd *fd);
+
+/* display_structs_v.c */
+void	print_in_for(t_input *input);
+void	print_enum(int token);
+void	print_in_node(t_input *node, t_fd *fd, char *str);
+void	print_env_for(t_env *env);
+
+/* main_utils.c */
+void	init_all(char **str, char **envp, t_env **env, t_input **input);
+void	process_line(char *line, t_input *input, t_env *env);
+
+/* error_handling.c */
+void	fatal_exit(t_input **lst, int error_code, char *error_message);
+void	free_env(t_env *lst, int error_code, char *error_message);
+void	*print_error(int error_code, char *error_message);
+
+/* display_structs_q.c */
+void	pmin(t_input *input, char *str);
+void	display_dtab(char **dtab);
+
+// tokenization --------------
+
+/* create_data.c */
+void	count_word(char *line, int i, int *word);
+int	count_letter(char *line, int letter);
+void	fill_tab(char *line, int *i, char **tab, int *word);
+char	**build_tab(char *line, int *i, int word);
+
+/* cmd_opt.c */
+int	tab_len(char **tab);
+int	fill_tab_join(char **tab, char **newtab, int *word);
+char	**tab_join(char **s1, char **s2);
+int	add_opt(t_input **input, t_input *ptr, char *line, int *i);
+int	check_opt(t_input **input, char *line, int *i);
+
+/* toke_type.c */
+int	tok_inredir(t_input **input, t_env **env, char *line, int *i);
+int	tok_outredir(t_input **input, t_env **env, char *line, int *i);
+int	tok_command(t_input **input, t_env **env, char *line, int *i);
+int	tok_pipe(t_input **input, t_env **env, char *line, int *i);
+
+/* tokenization.c */
+int	loop_content(t_input **input, t_env **env, char *line, int *i);
+int	tokenization(t_input **input, t_env **env, char *line);
+
+/* tokenization_utils.c */
+int	check_quote(char *line);
+void	syntax_error(char *line, int *i);
+char	**get_data(t_input **input, char *line, int *i);
+
+// parsing -------------------
+
+/* create_lst.c */
+int	create_input(t_input **input, t_env **env, char **data, int tok);
+void	create_env(t_input **input, char **envp, t_env **env);
+
+// expansion -----------------
+
+/* expand.c */
+int	ft_copy_env(char *data, char *newtab, t_env **env, int *j);
+void	ft_copy(char *data, char *newtab, t_env **env, int rv);
+void	nb_letter_env(char *data, t_env **env, int *letter, int *j);
+int	nb_letter(char *data, t_env **env);
+char	**expand(char **data, t_env **env, int rv);
+
+/* expand_split.c */
+void	fill_word(char *new, char *old, int i);
+int	nb_letter_str(char *data, int *j, int letter);
+char	**split_tab(char **data, char **newtab);
+void	nb_word(char **tab, int *word);
+char	**expand_split(char **data, t_env **env, int rv);
+
+/* expand_split_utils.c */
+void	put_in_neg(char *data);
+int	check_ws(char **tab);
+
+/* expand_utils.c */
+int	search_dollar(char **data);
+int	ft_strcmp(char *data, char *env);
+char	*search_env(char *data, t_env **env);
+void	ft_copy_rv(char *newtab, int *j, int *i, int rv);
+
+// parsing -------------------
+
+/* rm_quotes.c */
+int	len_str(char *str);
+void	fill_str(char *new, char *str);
+char	*rm_quotes(char *str);
+
+/* cmd_path.c */
+int	path_len(char *env, int *i);
+char	*find_path(char *cmd, char *env);
+int	path_slash(char *cmd);
+int	put_path(t_input *input, t_env	*node);
+int	cmd_path(t_input *input, t_env **env);
+
+/* parsing.c */
+void	revert(t_input *node);
+int	search_expand(t_input *node, t_env **env, int rv);
+int	search_quotes(t_input *node);
+void	parsing(t_input **input, t_env **env, char *line, int rv);
+
+/* toke_builtin.c */
+void	find_builtin(t_input *node);
+
+// error_handling ------------
+
+/* exec_errors.c */
+void	*exe_failure(t_fd *fd, t_input *in);
+
+// utils ---------------------
+
+/* arenvlst.c */
+char	**arenvlst(t_env	*env);
+
+/* fd_handling.c */
+void	init_fds(t_fd *fd, t_input *in);
+void	close_pipe_read(t_fd *fd);
+void	close_pipe_write(t_fd *fd);
+void	close_pfd(t_fd *fd);
+void	reset_stds(int tmpstdin, int tmpstdout);
+
+/* exec_utils.c */
+void	close_and_wait(t_input *in, t_fd *fd);
+void	*create_child(t_input *in, t_fd *fd);
+void	*save_pipin(t_fd *fd);
+
+/* operators_utils.c */
+size_t	count_pipes(t_input *in);
+bool	op_true(t_input *in, t_tok op);
+t_input	*find_tok(t_input	*in, t_tok op, bool next);
+t_input	*find_next_pipe(t_input	*in, t_fd *fd);
+
+/* redirection_utils.c */
+bool	is_first(t_input *in);
+bool	is_last(t_input *in);
+
+/* buitin_utils.c */
+t_tok	builtin_true(t_input *in);
+void	exec_exit_inpipe(t_fd *fd, t_input *in, t_input *tmp);
+
+// exec ----------------------
+
+/* heredoc.c */
+void	*create_hdocs(t_fd *fd, t_input *in);
+
+/* redirections.c */
+void	*out_redir(t_fd *fd, t_input *in);
+void	*app_redir(t_fd *fd, t_input *in);
+void	*in_redir(t_fd *fd, t_input *in);
+void	*pip_redir(t_input *tmp, t_fd *fd);
+
+/* exec.c */
+void	*exec_cmd(t_input *in);
+
+/* exec_builtins.c */
+void	exec_builtin(t_input **in);
+void	*redir_builtins(t_fd *fd, t_input *tmp);
+void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp);
+
+// src -----------------------
+
+/* main.c */
+int	main(int argc, char **argv, char **envp);
+
