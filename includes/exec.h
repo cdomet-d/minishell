@@ -130,7 +130,7 @@ int		echo(char **data);
 int		pwd(char **data);
 
 /* cd.c */
-int 	cd(char **data);
+int 	cd(t_input *in);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
