@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/04/25 17:20:37 by cdomet-d         ###   ########lyon.fr   */
-=======
-/*   Updated: 2024/04/25 17:28:11 by csweetin         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/04/26 14:32:39 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +119,7 @@ void	mh_exit(char *line, t_input *in, t_env **env);
 
 /* export.c */
 void	*export(t_input **in);
+void	*sort_env(t_env	*env);
 
 /* env.c */
 void	*env(t_input *node);

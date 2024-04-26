@@ -6,61 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 13:43:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 14:12:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-static bool	is_sorted(char **tab)
-{
-	size_t	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		if (ft_strncmp(tab[i], tab[i + 1], 1) > 0)
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-void *sort_env(t_env	*env)
-{
-	char	**arenv;
-	char	*tenv;
-	size_t	i;
-	size_t	j;
-	size_t	len;
-	
-	i = 0;
-	len = 0;
-	arenv = arenvlst(env);
-	if (!arenv)
-		return (print_error(errno, "minishell"));
-	while (arenv[len])
-		len++;
-	vdisplay_dtab(arenv);
-	printf("\n");
-	while (!is_sorted(arenv))
-	{
-		j = i + 1;
-		if (ft_strncmp(arenv[i], arenv[j], 1) > 0)
-		{
-			tenv = arenv[i];
-			arenv[i] = arenv[j];
-			arenv[j] = tenv;
-		}
-		if (i < len)
-			i++;
-		elseg
-			i = 0;
-	}
-	vdisplay_dtab(arenv);
-	free_dtab(arenv);
-	return ((int *)true);
-}
 
 static void	*exprt_inenv(t_env **env, char *data)
 {
@@ -132,7 +82,7 @@ void	*export(t_input **in)
 	i = 1;
 	head = (*in)->env;
 	if ((*in)->env && !(*in)->data[i])
-		return (NULL);//sort_env((*in)->env));
+			sort_env((*in)->env);
 	while ((*in)->data[i])
 	{
 		if (!check_arg((*in)->data[i]))
