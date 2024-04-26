@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 17:28:03 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:32:22 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_builtin(t_input **in)
 	tmp = (*in);
 	if (builtin_true(tmp) == ms_cd)
 		cd(tmp);
-	if (builtin_true(tmp) == ms_echo)
+	else if (builtin_true(tmp) == ms_echo)
 		echo(tmp->data);
 	else if (builtin_true(tmp) == ms_pwd)
 		pwd(tmp->data);
@@ -54,7 +54,7 @@ void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp)
 {
 	int		tmpstdin;
 	int		tmpstdout;
-	
+
 	(void)in;
 	fprintf(stderr, "%.20s\n", "-- handle_bt --------------");
 	tmpstdin = dup(STDIN_FILENO);
