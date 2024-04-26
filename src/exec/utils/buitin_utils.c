@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:09:58 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 14:09:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 18:07:09 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,4 @@ t_tok	builtin_true(t_input *in)
 		tmp = tmp->next;
 	}
 	return (false);
-}
-
-void	exec_exit_inpipe(t_fd *fd, t_input *in, t_input *tmp)
-{
-	if (builtin_true(tmp) == ms_exit)
-	{
-		print_fds(fd);
-		if (count_pipes(in))
-		{
-			close_pfd(fd);
-			if (fd->tmpin != -1)
-				if (close(fd->tmpin) == -1)
-					print_error(errno, "close_cmd (tmpin)");
-		}
-		mh_exit(NULL, in, &in->env);
-	}
 }

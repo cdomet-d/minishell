@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/26 17:45:25 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/26 18:02:37 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRC_BUILTIN:=	export.c \
 				echo.c \
 				env.c \
 				pwd.c \
+				cd.c \
 				builtin_utils.c \
 				export_utils.c \
 
@@ -88,19 +89,21 @@ SRC_UTILS:=		display_data.c \
 SRC +=  $(addprefix $(DIR_EXEC), $(SRC_EXEC))
 DIR_EXEC:= exec/
 SRC_EXEC:=		exec.c \
+				heredoc.c \
 				exec_builtins.c \
 				redirections.c \
-				heredoc.c \
+				
 
 SRC +=  $(addprefix $(DIR_EXEC)$(UTILS_SUBDIR), $(SRC_SUBUTILS))
 UTILS_SUBDIR:=utils/
 SRC_SUBUTILS:=	arenvlst.c \
-				operators_utils.c \
-				redirection_utils.c \
 				exec_utils.c \
 				fd_handling.c \
 				buitin_utils.c \
 				heredoc_utils.c \
+				heredoc_expand.c \
+				operators_utils.c \
+				redirection_utils.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(ERR_SUBDIR), $(SRC_SUBERR))
 ERR_SUBDIR:= error_handling/

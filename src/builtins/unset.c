@@ -33,7 +33,7 @@ void	*unset(t_env **env, char *key)
 		i++;
 	}
 	(*env) = head;
-	printf("minishell: %s: not a valid identifier\n\n", key);
+	// printf("minishell: %s: not a valid identifier\n\n", key);
 	return (env);
 	//return value : 130: No such file or directory
 }

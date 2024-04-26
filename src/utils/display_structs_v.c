@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:59:40 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 13:57:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 18:13:18 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,16 @@ void	print_env_for(t_env *env)
 	}
 	env = head;
 	fprintf(stderr, "==========================\n\n");
+}
+
+void	vdisplay_dtab(char **dtab)
+{
+	size_t	i;
+
+	i = 0;
+	while (dtab && dtab[i])
+	{
+		fprintf(stderr, "tab[%.2ld] - %.25s\n", i, dtab[i]);
+		i++;
+	}
 }
