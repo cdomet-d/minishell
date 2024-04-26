@@ -71,6 +71,7 @@ SRC_BUILTIN:=	export.c \
 				echo.c \
 				env.c \
 				pwd.c \
+				cd.c \
 				builtin_utils.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #

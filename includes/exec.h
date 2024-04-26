@@ -129,6 +129,9 @@ int		echo(char **data);
 /* pwd.c */
 int		pwd(char **data);
 
+/* cd.c */
+int 	cd(char **data);
+
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
 void	print_fds(t_fd *fd);
