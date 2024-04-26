@@ -2,7 +2,7 @@
 
 #include "exec.h"
 
-char    *find_home(t_env *env)
+char	*find_home(t_env *env)
 {
 	while (env)
 	{
@@ -13,15 +13,15 @@ char    *find_home(t_env *env)
 	return (NULL);
 }
 
-int cd(t_input *in)
+int	cd(t_input *in)
 {
-	char    *home;
+	char	*home;
 
 	if (!in->data[1])
 	{
 		home = find_home(in->env);
 		if (!home)
-			return (ft_putendl_fd("minishell : cd : HOME not set", STDERR_FILENO));
+			return (ft_putendl_fd("minishell : cd : HOME not set", 2));
 		chdir(home);
 	}
 	return (0);
