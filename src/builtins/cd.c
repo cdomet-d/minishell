@@ -53,16 +53,17 @@ int	cd(t_input *in)
 		path = find_var_env(in->env, "HOME=");
 		if (!path)
 			return (ft_putendl_fd("minishell: cd: HOME not set", 2));
-		if (chdir(path) == -1)
-			return (1);
 	}
 	else if (in->data[1][0] == '-' && !in->data[1][1])
 	{
 		path = find_var_env(in->env, "OLDPWD=");
 		if (!path)
 			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2));
-		chdir(path);
 	}
+	else if (in->data[1][0] == '/')
+		path = in->data[1];
+	if (chdir(path) == -1)
+		return (1);
 	temp = ft_strdup(find_var_env(in->env, "PWD="));
 	if (!temp)
 		return (1);
