@@ -6,11 +6,23 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 15:41:34 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:27:28 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+int	in_line(t_input *in, char *line, int fd)
+{
+	if (in->data[0][0] < 0)
+		if (search_dollar_hd(line))
+			if (heredoc_expand(&line, in))
+				return (1);
+	if (write(fd, line, ft_strlen(line)) == -1)
+		return (print_error(errno, "heredoc (write))"), 1);
+	free(line);
+	return (0);
+}
 
 static void	*h_gnl(int fd, t_input *in)
 {
@@ -30,15 +42,8 @@ static void	*h_gnl(int fd, t_input *in)
 	while (ft_strncmp(line, tempdata, (ft_strlen(in->data[0]))) != 0)
 	{
 		if (line)
-		{
-			if (in->data[0][0] < 0)
-				if (search_dollar_hd(line))
-					if (heredoc_expand(&line, in))
-						return (print_error(errno, NULL));
-			if (write(fd, line, ft_strlen(line)) == -1)
-				return (print_error(errno, "heredoc (write))"));
-			free (line);
-		}
+			if (in_line(in, line, fd))
+				return (free(line), free(tempdata), NULL);
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			return (print_error(errno, "heredoc (GNL))"));

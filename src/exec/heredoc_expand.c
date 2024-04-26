@@ -24,7 +24,7 @@ int	heredoc_expand(char **line, t_input *in)
 	letter = nb_letter(*line, &(in)->env);
 	temp = ft_calloc(sizeof(char), letter + 1);
 	if (!temp)
-		return (1);
+		return (print_error(errno, NULL), 1);
 	ft_copy(*line, temp, &(in)->env, 0);
 	free(*line);
 	*line = temp;
