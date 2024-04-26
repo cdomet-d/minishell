@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 17:35:14 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 13:40:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void *sort_env(t_env	*env)
 		}
 		if (i < len)
 			i++;
-		else
+		elseg
 			i = 0;
 	}
 	vdisplay_dtab(arenv);
