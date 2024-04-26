@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/18 14:30:36 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/25 17:24:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,18 @@ void	display_dtab(char **dtab)
 	while (dtab && dtab[i])
 	{
 		fprintf(stderr, "[%s] ", dtab[i]);
+		i++;
+	}
+}
+
+void	vdisplay_dtab(char **dtab)
+{
+	size_t	i;
+
+	i = 0;
+	while (dtab && dtab[i])
+	{
+		fprintf(stderr, "tab[%.2ld] - %.25s\n", i, dtab[i]);
 		i++;
 	}
 }

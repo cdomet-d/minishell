@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 14:36:50 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/25 17:20:37 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	print_fds(t_fd *fd);
 void	print_in_node(t_input *node, t_fd *fd, char *str);
 void	pmin(t_input *input, char *str);
 void	print_enum(int token);
+void	vdisplay_dtab(char **dtab);
 
 /*----------------------------------------------------------------------------*/
 
