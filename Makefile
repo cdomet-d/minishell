@@ -6,7 +6,7 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/25 15:25:01 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/26 15:42:09 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRC_BUILTIN:=	export.c \
 				echo.c \
 				env.c \
 				pwd.c \
+				cd.c \
 				builtin_utils.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
@@ -90,6 +91,7 @@ SRC_EXEC:=		exec.c \
 				exec_builtins.c \
 				redirections.c \
 				heredoc.c \
+				heredoc_expand.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(UTILS_SUBDIR), $(SRC_SUBUTILS))
 UTILS_SUBDIR:=utils/

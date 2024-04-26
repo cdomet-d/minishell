@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 17:28:11 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:43:13 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void	exec_exit_inpipe(t_fd *fd, t_input *in, t_input *tmp);
 /* heredoc.c */
 void	*create_hdocs(t_fd *fd, t_input *in);
 
+/* heredoc_expand.c */
+int		heredoc_expand(char **line, t_input *in);
+int		search_dollar_hd(char *line);
+
 /* redirections.c */
 void	*out_redir(t_fd *fd, t_input *in);
 void	*app_redir(t_fd *fd, t_input *in);
@@ -128,6 +132,9 @@ int		echo(char **data);
 
 /* pwd.c */
 int		pwd(char **data);
+
+/* cd.c */
+int 	cd(t_input *in);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);

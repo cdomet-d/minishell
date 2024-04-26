@@ -6,31 +6,21 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 18:59:22 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:27:28 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	heredoc_expand(char **line, t_input *in)
+int	in_line(t_input *in, char *line, int fd)
 {
-	char	*temp;
-	int		letter;
-
-	letter = nb_letter(*line, &(in)->env);
-	temp = ft_calloc(sizeof(char), letter + 1);
-	if (!temp)
-		return (1);
-	ft_copy(*line, temp, &(in)->env, 0);
-	free(*line);
-	*line = temp;
-	letter = 0;
-	while (temp[letter])
-	{
-		if (temp[letter] < 0)
-			*line[letter] = temp[letter] * -1;
-		letter++;
-	}
+	if (in->data[0][0] < 0)
+		if (search_dollar_hd(line))
+			if (heredoc_expand(&line, in))
+				return (1);
+	if (write(fd, line, ft_strlen(line)) == -1)
+		return (print_error(errno, "heredoc (write))"), 1);
+	free(line);
 	return (0);
 }
 
@@ -52,15 +42,8 @@ static void	*h_gnl(int fd, t_input *in)
 	while (ft_strncmp(line, tempdata, (ft_strlen(in->data[0]))) != 0)
 	{
 		if (line)
-		{
-			if (in->data[0][0] < 0)
-				if (search_dollar(&line))
-					if (heredoc_expand(&line, in))
-						return (print_error(errno, NULL));
-			if (write(fd, line, ft_strlen(line)) == -1)
-				return (print_error(errno, "heredoc (write))"));
-			free (line);
-		}
+			if (in_line(in, line, fd))
+				return (free(line), free(tempdata), NULL);
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 			return (print_error(errno, "heredoc (GNL))"));
