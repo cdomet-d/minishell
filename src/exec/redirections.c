@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 15:10:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 17:14:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,19 @@ void	*in_redir(t_fd *fd, t_input *in)
 	t_input	*tmp;
 
 	fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
-	tmp = find_tok(in, inredir, false);
+	tmp = in;
+	if (op_true(tmp, inredir))
+		tmp = find_tok(in, inredir, false);
+	else if (op_true(tmp, heredoc))
+		tmp = find_tok(in, heredoc, false);
 	if (!tmp)
 		return (print_error(0, "minishell: no such token"));
 	if (tmp->data[1])
 		return (print_error(0, "minishell: ambiguous redirection"));
-	while (op_true(tmp, inredir))
+	while (op_true(tmp, inredir) || op_true(tmp, heredoc))
 	{
-		fd->ffd = open(tmp->data[0], O_RDONLY);
-		if (fd->ffd == -1)
-		{
-			print_error(errno, "inredir (opening in)");
-			fd->ffd = open("/dev/null", O_RDONLY);
-			if (fd->ffd == -1)
-				return (print_error(errno, "inredir (opening /dev/null)"));
-		}
-		if (dup2(fd->ffd, STDIN_FILENO) == -1)
-			return (print_error(errno, "inredir (duping in"));
-		close(fd->ffd);
+		if (!open_infiles(fd, tmp))
+			return (print_error(errno, "minishell: "));
 		tmp = find_tok(tmp, inredir, true);
 	}
 	return ((int *)true);

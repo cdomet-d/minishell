@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 14:32:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 17:45:55 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,24 @@ void	*create_child(t_input *in, t_fd *fd);
 void	*save_pipin(t_fd *fd);
 
 /* operators_utils.c */
-size_t	count_pipes(t_input *in);
 bool	op_true(t_input *in, t_tok op);
-t_input	*find_tok(t_input	*in, t_tok op, bool next);
+bool	here_true(t_input *in);
+size_t	count_pipes(t_input *in);
 t_input	*find_next_pipe(t_input	*in, t_fd *fd);
+t_input	*find_tok(t_input	*in, t_tok op, bool next);
 
 /* redirection_utils.c */
 bool	is_first(t_input *in);
 bool	is_last(t_input *in);
+void	*open_infiles(t_fd *fd, t_input *tmp);
 
 /* buitin_utils.c */
 t_tok	builtin_true(t_input *in);
 void	exec_exit_inpipe(t_fd *fd, t_input *in, t_input *tmp);
+
+/* heredoc_utils.c */
+bool	here_true(t_input *in);
+t_input	*find_here(t_input	*in, bool next);
 
 // exec ----------------------
 

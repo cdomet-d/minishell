@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:03:33 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 14:54:38 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 15:34:28 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	is_sorted(char **tab)
 	return (true);
 }
 
-static	char **sort_tab(char **arenv, size_t len)
+static char	**sort_tab(char **arenv, size_t len)
 {
 	size_t	i;
 	size_t	j;
@@ -60,11 +60,11 @@ static void	print_senv(char **arr)
 	}
 }
 
-void *sort_env(t_env	*env)
+void	*sort_env(t_env	*env)
 {
 	char	**arenv;
 	size_t	len;
-	
+
 	arenv = arenvlst(env);
 	if (!arenv)
 		return (print_error(errno, "minishell"));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 17:28:03 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:49:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp)
 {
 	int		tmpstdin;
 	int		tmpstdout;
-	
+
 	(void)in;
 	fprintf(stderr, "%.20s\n", "-- handle_bt --------------");
 	tmpstdin = dup(STDIN_FILENO);

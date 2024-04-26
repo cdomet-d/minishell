@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/26 14:32:59 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/26 17:45:25 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,6 +100,7 @@ SRC_SUBUTILS:=	arenvlst.c \
 				exec_utils.c \
 				fd_handling.c \
 				buitin_utils.c \
+				heredoc_utils.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(ERR_SUBDIR), $(SRC_SUBERR))
 ERR_SUBDIR:= error_handling/

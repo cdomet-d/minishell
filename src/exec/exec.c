@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 17:20:06 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 17:51:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
-	if (op_true(tmp, inredir))
+	if (op_true(tmp, inredir) || op_true(tmp, heredoc))
 		if (!in_redir(fd, tmp))
 			return (NULL);
 	if (op_true(tmp, outredir))
@@ -65,10 +65,10 @@ void	*exec_cmd(t_input *in)
 	t_input	*tmp;
 	t_fd	fd;
 
-	init_fds(&fd, in);
 	tmp = in;
 	pmin(tmp, NULL);
-	if (op_true(in, heredoc))
+	init_fds(&fd, in);
+	if (here_true(in))
 		if (!create_hdocs(&fd, in))
 			return (print_error(errno, "exec_cmd (creating heredoc)"));
 	while (tmp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 18:59:22 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:50:45 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*gen_filename(int fn)
 	strfn = ft_itoa(fn);
 	if (!strfn)
 		return (print_error(errno, "gen_filename (itoa fn)"));
-	filename = ft_strjoin("tmp_", strfn);
+	filename = ft_strjoin("/tmp/tmp_", strfn);
 	if (!filename)
 		return (print_error(errno, "gen_filename (strjoin filename)"));
 	// fprintf(stderr, "\033[2mfile [%.20s]\033[0m\n", filename);
@@ -99,7 +99,7 @@ static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 		return (print_error(errno, "create_hfile (h_gnl)"));
 	if (close(fd->hfd) == -1)
 		return (print_error(errno, "create_hfile (closing hfd)"));
-	tmp->tok = inredir;
+	// tmp->tok = inredir;
 	free(filename);
 	return ((int *) true);
 }
@@ -110,16 +110,15 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	int		fn;
 
 	fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
-	tmp = find_tok(in, heredoc, false);
 	fn = 0;
+	tmp = find_here(in, false);
 	while (op_true(tmp, heredoc))
 	{
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
 			return (print_error(errno, "prep h_file (creating a file)"));
 		free(tmp->data[0]);
 		tmp->data[0] = gen_filename(fn);
-		tmp->tok = inredir;
-		tmp = find_tok(tmp, heredoc, true);
+		tmp = find_here(tmp, true);
 		fn++;
 	}
 	return ((int *) true);
