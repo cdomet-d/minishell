@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
 #    Updated: 2024/04/25 15:25:01 by cdomet-d         ###   ########lyon.fr    #
@@ -52,6 +52,7 @@ DIR_PARSE:= parsing/
 SRC_PARSE:=		create_lst.c \
 				parsing.c \
 				cmd_path.c \
+				cmd_path_utils.c \
 				rm_quotes.c \
 				toke_builtin.c \
 

@@ -6,40 +6,24 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:43:43 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:16:59 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	fill_word(char *new, char *old, int i)
-{
-	int	j;
-
-	j = 0;
-	while (old[j] && i > 0)
-	{
-		new[j] = old[j];
-		j++;
-		i--;
-	}
-}
-
 int	nb_letter_str(char *data, int *j, int letter)
 {
-	char	quotetype;
-
 	while (data[*j] && (data[*j] == ' '
 			|| (data[*j] >= '\t' && data[*j] <= '\r')))
 		*j += 1;
 	while (data[*j] && data[*j] != ' ' && (data[*j] < '\t' || data[*j] > '\r'))
 	{
-		if (data[*j] == '"' || data[*j] == '\'')
+		if (data[*j] == '"')
 		{
-			quotetype = data[*j];
 			*j += 1;
 			letter += 1;
-			while (data[*j] && data[*j] != quotetype)
+			while (data[*j] && data[*j] != '"')
 			{
 				letter += 1;
 				*j += 1;
@@ -71,8 +55,8 @@ char	**split_tab(char **data, char **newtab)
 			letter = nb_letter_str(data[i], &j, 0);
 			newtab[word] = ft_calloc(sizeof(char), letter + 1);
 			if (!newtab[word])
-				return (free_dtab(newtab), NULL);
-			fill_word(newtab[word], data[i] + (j - letter), letter);
+				return (free_dtab(newtab), print_error(errno, NULL));
+			ft_strlcpy(newtab[word], data[i] + (j - letter), letter + 1);
 			word += 1;
 			if (data[i][j])
 				j++;
@@ -86,7 +70,6 @@ void	nb_word(char **tab, int *word)
 {
 	int		i;
 	int		j;
-	char	quotetype;
 
 	i = 0;
 	while (tab[i])
@@ -94,10 +77,9 @@ void	nb_word(char **tab, int *word)
 		j = 0;
 		while (tab[i][j])
 		{
-			if (tab[i][j] == '"' || tab[i][j] == '\'')
+			if (tab[i][j] == '"')
 			{
-				quotetype = tab[i][j++];
-				while (tab[i][j] && tab[i][j] != quotetype)
+				while (tab[i][j] && tab[i][j] != '"')
 					j++;
 			}
 			if ((tab[i][j] != ' ' && (tab[i][j] < '\t' || tab[i][j] > '\r'))
@@ -128,10 +110,10 @@ char	**expand_split(char **data, t_env **env, int rv)
 	nb_word(temp, &word);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (NULL);
+		return (free_dtab(temp), print_error(errno, NULL));
 	newtab = split_tab(temp, newtab);
 	if (!newtab)
-		return (NULL);
+		return (free_dtab(temp), NULL);
 	free_dtab(temp);
 	return (newtab);
 }
