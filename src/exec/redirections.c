@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 17:14:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 14:54:52 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*out_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
+	// // fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
 	tmp = find_tok(in, outredir, false);
 	if (!tmp)
 		return (print_error(0, "minishell: no such token"));
@@ -41,7 +41,7 @@ void	*app_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
+	// // fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
 	tmp = find_tok(in, append, false);
 	if (!tmp)
 		return (print_error(0, "minishell: no such token"));
@@ -66,7 +66,27 @@ void	*in_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+	// // fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+	tmp = find_tok(in, inredir, false);
+	if (!tmp)
+		return (print_error(0, "minishell: no such token"));
+	if (tmp->data[1])
+		return (print_error(0, "minishell: ambiguous redirection"));
+	while (op_true(tmp, inredir))
+	{
+		// // fprintf(stderr, "%.20s\n", "-- in ------------------------------");
+		if (!open_infiles(fd, tmp))
+			return (print_error(errno, "minishell: "));
+		tmp = find_tok(tmp, inredir, true);
+	}
+	return ((int *)true);
+}
+
+void	*here_redir(t_fd *fd, t_input *in)
+{
+	t_input	*tmp;
+
+	// // fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
 	tmp = in;
 	if (op_true(tmp, inredir))
 		tmp = find_tok(in, inredir, false);
@@ -76,18 +96,18 @@ void	*in_redir(t_fd *fd, t_input *in)
 		return (print_error(0, "minishell: no such token"));
 	if (tmp->data[1])
 		return (print_error(0, "minishell: ambiguous redirection"));
-	while (op_true(tmp, inredir) || op_true(tmp, heredoc))
+	while (op_true(tmp, heredoc))
 	{
 		if (!open_infiles(fd, tmp))
 			return (print_error(errno, "minishell: "));
-		tmp = find_tok(tmp, inredir, true);
+		tmp = find_tok(tmp, heredoc, true);
 	}
 	return ((int *)true);
 }
 
 void	*pip_redir(t_input *tmp, t_fd *fd)
 {
-	fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
+	// // fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
 	if (is_first(tmp))
 	{
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
@@ -105,11 +125,12 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
 	}
-	if (fd->pid == 0 && fd->tmpin != -1)
+	if (fd->pid == 0)
 	{
-		if (close(fd->tmpin) == -1)
-			print_error(errno, "close_exec (tmpin)");
 		close_pfd(fd);
+		if (fd->tmpin != -1)
+			if (close(fd->tmpin) == -1)
+				print_error(errno, "close_exec (tmpin)");
 	}
 	return ((int *)true);
 }

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 18:12:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 11:56:09 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_fds(t_fd *fd)
 {
-	fprintf(stderr, "%.20s\n", "== fds =================================");
-	fprintf(stderr, "pfd[R] - %d || pfd[W] - %d || tmpin = %d\n", fd->pfd[R],
+	fprintf(stderr, "%.20s\npfd[R] - %d || pfd[W] - %d || tmpin = %d\n", \
+	"-- fds --------------------------", fd->pfd[R],
 		fd->pfd[W], fd->tmpin);
 }

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 17:51:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 16:00:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*ft_execve(t_input *in)
 	char	**arenv;
 	t_input	*tmp;
 
-	fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- execve ------------------");
+	// fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- execve ------------------");
 	tmp = find_tok(in, command, false);
 	if (!tmp->data)
 		return (print_error(0, "ft_execve (data is null)"));
@@ -27,37 +27,38 @@ static void	*ft_execve(t_input *in)
 		(print_error(errno, "ft_execve (memissue in arenv)"));
 	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
-	print_error(errno, tmp->data[0]);
 	if (arenv)
 		free_dtab(arenv);
-	return ((int *)false);
+	return (print_error(errno, tmp->data[0]));
 }
 
 static void	*redir_cmd(t_input *in, t_fd *fd)
 {
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- redir_cmd ----------------------");
-	pmin(in, "redir");
 	tmp = in;
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
-	if (op_true(tmp, inredir) || op_true(tmp, heredoc))
+	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
 			return (NULL);
 	if (op_true(tmp, outredir))
 		if (!out_redir(fd, tmp))
 			return (NULL);
+	if (op_true(tmp, heredoc))
+		if (!here_redir(fd, tmp))
+			return (NULL);
 	if (op_true(tmp, append))
 		if (!app_redir(fd, tmp))
 			return (NULL);
+	// handle error management
 	if (builtin_true(tmp))
 		exec_builtin(&tmp);
 	if (op_true(tmp, command))
 		if (!ft_execve(tmp))
 			return (NULL);
-	return ((int *)false);
+	return (NULL);
 }
 
 void	*exec_cmd(t_input *in)

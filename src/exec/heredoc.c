@@ -11,7 +11,7 @@
 
 #include "exec.h"
 
-int	in_line(t_input *in, char *line, int fd)
+static int	in_line(t_input *in, char *line, int fd)
 {
 	if (in->data[0][0] < 0)
 		if (search_dollar_hd(line))
@@ -28,8 +28,8 @@ static void	*h_gnl(int fd, t_input *in)
 	char	*line;
 	char	*tempdata;
 
-	fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
-	fprintf(stderr, "\033[2mdelim : [%s]\033[0m\n", in->data[0]);
+	// fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
+	// fprintf(stderr, "\033[2mdelim : [%s]\033[0m\n", in->data[0]);
 	line = get_next_line(STDIN_FILENO);
 	if (!line)
 		return (print_error(errno, "heredoc(GNL))"));
@@ -59,7 +59,7 @@ static char	*gen_filename(int fn)
 	char	*strfn;
 	char	*filename;
 
-	// fprintf(stderr, "%.20s\n", "-- gen_filename --------------------------");
+	// // fprintf(stderr, "%.20s\n", "-- gen_filename --------------------------");
 	strfn = ft_itoa(fn);
 	if (!strfn)
 		return (print_error(errno, "gen_filename (itoa fn)"));
@@ -73,7 +73,7 @@ static char	*gen_filename(int fn)
 
 static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 {
-	// fprintf(stderr, "%.20s\n", "-- create_hfile --------------------------");
+	// // fprintf(stderr, "%.20s\n", "-- create_hfile --------------------------");
 	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (fd->hfd == -1)
 		return (print_error(errno, "create_hfile (opening tmp)"));
@@ -91,7 +91,7 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	t_input	*tmp;
 	int		fn;
 
-	fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
+	// fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
 	fn = 0;
 	tmp = find_here(in, false);
 	while (op_true(tmp, heredoc))

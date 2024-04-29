@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 16:26:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 14:54:46 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	mh_exit(char *line, t_input *in, t_env **env)
 {
-	fprintf(stderr, "%.20s\n", "-- exit ---------------------------------");
+	// fprintf(stderr, "%.20s\n", "-- exit ---------------------------------");
 	rl_clear_history();
 	if (line)
 		free(line);

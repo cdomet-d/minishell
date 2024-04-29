@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 18:14:35 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 16:33:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	*print_error(int error_code, char *error_message);
 
 /* builtin_utils.c */
 char	*split_wsep(char *str, char sep);
-void	*env_rmone(t_env **sup, t_env *head);
+t_env	**env_rmone(t_env **sup, t_env *head);
 
 /* echo.c */
 int		cmp_opt(char *arg);
@@ -139,7 +139,7 @@ char	*find_home(t_env *env);
 int		cd(t_input *in);
 
 /* unset.c */
-void	*unset(t_env **env, char *key);
+t_env	**unset(t_env **env, char **key);
 
 /*----------------------------------------------------------------------------*/
 

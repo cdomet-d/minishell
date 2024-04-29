@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/26 17:12:37 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 11:32:04 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ bool	is_last(t_input *in)
 
 	tmp = in;
 	last = true;
+	if (tmp->tok != command)
+		tmp = find_tok(tmp, command, false);
 	if (tmp->next == NULL)
 		return (last);
 	while (tmp)
@@ -51,7 +53,7 @@ bool	is_last(t_input *in)
 void	*open_infiles(t_fd *fd, t_input *tmp)
 {
 	fd->ffd = open(tmp->data[0], O_RDONLY);
-	if (op_true(tmp, heredoc))
+	if (tmp->tok == heredoc)
 		unlink(tmp->data[0]);
 	if (fd->ffd == -1)
 	{
@@ -61,7 +63,7 @@ void	*open_infiles(t_fd *fd, t_input *tmp)
 			return (NULL);
 	}
 	if (dup2(fd->ffd, STDIN_FILENO) == -1)
-		return (NULL);
+		return (print_error(errno, "open_infile (duping fd to STDIN)"));
 	close(fd->ffd);
 	return ((int *)true);
 }

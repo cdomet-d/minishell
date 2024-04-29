@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/24 17:23:41 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 14:54:53 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	*exe_failure(t_fd *fd, t_input *in)
 {
-	fprintf(stderr, "%.20s\n", "-- killchild --------------------------------");
+	// fprintf(stderr, "%.20s\n", "-- killchild --------------------------------");
+	rl_clear_history();
 	close_pfd(fd);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);

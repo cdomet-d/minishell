@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 17:49:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/29 16:38:40 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exec_builtin(t_input **in)
 {
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
+	// fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
 	tmp = (*in);
 	if (builtin_true(tmp) == ms_cd)
 		cd(tmp);
@@ -29,7 +29,7 @@ void	exec_builtin(t_input **in)
 	else if (builtin_true(tmp) == ms_export)
 		export(&tmp);
 	else if (builtin_true(tmp) == ms_unset)
-		unset(&(*in)->env, tmp->data[1]);
+		unset(&(*in)->env, tmp->data);
 }
 
 void	*redir_builtins(t_fd *fd, t_input *tmp)
@@ -56,7 +56,7 @@ void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp)
 	int		tmpstdout;
 
 	(void)in;
-	fprintf(stderr, "%.20s\n", "-- handle_bt --------------");
+	// fprintf(stderr, "%.20s\n", "-- handle_bt --------------");
 	tmpstdin = dup(STDIN_FILENO);
 	tmpstdout = dup(STDOUT_FILENO);
 	if (!redir_builtins(fd, tmp))
