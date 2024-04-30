@@ -58,16 +58,28 @@ int	change_pwd(t_env **env, char *path, char *var)
 // if (temp)
 // 	free(temp);
 
-char	*canonical_form(char *apath)
+char	*canonical_form(char *path)
 {
 	int		i;
-	int		j;
 	char	*temp;
+	char	**tab;
 
 	i = 0;
 	temp = NULL;
-	printf("canon forme : %s\n", apath);
-	return (apath);
+	tab = ft_split(path, '/');
+	if (!tab)
+		return (NULL);
+	while (!ft_strncmp(tab[i], ".", 2) || !ft_strncmp(tab[i], "..", 3))
+		i++;
+	path = ft_strdup("/");
+	while (tab[i])
+	{
+		if (!ft_strncmp(tab[i], ".", 2))
+			i++;
+		path = ft_strjoin(path, tab[i]);
+	}
+	printf("canon forme : %s\n", path);
+	return (path);
 }
 
 void	*cd_path(t_input *in)
@@ -82,7 +94,8 @@ void	*cd_path(t_input *in)
 		path = ft_strdup(in->data[1]);
 	else
 	{
-		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/"); //ft_strjoin("./", in->data[1]);
+		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
+		//ft_strjoin("./", in->data[1]);
 		path = ft_strjoin(temp, path);
 	}
 	if (!path)
