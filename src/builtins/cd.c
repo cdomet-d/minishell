@@ -40,34 +40,6 @@ int	change_pwd(t_env **env, char *path, char *var)
 	return (0);
 }
 
-char	*check_directory(char *var)
-{
-	char		*path;
-	struct stat	buf;
-
-	path = ft_strjoin("./", var);
-	if (!path)
-		return (print_error(errno, NULL), NULL);
-	stat(path, &buf);
-	// if (stat(path, &buf) == -1)
-	// {
-	// 	free(path);
-	// 	path = NULL;
-	// 	return (print_error(errno, NULL), NULL);
-	// }
-	if (S_ISDIR(buf.st_mode))
-		return (path);
-	else
-	{
-		free(path);
-		path = NULL;
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(var, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		return (NULL);
-	}
-	return (path);
-}
 char	*canonical_form(char *apath)
 {
 	int		i;
@@ -84,6 +56,7 @@ char	*canonical_form(char *apath)
 			temp = ft_substr(apath, 0, i);
 			if (!temp)
 				return (free(apath), NULL);
+			printf("temp : %s\n", temp);
 			j++;
 			while (apath[i + j] && apath[i + j] == '/')
 				j++;
@@ -94,15 +67,14 @@ char	*canonical_form(char *apath)
 		if (apath[i])
 			i++;
 	}
-	printf("%s\n", apath);
 	if (temp)
 		free(temp);
+	printf("canon forme : %s\n", apath);
 	return (apath);
 }
 
 int	cd_path(t_input *in, char **path, char **apath)
 {
-	(void)apath;
 	if (!in->data[1])
 	{
 		*path = find_var_env(in->env, "HOME=");
@@ -115,18 +87,22 @@ int	cd_path(t_input *in, char **path, char **apath)
 		if (!*path)
 			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), 1);
 	}
-	else if (in->data[1][0] == '/')
-	{
-		*apath = ft_strdup(in->data[1]);
-		*apath = canonical_form(*apath);
-		*path = *apath;
-	}
 	else
 	{
-		*apath = check_directory(in->data[1]);
+		if (in->data[1][0] == '/' || in->data[1][0] == '.'
+			|| (in->data[1][0] == '.' && in->data[1][1] == '.'))
+			*apath = ft_strdup(in->data[1]);
+		else
+			*apath = ft_strjoin("./", in->data[1]);
+		if (!*apath)
+			return (print_error(errno, NULL), 1);
+		if (check_directory(*apath))
+			return (free(*apath), 1);
+		printf("cd_path 1: %s\n", *apath);
+		*apath = canonical_form(*apath);
+		printf("cd_path 2: %s\n", *apath);
 		if (!*apath)
 			return (1);
-		*apath = canonical_form(*apath);
 		*path = *apath;
 	}
 	return (0);

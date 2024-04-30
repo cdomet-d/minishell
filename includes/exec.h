@@ -135,6 +135,7 @@ int		pwd(char **data);
 
 /* cd.c */
 int 	cd(t_input *in);
+int		check_directory(char *var);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
