@@ -28,6 +28,35 @@ int	change_pwd(t_env **env, char *path, char *var)
 	}
 	return (0);
 }
+// while (apath[i])
+// {
+// 	j = 0;
+// 	if (apath[i] == '.')
+// 	{
+// 		if (i == 0)
+// 		{
+// 			if (apath[i + 1] == '/')
+// 				j++;
+// 			apath = ft_strdup(apath + j + 1);
+// 		}
+// 		else
+// 		{
+// 			temp = ft_substr(apath, 0, i);
+// 			if (!temp)
+// 				return (free(apath), NULL);
+// 			j++;
+// 			while (apath[i + j] && apath[i + j] == '/')
+// 				j++;
+// 			apath = ft_strjoin(temp, apath + (i + j));
+// 			if (!apath)
+// 				return (free(temp), NULL);
+// 		}
+// 	}
+// 	if (apath[i])
+// 		i++;
+// }
+// if (temp)
+// 	free(temp);
 
 char	*canonical_form(char *apath)
 {
@@ -37,35 +66,6 @@ char	*canonical_form(char *apath)
 
 	i = 0;
 	temp = NULL;
-	while (apath[i])
-	{
-		j = 0;
-		if (apath[i] == '.')
-		{
-			if (i == 0)
-			{
-				if (apath[i + 1] == '/')
-					j++;
-				apath = ft_strdup(apath + j + 1);
-			}
-			else
-			{
-				temp = ft_substr(apath, 0, i);
-				if (!temp)
-					return (free(apath), NULL);
-				j++;
-				while (apath[i + j] && apath[i + j] == '/')
-					j++;
-				apath = ft_strjoin(temp, apath + (i + j));
-				if (!apath)
-					return (free(temp), NULL);
-			}
-		}
-		if (apath[i])
-			i++;
-	}
-	if (temp)
-		free(temp);
 	printf("canon forme : %s\n", apath);
 	return (apath);
 }
@@ -76,27 +76,27 @@ void	*cd_path(t_input *in)
 	char	*path;
 
 	temp = NULL;
-	
+
 	if (in->data[1][0] == '/' || in->data[1][0] == '.'
 		|| (in->data[1][0] == '.' && in->data[1][1] == '.'))
 		path = ft_strdup(in->data[1]);
 	else
-		path = ft_strjoin("./", in->data[1]);
+	{
+		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/"); //ft_strjoin("./", in->data[1]);
+		path = ft_strjoin(temp, path);
+	}
 	if (!path)
 		return (print_error(errno, NULL), NULL);
-	if (check_directory(path))
-		return (free(path), NULL);
-	printf("cd_path 1: %s\n", path);
 	temp = canonical_form(path);
 	if (!temp)
 		return (free(path), NULL);
 	free(path);
 	path = temp;
-	printf("cd_path 2: %s\n", path);
-	temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
-	path = ft_strjoin(temp, path);
-	printf("cd_path 3: %s\n", path);
-	free(temp);
+	if (check_directory(path))
+		return (free(path), NULL);
+	// temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
+	// path = ft_strjoin(temp, path);
+	// free(temp);
 	return (path);
 }
 
