@@ -1,6 +1,16 @@
 {
 	"files.associations": {
 		"exec.h": "c",
-		"fncts": "c"
+		"fncts": "c",
+		"minishell.h": "c",
+		"parsing.h": "c",
+		"types.h": "c",
+		"stat.h": "c",
+		"fcntl.h": "c",
+		"signal.h": "c",
+		"wait.h": "c",
+		"readline.h": "c",
+		"libft.h": "c",
+		"history.h": "c"
 	}
 }

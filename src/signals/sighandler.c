@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils.c                                       :+:      :+:    :+:   */
+/*   sighandler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 22:08:34 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/24 16:38:05 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/04/30 17:56:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "exec.h"
 
-void	init_all(char **str, char **envp, t_env **env, t_input **input)
+int get_nonull(void)
 {
-	*str = NULL;
-	*env = NULL;
-	*input = NULL;
-	create_env(input, envp, env);
+	return (1);
 }
 
-void	process_line(char *line, t_input *input, t_env *env)
+void	sighandler(int sig)
 {
-	if (ft_strncmp(line, "exit", 5) == 0)
-		mh_exit(line, input, &env);
-	add_history(line);
-	parsing(&input, &env, line, 0);
-	if (input)
-		exec_cmd(input);
-	input_freelst(&input);
-	free(line);
+	g_sig = sig;
+	if (sig == SIGINT)
+		rl_done = g_sig;
+	else
+		printf("signal received : %d\n", sig);
+}
+
+void	sigend(void)
+{
+	g_sig = 0;
 }

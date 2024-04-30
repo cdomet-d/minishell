@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/29 16:38:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 15:13:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_builtin(t_input **in)
 	else if (builtin_true(tmp) == ms_export)
 		export(&tmp);
 	else if (builtin_true(tmp) == ms_unset)
-		unset(&(*in)->env, tmp->data);
+		tmp->env = *unset(&tmp->env, tmp->data);
 }
 
 void	*redir_builtins(t_fd *fd, t_input *tmp)

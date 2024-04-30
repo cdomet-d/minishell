@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/26 18:02:37 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/30 16:16:01 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ SRC_UTILS:=		display_data.c \
 				display_structs_q.c \
 				display_structs_v.c \
 				error_handling.c \
-				main_utils.c \
+				# main_utils.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ EXEC ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
@@ -92,7 +92,12 @@ SRC_EXEC:=		exec.c \
 				heredoc.c \
 				exec_builtins.c \
 				redirections.c \
-				
+
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ SIGNALS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
+
+SRC +=  $(addprefix $(DIR_SIGNAL), $(SRC_SIGNAL))
+DIR_SIGNAL:= signals/
+SRC_SIGNAL:=		sighandler.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(UTILS_SUBDIR), $(SRC_SUBUTILS))
 UTILS_SUBDIR:=utils/

@@ -6,13 +6,13 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/04/26 14:12:06 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/04/30 17:29:56 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CC = gcc
+CC = cc
 CFLAGS = -Werror -Wextra -Wall
 CPPFLAGS = -MMD -MP
 

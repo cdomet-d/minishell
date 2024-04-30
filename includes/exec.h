@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/29 11:30:14 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 17:58:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <fcntl.h> // open
 # include <sys/types.h> // waitpid
 # include <sys/wait.h> // waitpid
+# include <signal.h> // signals
+
 
 # define R 0
 # define W 1
@@ -92,6 +94,13 @@ void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp);
 
 /* heredoc.c */
 void	*create_hdocs(t_fd *fd, t_input *in);
+
+// signals -------------------
+
+/* sighandler.c */
+void	sighandler(int sig);
+int		get_nonull(void);
+void	sigend(void);
 
 /*----------------------------------------------------------------------------*/
 

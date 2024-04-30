@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/29 16:33:23 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 17:12:04 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+
+extern int 	g_sig;
 
 /*----------------------------- STRUCTURES ----------------------------*/
 
@@ -84,18 +86,14 @@ t_env	*env_newnode(char *data);
 
 // utils ---------------------
 
-/* main_utils.c */
-void	init_all(char **str, char **envp, t_env **env, t_input **input);
-void	process_line(char *line, t_input *input, t_env *env);
 /* display_data.c */
-
 void	print_fds(t_fd *fd);
 
 /* display_structs_v.c */
 void	print_in_for(t_input *input);
 void	print_enum(int token);
 void	print_in_node(t_input *node, t_fd *fd, char *str);
-void	print_env_for(t_env *env);
+void	print_env_for(t_env *env, char *str);
 void	vdisplay_dtab(char **dtab);
 
 /* display_structs_q.c */
@@ -111,7 +109,7 @@ void	*print_error(int error_code, char *error_message);
 
 /* builtin_utils.c */
 char	*split_wsep(char *str, char sep);
-t_env	**env_rmone(t_env **sup, t_env *head);
+// t_env	**env_rmone(t_env **sup, t_env **head);
 
 /* echo.c */
 int		cmp_opt(char *arg);

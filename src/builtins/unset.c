@@ -6,11 +6,37 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:00:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/29 16:56:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 15:10:34 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+static t_env	*env_rmone(t_env **sup, t_env **head)
+{
+	t_env	*tmp;
+	
+	if (!(*sup))
+		return (print_error(errno, "minishell: invalid data in env_rmone"));
+	tmp = (*sup);
+	if (!tmp->prev)
+	{
+		(*sup) = (*sup)->next;
+		(*sup)->prev = NULL;
+		head = sup;
+	}
+	else if (!tmp->next)
+		(*sup)->prev->next = NULL;
+	else
+	{
+		(*sup)->prev->next = (*sup)->next;
+		(*sup)->next->prev = (*sup)->prev;
+	}
+	sup = head;
+	free(tmp->env);
+	free(tmp);
+	return (*sup);
+}
 
 t_env	**unset(t_env **env, char **key)
 {
@@ -21,22 +47,20 @@ t_env	**unset(t_env **env, char **key)
 		return (env);
 	head = (*env);
 	i = 1;
-	printf("key[1] : %s\n", key[i]);
-	while ((*env))
+	while ((*env) && key[i])
 	{
 		if (key[i] && ft_strncmp((*env)->env, key[i], ft_strlen(key[i])) == 0)
 		{
-			printf("removing : key %s\n", key[i]);
-			head = *env_rmone(env, head);
-			// print_env_for(*env);
+			head = env_rmone(env, &head);
+			(*env) = head;
 			i++;
 		}
-		(*env) = (*env)->next;
+		if ((*env))
+			(*env) = (*env)->next;
+		else
+			(*env) = head;
 	}
 	(*env) = head;
-	print_env_for(*env);
-	// (*env) = head;
 	return (env);
-	// printf("minishell: %s: not a valid identifier\n\n", key);
 	//return value : 130: No such file or directory
 }

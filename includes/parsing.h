@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/25 18:32:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:06:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 /*----------------------------- PARSING -----------------------------*/
 
 void	parsing(t_input **input, t_env **env, char *line, int rv);
-void	init_all(char **str, char **envp, t_env **env, t_input **input);
-void	process_line(char *line, t_input *input, t_env *env);
 int		cmd_path(t_input *input, t_env **env);
 int		path_len(char *env, int *i);
 int		check_path(char **path);

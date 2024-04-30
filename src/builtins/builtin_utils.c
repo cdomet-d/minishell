@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:01:23 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/29 17:31:56 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 10:58:25 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,4 @@ char	*split_wsep(char *str, char sep)
 	return (res);
 }
 
-t_env	**env_rmone(t_env **sup, t_env *head)
-{
-	t_env	*tmp;
-	
-	if (!(*sup))
-		return (print_error(errno, "minishell: invalid data in env_rmone"));
-	tmp = (*sup);
-	if (!tmp->prev)
-	{
-		fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- first node ------------------");
-		(*sup) = (*sup)->next;
-		(*sup)->prev = NULL;
-		head = (*sup);
-	}
-	else if (!tmp->next)
-	{
-		fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- last node ------------------");
-		(*sup)->prev->next = NULL;
-	}
-	else
-	{
-		fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- any other node ------------------");
-		(*sup)->prev->next = (*sup)->next;
-		(*sup)->next->prev = (*sup)->prev;
-	}
-	(*sup) = head;
-	free(tmp->env);
-	free(tmp);
-	return (sup);
-}
+
