@@ -70,46 +70,51 @@ char	*canonical_form(char *apath)
 	return (apath);
 }
 
-int	cd_path(t_input *in, char **path, char **apath)
+void	*cd_path(t_input *in)
 {
 	char	*temp;
+	char	*path;
 
 	temp = NULL;
+	
+	if (in->data[1][0] == '/' || in->data[1][0] == '.'
+		|| (in->data[1][0] == '.' && in->data[1][1] == '.'))
+		path = ft_strdup(in->data[1]);
+	else
+		path = ft_strjoin("./", in->data[1]);
+	if (!path)
+		return (print_error(errno, NULL), NULL);
+	if (check_directory(path))
+		return (free(path), NULL);
+	printf("cd_path 1: %s\n", path);
+	temp = canonical_form(path);
+	if (!temp)
+		return (free(path), NULL);
+	free(path);
+	path = temp;
+	printf("cd_path 2: %s\n", path);
+	temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
+	path = ft_strjoin(temp, path);
+	printf("cd_path 3: %s\n", path);
+	free(temp);
+	return (path);
+}
+
+int	special_cases(t_input *in, char **path)
+{
 	if (!in->data[1])
 	{
 		*path = find_var_env(in->env, "HOME=");
 		if (!*path)
-			return (ft_putendl_fd("minishell: cd: HOME not set", 2), 1);
+			return (ft_putendl_fd("minishell: cd: HOME not set", 2), -1);
+		return (1);
 	}
 	else if (in->data[1][0] == '-' && !in->data[1][1])
 	{
 		*path = find_var_env(in->env, "OLDPWD=");
 		if (!*path)
-			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), 1);
-	}
-	else
-	{
-		if (in->data[1][0] == '/' || in->data[1][0] == '.'
-			|| (in->data[1][0] == '.' && in->data[1][1] == '.'))
-			*apath = ft_strdup(in->data[1]);
-		else
-			*apath = ft_strjoin("./", in->data[1]);
-		if (!*apath)
-			return (print_error(errno, NULL), 1);
-		if (check_directory(*apath))
-			return (free(*apath), 1);
-		printf("cd_path 1: %s\n", *apath);
-		temp = canonical_form(*apath);
-		free(*apath);
-		*apath = temp;
-		printf("cd_path 2: %s\n", *apath);
-		if (!*apath)
-			return (1);
-		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
-		*apath = ft_strjoin(temp, *apath);
-		printf("cd_path 3: %s\n", *apath);
-		*path = *apath;
-		free(temp);
+			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), -1);
+		return (1);
 	}
 	return (0);
 }
@@ -117,38 +122,38 @@ int	cd_path(t_input *in, char **path, char **apath)
 int	cd(t_input *in)
 {
 	char	*path;
-	char	*apath;
 	char	*temp;
 	int		len;
+	int		rv;
 
 	path = NULL;
-	apath = NULL;
 	temp = NULL;
 	len = 0;
 	while (in->data[len])
 		len++;
 	if (len > 2)
 		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
-	if (cd_path(in, &path, &apath))
+	rv = special_cases(in, &path);
+	if (rv != 0)
+	{
+		if (rv == -1)
+			return (1);
+		if (chdir(path) == -1)
+			return (print_error(errno, NULL), 1);
+		return (0);
+	}
+	path = cd_path(in);
+	if (!path)
 		return (1);
 	printf("path : %s\n", path);
 	if (chdir(path) == -1)
-	{
-		if (apath)
-			free(apath);
-		return (print_error(errno, NULL), 1);
-	}
+		return (free(path), print_error(errno, NULL), 1);
 	temp = ft_strdup(find_var_env(in->env, "PWD="));
 	if (!temp)
-	{
-		if (apath)
-			free(apath);
-		return (1);
-	}
+		return (free(path), 1);
 	change_pwd(&(in)->env, path, "PWD=");
 	change_pwd(&(in)->env, temp, "OLDPWD=");
 	free(temp);
-	if (apath)
-		free(apath);
+	free(path);
 	return (0);
 }
