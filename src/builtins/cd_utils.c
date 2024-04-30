@@ -24,3 +24,14 @@ int check_directory(char *var)
 	}
 	return (0);
 }
+
+char	*find_var_env(t_env *env, char *var)
+{
+	while (env)
+	{
+		if (!ft_strncmp(env->env, var, ft_strlen(var)))
+			return (env->env + ft_strlen(var));
+		env = env->next;
+	}
+	return (NULL);
+}

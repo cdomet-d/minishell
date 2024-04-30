@@ -2,17 +2,6 @@
 
 #include "exec.h"
 
-char	*find_var_env(t_env *env, char *var)
-{
-	while (env)
-	{
-		if (!ft_strncmp(env->env, var, ft_strlen(var)))
-			return (env->env + ft_strlen(var));
-		env = env->next;
-	}
-	return (NULL);
-}
-
 int	change_pwd(t_env **env, char *path, char *var)
 {
 	t_env	*node;

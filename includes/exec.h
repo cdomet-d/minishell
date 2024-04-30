@@ -136,6 +136,7 @@ int		pwd(char **data);
 /* cd.c */
 int 	cd(t_input *in);
 int		check_directory(char *var);
+char	*find_var_env(t_env *env, char *var);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
