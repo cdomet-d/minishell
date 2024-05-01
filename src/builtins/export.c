@@ -12,7 +12,7 @@
 
 #include "exec.h"
 
-static void	*exprt_inenv(t_env **env, char *data)
+void	*exprt_inenv(t_env **env, char *data)
 {
 	t_env	*new;
 
