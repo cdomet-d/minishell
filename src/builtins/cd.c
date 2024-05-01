@@ -5,11 +5,9 @@
 char	*canonical_form(char *path)
 {
 	int		i;
-	// char	*temp;
 	char	**tab;
 
 	i = 0;
-	// temp = NULL;
 	tab = ft_split(path, '/');
 	if (!tab)
 		return (NULL);
@@ -53,7 +51,6 @@ void	*cd_path(t_input *in)
 	else
 	{
 		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
-		//ft_strjoin("./", in->data[1]);
 		path = ft_strjoin(temp, path);
 	}
 	if (!path)
@@ -65,9 +62,6 @@ void	*cd_path(t_input *in)
 	path = temp;
 	if (check_directory(path))
 		return (free(path), NULL);
-	// temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
-	// path = ft_strjoin(temp, path);
-	// free(temp);
 	return (path);
 }
 
