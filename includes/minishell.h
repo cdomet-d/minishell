@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+# include <linux/limits.h>
 
 /*----------------------------- COMMON STRUCTURES ----------------------------*/
 

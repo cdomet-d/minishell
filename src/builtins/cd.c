@@ -134,6 +134,7 @@ int	cd(t_input **in)
 {
 	char	*path;
 	int		rv;
+	char	str[PATH_MAX];
 
 	path = NULL;
 	if (len_tab((*in)->data) > 2)
