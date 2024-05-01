@@ -20,7 +20,7 @@ char	*canonical_form(char *path)
 	{
 		if (!ft_strncmp(tab[i], ".", 2))
 			i++;
-		if (ft_strncmp(tab[i], ".", 2) && ft_strncmp(tab[i + 1], "..", 3)
+		if (ft_strncmp(tab[i], ".", 2) && ft_strncmp(tab[i], "..", 3)
 			&& !ft_strncmp(tab[i + 1], "..", 3))
 		{
 			if (check_directory(tab[i]))
@@ -94,30 +94,36 @@ int	check_pwd(t_input **in, char *path)
 	temp = find_var_env((*in)->env, "PWD=");
 	if (temp)
 	{
-		if (change_pwd(&(*in)->env, temp, "OLDPWD="))
-			return (1);
 		if (!find_var_env((*in)->env, "OLDPWD="))
 		{
 			if (!exprt_inenv(&(*in)->env, "OLDPWD="))
 				return (1);
 		}
+		if (change_pwd(&(*in)->env, temp, "OLDPWD="))
+			return (1);
 		if (change_pwd(&(*in)->env, path, "PWD="))
 			return (1);
 	}
 	return (0);
 }
 
+int	len_tab(char **tab)
+{
+	int	len;
+
+	len = 0;
+	while (tab[len])
+		len++;
+	return (len);
+}
+
 int	cd(t_input **in)
 {
 	char	*path;
-	int		len;
 	int		rv;
 
 	path = NULL;
-	len = 0;
-	while ((*in)->data[len])
-		len++;
-	if (len > 2)
+	if (len_tab((*in)->data) > 2)
 		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
 	rv = special_cases(*in, &path);
 	if (rv != 0)
