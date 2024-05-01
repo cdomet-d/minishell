@@ -2,81 +2,39 @@
 
 #include "exec.h"
 
-int	change_pwd(t_env **env, char *path, char *var)
-{
-	t_env	*node;
-	char	*key;
-	char	*newstr;
-
-	node = *env;
-	while (node)
-	{
-		if (!ft_strncmp(node->env, var, ft_strlen(var)))
-		{
-			key = split_wsep(node->env, '=');
-			if (!key)
-				return (1);
-			newstr = ft_strjoin(key, path);
-			if (!newstr)
-				return (1);
-			free(key);
-			free(node->env);
-			node->env = newstr;
-			return (0);
-		}
-		node = node->next;
-	}
-	return (0);
-}
-// while (apath[i])
-// {
-// 	j = 0;
-// 	if (apath[i] == '.')
-// 	{
-// 		if (i == 0)
-// 		{
-// 			if (apath[i + 1] == '/')
-// 				j++;
-// 			apath = ft_strdup(apath + j + 1);
-// 		}
-// 		else
-// 		{
-// 			temp = ft_substr(apath, 0, i);
-// 			if (!temp)
-// 				return (free(apath), NULL);
-// 			j++;
-// 			while (apath[i + j] && apath[i + j] == '/')
-// 				j++;
-// 			apath = ft_strjoin(temp, apath + (i + j));
-// 			if (!apath)
-// 				return (free(temp), NULL);
-// 		}
-// 	}
-// 	if (apath[i])
-// 		i++;
-// }
-// if (temp)
-// 	free(temp);
-
 char	*canonical_form(char *path)
 {
 	int		i;
-	char	*temp;
+	// char	*temp;
 	char	**tab;
 
 	i = 0;
-	temp = NULL;
+	// temp = NULL;
 	tab = ft_split(path, '/');
 	if (!tab)
 		return (NULL);
 	while (!ft_strncmp(tab[i], ".", 2) || !ft_strncmp(tab[i], "..", 3))
 		i++;
 	path = ft_strdup("/");
+	if (!path)
+		return (free_dtab(tab), print_error(errno, NULL), NULL);
 	while (tab[i])
 	{
 		if (!ft_strncmp(tab[i], ".", 2))
 			i++;
+		if (ft_strncmp(tab[i], ".", 2) && ft_strncmp(tab[i + 1], "..", 3)
+			&& !ft_strncmp(tab[i + 1], "..", 3))
+		{
+			if (check_directory(tab[i]))
+				return (free_dtab(tab), free(path), NULL);
+			i += 2;
+		}
 		path = ft_strjoin(path, tab[i]);
+		if (!path)
+			return (print_error(errno, NULL), NULL);
+		path = ft_strjoin(path, "/");
+		if (!path)
+			return (print_error(errno, NULL), NULL);
 	}
 	printf("canon forme : %s\n", path);
 	return (path);
@@ -88,7 +46,7 @@ void	*cd_path(t_input *in)
 	char	*path;
 
 	temp = NULL;
-
+	path = NULL;
 	if (in->data[1][0] == '/' || in->data[1][0] == '.'
 		|| (in->data[1][0] == '.' && in->data[1][1] == '.'))
 		path = ft_strdup(in->data[1]);
@@ -127,46 +85,65 @@ int	special_cases(t_input *in, char **path)
 		*path = find_var_env(in->env, "OLDPWD=");
 		if (!*path)
 			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), -1);
+		if (!*path[0])
+			return (-1);
 		return (1);
 	}
 	return (0);
 }
 
-int	cd(t_input *in)
+int	check_pwd(t_input **in, char *path)
+{
+	char	*temp;
+
+	temp = NULL;
+	temp = find_var_env((*in)->env, "PWD=");
+	if (temp)
+	{
+		if (change_pwd(&(*in)->env, temp, "OLDPWD="))
+			return (1);
+		if (!find_var_env((*in)->env, "OLDPWD="))
+		{
+			if (!exprt_inenv(&(*in)->env, "OLDPWD="))
+				return (1);
+		}
+		if (change_pwd(&(*in)->env, path, "PWD="))
+			return (1);
+	}
+	return (0);
+}
+
+int	cd(t_input **in)
 {
 	char	*path;
-	char	*temp;
 	int		len;
 	int		rv;
 
 	path = NULL;
-	temp = NULL;
 	len = 0;
-	while (in->data[len])
+	while ((*in)->data[len])
 		len++;
 	if (len > 2)
 		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
-	rv = special_cases(in, &path);
+	rv = special_cases(*in, &path);
 	if (rv != 0)
 	{
 		if (rv == -1)
 			return (1);
 		if (chdir(path) == -1)
 			return (print_error(errno, NULL), 1);
+		if (check_pwd(in, path))
+			return (1);
 		return (0);
 	}
-	path = cd_path(in);
+	path = cd_path(*in);
 	if (!path)
 		return (1);
 	printf("path : %s\n", path);
 	if (chdir(path) == -1)
 		return (free(path), print_error(errno, NULL), 1);
-	temp = ft_strdup(find_var_env(in->env, "PWD="));
-	if (!temp)
+	if (check_pwd(in, path))
 		return (free(path), 1);
-	change_pwd(&(in)->env, path, "PWD=");
-	change_pwd(&(in)->env, temp, "OLDPWD=");
-	free(temp);
 	free(path);
 	return (0);
 }

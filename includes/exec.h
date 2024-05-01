@@ -123,6 +123,7 @@ void	mh_exit(char *line, t_input *in, t_env **env);
 
 /* export.c */
 void	*export(t_input **in);
+void	*exprt_inenv(t_env **env, char *data);
 
 /* env.c */
 void	*env(t_input *node);
@@ -134,9 +135,10 @@ int		echo(char **data);
 int		pwd(char **data);
 
 /* cd.c */
-int 	cd(t_input *in);
+int 	cd(t_input **in);
 int		check_directory(char *var);
 char	*find_var_env(t_env *env, char *var);
+int		change_pwd(t_env **env, char *path, char *var);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
