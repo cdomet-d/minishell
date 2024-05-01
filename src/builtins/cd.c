@@ -20,7 +20,7 @@ char	*canonical_form(char *path)
 	{
 		if (!ft_strncmp(tab[i], ".", 2))
 			i++;
-		if (ft_strncmp(tab[i], ".", 2) && ft_strncmp(tab[i], "..", 3)
+		if (ft_strncmp(tab[i], ".", 2) && ft_strncmp(tab[i], "..", 3) && tab[i + 1]
 			&& !ft_strncmp(tab[i + 1], "..", 3))
 		{
 			if (check_directory(tab[i]))
@@ -33,8 +33,11 @@ char	*canonical_form(char *path)
 		path = ft_strjoin(path, "/");
 		if (!path)
 			return (print_error(errno, NULL), NULL);
+		if (tab[i])
+			i++;
 	}
 	printf("canon forme : %s\n", path);
+	free_dtab(tab);
 	return (path);
 }
 
@@ -47,11 +50,21 @@ void	*cd_path(t_input *in)
 	path = NULL;
 	if (in->data[1][0] == '/' || in->data[1][0] == '.'
 		|| (in->data[1][0] == '.' && in->data[1][1] == '.'))
+	{
 		path = ft_strdup(in->data[1]);
+		if (!path)
+			return (NULL);
+	}
 	else
 	{
 		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
+		if (!temp)
+			return (NULL);
 		path = ft_strjoin(temp, path);
+		if (!path)
+			return (free(temp), NULL);
+		free(temp);
+		temp = NULL;
 	}
 	if (!path)
 		return (print_error(errno, NULL), NULL);
