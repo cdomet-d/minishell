@@ -16,7 +16,10 @@ char	*canonical_form(char *var, char *path, char **tab)
 		{
 			if (check_directory(var, path))
 				return (free(path), NULL);
-			path = temp;
+			free(path);
+			path = ft_strdup(temp);
+			if (!path)
+				return (free(temp), NULL);
 		}
 		else if (ft_strncmp(tab[i], ".", 2))
 		{
@@ -26,6 +29,7 @@ char	*canonical_form(char *var, char *path, char **tab)
 		}
 		i++;
 	}
+	free(temp);
 	return (path);
 }
 
@@ -41,7 +45,6 @@ char	*prep_path(char *var, char *path)
 	if (!temp)
 		return (free_dtab(tab), print_error(errno, NULL), NULL);
 	path = canonical_form(var, temp, tab);
-	free(temp);
 	free_dtab(tab);
 	if (!path)
 		return (NULL);

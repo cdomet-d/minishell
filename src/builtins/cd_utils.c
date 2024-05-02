@@ -85,12 +85,22 @@ int	pwds(t_input *in, char *path)
 
 char	*make_path(char *tab, char *path, char **temp)
 {
-	*temp = path;
-	path = ft_strjoin(path, tab);
-	if (!path)
+	char	*tmp;
+
+	free(*temp);
+	*temp = NULL;
+	*temp = ft_strdup(path);
+	if (!*temp)
 		return (print_error(errno, NULL), NULL);
-	path = ft_strjoin(path, "/");
-	if (!path)
+	tmp = ft_strjoin(path, tab);
+	free(path);
+	if (!tmp)
 		return (print_error(errno, NULL), NULL);
+	path = tmp;
+	tmp = ft_strjoin(path, "/");
+	free(path);
+	if (!tmp)
+		return (print_error(errno, NULL), NULL);
+	path = tmp;
 	return (path);
 }
