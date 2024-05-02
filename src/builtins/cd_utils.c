@@ -36,7 +36,7 @@ char	*find_var_env(t_env *env, char *var)
 	return (NULL);
 }
 
-int	change_pwd(t_env **env, char *path, char *var)
+int	change_pwds(t_env **env, char *path, char *var)
 {
 	t_env	*node;
 	char	*key;
@@ -62,7 +62,7 @@ int	change_pwd(t_env **env, char *path, char *var)
 	return (0);
 }
 
-int	check_pwd(t_input *in, char *path)
+int	pwds(t_input *in, char *path)
 {
 	char	*temp;
 
@@ -75,10 +75,22 @@ int	check_pwd(t_input *in, char *path)
 			if (!exprt_inenv(&(in)->env, "OLDPWD="))
 				return (1);
 		}
-		if (change_pwd(&(in)->env, temp, "OLDPWD="))
+		if (change_pwds(&(in)->env, temp, "OLDPWD="))
 			return (1);
-		if (change_pwd(&(in)->env, path, "PWD="))
+		if (change_pwds(&(in)->env, path, "PWD="))
 			return (1);
 	}
 	return (0);
+}
+
+char	*make_path(char *tab, char *path, char **temp)
+{
+	*temp = path;
+	path = ft_strjoin(path, tab);
+	if (!path)
+		return (print_error(errno, NULL), NULL);
+	path = ft_strjoin(path, "/");
+	if (!path)
+		return (print_error(errno, NULL), NULL);
+	return (path);
 }

@@ -2,58 +2,47 @@
 
 #include "exec.h"
 
-char	*rm_dots(char **tab, char *var, char *path, char *temp)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		if (!ft_strncmp(tab[i], ".", 2))
-			i++;
-		else if (tab[i - 1] && ft_strncmp(tab[i - 1], ".", 2) && !ft_strncmp(tab[i], "..", 3)
-			&& ft_strncmp(tab[i - 1], "..", 3))
-		{
-			if (check_directory(var, path))
-				return (free_dtab(tab), free(path), NULL);
-			path = temp;
-			i++;
-		}
-		else if (tab[i])
-		{
-			temp = path;
-			path = ft_strjoin(path, tab[i]);
-			if (!path)
-				return (print_error(errno, NULL), NULL);
-			path = ft_strjoin(path, "/");
-			if (!path)
-				return (print_error(errno, NULL), NULL);
-			i++;
-		}
-	}
-	return (path);
-}
-
-char	*canonical_form(char *var, char *path)
+char	*canonical_form(char *var, char *path, char **tab)
 {
 	int		i;
-	char	**tab;
 	char	*temp;
 
 	i = 0;
 	temp = NULL;
+	while (tab[i])
+	{
+		if (tab[i - 1] && ft_strncmp(tab[i - 1], ".", 2) && ft_strncmp(tab[i - 1], "..", 3)
+			&& !ft_strncmp(tab[i], "..", 3))
+		{
+			if (check_directory(var, path))
+				return (free(path), NULL);
+			path = temp;
+		}
+		else if (ft_strncmp(tab[i], ".", 2))
+		{
+			path = make_path(tab[i], path, &temp);
+			if (!path)
+				return (NULL);
+		}
+		i++;
+	}
+	return (path);
+}
+
+char	*prep_path(char *var, char *path)
+{
+	char	**tab;
+
 	tab = ft_split(path, '/');
 	if (!tab)
 		return (NULL);
-	while (!ft_strncmp(tab[i], ".", 2) || !ft_strncmp(tab[i], "..", 3))
-		i++;
 	path = ft_strdup("/");
 	if (!path)
 		return (free_dtab(tab), print_error(errno, NULL), NULL);
-	path = rm_dots(tab, var, path, temp);
+	path = canonical_form(var, path, tab);
+	free_dtab(tab);
 	if (!path)
 		return (NULL);
-	free_dtab(tab);
 	return (path);
 }
 
@@ -77,7 +66,7 @@ char	*cd_path(t_input *in)
 	}
 	if (!path)
 		return (print_error(errno, NULL), NULL);
-	path = canonical_form(in->data[1], path);
+	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
 	if (check_directory(in->data[1], path))
@@ -132,7 +121,7 @@ int	cd(t_input *in)
 			return (1);
 		if (chdir(path) == -1)
 			return (print_error(errno, NULL), 1);
-		if (check_pwd(in, path))
+		if (pwds(in, path))
 			return (1);
 		return (0);
 	}
@@ -141,7 +130,7 @@ int	cd(t_input *in)
 		return (1);
 	if (chdir(path) == -1)
 		return (free(path), print_error(errno, NULL), 1);
-	if (check_pwd(in, path))
+	if (pwds(in, path))
 		return (free(path), 1);
 	free(path);
 	return (0);
