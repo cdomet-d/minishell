@@ -11,11 +11,11 @@ char	*canonical_form(char *var, char *path, char **tab)
 	temp = NULL;
 	while (tab[i])
 	{
-		if (i > 0 && ft_strncmp(tab[i - 1], ".", 2) && ft_strncmp(tab[i - 1], "..", 3)
-			&& !ft_strncmp(tab[i], "..", 3))
+		if (!ft_strncmp(tab[i], "..", 3) && i > 0 && ft_strncmp(tab[i - 1], ".", 2)
+			&& ft_strncmp(tab[i - 1], "..", 3))
 		{
 			if (check_directory(var, path))
-				return (free(path), NULL);
+				return (free(temp), free(path), NULL);
 			free(path);
 			path = ft_strdup(temp);
 			if (!path)
