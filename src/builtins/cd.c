@@ -2,6 +2,38 @@
 
 #include "exec.h"
 
+char	*rm_dots(char **tab, char *var, char *path, char *temp)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (!ft_strncmp(tab[i], ".", 2))
+			i++;
+		else if (tab[i - 1] && ft_strncmp(tab[i - 1], ".", 2) && !ft_strncmp(tab[i], "..", 3)
+			&& ft_strncmp(tab[i - 1], "..", 3))
+		{
+			if (check_directory(var, path))
+				return (free_dtab(tab), free(path), NULL);
+			path = temp;
+			i++;
+		}
+		else if (tab[i])
+		{
+			temp = path;
+			path = ft_strjoin(path, tab[i]);
+			if (!path)
+				return (print_error(errno, NULL), NULL);
+			path = ft_strjoin(path, "/");
+			if (!path)
+				return (print_error(errno, NULL), NULL);
+			i++;
+		}
+	}
+	return (path);
+}
+
 char	*canonical_form(char *var, char *path)
 {
 	int		i;
@@ -18,30 +50,9 @@ char	*canonical_form(char *var, char *path)
 	path = ft_strdup("/");
 	if (!path)
 		return (free_dtab(tab), print_error(errno, NULL), NULL);
-	while (tab[i])
-	{
-		if (!ft_strncmp(tab[i], ".", 2))
-			i++;
-		else if (tab[i - 1] && ft_strncmp(tab[i - 1], ".", 2) && !ft_strncmp(tab[i], "..", 3)
-			&& ft_strncmp(tab[i - 1], "..", 3))
-		{
-			if (check_directory(var, path))
-				return (free_dtab(tab), free(path), NULL);
-			path = temp;
-			i += 1;
-		}
-		else if (tab[i])
-		{
-			temp = path;
-			path = ft_strjoin(path, tab[i]);
-			if (!path)
-				return (print_error(errno, NULL), NULL);
-			path = ft_strjoin(path, "/");
-			if (!path)
-				return (print_error(errno, NULL), NULL);
-			i++;
-		}
-	}
+	path = rm_dots(tab, var, path, temp);
+	if (!path)
+		return (NULL);
 	free_dtab(tab);
 	return (path);
 }
@@ -54,19 +65,13 @@ char	*cd_path(t_input *in)
 	temp = NULL;
 	path = NULL;
 	if (in->data[1][0] == '/')
-	{
 		path = ft_strdup(in->data[1]);
-		if (!path)
-			return (NULL);
-	}
 	else
 	{
 		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
 		if (!temp)
 			return (NULL);
 		path = ft_strjoin(temp, in->data[1]);
-		if (!path)
-			return (free(temp), NULL);
 		free(temp);
 		temp = NULL;
 	}
