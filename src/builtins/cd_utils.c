@@ -40,7 +40,6 @@ int	change_pwd(t_env **env, char *path, char *var)
 {
 	t_env	*node;
 	char	*key;
-	char	*newstr;
 
 	node = *env;
 	while (node)
@@ -50,12 +49,13 @@ int	change_pwd(t_env **env, char *path, char *var)
 			key = split_wsep(node->env, '=');
 			if (!key)
 				return (1);
-			newstr = ft_strjoin(key, path);
-			if (!newstr)
+			free(node->env);
+			node->env = ft_strjoin(key, path);
+			free(path);
+			if (!node->env)
 				return (1);
 			free(key);
-			free(node->env);
-			node->env = newstr;
+			node->env = node->env;
 			return (0);
 		}
 		node = node->next;

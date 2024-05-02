@@ -135,7 +135,7 @@ int		echo(char **data);
 int		pwd(char **data);
 
 /* cd.c */
-int 	cd(t_input **in);
+int 	cd(t_input *in);
 int		check_directory(char *var);
 char	*find_var_env(t_env *env, char *var);
 int		change_pwd(t_env **env, char *path, char *var);

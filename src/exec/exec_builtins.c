@@ -19,7 +19,7 @@ void	exec_builtin(t_input **in)
 	fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
 	tmp = (*in);
 	if (builtin_true(tmp) == ms_cd)
-		cd(&tmp);
+		cd(tmp);
 	else if (builtin_true(tmp) == ms_echo)
 		echo(tmp->data);
 	else if (builtin_true(tmp) == ms_pwd)

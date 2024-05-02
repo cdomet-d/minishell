@@ -130,34 +130,44 @@ int	len_tab(char **tab)
 	return (len);
 }
 
-int	cd(t_input **in)
+int	cd(t_input *in)
 {
 	char	*path;
 	int		rv;
 	// char	str[PATH_MAX];
 
 	path = NULL;
-	if (len_tab((*in)->data) > 2)
+	if (len_tab((in)->data) > 2)
 		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
-	rv = special_cases(*in, &path);
+	rv = special_cases(in, &path);
 	if (rv != 0)
 	{
 		if (rv == -1)
 			return (1);
 		if (chdir(path) == -1)
 			return (print_error(errno, NULL), 1);
-		if (check_pwd(in, path))
+		// if (check_pwd(in, path))
+		// 	return (1);
+		char *temp;
+		temp = ft_strdup(find_var_env((in)->env, "PWD="));
+		if (!temp)
 			return (1);
+		path = ft_strdup(path);
+		if (!path)
+			return (free(temp), 1);
+		change_pwd(&(in)->env, path, "PWD=");
+		change_pwd(&(in)->env, temp, "OLDPWD=");
+		// free(temp);
 		return (0);
 	}
-	path = cd_path(*in);
-	if (!path)
-		return (1);
-	printf("path : %s\n", path);
-	if (chdir(path) == -1)
-		return (free(path), print_error(errno, NULL), 1);
-	if (check_pwd(in, path))
-		return (free(path), 1);
-	free(path);
+	// path = cd_path(in);
+	// if (!path)
+	// 	return (1);
+	// printf("path : %s\n", path);
+	// if (chdir(path) == -1)
+	// 	return (free(path), print_error(errno, NULL), 1);
+	// if (check_pwd(in, path))
+	// 	return (free(path), 1);
+	// free(path);
 	return (0);
 }
