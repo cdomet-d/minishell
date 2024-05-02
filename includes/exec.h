@@ -138,7 +138,7 @@ int		pwd(char **data);
 int 	cd(t_input *in);
 int		check_directory(char *var);
 char	*find_var_env(t_env *env, char *var);
-int		change_pwd(t_env **env, char *path, char *var);
+int		check_pwd(t_input *in, char *path);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);

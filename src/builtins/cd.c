@@ -99,27 +99,6 @@ int	special_cases(t_input *in, char **path)
 	return (0);
 }
 
-int	check_pwd(t_input **in, char *path)
-{
-	char	*temp;
-
-	temp = NULL;
-	temp = find_var_env((*in)->env, "PWD=");
-	if (temp)
-	{
-		if (!find_var_env((*in)->env, "OLDPWD="))
-		{
-			if (!exprt_inenv(&(*in)->env, "OLDPWD="))
-				return (1);
-		}
-		if (change_pwd(&(*in)->env, temp, "OLDPWD="))
-			return (1);
-		if (change_pwd(&(*in)->env, path, "PWD="))
-			return (1);
-	}
-	return (0);
-}
-
 int	len_tab(char **tab)
 {
 	int	len;
@@ -146,28 +125,18 @@ int	cd(t_input *in)
 			return (1);
 		if (chdir(path) == -1)
 			return (print_error(errno, NULL), 1);
-		// if (check_pwd(in, path))
-		// 	return (1);
-		char *temp;
-		temp = ft_strdup(find_var_env((in)->env, "PWD="));
-		if (!temp)
+		if (check_pwd(in, path))
 			return (1);
-		path = ft_strdup(path);
-		if (!path)
-			return (free(temp), 1);
-		change_pwd(&(in)->env, path, "PWD=");
-		change_pwd(&(in)->env, temp, "OLDPWD=");
-		// free(temp);
 		return (0);
 	}
-	// path = cd_path(in);
-	// if (!path)
-	// 	return (1);
-	// printf("path : %s\n", path);
-	// if (chdir(path) == -1)
-	// 	return (free(path), print_error(errno, NULL), 1);
-	// if (check_pwd(in, path))
-	// 	return (free(path), 1);
-	// free(path);
+	path = cd_path(in);
+	if (!path)
+		return (1);
+	printf("path : %s\n", path);
+	if (chdir(path) == -1)
+		return (free(path), print_error(errno, NULL), 1);
+	if (check_pwd(in, path))
+		return (free(path), 1);
+	free(path);
 	return (0);
 }
