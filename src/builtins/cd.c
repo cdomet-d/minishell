@@ -78,14 +78,14 @@ int	special_cases(t_input *in, char **path)
 {
 	if (!in->data[1])
 	{
-		*path = find_var_env(in->env, "HOME=");
+		*path = ft_strdup(find_var_env(in->env, "HOME="));
 		if (!*path)
 			return (ft_putendl_fd("minishell: cd: HOME not set", 2), -1);
 		return (1);
 	}
 	else if (in->data[1][0] == '-' && !in->data[1][1])
 	{
-		*path = find_var_env(in->env, "OLDPWD=");
+		*path = ft_strdup(find_var_env(in->env, "OLDPWD="));
 		if (!*path)
 			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), -1);
 		if (!*path[0])
@@ -115,19 +115,14 @@ int	cd(t_input *in)
 	if (len_tab((in)->data) > 2)
 		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
 	rv = special_cases(in, &path);
-	if (rv != 0)
-	{
-		if (rv == -1)
-			return (1);
-		if (chdir(path) == -1)
-			return (print_error(errno, NULL), 1);
-		if (pwds(in, path))
-			return (1);
-		return (0);
-	}
-	path = cd_path(in);
-	if (!path)
+	if (rv == -1)
 		return (1);
+	if (!rv)
+	{
+		path = cd_path(in);
+		if (!path)
+			return (1);
+	}
 	if (chdir(path) == -1)
 		return (free(path), print_error(errno, NULL), 1);
 	if (pwds(in, path))
