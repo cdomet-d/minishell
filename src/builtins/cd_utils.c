@@ -2,16 +2,16 @@
 
 #include "exec.h"
 
-int check_directory(char *var)
+int check_directory(char *var, char *path)
 {
 	struct stat	buf;
 
-	stat(var, &buf);
+	stat(path, &buf);
 	// if (stat(path, &buf) == -1)
 	// {
 	// 	free(path);
 	// 	path = NULL;
-	// 	return (print_error(errno, NULL), NULL);
+	// 	return (print_error(errno, NULL), 1);
 	// }
 	if (S_ISDIR(buf.st_mode))
 		return (0);
