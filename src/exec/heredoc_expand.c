@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_expand.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/03 17:48:21 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/03 17:48:23 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exec.h"
 
@@ -21,11 +31,11 @@ int	heredoc_expand(char **line, t_input *in)
 	char	*temp;
 	int		letter;
 
-	letter = nb_letter(*line, &(in)->env);
+	letter = nb_letter(*line, &(in)->env, "130");
 	temp = ft_calloc(sizeof(char), letter + 1);
 	if (!temp)
 		return (print_error(errno, NULL), 1);
-	ft_copy(*line, temp, &(in)->env, 0);
+	ft_copy(*line, temp, &(in)->env, "130");
 	free(*line);
 	*line = temp;
 	letter = 0;
