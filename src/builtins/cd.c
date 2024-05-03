@@ -7,9 +7,9 @@ char	*canonical_form(char *var, char *path, char **tab)
 	int		i;
 	char	*temp;
 
-	i = 0;
+	i = -1;
 	temp = NULL;
-	while (tab[i])
+	while (tab[++i])
 	{
 		if (!ft_strncmp(tab[i], "..", 3) && i > 0 && ft_strncmp(tab[i - 1], ".", 2)
 			&& ft_strncmp(tab[i - 1], "..", 3))
@@ -27,10 +27,8 @@ char	*canonical_form(char *var, char *path, char **tab)
 			if (!path)
 				return (NULL);
 		}
-		i++;
 	}
-	free(temp);
-	return (path);
+	return (free(temp), path);
 }
 
 char	*prep_path(char *var, char *path)
@@ -39,6 +37,8 @@ char	*prep_path(char *var, char *path)
 	char	*temp;
 
 	tab = ft_split(path, '/');
+	free(path);
+	path = NULL;
 	if (!tab)
 		return (NULL);
 	temp = ft_strdup("/");
@@ -71,11 +71,9 @@ char	*cd_path(t_input *in)
 	}
 	if (!path)
 		return (print_error(errno, NULL), NULL);
-	temp = prep_path(in->data[1], path);
-	free(path);
-	if (!temp)
+	path = prep_path(in->data[1], path);
+	if (!path)
 		return (NULL);
-	path = temp;
 	if (check_directory(in->data[1], path))
 		return (free(path), NULL);
 	return (path);
