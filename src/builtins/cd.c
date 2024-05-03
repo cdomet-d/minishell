@@ -7,6 +7,7 @@ char	*canonical_form(char *var, char *path, char **tab)
 	int		i;
 	char	*temp;
 
+	(void)var;
 	i = -1;
 	temp = NULL;
 	while (tab[++i])
@@ -14,8 +15,8 @@ char	*canonical_form(char *var, char *path, char **tab)
 		if (!ft_strncmp(tab[i], "..", 3) && i > 0 && ft_strncmp(tab[i - 1], ".", 2)
 			&& ft_strncmp(tab[i - 1], "..", 3))
 		{
-			if (check_directory(var, path))
-				return (free(temp), free(path), NULL);
+			// if (check_directory(var, path))
+			// 	return (free(temp), free(path), NULL);
 			free(path);
 			path = ft_strdup(temp);
 			if (!path)
@@ -110,11 +111,38 @@ int	len_tab(char **tab)
 	return (len);
 }
 
+// char	*check_len(char	*path, t_input *in)
+// {
+// 	int		i;
+// 	char	*pwd;
+// 	char	*tmp;
+// 	struct stat	buf;
+
+// 		return (0);
+// 	i = 0;
+// 	if (ft_strlen(path) > PATH_MAX)
+// 	{
+// 		pwd = find_var_env(in->env, "PWD=");
+// 		if (!pwd)
+// 			return (path);
+// 		while (pwd[i] && path[i] && pwd[i] == path[i])
+// 			i++;
+// 		tmp = ft_strjoin("./", path + i);
+// 		free(path);
+// 		if (!tmp)
+// 			return (print_error(errno, NULL), NULL);
+// 		stat(path, &buf);
+// 		if (S_ISDIR(buf.st_mode))
+// 			return (path);
+// 		return (free(path), NULL);
+// 	}
+// 	return (path);
+// }
+
 int	cd(t_input *in)
 {
 	char	*path;
 	int		rv;
-	// char	str[PATH_MAX];
 
 	path = NULL;
 	if (len_tab((in)->data) > 2)
@@ -128,10 +156,13 @@ int	cd(t_input *in)
 		if (!path)
 			return (1);
 	}
-	if (chdir(path) == -1)
-		return (free(path), print_error(errno, NULL), 1);
 	if (pwds(in, path))
 		return (free(path), 1);
+	// path = check_len(path, in->env);
+	// if (!path)
+		// return (1);
+	if (chdir(path) == -1)
+		return (free(path), print_error(errno, "chdir "), 1);
 	free(path);
 	return (0);
 }
