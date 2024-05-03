@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 18:32:22 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:50:21 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exec_builtin(t_input **in)
 	else if (builtin_true(tmp) == ms_echo)
 		echo(tmp->data);
 	else if (builtin_true(tmp) == ms_pwd)
-		pwd(tmp->data);
+		pwd((*in)->env, tmp->data);
 	else if (builtin_true(tmp) == ms_env)
 		env(tmp);
 	else if (builtin_true(tmp) == ms_export)
