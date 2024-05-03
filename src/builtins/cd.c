@@ -5,15 +5,17 @@
 char	*canonical_form(char *var, char *path, char **tab)
 {
 	int		i;
+	int		j;
 	char	*temp;
 
 	(void)var;
 	i = -1;
+	j = 1;
 	temp = NULL;
 	while (tab[++i])
 	{
-		if (!ft_strncmp(tab[i], "..", 3) && i > 0 && ft_strncmp(tab[i - 1], ".", 2)
-			&& ft_strncmp(tab[i - 1], "..", 3))
+		if (!ft_strncmp(tab[i], "..", 3) && i > 0 && ft_strncmp(tab[i - j], ".", 2)
+			&& ft_strncmp(tab[i - j], "..", 3))
 		{
 			// if (check_directory(var, path))
 			// 	return (free(temp), free(path), NULL);
@@ -21,6 +23,9 @@ char	*canonical_form(char *var, char *path, char **tab)
 			path = ft_strdup(temp);
 			if (!path)
 				return (free(temp), NULL);
+			int len = ft_strlen(tab[i - j]) + 1;
+			temp = ft_substr(path, 0, ft_strlen(path) - len);
+			j += 2;
 		}
 		else if (ft_strncmp(tab[i], ".", 2))
 		{
