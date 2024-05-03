@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:01:23 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 22:30:26 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/03 17:49:27 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,15 @@ void	*env_rmone(t_env **sup, t_env *head)
 	free(tmp->env);
 	free(tmp);
 	return (*sup);
+}
+
+char	*find_var_env(t_env *env, char *var)
+{
+	while (env)
+	{
+		if (!ft_strncmp(env->env, var, ft_strlen(var)))
+			return (env->env + ft_strlen(var));
+		env = env->next;
+	}
+	return (NULL);
 }
