@@ -1,8 +1,18 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/03 17:57:23 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/03 17:57:25 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exec.h"
 
-int	pwd(char **data)
+int	pwd(t_env *env, char **data)
 {
 	char	*str;
 
@@ -13,13 +23,17 @@ int	pwd(char **data)
 			return (1);
 		return (0);
 	}
-	str = getcwd(str, 0);
+	str = find_var_env(env, "PWD=");
 	if (!str)
-		return (1);
-	if (ft_putstr_fd(str, STDOUT_FILENO) == -1)
+	{
+		str = getcwd(str, 0);
+		if (!str)
+			return (1);
+		if (ft_putendl_fd(str, STDOUT_FILENO) == -1)
+			return (free(str), 1);
+		free(str);
+	}
+	else if (ft_putendl_fd(str, STDOUT_FILENO) == -1)
 		return (free(str), 1);
-	if (write(STDOUT_FILENO, "\n", 1) == -1)
-		return (free(str), 1);
-	free(str);
 	return (0);
 }
