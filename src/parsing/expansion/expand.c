@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/15 16:43:09 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:27:10 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 	return (i);
 }
 
-void	ft_copy(char *data, char *newtab, t_env **env, int rv)
+void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
 {
 	int	i;
 	int	j;
@@ -51,7 +51,8 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 			i++;
 			if (data[i] && data[i] == '?')
 			{
-				newtab[j++] = 48 + rv;
+				ft_strlcpy(newtab + j, rv, ft_strlen(rv) + 1);
+				j += ft_strlen(rv);
 				i++;
 			}
 			else if (data[i])
@@ -62,7 +63,7 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 	}
 }
 
-void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
+void	nb_letter_env(char *data, t_env **env, int *letter, int *j, char *rv)
 {
 	char	*str;
 	int		i;
@@ -73,7 +74,7 @@ void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 	if (data[*j] && data[*j] == '?')
 	{
 		*j += 1;
-		*letter += 1;
+		*letter += ft_strlen(rv);
 	}
 	else if (data[*j])
 	{
@@ -88,7 +89,7 @@ void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 	}
 }
 
-int	nb_letter(char *data, t_env **env)
+int	nb_letter(char *data, t_env **env, char *str)
 {
 	int	letter;
 	int	j;
@@ -99,7 +100,7 @@ int	nb_letter(char *data, t_env **env)
 	{
 		if (data[j] == '$' && data[j + 1] && (ft_isalpha(data[j + 1])
 				|| data[j + 1] == '_' || data[j + 1] == '?'))
-			nb_letter_env(data, env, &letter, &j);
+			nb_letter_env(data, env, &letter, &j, str);
 		else if (data[j])
 		{
 			j++;
@@ -114,9 +115,13 @@ char	**expand(char **data, t_env **env, int rv)
 	int		word;
 	int		letter;
 	char	**newtab;
+	char	*str;
 
 	word = 0;
 	newtab = NULL;
+	str = ft_itoa(rv);
+	if (!str)
+		return (print_error(errno, NULL));
 	while (data[word])
 		word++;
 	newtab = ft_calloc(sizeof(char *), word + 1);
@@ -125,11 +130,11 @@ char	**expand(char **data, t_env **env, int rv)
 	word = 0;
 	while (data[word])
 	{
-		letter = nb_letter(data[word], env);
+		letter = nb_letter(data[word], env, str);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
 			return (free_dtab(newtab), print_error(errno, NULL));
-		ft_copy(data[word], newtab[word], env, rv);
+		ft_copy(data[word], newtab[word], env, str);
 		word++;
 	}
 	newtab[word] = NULL;
