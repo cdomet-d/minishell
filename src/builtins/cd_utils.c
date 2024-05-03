@@ -6,13 +6,18 @@ int check_directory(char *var, char *path)
 {
 	struct stat	buf;
 
-	stat(path, &buf);
-	// if (stat(path, &buf) == -1)
-	// {
-	// 	free(path);
-	// 	path = NULL;
-	// 	return (print_error(errno, NULL), 1);
-	// }
+	if (stat(path, &buf) == -1)
+	{
+		if (errno == ENOENT)
+		{
+			ft_putstr_fd("minishell: cd: ", 2);
+			ft_putstr_fd(var, 2);
+			ft_putendl_fd(": No such file or directory", 2);
+		}
+		else
+			print_error(errno, "stat ");
+		return (1);
+	}
 	if (S_ISDIR(buf.st_mode))
 		return (0);
 	else
