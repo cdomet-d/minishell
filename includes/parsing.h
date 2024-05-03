@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 17:15:45 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:26:49 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		check_opt(t_input **input, char *line, int *i);
 char	**expand_split(char **data, t_env **env, int rv);
 char	**expand(char **data, t_env **env, int rv);
 void	ft_copy(char *data, char *newtab, t_env **env, char *rv);
-int		nb_letter(char *data, t_env **env, char *str);
+int		nb_letter(char *data, t_env **env, char *rv);
 
 /* expand utils */
 int		search_dollar(char **data);
@@ -56,6 +56,7 @@ char	*search_env(char *data, t_env **env);
 int		ft_strcmp(char *data, char *env);
 void	put_in_neg(char *data, char quote1, char quote2);
 int		check_ws(char **tab);
+void	nb_letter_rv(int *letter, int *j, char *rv);
 
 /*---------------------------- CREATE LISTS ----------------------------*/
 

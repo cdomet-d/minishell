@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 17:27:10 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:27:48 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,24 @@ void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
 	}
 }
 
-void	nb_letter_env(char *data, t_env **env, int *letter, int *j, char *rv)
+void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 {
 	char	*str;
 	int		i;
 
 	str = NULL;
 	i = 0;
-	*j += 1;
-	if (data[*j] && data[*j] == '?')
+	str = search_env(data + *j, env);
+	if (str)
 	{
+		while (str[i++])
+			*letter += 1;
+	}
+	while (data[*j] && (ft_isalnum(data[*j]) || data[*j] == '_'))
 		*j += 1;
-		*letter += ft_strlen(rv);
-	}
-	else if (data[*j])
-	{
-		str = search_env(data + *j, env);
-		if (str)
-		{
-			while (str[i++])
-				*letter += 1;
-		}
-		while (data[*j] && (ft_isalnum(data[*j]) || data[*j] == '_'))
-			*j += 1;
-	}
 }
 
-int	nb_letter(char *data, t_env **env, char *str)
+int	nb_letter(char *data, t_env **env, char *rv)
 {
 	int	letter;
 	int	j;
@@ -100,7 +91,13 @@ int	nb_letter(char *data, t_env **env, char *str)
 	{
 		if (data[j] == '$' && data[j + 1] && (ft_isalpha(data[j + 1])
 				|| data[j + 1] == '_' || data[j + 1] == '?'))
-			nb_letter_env(data, env, &letter, &j, str);
+		{
+			j++;
+			if (data[j] && data[j] == '?')
+				nb_letter_rv(&letter, &j, rv);
+			else
+				nb_letter_env(data, env, &letter, &j);
+		}
 		else if (data[j])
 		{
 			j++;
@@ -138,5 +135,6 @@ char	**expand(char **data, t_env **env, int rv)
 		word++;
 	}
 	newtab[word] = NULL;
+	free(str);
 	return (newtab);
 }
