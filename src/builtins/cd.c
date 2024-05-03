@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:58:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 17:58:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:47:36 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*canonical_form(char *var, char *path, char **tab)
 {
 	int		i;
 	int		j;
+	int		len;
 	char	*temp;
 
 	(void)var;
@@ -24,7 +25,8 @@ char	*canonical_form(char *var, char *path, char **tab)
 	temp = NULL;
 	while (tab[++i])
 	{
-		if (!ft_strncmp(tab[i], "..", 3) && i > 0 && ft_strncmp(tab[i - j], ".", 2)
+		if (!ft_strncmp(tab[i], "..", 3) && i > 0
+			&& ft_strncmp(tab[i - j], ".", 2)
 			&& ft_strncmp(tab[i - j], "..", 3))
 		{
 			// if (check_directory(var, path))
@@ -33,7 +35,8 @@ char	*canonical_form(char *var, char *path, char **tab)
 			path = ft_strdup(temp);
 			if (!path)
 				return (free(temp), NULL);
-			int len = ft_strlen(tab[i - j]) + 1;
+			len = ft_strlen(tab[i - j]) + 1;
+			free(temp);
 			temp = ft_substr(path, 0, ft_strlen(path) - len);
 			j += 2;
 		}
@@ -125,34 +128,6 @@ int	len_tab(char **tab)
 		len++;
 	return (len);
 }
-
-// char	*check_len(char	*path, t_input *in)
-// {
-// 	int		i;
-// 	char	*pwd;
-// 	char	*tmp;
-// 	struct stat	buf;
-
-// 		return (0);
-// 	i = 0;
-// 	if (ft_strlen(path) > PATH_MAX)
-// 	{
-// 		pwd = find_var_env(in->env, "PWD=");
-// 		if (!pwd)
-// 			return (path);
-// 		while (pwd[i] && path[i] && pwd[i] == path[i])
-// 			i++;
-// 		tmp = ft_strjoin("./", path + i);
-// 		free(path);
-// 		if (!tmp)
-// 			return (print_error(errno, NULL), NULL);
-// 		stat(path, &buf);
-// 		if (S_ISDIR(buf.st_mode))
-// 			return (path);
-// 		return (free(path), NULL);
-// 	}
-// 	return (path);
-// }
 
 int	cd(t_input *in)
 {

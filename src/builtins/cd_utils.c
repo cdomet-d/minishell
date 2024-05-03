@@ -1,8 +1,18 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/03 18:38:33 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/03 18:43:07 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exec.h"
 
-int check_directory(char *var, char *path)
+int	check_directory(char *var, char *path)
 {
 	struct stat	buf;
 
@@ -96,5 +106,32 @@ char	*make_path(char *tab, char *path, char **temp)
 	if (!tmp)
 		return (print_error(errno, NULL), NULL);
 	path = tmp;
+	return (path);
+}
+
+char	*check_len(char	*path, t_input *in)
+{
+	int			i;
+	char		*pwd;
+	char		*tmp;
+	struct stat	buf;
+
+	i = 0;
+	if (ft_strlen(path) > PATH_MAX)
+	{
+		pwd = find_var_env(in->env, "PWD=");
+		if (!pwd)
+			return (path);
+		while (pwd[i] && path[i] && pwd[i] == path[i])
+			i++;
+		tmp = ft_strjoin("./", path + i);
+		free(path);
+		if (!tmp)
+			return (print_error(errno, NULL), NULL);
+		stat(path, &buf);
+		if (S_ISDIR(buf.st_mode))
+			return (path);
+		return (free(path), NULL);
+	}
 	return (path);
 }
