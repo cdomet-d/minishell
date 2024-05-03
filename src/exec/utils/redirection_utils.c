@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/29 11:32:04 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/02 15:02:39 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,7 @@ void	*open_infiles(t_fd *fd, t_input *tmp)
 	if (tmp->tok == heredoc)
 		unlink(tmp->data[0]);
 	if (fd->ffd == -1)
-	{
-		print_error(errno, tmp->data[0]);
-		fd->ffd = open("/dev/null", O_RDONLY);
-		if (fd->ffd == -1)
 			return (NULL);
-	}
 	if (dup2(fd->ffd, STDIN_FILENO) == -1)
 		return (print_error(errno, "open_infile (duping fd to STDIN)"));
 	close(fd->ffd);

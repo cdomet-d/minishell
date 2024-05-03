@@ -20,37 +20,42 @@ static int	in_line(t_input *in, char *line, int fd)
 	if (write(fd, line, ft_strlen(line)) == -1)
 		return (print_error(errno, "heredoc (write))"), 1);
 	free(line);
+	if (write(fd, "\n", 1) == -1)
+		return (print_error(errno, "heredoc (write))"), 1);
 	return (0);
 }
 
-static void	*h_gnl(int fd, t_input *in)
+static void	*h_gnl(int fd, t_input *in, char *filename)
 {
 	char	*line;
-	char	*tempdata;
+	char	*tmpdel;
 
-	// fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
-	// fprintf(stderr, "\033[2mdelim : [%s]\033[0m\n", in->data[0]);
-	line = get_next_line(STDIN_FILENO);
-	if (!line)
-		return (print_error(errno, "heredoc(GNL))"));
-	tempdata = ft_strdup(in->data[0]);
-	if (!tempdata)
+	(void)filename;
+	rl_event_hook = get_nonull;
+	fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
+	line = NULL;
+	tmpdel = ft_strdup(in->data[0]);
+	if (!tmpdel)
 		return (print_error(errno, NULL));
 	if (in->data[0][0] < 0)
-		tempdata[0] *= -1;
-	while (ft_strncmp(line, tempdata, (ft_strlen(in->data[0]))) != 0)
+		tmpdel[0] *= -1;
+	while (1)
 	{
 		if (line)
 			if (in_line(in, line, fd))
-				return (free(line), free(tempdata), NULL);
-		line = get_next_line(STDIN_FILENO);
+				return (free(line), free(tmpdel), NULL);
+		sigend();
+		line = readline(" > ");
 		if (!line)
-			return (print_error(errno, "heredoc (GNL))"));
+			return (print_error(errno, "heredoc (GNL)"));
+		if (ft_strncmp(line, tmpdel, (ft_strlen(in->data[0]))) == 0 || g_sig == SIGINT)
+		{
+			rl_event_hook = NULL;
+			break ;
+		}
 	}
-	free(tempdata);
+	free(tmpdel);
 	in->data[0][0] *= -1;
-	if (line)
-		free(line);
 	return ((int *) true);
 }
 
@@ -59,29 +64,26 @@ static char	*gen_filename(int fn)
 	char	*strfn;
 	char	*filename;
 
-	// // fprintf(stderr, "%.20s\n", "-- gen_filename --------------------------");
 	strfn = ft_itoa(fn);
 	if (!strfn)
 		return (print_error(errno, "gen_filename (itoa fn)"));
 	filename = ft_strjoin("/tmp/tmp_", strfn);
 	if (!filename)
 		return (print_error(errno, "gen_filename (strjoin filename)"));
-	// fprintf(stderr, "\033[2mfile [%.20s]\033[0m\n", filename);
 	free(strfn);
 	return (filename);
 }
 
 static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 {
-	// // fprintf(stderr, "%.20s\n", "-- create_hfile --------------------------");
+	// fprintf(stderr, "%.20s\n", "-- create_hfile --------------------------");
 	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (fd->hfd == -1)
 		return (print_error(errno, "create_hfile (opening tmp)"));
-	if (!h_gnl(fd->hfd, tmp))
+	if (!h_gnl(fd->hfd, tmp, filename))
 		return (print_error(errno, "create_hfile (h_gnl)"));
 	if (close(fd->hfd) == -1)
 		return (print_error(errno, "create_hfile (closing hfd)"));
-	// tmp->tok = inredir;
 	free(filename);
 	return ((int *) true);
 }
@@ -91,11 +93,13 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	t_input	*tmp;
 	int		fn;
 
-	// fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
+	fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
 	fn = 0;
 	tmp = find_here(in, false);
 	while (op_true(tmp, heredoc))
 	{
+		fprintf(stderr, "%.20s\n", "-- in loop -----------------------------");
+		print_fds(fd);
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
 			return (print_error(errno, "prep h_file (creating a file)"));
 		free(tmp->data[0]);

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/30 17:56:15 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/03 11:46:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ int get_nonull(void)
 
 void	sighandler(int sig)
 {
-	g_sig = sig;
 	if (sig == SIGINT)
+	{
+		g_sig = sig;
 		rl_done = g_sig;
+		return ;
+	}
 	else
 		printf("signal received : %d\n", sig);
 }
 
 void	sigend(void)
 {
-	g_sig = 0;
+	g_sig = -1;
 }

@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/04/30 16:16:01 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/02 15:42:01 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,8 @@ SRC_EXEC:=		exec.c \
 SRC +=  $(addprefix $(DIR_SIGNAL), $(SRC_SIGNAL))
 DIR_SIGNAL:= signals/
 SRC_SIGNAL:=		sighandler.c \
+
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
 SRC +=  $(addprefix $(DIR_EXEC)$(UTILS_SUBDIR), $(SRC_SUBUTILS))
 UTILS_SUBDIR:=utils/

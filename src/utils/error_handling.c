@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/30 14:33:50 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/02 13:38:51 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	*errjoin(int error_code, char *error_message)
 
 void	*print_error(int error_code, char *error_message)
 {
-	fprintf(stderr, "%.20s\n", "-- print_error ------------------------------");
+	// fprintf(stderr, "%.20s\n", "-- print_error ------------------------------");
 	if (error_code && !error_message)
 	{
 		ft_putstr_fd("\033[0;31m", 2);
