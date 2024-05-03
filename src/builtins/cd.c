@@ -6,20 +6,38 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:58:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 18:47:36 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:35:36 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
+int	rm_dots(char **path, char **temp, char *tab, char *var)
+{
+	int		len;
+
+	(void)var;
+	// if (check_directory(var, *path))
+	// 	return (free(*temp), free(*path), 1);
+	free(*path);
+	*path = ft_strdup(*temp);
+	if (!*path)
+		return (free(*temp), 1);
+	len = ft_strlen(tab) + 1;
+	free(*temp);
+	*temp = ft_substr(*path, 0, ft_strlen(*path) - len);
+	if (!temp)
+		return (free(*path), NULL);
+	printf("temp : %s\n", temp);
+	return (0);
+}
+
 char	*canonical_form(char *var, char *path, char **tab)
 {
 	int		i;
 	int		j;
-	int		len;
 	char	*temp;
 
-	(void)var;
 	i = -1;
 	j = 1;
 	temp = NULL;
@@ -29,15 +47,8 @@ char	*canonical_form(char *var, char *path, char **tab)
 			&& ft_strncmp(tab[i - j], ".", 2)
 			&& ft_strncmp(tab[i - j], "..", 3))
 		{
-			// if (check_directory(var, path))
-			// 	return (free(temp), free(path), NULL);
-			free(path);
-			path = ft_strdup(temp);
-			if (!path)
-				return (free(temp), NULL);
-			len = ft_strlen(tab[i - j]) + 1;
-			free(temp);
-			temp = ft_substr(path, 0, ft_strlen(path) - len);
+			if (rm_dots(&path, &temp, tab[i - j], var))
+				return (NULL);
 			j += 2;
 		}
 		else if (ft_strncmp(tab[i], ".", 2))
@@ -93,6 +104,7 @@ char	*cd_path(t_input *in)
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
+	printf("path  :%s\n", path);
 	if (check_directory(in->data[1], path))
 		return (free(path), NULL);
 	return (path);
@@ -150,7 +162,8 @@ int	cd(t_input *in)
 		return (free(path), 1);
 	// path = check_len(path, in->env);
 	// if (!path)
-		// return (1);
+	// 	return (1);
+	// printf("pathhh : %s\n", path);
 	if (chdir(path) == -1)
 		return (free(path), print_error(errno, "chdir "), 1);
 	free(path);

@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 18:44:55 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:59:49 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int		check_directory(char *var, char *path);
 char	*find_var_env(t_env *env, char *var);
 int		pwds(t_input *in, char *path);
 char	*make_path(char *tab, char *path, char **temp);
-char	*check_len(char	*path, t_input *in);
+char	*check_len(char	*path, t_env *env);
 
 /*--------------------------------- DISPLAYS ---------------------------------*/
 void	print_ops(t_op count);
