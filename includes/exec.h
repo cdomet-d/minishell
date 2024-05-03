@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 15:43:13 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:50:36 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	*exec_cmd(t_input *in);
 void	exec_builtin(t_input **in);
 void	*redir_builtins(t_fd *fd, t_input *tmp);
 void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp);
+char	*find_var_env(t_env *env, char *var);
 
 /*--------------------------------- BUILTINS ---------------------------------*/
 
@@ -132,7 +133,7 @@ void	*env(t_input *node);
 int		echo(char **data);
 
 /* pwd.c */
-int		pwd(char **data);
+int		pwd(t_env *env, char **data);
 
 /* cd.c */
 int 	cd(t_input *in);
