@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/02 14:15:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/03 14:45:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_input
 	t_env			*env;
 	struct s_input	*next;
 	struct s_input	*prev;
+	int				status;
 }	t_input;
 
 typedef struct s_fd

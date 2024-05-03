@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/02 13:38:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/03 15:02:58 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	close_and_wait(t_input *in, t_fd *fd)
 {
 	if (count_pipes(in))
 		close_pipe_read(fd);
-	while (wait(0) != -1 && errno != ECHILD)
+	while (waitpid(0, &in->status, 0) != -1 && errno != ECHILD)
 		;
+	if (WIFEXITED(in->status))
+		in->status = 9;
+	else
+		in->status = 0;
 }
 
 void	*create_child(t_input *in, t_fd *fd)

@@ -25,14 +25,13 @@ static int	in_line(t_input *in, char *line, int fd)
 	return (0);
 }
 
-static void	*h_gnl(int fd, t_input *in, char *filename)
+static void	*h_gnl(int fd, t_input *in)
 {
 	char	*line;
 	char	*tmpdel;
 
-	(void)filename;
-	rl_event_hook = get_nonull;
 	fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
+	rl_event_hook = get_nonull;
 	line = NULL;
 	tmpdel = ft_strdup(in->data[0]);
 	if (!tmpdel)
@@ -80,7 +79,7 @@ static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (fd->hfd == -1)
 		return (print_error(errno, "create_hfile (opening tmp)"));
-	if (!h_gnl(fd->hfd, tmp, filename))
+	if (!h_gnl(fd->hfd, tmp))
 		return (print_error(errno, "create_hfile (h_gnl)"));
 	if (close(fd->hfd) == -1)
 		return (print_error(errno, "create_hfile (closing hfd)"));

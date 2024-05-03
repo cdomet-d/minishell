@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 12:05:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/03 14:47:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	*exec_cmd(t_input *in)
 	t_fd	fd;
 
 	tmp = in;
-	// pmin(tmp, NULL);
+	in->status = 0;
+	pmin(tmp, NULL);
 	init_fds(&fd, in);
 	if (here_true(in))
 		if (!create_hdocs(&fd, in))
