@@ -27,8 +27,8 @@ int	rm_dots(char **path, char **temp, char *tab, char *var)
 	free(*temp);
 	*temp = ft_substr(*path, 0, ft_strlen(*path) - len);
 	if (!temp)
-		return (free(*path), NULL);
-	printf("temp : %s\n", temp);
+		return (free(*path), 1);
+	// printf("temp : %s\n", *temp);
 	return (0);
 }
 
