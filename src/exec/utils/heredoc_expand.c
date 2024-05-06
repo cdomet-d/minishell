@@ -28,14 +28,18 @@ int	search_dollar_hd(char *line)
 
 int	heredoc_expand(char **line, t_input *in)
 {
+	char	*str;
 	char	*temp;
 	int		letter;
 
-	letter = nb_letter(*line, &(in)->env, "130");
+	str = ft_itoa(in->status);
+	if (!str)
+		return (print_error(errno, NULL), 1);
+	letter = nb_letter(*line, &(in)->env, str);
 	temp = ft_calloc(sizeof(char), letter + 1);
 	if (!temp)
-		return (print_error(errno, NULL), 1);
-	ft_copy(*line, temp, &(in)->env, "130");
+		return (free(str), print_error(errno, NULL), 1);
+	ft_copy(*line, temp, &(in)->env, str);
 	free(*line);
 	*line = temp;
 	letter = 0;
@@ -45,5 +49,6 @@ int	heredoc_expand(char **line, t_input *in)
 			*line[letter] = temp[letter] * -1;
 		letter++;
 	}
+	free(str);
 	return (0);
 }

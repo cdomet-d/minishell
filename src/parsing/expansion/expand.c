@@ -120,14 +120,14 @@ char	**expand(char **data, t_env **env, int rv)
 	word = ft_arrlen(data);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (print_error(errno, NULL));
+		return (free(str), print_error(errno, NULL));
 	word = 0;
 	while (data[word])
 	{
 		letter = nb_letter(data[word], env, str);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
-			return (free_dtab(newtab), print_error(errno, NULL));
+			return (free(str), free_dtab(newtab), print_error(errno, NULL));
 		ft_copy(data[word], newtab[word], env, str);
 		word++;
 	}
