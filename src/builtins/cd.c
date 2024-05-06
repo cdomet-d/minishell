@@ -27,7 +27,6 @@ int	rm_dots(char **path, char **temp, char *tab, char *var)
 	*temp = ft_substr(*path, 0, ft_strlen(*path) - len);
 	if (!temp)
 		return (free(*path), 1);
-	// printf("temp : %s\n", *temp);
 	return (0);
 }
 
@@ -42,13 +41,14 @@ char	*canonical_form(char *var, char *path, char **tab)
 	temp = NULL;
 	while (tab[++i])
 	{
-		if (!ft_strncmp(tab[i], "..", 3) && i > 0
+		if (!ft_strncmp(tab[i], "..", 3) && (i - j) > 0
 			&& ft_strncmp(tab[i - j], ".", 2)
 			&& ft_strncmp(tab[i - j], "..", 3))
 		{
+			j++;
 			if (rm_dots(&path, &temp, tab[i - j], var))
 				return (NULL);
-			j += 2;
+			j++;
 		}
 		else if (ft_strncmp(tab[i], ".", 2))
 		{
@@ -84,26 +84,31 @@ char	*cd_path(t_input *in)
 {
 	char	*temp;
 	char	*path;
+	char	*str;
 
-	temp = NULL;
-	path = NULL;
 	if (in->data[1][0] == '/')
 		path = ft_strdup(in->data[1]);
 	else
 	{
-		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
+		str = find_var_env(in->env, "PWD=");
+		if (!str)
+		{
+			path = ft_strdup(in->data[1]);
+			if (!path)
+				return (print_error(errno, NULL), NULL);
+			return (path);
+		}
+		temp = ft_strjoin(str, "/");
 		if (!temp)
 			return (NULL);
 		path = ft_strjoin(temp, in->data[1]);
 		free(temp);
-		temp = NULL;
 	}
 	if (!path)
 		return (print_error(errno, NULL), NULL);
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
-	printf("path  :%s\n", path);
 	if (check_directory(in->data[1], path))
 		return (free(path), NULL);
 	return (path);
