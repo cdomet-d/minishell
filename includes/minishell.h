@@ -111,6 +111,8 @@ void	*print_error(int error_code, char *error_message);
 
 /* builtin_utils.c */
 char	*split_wsep(char *str, char sep);
+char	*find_var_env(t_env *env, char *var);
+void	*exprt_inenv(t_env **env, char *data);
 // t_env	**env_rmone(t_env **sup, t_env **head);
 
 /* echo.c */
@@ -124,7 +126,7 @@ void	*env(t_input *node);
 void	mh_exit(char *line, t_input *in, t_env **env);
 
 /* pwd.c */
-int		pwd(char **data);
+int		pwd(t_env *env, char **data);
 
 /* export.c */
 int		check_arg(char *var);
@@ -135,8 +137,13 @@ void	*export(t_input **in);
 void	*sort_env(t_env	*env);
 
 /* cd.c */
-char	*find_home(t_env *env);
 int		cd(t_input *in);
+
+/* cd_utils.c */
+int		check_directory(char *var, char *path);
+int		pwds(t_input *in, char *path);
+char	*make_path(char *tab, char *path, char **temp);
+// char	*check_len(char	*path, t_env *env);
 
 /* unset.c */
 t_env	**unset(t_env **env, char **key);
