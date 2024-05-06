@@ -109,35 +109,35 @@ char	*make_path(char *tab, char *path, char **temp)
 	return (path);
 }
 
-// char	*check_len(char	*path, t_env *env)
-// {
-// 	int			i;
-// 	char		*pwd;
-// 	char		*tmp;
-// 	struct stat	buf;
+char	*check_len(char	*path, t_env *env)
+{
+	int			i;
+	char		*pwd;
+	char		*tmp;
+	struct stat	buf;
 
-// 	i = 0;
-// 	if (ft_strlen(path) > 3)//PATH_MAX)
-// 	{
-// 		pwd = find_var_env(env, "PWD=");
-// 		if (!pwd)
-// 			return (path);
-// 		while (pwd[i] && path[i] && pwd[i] == path[i])
-// 			i++;
-// 		tmp = ft_strjoin("./", path + i);
-// 		if (!tmp)
-// 			return (print_error(errno, NULL), NULL);
-// 		if (stat(tmp, &buf) == -1)
-// 		{
-// 			free(tmp);
-// 			if (errno == ENOENT)
-// 				return (path);
-// 			else
-// 				return (free(path), print_error(errno, "stat "), NULL);
-// 		}
-// 		else if (S_ISDIR(buf.st_mode))
-// 			return (printf("innnn\n"), free(path), tmp);
-// 		free(tmp);
-// 	}
-// 	return (path);
-// }
+	i = 0;
+	if (ft_strlen(path) > PATH_MAX)
+	{
+		pwd = find_var_env(env, "PWD=");
+		if (!pwd)
+			return (path);
+		while (pwd[i] && path[i] && pwd[i] == path[i])
+			i++;
+		tmp = ft_strjoin(".", path + i);
+		if (!tmp)
+			return (free(path), print_error(errno, NULL), NULL);
+		if (stat(tmp, &buf) == -1)
+		{
+			free(tmp);
+			if (errno == ENOENT)
+				return (path);
+			else
+				return (free(path), print_error(errno, "stat "), NULL);
+		}
+		else if (S_ISDIR(buf.st_mode))
+			return (free(path), tmp);
+		free(tmp);
+	}
+	return (path);
+}

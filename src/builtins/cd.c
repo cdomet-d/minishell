@@ -154,10 +154,9 @@ int	cd(t_input *in)
 	}
 	if (pwds(in, path))
 		return (free(path), 1);
-	// path = check_len(path, in->env);
-	// if (!path)
-	// 	return (1);
-	// printf("pathhh : %s\n", path);
+	path = check_len(path, in->env);
+	if (!path)
+		return (1);
 	if (chdir(path) == -1)
 		return (free(path), print_error(errno, "chdir "), 1);
 	free(path);
