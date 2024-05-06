@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 15:02:58 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/06 17:12:51 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,30 @@
 
 void	close_and_wait(t_input *in, t_fd *fd)
 {
+	struct stat infos;
+	
 	if (count_pipes(in))
 		close_pipe_read(fd);
 	while (waitpid(0, &in->status, 0) != -1 && errno != ECHILD)
 		;
 	if (WIFEXITED(in->status))
-		in->status = 9;
-	else
-		in->status = 0;
+	{
+		if (in->status == 256)
+		{
+			if (access(in->data[0], X_OK) == -1)
+				in->status = 127;
+			if (access(in->data[0], X_OK) != -1)
+				in->status = 1;
+			else if (stat(in->data[0], &infos) != -1)
+			{
+				if (S_ISDIR(infos.st_mode))
+					in->status = 126;
+			}
+			return ;
+		}
+	}
+	else if (!WIFEXITED(in->status))
+		in->status = 128 + g_sig;
 }
 
 void	*create_child(t_input *in, t_fd *fd)

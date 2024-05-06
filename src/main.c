@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 14:56:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/06 17:40:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 
 static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 {
-	if (ft_strncmp(line, "exit", 5) == 0)
-		mh_exit(line, input, env);
 	add_history(line);
 	parsing(&input, env, line, *status);
 	if (input)
 	{
+		if (input->tok == ms_exit)
+			mh_exit(line, input);
 		input->status = *status;
 		exec_cmd(input);
 		*env = input->env;

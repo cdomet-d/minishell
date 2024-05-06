@@ -1,10 +1,11 @@
 #!/bin/bash
 
-if [ $# == 1 ]; then
-	bash scripts/prep
-	git add .
-	git commit -m "$1"
-	git push
+if [ $# -ge 1 ]; then
+    commit_message="$*"
+    bash scripts/prep
+    git add .
+    git commit -m "$commit_message"
+    git push
 else
-	echo "gimme the commit message u animal"
+    echo "gimme the commit message u animal"
 fi

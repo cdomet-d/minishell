@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 14:45:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/06 17:43:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ void	pmin(t_input *input, char *str);
 void	display_dtab(char **dtab);
 
 /* error_handling.c */
-void	fatal_exit(t_input **lst, int error_code, char *error_message);
-void	free_env(t_env *lst, int error_code, char *error_message);
+void	fatal_exit(t_input **lst, int rv, char *error_message);
 void	*print_error(int error_code, char *error_message);
 
 // builtins ------------------
@@ -123,7 +122,7 @@ int		echo(char **data);
 void	*env(t_input *node);
 
 /* exit.c */
-void	mh_exit(char *line, t_input *in, t_env **env);
+void	mh_exit(char *line, t_input *in);
 
 /* pwd.c */
 int		pwd(t_env *env, char **data);
