@@ -131,23 +131,13 @@ int	special_cases(t_input *in, char **path)
 	return (0);
 }
 
-int	len_tab(char **tab)
-{
-	int	len;
-
-	len = 0;
-	while (tab[len])
-		len++;
-	return (len);
-}
-
 int	cd(t_input *in)
 {
 	char	*path;
 	int		rv;
 
 	path = NULL;
-	if (len_tab((in)->data) > 2)
+	if (ft_arrlen((in)->data) > 2)
 		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
 	rv = special_cases(in, &path);
 	if (rv == -1)

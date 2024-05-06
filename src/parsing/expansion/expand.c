@@ -114,13 +114,10 @@ char	**expand(char **data, t_env **env, int rv)
 	char	**newtab;
 	char	*str;
 
-	word = 0;
-	newtab = NULL;
 	str = ft_itoa(rv);
 	if (!str)
 		return (print_error(errno, NULL));
-	while (data[word])
-		word++;
+	word = ft_arrlen(data);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
 		return (print_error(errno, NULL));
