@@ -30,8 +30,6 @@ char	*split_wsep(char *str, char sep)
 	return (res);
 }
 
-
-
 char	*find_var_env(t_env *env, char *var)
 {
 	while (env)
@@ -45,4 +43,15 @@ char	*find_var_env(t_env *env, char *var)
 		env = env->next;
 	}
 	return (NULL);
+}
+
+void	*exprt_inenv(t_env **env, char *data)
+{
+	t_env	*new;
+
+	new = env_newnode(data);
+	if (!new)
+		return (NULL);
+	env_addback(env, new);
+	return (new);
 }
