@@ -6,12 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:19 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/01/15 11:41:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 17:30:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 static size_t	ft_skip_space(char *str)
 {

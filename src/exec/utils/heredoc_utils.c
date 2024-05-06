@@ -1,33 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils.c                                       :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 22:08:34 by jauseff           #+#    #+#             */
-/*   Updated: 2024/04/24 16:38:05 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/04/26 17:39:51 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/04/26 17:48:32 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "exec.h"
 
-void	init_all(char **str, char **envp, t_env **env, t_input **input)
+bool	here_true(t_input *in)
 {
-	*str = NULL;
-	*env = NULL;
-	*input = NULL;
-	create_env(input, envp, env);
+	t_input	*tmp;
+
+	tmp = in;
+	while (tmp)
+	{
+		if (tmp->tok == heredoc)
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
 }
 
-void	process_line(char *line, t_input *input, t_env *env)
+t_input	*find_here(t_input	*in, bool next)
 {
-	if (ft_strncmp(line, "exit", 5) == 0)
-		mh_exit(line, input, &env);
-	add_history(line);
-	parsing(&input, &env, line, 0);
-	if (input)
-		exec_cmd(input);
-	input_freelst(&input);
-	free(line);
+	t_input	*tmp;
+
+	tmp = in;
+	if (tmp == NULL)
+		return (NULL);
+	if (next)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->tok == heredoc)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }

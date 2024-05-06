@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_errors.c                                      :+:      :+:    :+:   */
+/*   sighandler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/02 14:35:15 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/05/03 11:46:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	*exe_failure(t_fd *fd, t_input *in)
+int get_nonull(void)
 {
-	fprintf(stderr, "%.20s\n", "-- killchild --------------------------------");
-	close_pfd(fd);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
-	if (in && in->env)
-		env_freelst(&in->env);
-	input_freelst(&in);
-	exit(EXIT_FAILURE);
+	return (1);
+}
+
+void	sighandler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_sig = sig;
+		rl_done = g_sig;
+		return ;
+	}
+	else
+		printf("signal received : %d\n", sig);
+}
+
+void	sigend(void)
+{
+	g_sig = -1;
 }

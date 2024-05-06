@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/25 17:37:12 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:34:45 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	*export(t_input **in)
 	i = 1;
 	head = (*in)->env;
 	if ((*in)->env && !(*in)->data[i])
-		return (NULL);//sort_env((*in)->env));
+		sort_env((*in)->env);
 	while ((*in)->data[i])
 	{
 		if (!check_arg((*in)->data[i]))

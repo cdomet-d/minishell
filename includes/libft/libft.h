@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:20:53 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/23 12:44:09 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/26 14:11:48 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 long	ft_atoi_intmax(char *nptr);
+size_t	ft_arrlen(char **arr);
 size_t	ft_dstrlen(char **s);
 size_t	ft_isspace(char c);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);

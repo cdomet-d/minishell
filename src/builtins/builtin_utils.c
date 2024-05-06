@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:01:23 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/07 22:30:26 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 10:58:25 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,4 @@ char	*split_wsep(char *str, char sep)
 	return (res);
 }
 
-void	*env_rmone(t_env **sup, t_env *head)
-{
-	t_env	*tmp;
 
-	if (!(*sup))
-		return (print_error(errno, "minishell: invalid data in env_rmone"));
-	tmp = (*sup);
-	if (!tmp->prev)
-	{
-		(*sup)->next->prev = NULL;
-		(*sup) = (*sup)->next;
-	}
-	else if (!tmp->next)
-	{
-		(*sup)->prev->next = NULL;
-		(*sup) = head;
-	}
-	else
-	{
-		(*sup)->prev->next = (*sup)->next;
-		(*sup)->next->prev = (*sup)->prev;
-		(*sup) = head;
-	}
-	free(tmp->env);
-	free(tmp);
-	return (*sup);
-}

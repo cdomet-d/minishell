@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 15:10:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/02 16:12:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,33 @@ void	*in_redir(t_fd *fd, t_input *in)
 		return (print_error(0, "minishell: ambiguous redirection"));
 	while (op_true(tmp, inredir))
 	{
-		fd->ffd = open(tmp->data[0], O_RDONLY);
-		if (fd->ffd == -1)
-		{
-			print_error(errno, "inredir (opening in)");
-			fd->ffd = open("/dev/null", O_RDONLY);
-			if (fd->ffd == -1)
-				return (print_error(errno, "inredir (opening /dev/null)"));
-		}
-		if (dup2(fd->ffd, STDIN_FILENO) == -1)
-			return (print_error(errno, "inredir (duping in"));
-		close(fd->ffd);
+		fprintf(stderr, "%.20s\n", "-- in ------------------------------");
+		if (!open_infiles(fd, tmp))
+			return (print_error(errno, "minishell: "));
 		tmp = find_tok(tmp, inredir, true);
+	}
+	return ((int *)true);
+}
+
+void	*here_redir(t_fd *fd, t_input *in)
+{
+	t_input	*tmp;
+
+	fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+	tmp = in;
+	if (op_true(tmp, inredir))
+		tmp = find_tok(in, inredir, false);
+	else if (op_true(tmp, heredoc))
+		tmp = find_tok(in, heredoc, false);
+	if (!tmp)
+		return (print_error(0, "minishell: no such token"));
+	if (tmp->data[1])
+		return (print_error(0, "minishell: ambiguous redirection"));
+	while (op_true(tmp, heredoc))
+	{
+		if (!open_infiles(fd, tmp))
+			return (NULL);
+		tmp = find_tok(tmp, heredoc, true);
 	}
 	return ((int *)true);
 }
@@ -110,11 +125,12 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
 	}
-	if (fd->pid == 0 && fd->tmpin != -1)
+	if (fd->pid == 0)
 	{
-		if (close(fd->tmpin) == -1)
-			print_error(errno, "close_exec (tmpin)");
 		close_pfd(fd);
+		if (fd->tmpin != -1)
+			if (close(fd->tmpin) == -1)
+				print_error(errno, "close_exec (tmpin)");
 	}
 	return ((int *)true);
 }
