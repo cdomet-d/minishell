@@ -16,9 +16,8 @@ int	rm_dots(char **path, char **temp, char *tab, char *var)
 {
 	int		len;
 
-	(void)var;
-	// if (check_directory(var, *path))
-	// 	return (free(*temp), free(*path), 1);
+	if (check_directory(var, *path))
+		return (free(*temp), free(*path), 1);
 	free(*path);
 	*path = ft_strdup(*temp);
 	if (!*path)
