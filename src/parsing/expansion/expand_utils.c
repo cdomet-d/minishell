@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:42:17 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/16 15:09:45 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:26:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,10 @@ char	*search_env(char *data, t_env **env)
 		node = node->next;
 	}
 	return (NULL);
+}
+
+void	nb_letter_rv(int *letter, int *j, char *rv)
+{
+	*j += 1;
+	*letter += ft_strlen(rv);
 }

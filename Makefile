@@ -72,6 +72,7 @@ SRC_BUILTIN:=	export.c \
 				env.c \
 				pwd.c \
 				cd.c \
+				cd_utils.c \
 				builtin_utils.c \
 				export_utils.c \
 
@@ -166,7 +167,7 @@ fclean: clean
 	
 re: fclean all
 
-V_PARAMS:= valgrind --log-file="mini_log" --trace-children=yes --track-fds=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all
+V_PARAMS:= valgrind --log-file="mini_log" --trace-children=yes --track-fds=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all -s
 
 run: all
 	$(V_PARAMS) ./$(NAME)

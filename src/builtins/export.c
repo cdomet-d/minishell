@@ -12,17 +12,6 @@
 
 #include "exec.h"
 
-static void	*exprt_inenv(t_env **env, char *data)
-{
-	t_env	*new;
-
-	new = env_newnode(data);
-	if (!new)
-		return (NULL);
-	env_addback(env, new);
-	return (new);
-}
-
 int	check_arg(char *var)
 {
 	int	i;

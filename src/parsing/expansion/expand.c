@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 15:06:35 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/03 18:27:48 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 	return (i);
 }
 
-void	ft_copy(char *data, char *newtab, t_env **env, int rv)
+void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
 {
 	int	i;
 	int	j;
@@ -51,7 +51,8 @@ void	ft_copy(char *data, char *newtab, t_env **env, int rv)
 			i++;
 			if (data[i] && data[i] == '?')
 			{
-				newtab[j++] = 48 + rv;
+				ft_strlcpy(newtab + j, rv, ft_strlen(rv) + 1);
+				j += ft_strlen(rv);
 				i++;
 			}
 			else if (data[i])
@@ -69,26 +70,17 @@ void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 
 	str = NULL;
 	i = 0;
-	*j += 1;
-	if (data[*j] && data[*j] == '?')
+	str = search_env(data + *j, env);
+	if (str)
 	{
+		while (str[i++])
+			*letter += 1;
+	}
+	while (data[*j] && (ft_isalnum(data[*j]) || data[*j] == '_'))
 		*j += 1;
-		*letter += 1;
-	}
-	else if (data[*j])
-	{
-		str = search_env(data + *j, env);
-		if (str)
-		{
-			while (str[i++])
-				*letter += 1;
-		}
-		while (data[*j] && (ft_isalnum(data[*j]) || data[*j] == '_'))
-			*j += 1;
-	}
 }
 
-int	nb_letter(char *data, t_env **env)
+int	nb_letter(char *data, t_env **env, char *rv)
 {
 	int	letter;
 	int	j;
@@ -99,7 +91,13 @@ int	nb_letter(char *data, t_env **env)
 	{
 		if (data[j] == '$' && data[j + 1] && (ft_isalpha(data[j + 1])
 				|| data[j + 1] == '_' || data[j + 1] == '?'))
-			nb_letter_env(data, env, &letter, &j);
+		{
+			j++;
+			if (data[j] && data[j] == '?')
+				nb_letter_rv(&letter, &j, rv);
+			else
+				nb_letter_env(data, env, &letter, &j);
+		}
 		else if (data[j])
 		{
 			j++;
@@ -114,24 +112,26 @@ char	**expand(char **data, t_env **env, int rv)
 	int		word;
 	int		letter;
 	char	**newtab;
+	char	*str;
 
-	word = 0;
-	newtab = NULL;
-	while (data[word])
-		word++;
+	str = ft_itoa(rv);
+	if (!str)
+		return (print_error(errno, NULL));
+	word = ft_arrlen(data);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (print_error(errno, NULL));
+		return (free(str), print_error(errno, NULL));
 	word = 0;
 	while (data[word])
 	{
-		letter = nb_letter(data[word], env);
+		letter = nb_letter(data[word], env, str);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
-			return (free_dtab(newtab), print_error(errno, NULL));
-		ft_copy(data[word], newtab[word], env, rv);
+			return (free(str), free_dtab(newtab), print_error(errno, NULL));
+		ft_copy(data[word], newtab[word], env, str);
 		word++;
 	}
 	newtab[word] = NULL;
+	free(str);
 	return (newtab);
 }
