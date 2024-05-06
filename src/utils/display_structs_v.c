@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:59:40 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 13:57:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/04/30 11:49:51 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,38 @@ void	print_in_node(t_input *node, t_fd *fd, char *str)
 	fprintf(stderr, "\033[38;5;206m\033[1m#----------------------------#\n\033[0m");
 }
 
-void	print_env_for(t_env *env)
+void	print_env_for(t_env *env, char *str)
 {
 	t_env	*head;
 	size_t	i;
 
 	head = env;
 	i = 0;
-	fprintf(stderr, "==== PRINTING ENV FORWARD ====\n");
-	while (env && i < 10)
+	fprintf(stderr, "\033[2m%.20s\n", "-- env ------------------");
+	fprintf(stderr, "\033[0;34m| %s |\n\033[0m", str);
+	if (!env)
+	{
+		print_error(0, "env is null");
+		return ;
+	}
+	while (env && i < 15)
 	{
 		fprintf(stderr, "env[%2ld] > \033[0;34m%.20s\n\033[0m", i, env->env);
 		env = env->next;
 		i++;
 	}
 	env = head;
-	fprintf(stderr, "==========================\n\n");
+	fprintf(stderr, "%.21s\n\033[0m", "\n---------------------------\n\033[0m");
+}
+
+void	vdisplay_dtab(char **dtab)
+{
+	size_t	i;
+
+	i = 0;
+	while (dtab && dtab[i])
+	{
+		fprintf(stderr, "tab[%.2ld] - %.25s\n", i, dtab[i]);
+		i++;
+	}
 }

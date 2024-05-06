@@ -6,12 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:14:01 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/01/30 16:37:46 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/02 15:40:34 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*get_next_line(int fd)
 {

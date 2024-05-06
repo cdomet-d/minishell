@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_errors.c                                      :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/02 14:35:15 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/04/26 14:09:33 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/04/26 14:11:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "libft.h"
 
-void	*exe_failure(t_fd *fd, t_input *in)
+size_t	ft_arrlen(char **arr)
 {
-	fprintf(stderr, "%.20s\n", "-- killchild --------------------------------");
-	close_pfd(fd);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
-	if (in && in->env)
-		env_freelst(&in->env);
-	input_freelst(&in);
-	exit(EXIT_FAILURE);
+	size_t	i;
+
+	i = 0;
+	if (!arr || !*arr)
+		return (i);
+	while (arr[i])
+		i++;
+	return (i);
 }

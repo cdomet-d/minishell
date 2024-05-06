@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/24 14:09:17 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/03 14:45:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <sys/stat.h>
 # include <linux/limits.h>
 
-/*----------------------------- COMMON STRUCTURES ----------------------------*/
+extern int 	g_sig;
+
+/*----------------------------- STRUCTURES ----------------------------*/
 
 typedef enum e_enum
 {
@@ -57,30 +59,87 @@ typedef struct s_input
 	t_env			*env;
 	struct s_input	*next;
 	struct s_input	*prev;
+	int				status;
 }	t_input;
+
+typedef struct s_fd
+{
+	int		pfd[2];
+	int		hfd;
+	int		ffd;
+	int		pid;
+	int		tmpin;
+	size_t	pnb;
+}	t_fd;
 
 /*----------------------------- COMMON FUNCTIONS -----------------------------*/
 
-/* env list utils*/
-t_env	*env_newnode(char *data);
-void	env_addback(t_env **env, t_env *node);
-void	env_freelst(t_env **env);
-void	init_env(char **envp, t_env **env);
+// lst_utils -----------------
 
-/* input list utils */
-t_input	*input_newnode(char **data, int token, t_env *env);
-void	input_addback(t_input **lst, t_input *node);
+/* input_lst_utils.c */
 void	input_freelst(t_input **lst);
+void	input_addback(t_input **lst, t_input *node);
+t_input	*input_newnode(char **data, int token, t_env *env);
 
-/* error handling */
+/* env_lst_utils.c */
+void	env_freelst(t_env **env);
+void	env_addback(t_env **env, t_env *node);
+t_env	*env_newnode(char *data);
+
+// utils ---------------------
+
+/* display_data.c */
+void	print_fds(t_fd *fd);
+
+/* display_structs_v.c */
+void	print_in_for(t_input *input);
+void	print_enum(int token);
+void	print_in_node(t_input *node, t_fd *fd, char *str);
+void	print_env_for(t_env *env, char *str);
+void	vdisplay_dtab(char **dtab);
+
+/* display_structs_q.c */
+void	pmin(t_input *input, char *str);
+void	display_dtab(char **dtab);
+
+/* error_handling.c */
 void	fatal_exit(t_input **lst, int error_code, char *error_message);
 void	free_env(t_env *lst, int error_code, char *error_message);
 void	*print_error(int error_code, char *error_message);
 
-/* display */
-void	print_env_for(t_env *env);
-void	display_dtab(char **dtab);
-void	print_in_for(t_input *input);
+// builtins ------------------
+
+/* builtin_utils.c */
+char	*split_wsep(char *str, char sep);
+// t_env	**env_rmone(t_env **sup, t_env **head);
+
+/* echo.c */
+int		cmp_opt(char *arg);
+int		echo(char **data);
+
+/* env.c */
+void	*env(t_input *node);
+
+/* exit.c */
+void	mh_exit(char *line, t_input *in, t_env **env);
+
+/* pwd.c */
+int		pwd(char **data);
+
+/* export.c */
+int		check_arg(char *var);
+int		change_var(t_input **in, char *var);
+void	*export(t_input **in);
+
+/* export_utils.c */
+void	*sort_env(t_env	*env);
+
+/* cd.c */
+char	*find_home(t_env *env);
+int		cd(t_input *in);
+
+/* unset.c */
+t_env	**unset(t_env **env, char **key);
 
 /*----------------------------------------------------------------------------*/
 
