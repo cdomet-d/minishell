@@ -69,9 +69,7 @@ int	change_pwds(t_env **env, char *path, char *var)
 int	pwds(t_input *in, char *path)
 {
 	char	*temp;
-	char	*temp2;
 
-	temp = NULL;
 	temp = find_var_env((in)->env, "PWD=");
 	if (temp)
 	{
@@ -87,16 +85,12 @@ int	pwds(t_input *in, char *path)
 	}
 	else
 	{
-		temp = getcwd(temp, 0);
+		temp = ft_strjoin("PWD=", path);
 		if (!temp)
 			return (1);
-		temp2 = ft_strjoin("PWD=", temp);
+		if (!exprt_inenv(&(in)->env, temp))
+			return (1);
 		free(temp);
-		if (!temp2)
-			return (1);
-		if (!exprt_inenv(&(in)->env, temp2))
-			return (1);
-		free(temp2);
 	}
 	return (0);
 }

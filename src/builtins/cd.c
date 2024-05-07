@@ -12,39 +12,45 @@
 
 #include "exec.h"
 
+char	*init_path(t_input *in)
+{
+	char	*path;
+	char	*temp;
+	char	*str;
+	
+	str = find_var_env(in->env, "PWD=");
+	if (!str)
+	{
+		str = getcwd(str, 0);
+		if (!str)
+			return (print_error(errno, NULL));
+		temp = ft_strjoin(str, "/");
+		free(str);
+	}
+	else
+		temp = ft_strjoin(str, "/");
+	if (!temp)
+		return (NULL);
+	path = ft_strjoin(temp, in->data[1]);
+	free(temp);
+	return (path);
+}
+
 char	*cd_path(t_input *in)
 {
-	char	*temp;
 	char	*path;
-	char	*str;
 
 	if (in->data[1][0] == '/')
 		path = ft_strdup(in->data[1]);
 	else
-	{
-		str = find_var_env(in->env, "PWD=");
-		if (!str)
-		{
-			path = ft_strdup(in->data[1]);
-			// if (!path)
-			// 	return (print_error(errno, NULL), NULL);
-			// return (path);
-		}
-		else
-		{
-			temp = ft_strjoin(str, "/");
-			if (!temp)
-				return (NULL);
-			path = ft_strjoin(temp, in->data[1]);
-			free(temp);
-		}
-	}
+		path = init_path(in);
 	if (!path)
 		return (print_error(errno, NULL), NULL);
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
-	printf("cd_path : %s\n", path);
+	if (check_directory(in->data[1], path))
+		return (free(path), NULL);
 	return (path);
 }
 
@@ -87,8 +93,6 @@ int	cd(t_input *in)
 		if (!path)
 			return (1);
 	}
-	if (check_directory(in->data[1], path))
-		return (free(path), 1);
 	tmp = check_len(path, in->env);
 	if (!tmp)
 		return (free(path), 1);
