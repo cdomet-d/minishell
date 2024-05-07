@@ -101,28 +101,6 @@ int	pwds(t_input *in, char *path)
 	return (0);
 }
 
-char	*make_path(char *tab, char *path, char **temp)
-{
-	char	*tmp;
-
-	free(*temp);
-	*temp = NULL;
-	*temp = ft_strdup(path);
-	if (!*temp)
-		return (print_error(errno, NULL), NULL);
-	tmp = ft_strjoin(path, tab);
-	free(path);
-	if (!tmp)
-		return (print_error(errno, NULL), NULL);
-	path = tmp;
-	tmp = ft_strjoin(path, "/");
-	free(path);
-	if (!tmp)
-		return (print_error(errno, NULL), NULL);
-	path = tmp;
-	return (path);
-}
-
 char	*check_len(char	*path, t_env *env)
 {
 	int			i;

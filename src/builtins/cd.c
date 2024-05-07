@@ -12,74 +12,6 @@
 
 #include "exec.h"
 
-int	rm_dots(char **path, char **temp, char *tab, char *var)
-{
-	int		len;
-
-	if (check_directory(var, *path))
-		return (free(*temp), free(*path), 1);
-	free(*path);
-	*path = ft_strdup(*temp);
-	if (!*path)
-		return (free(*temp), 1);
-	len = ft_strlen(tab) + 1;
-	free(*temp);
-	*temp = ft_substr(*path, 0, ft_strlen(*path) - len);
-	if (!temp)
-		return (free(*path), 1);
-	return (0);
-}
-
-char	*canonical_form(char *var, char *path, char **tab)
-{
-	int		i;
-	int		j;
-	char	*temp;
-
-	i = -1;
-	j = 1;
-	temp = NULL;
-	while (tab[++i])
-	{
-		if (!ft_strncmp(tab[i], "..", 3) && (i - j) > 0
-			&& ft_strncmp(tab[i - j], ".", 2)
-			&& ft_strncmp(tab[i - j], "..", 3))
-		{
-			j++;
-			if (rm_dots(&path, &temp, tab[i - j], var))
-				return (NULL);
-			j++;
-		}
-		else if (ft_strncmp(tab[i], ".", 2))
-		{
-			path = make_path(tab[i], path, &temp);
-			if (!path)
-				return (NULL);
-		}
-	}
-	return (free(temp), path);
-}
-
-char	*prep_path(char *var, char *path)
-{
-	char	**tab;
-	char	*temp;
-
-	tab = ft_split(path, '/');
-	free(path);
-	path = NULL;
-	if (!tab)
-		return (NULL);
-	temp = ft_strdup("/");
-	if (!temp)
-		return (free_dtab(tab), print_error(errno, NULL), NULL);
-	path = canonical_form(var, temp, tab);
-	free_dtab(tab);
-	if (!path)
-		return (NULL);
-	return (path);
-}
-
 char	*cd_path(t_input *in)
 {
 	char	*temp;
@@ -93,23 +25,26 @@ char	*cd_path(t_input *in)
 		str = find_var_env(in->env, "PWD=");
 		if (!str)
 		{
-			// str = ".";
 			path = ft_strdup(in->data[1]);
-			if (!path)
-				return (print_error(errno, NULL), NULL);
-			return (path);
+			// if (!path)
+			// 	return (print_error(errno, NULL), NULL);
+			// return (path);
 		}
-		temp = ft_strjoin(str, "/");
-		if (!temp)
-			return (NULL);
-		path = ft_strjoin(temp, in->data[1]);
-		free(temp);
+		else
+		{
+			temp = ft_strjoin(str, "/");
+			if (!temp)
+				return (NULL);
+			path = ft_strjoin(temp, in->data[1]);
+			free(temp);
+		}
 	}
 	if (!path)
 		return (print_error(errno, NULL), NULL);
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
+	printf("cd_path : %s\n", path);
 	return (path);
 }
 
