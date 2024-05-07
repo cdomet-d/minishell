@@ -18,49 +18,63 @@
 
 /*----------------------------- PARSING -----------------------------*/
 
+/* parsing.c */
 void	parsing(t_input **input, t_env **env, char *line, int rv);
-char	*rm_quotes(char *str);
-void	find_builtin(t_input *node);
 void	revert(t_input *node);
 
-/* create_lst */
+/* rm_quotes.c */
+char	*rm_quotes(char *str);
+
+/* toke_builtin.c */
+void	find_builtin(t_input *node);
+
+/* create_lst.c */
 void	create_env(t_input **input, char **envp, t_env **env);
 int		create_input(t_input **input, t_env **env, char **data, int tok);
 
-/* cmd_path */
+/* cmd_path.c */
 int		cmd_path(t_input *input, t_env **env);
 
-/* cmd_path_utils */
+/* cmd_path_utils.c */
 int		path_len(char *env, int *i);
 int		check_path(char **path);
 
-/* tokenization */
+/* tokenization.c */
 int		tokenization(t_input **input, t_env **env, char *line);
+
+/* toke_type.c */
 int		tok_inredir(t_input **input, t_env **env, char *line, int *i);
 int		tok_outredir(t_input **input, t_env **env, char *line, int *i);
 int		tok_command(t_input **input, t_env **env, char *line, int *i);
 int		tok_pipe(t_input **input, t_env **env, char *line, int *i);
 
-/* tokenization utils */
+/* tokenization_utils.c */
 int		check_quote(char *line);
-void	count_word(char *line, int i, int *word);
 char	**get_data(t_input **input, char *line, int *i);
+
+/* create_data.c */
+void	count_word(char *line, int i, int *word);
 char	**build_tab(char *line, int *i, int word);
+
+/* cmd_opt.c */
 int		check_opt(t_input **input, char *line, int *i);
 
-/* expansion */
+/* expand_split.c */
 char	**expand_split(char **data, t_env **env, int rv);
+
+/* expand.c */
 char	**expand(char **data, t_env **env, int rv);
 void	ft_copy(char *data, char *newtab, t_env **env, char *rv);
 int		nb_letter(char *data, t_env **env, char *rv);
 
-/* expansion utils */
+/* expand_utils.c */
 int		search_dollar(char **data);
 char	*search_env(char *data, t_env **env);
-int		ft_strcmp(char *data, char *env);
+void	nb_letter_rv(int *letter, int *j, char *rv);
+
+/* expand_split_utils.c */
 void	put_in_neg(char *data, char quote1, char quote2);
 int		check_ws(char **tab);
-void	nb_letter_rv(int *letter, int *j, char *rv);
 
 /*----------------------------------------------------------------------*/
 

@@ -35,7 +35,7 @@ int	search_dollar(char **data)
 	return (0);
 }
 
-int	ft_strcmp(char *data, char *env)
+int	ft_strcmp_env(char *data, char *env)
 {
 	int	i;
 
@@ -63,7 +63,7 @@ char	*search_env(char *data, t_env **env)
 	node = *env;
 	while (node)
 	{
-		if (!ft_strcmp(data, node->env))
+		if (!ft_strcmp_env(data, node->env))
 		{
 			while (node->env[i] && node->env[i] != '=')
 				i++;
