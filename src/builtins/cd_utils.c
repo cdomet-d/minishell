@@ -99,7 +99,6 @@ char	*check_len(char	*path, t_env *env)
 {
 	int			i;
 	char		*pwd;
-	char		*tmp;
 	struct stat	buf;
 
 	i = 0;
@@ -110,8 +109,9 @@ char	*check_len(char	*path, t_env *env)
 			return (path);
 		while (pwd[i] && path[i] && pwd[i] == path[i])
 			i++;
-		tmp = path + (i + 1);
-		if (stat(tmp, &buf) == -1)
+		if (ft_strlen(path + (i + 1)) > PATH_MAX)
+			return (print_error(0, "minishell: cd: File name too long"));
+		if (stat(path + (i + 1), &buf) == -1)
 		{
 			if (errno == ENOENT)
 				return (path);
@@ -119,7 +119,7 @@ char	*check_len(char	*path, t_env *env)
 				return (print_error(errno, "stat "));
 		}
 		else if (S_ISDIR(buf.st_mode))
-			return (tmp);
+			return (path + (i + 1));
 	}
 	return (path);
 }
