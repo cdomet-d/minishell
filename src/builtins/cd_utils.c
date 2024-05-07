@@ -23,10 +23,11 @@ int	check_directory(char *var, char *path)
 			ft_putstr_fd("minishell: cd: ", 2);
 			ft_putstr_fd(var, 2);
 			ft_putendl_fd(": No such file or directory", 2);
+			return (1);
 		}
-		else
-			print_error(errno, "stat ");
-		return (1);
+		if (errno == ENAMETOOLONG)
+			return (0);
+		return (print_error(errno, "stat "), 1);
 	}
 	if (S_ISDIR(buf.st_mode))
 		return (0);

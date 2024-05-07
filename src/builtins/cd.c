@@ -84,8 +84,6 @@ int	cd(t_input *in)
 	path = NULL;
 	if (ft_arrlen((in)->data) > 2)
 		return (print_error(0, "minishell: cd: too many arguments"), 1);
-	if (ft_strlen(in->data[1]) > PATH_MAX)
-		return (print_error(0, "minishell: cd: File name too long"), 1);
 	rv = special_cases(in, &path);
 	if (rv == -1)
 		return (1);
