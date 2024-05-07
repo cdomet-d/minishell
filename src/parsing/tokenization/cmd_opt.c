@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	tab_len(char **tab)
+static int	tab_len(char **tab)
 {
 	int	size;
 
@@ -22,7 +22,7 @@ int	tab_len(char **tab)
 	return (size);
 }
 
-int	fill_tab_join(char **tab, char **newtab, int *word)
+static int	fill_tab_join(char **tab, char **newtab, int *word)
 {
 	int	letter;
 	int	i;
@@ -47,7 +47,7 @@ int	fill_tab_join(char **tab, char **newtab, int *word)
 	return (0);
 }
 
-char	**tab_join(char **s1, char **s2)
+static char	**tab_join(char **s1, char **s2)
 {
 	char	**tab;
 	int		word;
@@ -67,7 +67,7 @@ char	**tab_join(char **s1, char **s2)
 	return (tab);
 }
 
-int	add_opt(t_input **input, t_input *ptr, char *line, int *i)
+static int	add_opt(t_input **input, t_input *ptr, char *line, int *i)
 {
 	char	**new;
 	char	**data;

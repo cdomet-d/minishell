@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	loop_content(t_input **input, t_env **env, char *line, int *i)
+static int	loop_content(t_input **input, t_env **env, char *line, int *i)
 {
 	while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
 			|| line[*i] == ' '))

@@ -39,7 +39,7 @@ void	count_word(char *line, int i, int *word)
 		*word += 1;
 }
 
-int	count_letter(char *line, int letter)
+static int	count_letter(char *line, int letter)
 {
 	int		temp;
 	char	quotetype;
@@ -61,7 +61,7 @@ int	count_letter(char *line, int letter)
 	return (letter);
 }
 
-void	fill_tab(char *line, int *i, char **tab, int *word)
+static void	fill_tab(char *line, int *i, char **tab, int *word)
 {
 	int		letter;
 	char	quotetype;

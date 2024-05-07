@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	len_str(char *str)
+static int	len_str(char *str)
 {
 	int		i;
 	int		len;
@@ -34,7 +34,7 @@ int	len_str(char *str)
 	return (len);
 }
 
-void	fill_str(char *new, char *str)
+static void	fill_str(char *new, char *str)
 {
 	int		i;
 	int		j;

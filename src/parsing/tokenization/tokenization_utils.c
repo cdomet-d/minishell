@@ -39,7 +39,7 @@ int	check_quote(char *line)
 	return (0);
 }
 
-void	syntax_error(char *line, int *i)
+static void	syntax_error(char *line, int *i)
 {
 	if (line[*i] == '\0')
 		print_error(0, "syntax error near unexpected token 'newline'");

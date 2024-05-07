@@ -35,7 +35,7 @@ int	search_dollar(char **data)
 	return (0);
 }
 
-int	ft_strcmp_env(char *data, char *env)
+static int	ft_strcmp_env(char *data, char *env)
 {
 	int	i;
 

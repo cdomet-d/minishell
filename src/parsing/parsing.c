@@ -33,7 +33,7 @@ void	revert(t_input *node)
 	}
 }
 
-int	search_expand(t_input *node, t_env **env, int rv)
+static int	search_expand(t_input *node, t_env **env, int rv)
 {
 	char	**newtab;
 	int		i;
@@ -60,7 +60,7 @@ int	search_expand(t_input *node, t_env **env, int rv)
 	return (0);
 }
 
-int	search_quotes(t_input *node)
+static int	search_quotes(t_input *node)
 {
 	int		i;
 	int		j;
@@ -89,7 +89,7 @@ int	search_quotes(t_input *node)
 	return (0);
 }
 
-int	check_delim(t_input *node)
+static int	check_delim(t_input *node)
 {
 	int	i;
 

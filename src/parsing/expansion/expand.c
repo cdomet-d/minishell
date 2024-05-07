@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
+static int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 {
 	int		i;
 	char	*str;
@@ -63,7 +63,7 @@ void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
 	}
 }
 
-void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
+static void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 {
 	char	*str;
 	int		i;

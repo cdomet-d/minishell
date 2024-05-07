@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-char	*find_path(char *cmd, char *env)
+static char	*find_path(char *cmd, char *env)
 {
 	char	*path;
 	int		letter;
@@ -40,7 +40,7 @@ char	*find_path(char *cmd, char *env)
 	return (cmd);
 }
 
-int	path_slash(char *cmd)
+static int	path_slash(char *cmd)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ int	path_slash(char *cmd)
 	return (0);
 }
 
-int	put_path(t_input *input, t_env	*node)
+static int	put_path(t_input *input, t_env	*node)
 {
 	char	*path;
 
