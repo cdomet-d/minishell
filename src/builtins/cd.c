@@ -93,6 +93,7 @@ char	*cd_path(t_input *in)
 		str = find_var_env(in->env, "PWD=");
 		if (!str)
 		{
+			// str = ".";
 			path = ft_strdup(in->data[1]);
 			if (!path)
 				return (print_error(errno, NULL), NULL);
@@ -109,8 +110,6 @@ char	*cd_path(t_input *in)
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
-	if (check_directory(in->data[1], path))
-		return (free(path), NULL);
 	return (path);
 }
 
@@ -138,6 +137,7 @@ int	special_cases(t_input *in, char **path)
 int	cd(t_input *in)
 {
 	char	*path;
+	char	*tmp;
 	int		rv;
 
 	path = NULL;
@@ -152,13 +152,15 @@ int	cd(t_input *in)
 		if (!path)
 			return (1);
 	}
+	if (check_directory(in->data[1], path))
+		return (free(path), 1);
+	tmp = check_len(path, in->env);
+	if (!tmp)
+		return (free(path), 1);
+	if (chdir(tmp) == -1)
+		return (free(path), print_error(errno, "chdir "), 1);
 	if (pwds(in, path))
 		return (free(path), 1);
-	path = check_len(path, in->env);
-	if (!path)
-		return (1);
-	if (chdir(path) == -1)
-		return (free(path), print_error(errno, "chdir "), 1);
 	free(path);
 	return (0);
 }

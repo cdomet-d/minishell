@@ -69,6 +69,7 @@ int	change_pwds(t_env **env, char *path, char *var)
 int	pwds(t_input *in, char *path)
 {
 	char	*temp;
+	char	*temp2;
 
 	temp = NULL;
 	temp = find_var_env((in)->env, "PWD=");
@@ -83,6 +84,19 @@ int	pwds(t_input *in, char *path)
 			return (1);
 		if (change_pwds(&(in)->env, path, "PWD="))
 			return (1);
+	}
+	else
+	{
+		temp = getcwd(temp, 0);
+		if (!temp)
+			return (1);
+		temp2 = ft_strjoin("PWD=", temp);
+		free(temp);
+		if (!temp2)
+			return (1);
+		if (!exprt_inenv(&(in)->env, temp2))
+			return (1);
+		free(temp2);
 	}
 	return (0);
 }
@@ -124,20 +138,16 @@ char	*check_len(char	*path, t_env *env)
 			return (path);
 		while (pwd[i] && path[i] && pwd[i] == path[i])
 			i++;
-		tmp = ft_strjoin(".", path + i);
-		if (!tmp)
-			return (free(path), print_error(errno, NULL), NULL);
+		tmp = path + (i + 1);
 		if (stat(tmp, &buf) == -1)
 		{
-			free(tmp);
 			if (errno == ENOENT)
 				return (path);
 			else
-				return (free(path), print_error(errno, "stat "), NULL);
+				return (print_error(errno, "stat "));
 		}
 		else if (S_ISDIR(buf.st_mode))
-			return (free(path), tmp);
-		free(tmp);
+			return (tmp);
 	}
 	return (path);
 }
