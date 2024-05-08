@@ -6,13 +6,13 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:00:23 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:18:42 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-t_input *get_last_node(t_input    *in)
+t_input	*get_last_node(t_input *in)
 {
 	t_input	*tmp;
 
@@ -27,9 +27,9 @@ void	close_and_wait(t_input *in, t_fd *fd)
 	struct stat	infos;
 	t_input		*last;
 	int			e_stat;
-	
+
 	if (count_pipes(in))
-		close_pipe_read(fd); 
+		close_pipe_read(fd);
 	e_stat = in->status;
 	waitpid(fd->pid, &e_stat, 0);
 	while (wait(0) != -1 && errno != ECHILD)

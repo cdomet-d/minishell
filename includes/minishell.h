@@ -6,7 +6,7 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 17:06:56 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:15:35 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <sys/stat.h>
 # include <linux/limits.h>
 
-extern int 	g_sig;
+extern int	g_sig;
 
 /*----------------------------- STRUCTURES ----------------------------*/
 
@@ -134,7 +134,7 @@ int		change_var(t_input **in, char *var);
 int		export(t_input **in);
 
 /* export_utils.c */
-int	sort_env(t_env	*env);
+int		sort_env(t_env	*env);
 
 /* cd.c */
 int		cd(t_input *in);

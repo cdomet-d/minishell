@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs_v.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:59:40 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/06 18:02:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:17:49 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

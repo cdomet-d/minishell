@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:00:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/30 15:10:34 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:16:40 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_env	*env_rmone(t_env **sup, t_env **head)
 {
 	t_env	*tmp;
-	
+
 	if (!(*sup))
 		return (print_error(errno, "minishell: invalid data in env_rmone"));
 	tmp = (*sup);

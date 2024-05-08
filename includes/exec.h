@@ -6,7 +6,7 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 18:00:01 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:14:55 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <sys/types.h> // waitpid
 # include <sys/wait.h> // waitpid
 # include <signal.h> // signals
-
 
 # define R 0
 # define W 1
@@ -47,7 +46,7 @@ t_input	*builtin_true(t_input *in);
 /* exec_utils.c */
 void	close_and_wait(t_input *in, t_fd *fd);
 void	*create_child(t_input *in, t_fd *fd);
-t_input *get_last_node(t_input *in);
+t_input	*get_last_node(t_input *in);
 void	*save_pipin(t_fd *fd);
 void	init_rv(t_input *in);
 

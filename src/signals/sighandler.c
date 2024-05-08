@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sighandler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/07 13:07:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:19:12 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int get_nonull(void)
+int	get_nonull(void)
 {
 	return (1);
 }
