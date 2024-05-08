@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-void	count_word(char *line, int i, int *word)
+void	count_word(char *line, size_t i, size_t *word)
 {
 	char	quotetype;
 
@@ -39,9 +39,9 @@ void	count_word(char *line, int i, int *word)
 		*word += 1;
 }
 
-static int	count_letter(char *line, int letter)
+static size_t	count_letter(char *line, size_t letter)
 {
-	int		temp;
+	size_t	temp;
 	char	quotetype;
 
 	temp = letter;
@@ -61,9 +61,9 @@ static int	count_letter(char *line, int letter)
 	return (letter);
 }
 
-static void	fill_tab(char *line, int *i, char **tab, int *word)
+static void	fill_tab(char *line, size_t *i, char **tab, size_t *word)
 {
-	int		letter;
+	size_t	letter;
 	char	quotetype;
 
 	letter = 0;
@@ -90,11 +90,11 @@ static void	fill_tab(char *line, int *i, char **tab, int *word)
 	tab[*word][letter] = '\0';
 }
 
-char	**build_tab(char *line, int *i, int word)
+char	**build_tab(char *line, size_t *i, size_t word)
 {
 	char	**tab;
-	int		letter;
-	int		j;
+	size_t	letter;
+	size_t	j;
 
 	tab = NULL;
 	letter = 0;

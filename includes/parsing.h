@@ -43,21 +43,21 @@ int		check_path(char **path);
 int		tokenization(t_input **input, t_env **env, char *line);
 
 /* toke_type.c */
-int		tok_inredir(t_input **input, t_env **env, char *line, int *i);
-int		tok_outredir(t_input **input, t_env **env, char *line, int *i);
-int		tok_command(t_input **input, t_env **env, char *line, int *i);
-int		tok_pipe(t_input **input, t_env **env, char *line, int *i);
+int		tok_inredir(t_input **input, t_env **env, char *line, size_t *i);
+int		tok_outredir(t_input **input, t_env **env, char *line, size_t *i);
+int		tok_command(t_input **input, t_env **env, char *line, size_t *i);
+int		tok_pipe(t_input **input, t_env **env, char *line, size_t *i);
 
 /* tokenization_utils.c */
 int		check_quote(char *line);
-char	**get_data(t_input **input, char *line, int *i);
+char	**get_data(t_input **input, char *line, size_t *i);
 
 /* create_data.c */
-void	count_word(char *line, int i, int *word);
-char	**build_tab(char *line, int *i, int word);
+void	count_word(char *line, size_t i, size_t *word);
+char	**build_tab(char *line, size_t *i, size_t word);
 
 /* cmd_opt.c */
-int		check_opt(t_input **input, char *line, int *i);
+int		check_opt(t_input **input, char *line, size_t *i);
 
 /* expand_split.c */
 char	**expand_split(char **data, t_env **env, int rv);

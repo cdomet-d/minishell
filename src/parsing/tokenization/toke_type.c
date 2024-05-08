@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	tok_inredir(t_input **input, t_env **env, char *line, int *i)
+int	tok_inredir(t_input **input, t_env **env, char *line, size_t *i)
 {
 	char	**data;
 	int		tok;
@@ -36,7 +36,7 @@ int	tok_inredir(t_input **input, t_env **env, char *line, int *i)
 	return (0);
 }
 
-int	tok_outredir(t_input **input, t_env **env, char *line, int *i)
+int	tok_outredir(t_input **input, t_env **env, char *line, size_t *i)
 {
 	char	**data;
 	int		tok;
@@ -60,10 +60,10 @@ int	tok_outredir(t_input **input, t_env **env, char *line, int *i)
 	return (0);
 }
 
-int	tok_command(t_input **input, t_env **env, char *line, int *i)
+int	tok_command(t_input **input, t_env **env, char *line, size_t *i)
 {
 	char	**data;
-	int		word;
+	size_t	word;
 
 	word = 0;
 	count_word(line, *i, &word);
@@ -79,7 +79,7 @@ int	tok_command(t_input **input, t_env **env, char *line, int *i)
 	return (0);
 }
 
-int	tok_pipe(t_input **input, t_env **env, char *line, int *i)
+int	tok_pipe(t_input **input, t_env **env, char *line, size_t *i)
 {
 	*i += 1;
 	while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
