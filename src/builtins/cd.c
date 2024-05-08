@@ -97,7 +97,7 @@ int	cd(t_input *in)
 	if (!tmp)
 		return (free(path), 1);
 	if (chdir(tmp) == -1)
-		return (free(path), print_error(errno, "chdir "), 1);
+		return (free(path), print_error(errno, NULL), 1);
 	if (pwds(in, path))
 		return (free(path), 1);
 	free(path);

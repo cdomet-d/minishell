@@ -111,7 +111,7 @@ char	*check_len(char	*path, t_env *env)
 		while (pwd[i] && path[i] && pwd[i] == path[i])
 			i++;
 		if (ft_strlen(path + (i + 1)) > PATH_MAX)
-			return (print_error(0, "minishell: cd: File name too long"));
+			return (print_error(0, "File name too long"));
 		if (stat(path + (i + 1), &buf) == -1)
 		{
 			if (errno == ENOENT)
