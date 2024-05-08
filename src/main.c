@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/06 17:40:13 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 17:37:21 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 	parsing(&input, env, line, *status);
 	if (input)
 	{
+		input->status = *status;
 		if (input->tok == ms_exit)
 			mh_exit(line, input);
-		input->status = *status;
 		exec_cmd(input);
 		*env = input->env;
 		*status = input->status;

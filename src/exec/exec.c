@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/07 17:17:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 18:39:51 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 		if (!ft_execve(tmp))
 			return (NULL);
 	if (builtin_true(tmp))
-		if (!exec_builtin(&tmp))
+		if (!exec_builtin(&tmp, fd))
 			return (NULL);
 	return (NULL);
 }

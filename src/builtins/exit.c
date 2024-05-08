@@ -6,7 +6,7 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/07 11:01:43 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 17:33:40 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	mh_exit(char *line, t_input *in)
 {
+	int rv;
+
+	pmin(in, NULL);
+	if (in->data[1])
+		rv =  ft_atoi(in->data[1]);
+	else
+		rv = in->status;
 	if (line)
 		free(line);
-	if (in->data[1])
-		fatal_exit(&in, ft_atoi(in->data[1]), "exit");
-	else
-		fatal_exit(&in, in->status, "exit");
+	fatal_exit(&in, rv, "exit");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/07 13:44:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 18:42:57 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	is_first(t_input *in)
 	while (tmp)
 	{
 		tmp = tmp->prev;
-		if (tmp && (builtin_true(in) || tmp->tok == command))
+		if (tmp && (builtin_true(tmp) || tmp->tok == command))
 			first = false;
 	}
 	return (first);
@@ -42,7 +42,7 @@ bool	is_last(t_input *in)
 	while (tmp)
 	{
 		tmp = tmp->next;
-		if (tmp && (builtin_true(in) || tmp->tok == command))
+		if (tmp && (builtin_true(tmp) || tmp->tok == command))
 			last = false;
 	}
 	return (last);

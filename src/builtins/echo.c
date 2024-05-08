@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:57:47 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 17:57:49 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:43:51 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "minishell.h"
 
 int	cmp_opt(char *arg)
 {

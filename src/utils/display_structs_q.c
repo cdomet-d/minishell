@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs_q.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 18:13:30 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 18:39:20 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	pmin(t_input *input, char *str)
 		qpenum(input->tok);
 		if (input->data)
 			display_dtab(input->data);
+		// fprintf(stderr, "{%d} ", input->status);
 		input = input->next;
 	}
 	fprintf(stderr, "%.21s\n\033[0m", "\n--------------------------------------------\n\033[0m");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:03:33 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 15:34:28 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 16:00:49 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,35 @@ static char	**sort_tab(char **arenv, size_t len)
 	return (arenv);
 }
 
-static void	print_senv(char **arr)
+static ssize_t	print_senv(char **arr)
 {
 	size_t	i;
 
 	i = 0;
 	while (arr[i])
 	{
-		printf("declare -x ");
-		printf("%c%s%c\n", 34, arr[i], 34);
+		if (printf("> %s\n", arr[i]) == -1)
+			return (1);
 		i++;
 	}
+	return (1);
 }
 
-void	*sort_env(t_env	*env)
+int	sort_env(t_env	*env)
 {
 	char	**arenv;
 	size_t	len;
+	ssize_t	rv;
 
 	arenv = arenvlst(env);
 	if (!arenv)
-		return (print_error(errno, "minishell"));
+		return (parsing_error("minishell: ", "export: ", strerror(errno)));
 	len = ft_arrlen(arenv);
 	while (!is_sorted(arenv))
 		arenv = sort_tab(arenv, len);
-	print_senv(arenv);
+	rv = print_senv(arenv);
 	free_dtab(arenv);
-	return ((int *)true);
+	if (rv == -1)
+		return (1);
+	return (0);
 }

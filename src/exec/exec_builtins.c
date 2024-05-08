@@ -3,41 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/07 17:27:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 18:57:57 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	*exec_builtin(t_input **in)
+void	*exec_builtin(t_input **in, t_fd *fd)
 {
 	t_input	*tmp;
 
 	// fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
 	tmp = builtin_true(*in);
+	(void)fd;
 	if (tmp->tok == ms_cd)
-		cd(tmp);
+		(*in)->status = cd(tmp);
 	if (tmp->tok == ms_echo)
-		if (!echo(tmp->data))
-			return (NULL);
+		(*in)->status = echo(tmp->data);
 	if (tmp->tok == ms_pwd)
-		if (!pwd(tmp->env, tmp->data))
-			return (NULL);
+		(*in)->status = pwd(tmp->env);
 	if (tmp->tok == ms_env)
-		if (!env(tmp))
-			return (NULL);
+		(*in)->status = env(tmp);
 	if (tmp->tok == ms_export)
-		if (!export(&tmp))
-			return (NULL);
+		(*in)->status = export(&tmp);
 	if (tmp->tok == ms_unset)
 	{
 		tmp->env = *unset(&tmp->env, tmp->data);
 		if (!tmp->env)
 			return (NULL);
 	}
+	if ((*in)->status == 1)
+		return (NULL);
 	return ((int *)true);
 }
 
@@ -55,7 +54,7 @@ void	*redir_builtins(t_fd *fd, t_input *tmp)
 	if (op_true(tmp, append))
 		if (!app_redir(fd, tmp))
 			return (print_error(errno, "redir_builtins 4"));
-	exec_builtin(&tmp);
+	exec_builtin(&tmp, fd);
 	return ((int *)true);
 }
 

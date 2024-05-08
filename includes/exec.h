@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/07 13:50:51 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 18:00:01 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ t_input	*builtin_true(t_input *in);
 /* exec_utils.c */
 void	close_and_wait(t_input *in, t_fd *fd);
 void	*create_child(t_input *in, t_fd *fd);
+t_input *get_last_node(t_input *in);
 void	*save_pipin(t_fd *fd);
+void	init_rv(t_input *in);
 
 /* fd_handling.c */
 void	close_pfd(t_fd *fd);
@@ -88,7 +90,7 @@ void	*pip_redir(t_input *tmp, t_fd *fd);
 void	*here_redir(t_fd *fd, t_input *in);
 
 /* exec_builtins.c */
-void	*exec_builtin(t_input **in);
+void	*exec_builtin(t_input **in, t_fd *fd);
 void	*redir_builtins(t_fd *fd, t_input *tmp);
 void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp);
 

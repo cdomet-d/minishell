@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/07 17:16:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:03:01 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,22 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 	// fprintf(stderr, "%.20s\n", "-- pipredir ---------------------------------");
 	if (is_first(tmp))
 	{
+		// fprintf(stderr, "%.20s\n", "-- first ---------------------------------");
+		// fprintf(stderr, "%.20s\n", tmp->data[0]);
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ifc, pipe[W] to out"));
 	}
 	else if (is_last(tmp))
 	{
+		// fprintf(stderr, "%.20s\n", "-- last ---------------------------------");
+		// fprintf(stderr, "%.20s\n", tmp->data[0]);
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (ilc, tmpin to in"));
 	}
 	else if (!is_first(tmp) && !is_last(tmp))
 	{
+		// fprintf(stderr, "%.20s\n", "-- neither ---------------------------------");
+		// "fprintf(stderr, "%.20s\n", tmp->data[0]);
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, tmpin to in"));
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
@@ -127,10 +133,10 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 	}
 	if (fd->pid == 0)
 	{
-		close_pfd(fd);
 		if (fd->tmpin != -1)
 			if (close(fd->tmpin) == -1)
 				print_error(errno, "close_exec (tmpin)");
+		close_pfd(fd);
 	}
 	return ((int *)true);
 }
