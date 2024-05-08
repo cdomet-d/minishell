@@ -6,7 +6,7 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 18:39:51 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:29:30 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	*exec_cmd(t_input *in)
 		if (tmp && fd.pid == 0)
 			if (!redir_cmd(tmp, &fd))
 				exe_failure(&fd, in);
+				// TODO : change name to killchild
 		if (fd.pnb != 0)
 			save_pipin(&fd);
 		tmp = find_next_pipe(tmp, &fd);

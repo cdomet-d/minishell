@@ -6,7 +6,7 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:18:42 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:29:14 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	close_and_wait(t_input *in, t_fd *fd)
 	waitpid(fd->pid, &e_stat, 0);
 	while (wait(0) != -1 && errno != ECHILD)
 		;
+	// TODO : move this bs to more logical location
 	last = get_last_node(in);
 	if (WIFEXITED(e_stat))
 	{

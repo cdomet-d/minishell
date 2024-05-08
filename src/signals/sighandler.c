@@ -6,7 +6,7 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:19:12 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:30:19 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	get_nonull(void)
 
 void	sighandler(int sig)
 {
+	// TODO : add SIGKILL and ctrl + D
 	if (sig == SIGINT)
 	{
 		g_sig = sig;

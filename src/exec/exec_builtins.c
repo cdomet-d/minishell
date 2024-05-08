@@ -6,7 +6,7 @@
 /*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 18:57:57 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:28:12 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	*exec_builtin(t_input **in, t_fd *fd)
 		(*in)->status = env(tmp);
 	if (tmp->tok == ms_export)
 		(*in)->status = export(&tmp);
+	// TODO : make unset take in instead of env to see if it fixes the need to return env
 	if (tmp->tok == ms_unset)
 	{
 		tmp->env = *unset(&tmp->env, tmp->data);
