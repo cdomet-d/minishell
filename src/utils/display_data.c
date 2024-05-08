@@ -6,15 +6,15 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/30 15:14:08 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/06 18:00:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	print_fds(t_fd *fd)
-{
-	fprintf(stderr, "%.20s\npfd[R] - %d || pfd[W] - %d || tmpin = %d\n", \
-	"-- fds --------------------------", fd->pfd[R],
-		fd->pfd[W], fd->tmpin);
-}
+// void	print_fds(t_fd *fd)
+// {
+// 	fprintf(stderr, "%.20s\npfd[R] - %d || pfd[W] - %d || tmpin = %d\n", \
+// 	"-- fds --------------------------", fd->pfd[R],
+// 		fd->pfd[W], fd->tmpin);
+// }

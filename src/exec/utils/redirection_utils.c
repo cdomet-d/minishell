@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/02 15:02:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/07 13:44:31 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	is_first(t_input *in)
 	while (tmp)
 	{
 		tmp = tmp->prev;
-		if (tmp && (tmp->tok == builtin_true(in) || tmp->tok == command))
+		if (tmp && (builtin_true(in) || tmp->tok == command))
 			first = false;
 	}
 	return (first);
@@ -37,14 +37,12 @@ bool	is_last(t_input *in)
 
 	tmp = in;
 	last = true;
-	if (tmp->tok != command)
-		tmp = find_tok(tmp, command, false);
 	if (tmp->next == NULL)
 		return (last);
 	while (tmp)
 	{
 		tmp = tmp->next;
-		if (tmp && (tmp->tok == builtin_true(in) || tmp->tok == command))
+		if (tmp && (builtin_true(in) || tmp->tok == command))
 			last = false;
 	}
 	return (last);
