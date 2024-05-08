@@ -14,8 +14,8 @@
 
 void	revert(t_input *node)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	if (!node->data)
@@ -35,8 +35,8 @@ void	revert(t_input *node)
 
 static int	search_expand(t_input *node, t_env **env, int rv)
 {
-	char	**newtab;
-	int		i;
+	char		**newtab;
+	ssize_t		i;
 
 	newtab = NULL;
 	i = -1;
@@ -62,9 +62,9 @@ static int	search_expand(t_input *node, t_env **env, int rv)
 
 static int	search_quotes(t_input *node)
 {
-	int		i;
-	int		j;
-	char	*temp;
+	ssize_t		i;
+	size_t		j;
+	char		*temp;
 
 	i = -1;
 	if (!node->data)
@@ -91,7 +91,7 @@ static int	search_quotes(t_input *node)
 
 static int	check_delim(t_input *node)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (node->tok != heredoc)
