@@ -12,10 +12,10 @@
 
 #include "parsing.h"
 
-static int	len_str(char *str)
+static size_t	len_str(char *str)
 {
-	int		i;
-	int		len;
+	size_t		i;
+	size_t		len;
 
 	i = 0;
 	len = 0;
@@ -36,8 +36,8 @@ static int	len_str(char *str)
 
 static void	fill_str(char *new, char *str)
 {
-	int		i;
-	int		j;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
 	j = 0;
@@ -54,8 +54,8 @@ static void	fill_str(char *new, char *str)
 
 char	*rm_quotes(char *str)
 {
-	char	*new;
-	int		len;
+	char		*new;
+	size_t		len;
 
 	put_in_neg(str, '\'', '"');
 	len = len_str(str);

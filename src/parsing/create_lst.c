@@ -31,8 +31,8 @@ int	create_input(t_input **input, t_env **env, char **data, int tok)
 
 void	create_env(t_input **input, char **envp, t_env **env)
 {
-	int		i;
-	t_env	*new;
+	size_t		i;
+	t_env		*new;
 
 	i = 0;
 	new = NULL;

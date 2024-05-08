@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	path_len(char *env, int *i)
+size_t	path_len(char *env, size_t *i)
 {
 	int	len;
 

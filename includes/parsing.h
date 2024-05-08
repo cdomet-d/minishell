@@ -36,7 +36,7 @@ int		create_input(t_input **input, t_env **env, char **data, int tok);
 int		cmd_path(t_input *input, t_env **env);
 
 /* cmd_path_utils.c */
-int		path_len(char *env, int *i);
+size_t	path_len(char *env, size_t *i);
 int		check_path(char **path);
 
 /* tokenization.c */

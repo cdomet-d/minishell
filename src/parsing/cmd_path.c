@@ -14,22 +14,22 @@
 
 static char	*find_path(char *cmd, char *env)
 {
-	char	*path;
-	int		letter;
-	int		i;
-	int		size;
+	char		*path;
+	size_t		letter;
+	size_t		i;
+	size_t		size;
 
 	i = 0;
 	while (env[i])
 	{
 		letter = path_len(env, &i);
-		size = letter + (int)ft_strlen(cmd);
+		size = letter + ft_strlen(cmd);
 		path = ft_calloc(sizeof(char), size + 2);
 		if (!path)
 			return (print_error(errno, NULL));
 		ft_strlcpy(path, env + (i - letter), letter + 1);
 		path[letter++] = '/';
-		ft_strlcpy(path + letter, cmd, (int)ft_strlen(cmd) + 1);
+		ft_strlcpy(path + letter, cmd, ft_strlen(cmd) + 1);
 		if (check_path(&path))
 			return (path);
 		free(path);
@@ -42,7 +42,7 @@ static char	*find_path(char *cmd, char *env)
 
 static int	path_slash(char *cmd)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (cmd[i])
