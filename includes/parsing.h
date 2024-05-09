@@ -65,12 +65,12 @@ char	**expand_split(char **data, t_env **env, int rv);
 /* expand.c */
 char	**expand(char **data, t_env **env, int rv);
 void	ft_copy(char *data, char *newtab, t_env **env, char *rv);
-int		nb_letter(char *data, t_env **env, char *rv);
+size_t	nb_letter(char *data, t_env **env, char *rv);
 
 /* expand_utils.c */
 int		search_dollar(char **data);
 char	*search_env(char *data, t_env **env);
-void	nb_letter_rv(int *letter, int *j, char *rv);
+void	nb_letter_rv(size_t *letter, size_t *j, char *rv);
 
 /* expand_split_utils.c */
 void	put_in_neg(char *data, char quote1, char quote2);

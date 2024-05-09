@@ -14,8 +14,8 @@
 
 int	search_dollar(char **data)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	if (!data)
@@ -37,7 +37,7 @@ int	search_dollar(char **data)
 
 static int	ft_strcmp_env(char *data, char *env)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (data[i] && env[i] && env[i] != '='
@@ -57,7 +57,7 @@ static int	ft_strcmp_env(char *data, char *env)
 char	*search_env(char *data, t_env **env)
 {
 	t_env	*node;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	node = *env;
@@ -77,7 +77,7 @@ char	*search_env(char *data, t_env **env)
 	return (NULL);
 }
 
-void	nb_letter_rv(int *letter, int *j, char *rv)
+void	nb_letter_rv(size_t *letter, size_t *j, char *rv)
 {
 	*j += 1;
 	*letter += ft_strlen(rv);

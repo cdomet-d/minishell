@@ -14,7 +14,7 @@
 
 void	put_in_neg(char *data, char quote1, char quote2)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (data[i])
@@ -42,8 +42,8 @@ void	put_in_neg(char *data, char quote1, char quote2)
 
 int	check_ws(char **tab)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (tab[i])

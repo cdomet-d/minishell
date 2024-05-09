@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-static int	nb_letter_str(char *data, int *j, int letter)
+static size_t	nb_letter_str(char *data, size_t *j, size_t letter)
 {
 	while (data[*j] && (data[*j] == ' '
 			|| (data[*j] >= '\t' && data[*j] <= '\r')))
@@ -40,10 +40,10 @@ static int	nb_letter_str(char *data, int *j, int letter)
 
 static char	**split_tab(char **data, char **newtab)
 {
-	int	i;
-	int	j;
-	int	word;
-	int	letter;
+	size_t	i;
+	size_t	j;
+	size_t	word;
+	size_t	letter;
 
 	i = 0;
 	word = 0;
@@ -66,10 +66,10 @@ static char	**split_tab(char **data, char **newtab)
 	return (newtab);
 }
 
-static void	nb_word(char **tab, int *word)
+static void	nb_word(char **tab, size_t *word)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (tab[i])
@@ -97,7 +97,7 @@ char	**expand_split(char **data, t_env **env, int rv)
 {
 	char	**newtab;
 	char	**temp;
-	int		word;
+	size_t	word;
 
 	newtab = NULL;
 	temp = NULL;
