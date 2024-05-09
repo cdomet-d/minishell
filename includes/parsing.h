@@ -19,7 +19,7 @@
 /*----------------------------- PARSING -----------------------------*/
 
 /* parsing.c */
-void	parsing(t_input **input, t_env **env, char *line, int rv);
+void	parsing(t_input **input, t_env **env, char *line, int *rv);
 void	revert(t_input *node);
 
 /* rm_quotes.c */
@@ -40,7 +40,7 @@ size_t	path_len(char *env, size_t *i);
 int		check_path(char **path);
 
 /* tokenization.c */
-int		tokenization(t_input **input, t_env **env, char *line);
+int		tokenization(t_input **input, t_env **env, char *line, int *rv);
 
 /* toke_type.c */
 int		tok_inredir(t_input **input, t_env **env, char *line, size_t *i);

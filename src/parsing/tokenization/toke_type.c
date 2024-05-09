@@ -89,6 +89,7 @@ int	tok_pipe(t_input **input, t_env **env, char *line, size_t *i)
 	{
 		input_freelst(input);
 		print_error(0, "minishell : syntax error near unexpected token '|'");
+		errno = 2;
 		return (1);
 	}
 	if (create_input(input, env, NULL, pip))

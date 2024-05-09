@@ -40,7 +40,7 @@ static int	loop_content(t_input **input, t_env **env, char *line, size_t *i)
 	return (0);
 }
 
-int	tokenization(t_input **input, t_env **env, char *line)
+int	tokenization(t_input **input, t_env **env, char *line, int *rv)
 {
 	size_t	i;
 
@@ -48,7 +48,8 @@ int	tokenization(t_input **input, t_env **env, char *line)
 	if (check_quote(line))
 	{
 		print_error(0, "minishell : syntax error missing quote");
-		return (1);
+		*rv = 2;
+		return (*rv);//1);
 	}
 	while (line[i])
 	{

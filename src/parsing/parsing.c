@@ -106,19 +106,19 @@ static int	check_delim(t_input *node)
 	return (1);
 }
 
-void	parsing(t_input **input, t_env **env, char *line, int rv)
+void	parsing(t_input **input, t_env **env, char *line, int *rv)
 {
 	t_input	*node;
 	int		delim;
 
-	if (tokenization(input, env, line))
+	if (tokenization(input, env, line, rv))
 		return ;
 	node = *input;
 	while (node)
 	{
 		if (node->tok != heredoc)
 		{
-			if (search_expand(node, env, rv))
+			if (search_expand(node, env, *rv))
 				return (input_freelst(input));
 		}
 		delim = check_delim(node);
