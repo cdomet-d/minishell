@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 15:34:45 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:16:31 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,15 @@ int	check_arg(char *var)
 	i = 0;
 	if (var[0] != '_' && !ft_isalpha(var[0]))
 	{
-		ft_putstr_fd("minishell: export: '", STDERR_FILENO);
-		ft_putstr_fd(var, STDERR_FILENO);
-		ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
+		parsing_error("minishell: export: '", var, "': not a valid identifier");
 		return (1);
 	}
 	while (var[i] && var[i] != '=')
 	{
 		if (var[i] != '_' && !ft_isalnum(var[i]))
 		{
-			ft_putstr_fd("minishell: export: '", STDERR_FILENO);
-			ft_putstr_fd(var, STDERR_FILENO);
-			ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
+			parsing_error("minishell: export: '", var, \
+			"': not a valid identifier");
 			return (1);
 		}
 		i++;
@@ -62,29 +59,31 @@ int	change_var(t_input **in, char *var)
 	return (0);
 }
 
-void	*export(t_input **in)
+int	export(t_input **in)
 {
 	int		i;
 	int		rv;
 	t_env	*head;
 
-	i = 1;
+	i = 0;
 	head = (*in)->env;
-	if ((*in)->env && !(*in)->data[i])
-		sort_env((*in)->env);
-	while ((*in)->data[i])
+	if ((*in)->env && !(*in)->data[1])
+		if (sort_env((*in)->env) == 1)
+			return (1);
+	while ((*in)->data[++i])
 	{
-		if (!check_arg((*in)->data[i]))
+		if (check_arg((*in)->data[i]) == 1)
+			return (1);
+		if (!(*in)->status)
 		{
 			rv = change_var(in, (*in)->data[i]);
 			if (rv == -1)
-				return (print_error(errno, NULL));
+				return (1);
 			(*in)->env = head;
 			if (!rv)
 				if (!exprt_inenv(&(*in)->env, (*in)->data[i]))
-					return (NULL);
+					return (1);
 		}
-		i++;
 	}
-	return (in);
+	return (0);
 }

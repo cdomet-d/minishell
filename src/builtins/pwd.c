@@ -3,26 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:57:23 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 17:57:25 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:43:55 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "minishell.h"
 
-int	pwd(t_env *env, char **data)
+int	pwd(t_env *env)
 {
 	char	*str;
 
 	str = NULL;
-	if (data[1])
-	{
-		if (ft_putstr_fd("pwd : too many arguments\n", 2) == -1)
-			return (1);
-		return (0);
-	}
 	str = find_var_env(env, "PWD=");
 	if (!str)
 	{

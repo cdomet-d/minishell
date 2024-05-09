@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 17:50:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:43:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	create_env(t_input **input, char **envp, t_env **env)
 	{
 		new = env_newnode(envp[i]);
 		if (!new)
+		{
+			env_freelst(env);
 			fatal_exit(input, errno, NULL);
+		}
 		env_addback(env, new);
 		i++;
 	}

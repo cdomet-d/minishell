@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs_v.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:59:40 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/30 11:49:51 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:17:49 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	print_in_node(t_input *node, t_fd *fd, char *str)
 	display_dtab(node->data);
 	print_enum(node->tok);
 	(void)fd;
-	print_fds(fd);
+	// print_fds(fd);
 	fprintf(stderr, "\033[38;5;206m\033[1m#----------------------------#\n\033[0m");
 }
 

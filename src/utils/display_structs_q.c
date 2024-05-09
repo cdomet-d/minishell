@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs_q.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 18:13:30 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:17:26 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static void	qpenum(int token)
 void	pmin(t_input *input, char *str)
 {
 	t_input	*head;
-	// size_t	i;
 
-	// i = 0;
 	head = input;
 	fprintf(stderr, "\033[2m%.20s\n", "-- pmin ------------------");
 	if (str)

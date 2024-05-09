@@ -3,33 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/02 13:38:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:28:12 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	exec_builtin(t_input **in)
+void	*exec_builtin(t_input **in, t_fd *fd)
 {
 	t_input	*tmp;
 
 	// fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
-	tmp = (*in);
-	if (builtin_true(tmp) == ms_cd)
-		cd(tmp);
-	else if (builtin_true(tmp) == ms_echo)
-		echo(tmp->data);
-	else if (builtin_true(tmp) == ms_pwd)
-		pwd((*in)->env, tmp->data);
-	else if (builtin_true(tmp) == ms_env)
-		env(tmp);
-	else if (builtin_true(tmp) == ms_export)
-		export(&tmp);
-	else if (builtin_true(tmp) == ms_unset)
+	tmp = builtin_true(*in);
+	(void)fd;
+	if (tmp->tok == ms_cd)
+		(*in)->status = cd(tmp);
+	if (tmp->tok == ms_echo)
+		(*in)->status = echo(tmp->data);
+	if (tmp->tok == ms_pwd)
+		(*in)->status = pwd(tmp->env);
+	if (tmp->tok == ms_env)
+		(*in)->status = env(tmp);
+	if (tmp->tok == ms_export)
+		(*in)->status = export(&tmp);
+	// TODO : make unset take in instead of env to see if it fixes the need to return env
+	if (tmp->tok == ms_unset)
+	{
 		tmp->env = *unset(&tmp->env, tmp->data);
+		if (!tmp->env)
+			return (NULL);
+	}
+	if ((*in)->status == 1)
+		return (NULL);
+	return ((int *)true);
 }
 
 void	*redir_builtins(t_fd *fd, t_input *tmp)
@@ -46,7 +55,7 @@ void	*redir_builtins(t_fd *fd, t_input *tmp)
 	if (op_true(tmp, append))
 		if (!app_redir(fd, tmp))
 			return (print_error(errno, "redir_builtins 4"));
-	exec_builtin(&tmp);
+	exec_builtin(&tmp, fd);
 	return ((int *)true);
 }
 
