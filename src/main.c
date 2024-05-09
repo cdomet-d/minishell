@@ -36,8 +36,8 @@ static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 		*env = input->env;
 		*status = input->status;
 	}
-	// else
-	// 	*status = errno;
+	else
+		*status = errno;
 	input_freelst(&input);
 	return (*env);
 }

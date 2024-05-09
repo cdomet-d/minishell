@@ -44,12 +44,13 @@ int	tokenization(t_input **input, t_env **env, char *line, int *rv)
 {
 	size_t	i;
 
+	(void)rv;
 	i = 0;
 	if (check_quote(line))
 	{
 		print_error(0, "minishell : syntax error missing quote");
-		*rv = 2;
-		return (*rv);//1);
+		/**rv*/errno = 2;
+		return (1);
 	}
 	while (line[i])
 	{
