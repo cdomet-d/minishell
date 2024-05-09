@@ -30,7 +30,7 @@ static void	*h_gnl(int fd, t_input *in)
 	char	*line;
 	char	*tmpdel;
 
-	fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
+	// fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
 	rl_event_hook = get_nonull;
 	line = NULL;
 	tmpdel = ft_strdup(in->data[0]);
@@ -92,13 +92,12 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	t_input	*tmp;
 	int		fn;
 
-	fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
+	// fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
 	fn = 0;
 	tmp = find_here(in, false);
 	while (op_true(tmp, heredoc))
 	{
-		fprintf(stderr, "%.20s\n", "-- in loop -----------------------------");
-		print_fds(fd);
+		// fprintf(stderr, "%.20s\n", "-- in loop -----------------------------");
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
 			return (print_error(errno, "prep h_file (creating a file)"));
 		free(tmp->data[0]);

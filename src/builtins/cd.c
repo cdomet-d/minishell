@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:58:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 19:35:36 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:20:02 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*cd_path(t_input *in)
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
-	printf("path  :%s\n", path);
+	// // printf("path  :%s\n", path);
 	if (check_directory(in->data[1], path))
 		return (free(path), NULL);
 	return (path);

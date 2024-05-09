@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:09:58 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 18:07:09 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/07 13:15:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-t_tok	builtin_true(t_input *in)
+t_input	*builtin_true(t_input *in)
 {
 	t_input	*tmp;
 
@@ -20,20 +20,20 @@ t_tok	builtin_true(t_input *in)
 	while (tmp && tmp != pip)
 	{
 		if (tmp->tok == ms_cd)
-			return (ms_cd);
+			return (tmp);
 		if (tmp->tok == ms_echo)
-			return (ms_echo);
+			return (tmp);
 		if (tmp->tok == ms_pwd)
-			return (ms_pwd);
+			return (tmp);
 		if (tmp->tok == ms_env)
-			return (ms_env);
+			return (tmp);
 		if (tmp->tok == ms_exit)
-			return (ms_exit);
+			return (tmp);
 		if (tmp->tok == ms_export)
-			return (ms_export);
+			return (tmp);
 		if (tmp->tok == ms_unset)
-			return (ms_unset);
+			return (tmp);
 		tmp = tmp->next;
 	}
-	return (false);
+	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 14:45:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:15:35 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <sys/stat.h>
 # include <linux/limits.h>
 
-extern int 	g_sig;
+extern int	g_sig;
 
 /*----------------------------- STRUCTURES ----------------------------*/
 
@@ -103,9 +103,9 @@ void	pmin(t_input *input, char *str);
 void	display_dtab(char **dtab);
 
 /* error_handling.c */
-void	fatal_exit(t_input **lst, int error_code, char *error_message);
-void	free_env(t_env *lst, int error_code, char *error_message);
+void	fatal_exit(t_input **lst, int rv, char *error_message);
 void	*print_error(int error_code, char *error_message);
+int		parsing_error(char *s1, char *s2, char *s3);
 
 // builtins ------------------
 
@@ -120,21 +120,21 @@ int		cmp_opt(char *arg);
 int		echo(char **data);
 
 /* env.c */
-void	*env(t_input *node);
+int		env(t_input *in);
 
 /* exit.c */
-void	mh_exit(char *line, t_input *in, t_env **env);
+void	mh_exit(char *line, t_input *in);
 
 /* pwd.c */
-int		pwd(t_env *env, char **data);
+int		pwd(t_env *env);
 
 /* export.c */
 int		check_arg(char *var);
 int		change_var(t_input **in, char *var);
-void	*export(t_input **in);
+int		export(t_input **in);
 
 /* export_utils.c */
-void	*sort_env(t_env	*env);
+int		sort_env(t_env	*env);
 
 /* cd.c */
 int		cd(t_input *in);

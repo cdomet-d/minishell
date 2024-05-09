@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   sighandler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 11:46:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:30:19 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int get_nonull(void)
+int	get_nonull(void)
 {
 	return (1);
 }
 
 void	sighandler(int sig)
 {
+	// TODO : add SIGKILL and ctrl + D
 	if (sig == SIGINT)
 	{
 		g_sig = sig;

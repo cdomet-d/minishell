@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/03 14:47:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/08 19:29:30 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*ft_execve(t_input *in)
 	char	**arenv;
 	t_input	*tmp;
 
-	fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- execve ------------------");
+	// fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- execve ------------------");
 	tmp = find_tok(in, command, false);
 	if (!tmp->data)
 		return (print_error(0, "ft_execve (data is null)"));
@@ -36,7 +36,6 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 {
 	t_input	*tmp;
 
-	fprintf(stderr, "\033[0;36m%.20s\033[0m\n", "-- redir ------------------");
 	tmp = in;
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
@@ -53,11 +52,11 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	if (op_true(tmp, append))
 		if (!app_redir(fd, tmp))
 			return (NULL);
-	// handle error management
-	if (builtin_true(tmp))
-		exec_builtin(&tmp);
 	if (op_true(tmp, command))
 		if (!ft_execve(tmp))
+			return (NULL);
+	if (builtin_true(tmp))
+		if (!exec_builtin(&tmp, fd))
 			return (NULL);
 	return (NULL);
 }
@@ -69,7 +68,6 @@ void	*exec_cmd(t_input *in)
 
 	tmp = in;
 	in->status = 0;
-	pmin(tmp, NULL);
 	init_fds(&fd, in);
 	if (here_true(in))
 		if (!create_hdocs(&fd, in))
@@ -84,6 +82,7 @@ void	*exec_cmd(t_input *in)
 		if (tmp && fd.pid == 0)
 			if (!redir_cmd(tmp, &fd))
 				exe_failure(&fd, in);
+				// TODO : change name to killchild
 		if (fd.pnb != 0)
 			save_pipin(&fd);
 		tmp = find_next_pipe(tmp, &fd);
