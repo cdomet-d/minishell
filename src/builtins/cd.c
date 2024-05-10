@@ -22,8 +22,9 @@ char	*init_path(t_input *in)
 	temp = NULL;
 	str = NULL;
 	str = find_var_env(in->env, "PWD=");
-	if (!str)
+	if (!str || !str[0])
 	{
+		str = NULL;
 		str = getcwd(str, 0);
 		if (!str)
 			return (NULL);
@@ -62,7 +63,7 @@ int	special_cases(t_input *in, char **path)
 	if (!in->data[1])
 	{
 		*path = find_var_env(in->env, "HOME=");
-		if (!*path)
+		if (!*path || !*path[0])
 			return (ft_putendl_fd("minishell: cd: HOME not set", 2), -1);
 		*path = ft_strdup(*path);
 		if (!*path)
@@ -72,7 +73,7 @@ int	special_cases(t_input *in, char **path)
 	else if (in->data[1][0] == '-' && !in->data[1][1])
 	{
 		*path = find_var_env(in->env, "OLDPWD=");
-		if (!*path)
+		if (!*path || !*path[0])
 			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), -1);
 		*path = ft_strdup(*path);
 		if (!*path)

@@ -106,7 +106,7 @@ char	*check_len(char	*path, t_env *env)
 	if (ft_strlen(path) > PATH_MAX)
 	{
 		pwd = find_var_env(env, "PWD=");
-		if (!pwd)
+		if (!pwd || !pwd[0])
 			return (path);
 		while (pwd[i] && path[i] && pwd[i] == path[i])
 			i++;
