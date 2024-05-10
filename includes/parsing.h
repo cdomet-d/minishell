@@ -40,7 +40,7 @@ size_t	path_len(char *env, size_t *i);
 int		check_path(char **path);
 
 /* tokenization.c */
-int		tokenization(t_input **input, t_env **env, char *line, int *rv);
+int		tokenization(t_input **input, t_env **env, char *line, int *status);
 
 /* toke_type.c */
 int		tok_inredir(t_input **input, t_env **env, char *line, size_t *i);
@@ -50,7 +50,7 @@ int		tok_pipe(t_input **input, t_env **env, char *line, size_t *i);
 
 /* tokenization_utils.c */
 int		check_quote(char *line);
-char	**get_data(t_input **input, char *line, size_t *i);
+char	**get_data(t_input **input, char *line, size_t *i, int *rv);
 
 /* create_data.c */
 void	count_word(char *line, size_t i, size_t *word);

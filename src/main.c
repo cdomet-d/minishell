@@ -29,7 +29,7 @@ static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 	{
 		env_freelst(env);
 		print_error(0, "exit");
-		exit (EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 	}
 	add_history(line);
 	parsing(&input, env, line, status);
@@ -43,7 +43,10 @@ static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 		*status = input->status;
 	}
 	else
-		*status = errno;
+	{
+		if (*status != 2)
+			*status = errno;
+	}
 	input_freelst(&input);
 	return (*env);
 }

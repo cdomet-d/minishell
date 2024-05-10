@@ -49,10 +49,9 @@ static void	syntax_error(char *line, size_t *i)
 		ft_putchar_fd(line[*i], STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 	}
-	errno = 2;
 }
 
-char	**get_data(t_input **input, char *line, size_t *i)
+char	**get_data(t_input **input, char *line, size_t *i, int *rv)
 {
 	char	**data;
 
@@ -70,6 +69,7 @@ char	**get_data(t_input **input, char *line, size_t *i)
 	{
 		input_freelst(input);
 		syntax_error(line, i);
+		*rv = 2;
 	}
 	return (data);
 }
