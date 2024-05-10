@@ -56,10 +56,9 @@ int	change_pwds(t_env **env, char *path, char *var)
 				return (1);
 			free(node->env);
 			node->env = ft_strjoin(key, path);
+			free(key);
 			if (!node->env)
 				return (1);
-			free(key);
-			node->env = node->env;
 			return (0);
 		}
 		node = node->next;
@@ -90,7 +89,7 @@ int	pwds(t_input *in, char *path)
 		if (!temp)
 			return (1);
 		if (!exprt_inenv(&(in)->env, temp))
-			return (1);
+			return (free(temp), 1);
 		free(temp);
 	}
 	return (0);
