@@ -6,6 +6,7 @@ char	*make_path(char *tab, char *path, char **temp)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	free(*temp);
 	*temp = NULL;
 	*temp = ft_strdup(path);
@@ -14,12 +15,12 @@ char	*make_path(char *tab, char *path, char **temp)
 	tmp = ft_strjoin(path, tab);
 	free(path);
 	if (!tmp)
-		return (print_error(errno, NULL));
+		return (free(*temp), print_error(errno, NULL));
 	path = tmp;
 	tmp = ft_strjoin(path, "/");
 	free(path);
 	if (!tmp)
-		return (print_error(errno, NULL));
+		return (free(*temp), print_error(errno, NULL));
 	path = tmp;
 	return (path);
 }
@@ -38,7 +39,7 @@ int	rm_dots(char **path, char **temp, char *tab, char *var)
 	len = ft_strlen(tab) + 1;
 	free(*temp);
 	*temp = ft_substr(*path, 0, ft_strlen(*path) - len);
-	if (!temp)
+	if (!*temp)
 		return (free(*path), 1);
 	return (0);
 }
@@ -82,13 +83,13 @@ char	*prep_path(char *var, char *path)
 	free(path);
 	path = NULL;
 	if (!tab)
-		return (NULL);
+		return (print_error(errno, NULL));
 	temp = ft_strdup("/");
 	if (!temp)
 		return (free_dtab(tab), print_error(errno, NULL));
 	path = canonical_form(var, temp, tab, 1);
 	free_dtab(tab);
 	if (!path)
-		return (NULL);
+		return (print_error(errno, NULL));
 	return (path);
 }
