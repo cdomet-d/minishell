@@ -73,6 +73,7 @@ SRC_BUILTIN:=	export.c \
 				pwd.c \
 				cd.c \
 				cd_utils.c \
+				cd_canon_form.c \
 				builtin_utils.c \
 				export_utils.c \
 

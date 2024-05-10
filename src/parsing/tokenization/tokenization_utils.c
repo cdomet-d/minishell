@@ -14,8 +14,8 @@
 
 int	check_quote(char *line)
 {
-	int		i;
-	int		quote;
+	size_t	i;
+	size_t	quote;
 	char	quotetype;
 
 	i = 0;
@@ -39,7 +39,7 @@ int	check_quote(char *line)
 	return (0);
 }
 
-void	syntax_error(char *line, int *i)
+static void	syntax_error(char *line, size_t *i)
 {
 	if (line[*i] == '\0')
 		print_error(0, "syntax error near unexpected token 'newline'");
@@ -49,9 +49,10 @@ void	syntax_error(char *line, int *i)
 		ft_putchar_fd(line[*i], STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 	}
+	errno = 2;
 }
 
-char	**get_data(t_input **input, char *line, int *i)
+char	**get_data(t_input **input, char *line, size_t *i)
 {
 	char	**data;
 

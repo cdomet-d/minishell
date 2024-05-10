@@ -14,8 +14,8 @@
 
 void	revert(t_input *node)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	if (!node->data)
@@ -33,10 +33,10 @@ void	revert(t_input *node)
 	}
 }
 
-int	search_expand(t_input *node, t_env **env, int rv)
+static int	search_expand(t_input *node, t_env **env, int rv)
 {
-	char	**newtab;
-	int		i;
+	char		**newtab;
+	ssize_t		i;
 
 	newtab = NULL;
 	i = -1;
@@ -60,11 +60,11 @@ int	search_expand(t_input *node, t_env **env, int rv)
 	return (0);
 }
 
-int	search_quotes(t_input *node)
+static int	search_quotes(t_input *node)
 {
-	int		i;
-	int		j;
-	char	*temp;
+	ssize_t		i;
+	size_t		j;
+	char		*temp;
 
 	i = -1;
 	if (!node->data)
@@ -89,9 +89,9 @@ int	search_quotes(t_input *node)
 	return (0);
 }
 
-int	check_delim(t_input *node)
+static int	check_delim(t_input *node)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (node->tok != heredoc)
@@ -106,19 +106,19 @@ int	check_delim(t_input *node)
 	return (1);
 }
 
-void	parsing(t_input **input, t_env **env, char *line, int rv)
+void	parsing(t_input **input, t_env **env, char *line, int *rv)
 {
 	t_input	*node;
 	int		delim;
 
-	if (tokenization(input, env, line))
+	if (tokenization(input, env, line, rv))
 		return ;
 	node = *input;
 	while (node)
 	{
 		if (node->tok != heredoc)
 		{
-			if (search_expand(node, env, rv))
+			if (search_expand(node, env, *rv))
 				return (input_freelst(input));
 		}
 		delim = check_delim(node);

@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int	loop_content(t_input **input, t_env **env, char *line, int *i)
+static int	loop_content(t_input **input, t_env **env, char *line, size_t *i)
 {
 	while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
 			|| line[*i] == ' '))
@@ -40,14 +40,16 @@ int	loop_content(t_input **input, t_env **env, char *line, int *i)
 	return (0);
 }
 
-int	tokenization(t_input **input, t_env **env, char *line)
+int	tokenization(t_input **input, t_env **env, char *line, int *rv)
 {
-	int	i;
+	size_t	i;
 
+	(void)rv;
 	i = 0;
 	if (check_quote(line))
 	{
 		print_error(0, "minishell : syntax error missing quote");
+		/**rv*/errno = 2;
 		return (1);
 	}
 	while (line[i])

@@ -23,10 +23,11 @@ int	check_directory(char *var, char *path)
 			ft_putstr_fd("minishell: cd: ", 2);
 			ft_putstr_fd(var, 2);
 			ft_putendl_fd(": No such file or directory", 2);
+			return (1);
 		}
-		else
-			print_error(errno, "stat ");
-		return (1);
+		if (errno == ENAMETOOLONG)
+			return (0);
+		return (print_error(errno, "stat "), 1);
 	}
 	if (S_ISDIR(buf.st_mode))
 		return (0);
@@ -70,7 +71,6 @@ int	pwds(t_input *in, char *path)
 {
 	char	*temp;
 
-	temp = NULL;
 	temp = find_var_env((in)->env, "PWD=");
 	if (temp)
 	{
@@ -84,60 +84,43 @@ int	pwds(t_input *in, char *path)
 		if (change_pwds(&(in)->env, path, "PWD="))
 			return (1);
 	}
+	else
+	{
+		temp = ft_strjoin("PWD=", path);
+		if (!temp)
+			return (1);
+		if (!exprt_inenv(&(in)->env, temp))
+			return (1);
+		free(temp);
+	}
 	return (0);
 }
 
-char	*make_path(char *tab, char *path, char **temp)
+char	*check_len(char	*path, t_env *env)
 {
-	char	*tmp;
+	int			i;
+	char		*pwd;
+	struct stat	buf;
 
-	free(*temp);
-	*temp = NULL;
-	*temp = ft_strdup(path);
-	if (!*temp)
-		return (print_error(errno, NULL), NULL);
-	tmp = ft_strjoin(path, tab);
-	free(path);
-	if (!tmp)
-		return (print_error(errno, NULL), NULL);
-	path = tmp;
-	tmp = ft_strjoin(path, "/");
-	free(path);
-	if (!tmp)
-		return (print_error(errno, NULL), NULL);
-	path = tmp;
+	i = 0;
+	if (ft_strlen(path) > PATH_MAX)
+	{
+		pwd = find_var_env(env, "PWD=");
+		if (!pwd)
+			return (path);
+		while (pwd[i] && path[i] && pwd[i] == path[i])
+			i++;
+		if (ft_strlen(path + (i + 1)) > PATH_MAX)
+			return (print_error(0, "File name too long"));
+		if (stat(path + (i + 1), &buf) == -1)
+		{
+			if (errno == ENOENT)
+				return (path);
+			else
+				return (print_error(errno, "stat "));
+		}
+		else if (S_ISDIR(buf.st_mode))
+			return (path + (i + 1));
+	}
 	return (path);
 }
-
-// char	*check_len(char	*path, t_env *env)
-// {
-// 	int			i;
-// 	char		*pwd;
-// 	char		*tmp;
-// 	struct stat	buf;
-
-// 	i = 0;
-// 	if (ft_strlen(path) > 3)//PATH_MAX)
-// 	{
-// 		pwd = find_var_env(env, "PWD=");
-// 		if (!pwd)
-// 			return (path);
-// 		while (pwd[i] && path[i] && pwd[i] == path[i])
-// 			i++;
-// 		tmp = ft_strjoin("./", path + i);
-// 		if (!tmp)
-// 			return (print_error(errno, NULL), NULL);
-// 		if (stat(tmp, &buf) == -1)
-// 		{
-// 			free(tmp);
-// 			if (errno == ENOENT)
-// 				return (path);
-// 			else
-// 				return (free(path), print_error(errno, "stat "), NULL);
-// 		}
-// 		else if (S_ISDIR(buf.st_mode))
-// 			return (printf("innnn\n"), free(path), tmp);
-// 		free(tmp);
-// 	}
-// 	return (path);
-// }

@@ -12,9 +12,9 @@
 
 #include "parsing.h"
 
-int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
+static int	ft_copy_env(char *data, char *newtab, t_env **env, size_t *j)
 {
-	int		i;
+	size_t	i;
 	char	*str;
 
 	i = 0;
@@ -38,8 +38,8 @@ int	ft_copy_env(char *data, char *newtab, t_env **env, int *j)
 
 void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -63,10 +63,10 @@ void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
 	}
 }
 
-void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
+static void	nb_letter_env(char *data, t_env **env, size_t *letter, size_t *j)
 {
 	char	*str;
-	int		i;
+	size_t	i;
 
 	str = NULL;
 	i = 0;
@@ -80,10 +80,10 @@ void	nb_letter_env(char *data, t_env **env, int *letter, int *j)
 		*j += 1;
 }
 
-int	nb_letter(char *data, t_env **env, char *rv)
+size_t	nb_letter(char *data, t_env **env, char *rv)
 {
-	int	letter;
-	int	j;
+	size_t	letter;
+	size_t	j;
 
 	letter = 0;
 	j = 0;
@@ -109,8 +109,8 @@ int	nb_letter(char *data, t_env **env, char *rv)
 
 char	**expand(char **data, t_env **env, int rv)
 {
-	int		word;
-	int		letter;
+	size_t	word;
+	size_t	letter;
 	char	**newtab;
 	char	*str;
 

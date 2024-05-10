@@ -12,9 +12,9 @@
 
 #include "parsing.h"
 
-int	tab_len(char **tab)
+static size_t	tab_len(char **tab)
 {
-	int	size;
+	size_t	size;
 
 	size = 0;
 	while (tab[size])
@@ -22,10 +22,10 @@ int	tab_len(char **tab)
 	return (size);
 }
 
-int	fill_tab_join(char **tab, char **newtab, int *word)
+static int	fill_tab_join(char **tab, char **newtab, size_t *word)
 {
-	int	letter;
-	int	i;
+	size_t	letter;
+	size_t	i;
 
 	i = 0;
 	while (tab[i])
@@ -47,10 +47,10 @@ int	fill_tab_join(char **tab, char **newtab, int *word)
 	return (0);
 }
 
-char	**tab_join(char **s1, char **s2)
+static char	**tab_join(char **s1, char **s2)
 {
 	char	**tab;
-	int		word;
+	size_t	word;
 
 	tab = NULL;
 	word = tab_len(s1) + tab_len(s2);
@@ -67,11 +67,11 @@ char	**tab_join(char **s1, char **s2)
 	return (tab);
 }
 
-int	add_opt(t_input **input, t_input *ptr, char *line, int *i)
+static int	add_opt(t_input **input, t_input *ptr, char *line, size_t *i)
 {
 	char	**new;
 	char	**data;
-	int		word;
+	size_t	word;
 
 	word = 0;
 	new = NULL;
@@ -88,7 +88,7 @@ int	add_opt(t_input **input, t_input *ptr, char *line, int *i)
 	return (0);
 }
 
-int	check_opt(t_input **input, char *line, int *i)
+int	check_opt(t_input **input, char *line, size_t *i)
 {
 	t_input	*ptr;
 

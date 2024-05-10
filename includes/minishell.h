@@ -139,11 +139,13 @@ int		sort_env(t_env	*env);
 /* cd.c */
 int		cd(t_input *in);
 
+/* cd_canon_form.c */
+char	*prep_path(char *var, char *path);
+
 /* cd_utils.c */
 int		check_directory(char *var, char *path);
 int		pwds(t_input *in, char *path);
-char	*make_path(char *tab, char *path, char **temp);
-// char	*check_len(char	*path, t_env *env);
+char	*check_len(char	*path, t_env *env);
 
 /* unset.c */
 t_env	**unset(t_env **env, char **key);

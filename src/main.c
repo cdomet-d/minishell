@@ -25,8 +25,14 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 
 static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 {
+	if (ft_strncmp(line, "exit", 5) == 0)
+	{
+		env_freelst(env);
+		print_error(0, "exit");
+		exit (EXIT_SUCCESS);
+	}
 	add_history(line);
-	parsing(&input, env, line, *status);
+	parsing(&input, env, line, status);
 	if (input)
 	{
 		input->status = *status;
@@ -36,6 +42,8 @@ static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 		*env = input->env;
 		*status = input->status;
 	}
+	else
+		*status = errno;
 	input_freelst(&input);
 	return (*env);
 }

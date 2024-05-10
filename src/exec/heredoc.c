@@ -54,6 +54,7 @@ static void	*h_gnl(int fd, t_input *in)
 		}
 	}
 	free(tmpdel);
+	free(line);
 	in->data[0][0] *= -1;
 	return ((int *) true);
 }

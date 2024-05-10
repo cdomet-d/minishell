@@ -12,98 +12,43 @@
 
 #include "exec.h"
 
-int	rm_dots(char **path, char **temp, char *tab, char *var)
+char	*init_path(t_input *in)
 {
-	int		len;
-
-	if (check_directory(var, *path))
-		return (free(*temp), free(*path), 1);
-	free(*path);
-	*path = ft_strdup(*temp);
-	if (!*path)
-		return (free(*temp), 1);
-	len = ft_strlen(tab) + 1;
-	free(*temp);
-	*temp = ft_substr(*path, 0, ft_strlen(*path) - len);
-	if (!temp)
-		return (free(*path), 1);
-	// printf("temp : %s\n", *temp);
-	return (0);
-}
-
-char	*canonical_form(char *var, char *path, char **tab)
-{
-	int		i;
-	int		j;
+	char	*path;
 	char	*temp;
-
-	i = -1;
-	j = 1;
-	temp = NULL;
-	while (tab[++i])
+	char	*str;
+	
+	str = find_var_env(in->env, "PWD=");
+	if (!str)
 	{
-		if (!ft_strncmp(tab[i], "..", 3) && i > 0
-			&& ft_strncmp(tab[i - j], ".", 2)
-			&& ft_strncmp(tab[i - j], "..", 3))
-		{
-			if (rm_dots(&path, &temp, tab[i - j], var))
-				return (NULL);
-			j += 2;
-		}
-		else if (ft_strncmp(tab[i], ".", 2))
-		{
-			path = make_path(tab[i], path, &temp);
-			if (!path)
-				return (NULL);
-		}
+		str = getcwd(str, 0);
+		if (!str)
+			return (print_error(errno, NULL));
+		temp = ft_strjoin(str, "/");
+		free(str);
 	}
-	return (free(temp), path);
-}
-
-char	*prep_path(char *var, char *path)
-{
-	char	**tab;
-	char	*temp;
-
-	tab = ft_split(path, '/');
-	free(path);
-	path = NULL;
-	if (!tab)
-		return (NULL);
-	temp = ft_strdup("/");
+	else
+		temp = ft_strjoin(str, "/");
 	if (!temp)
-		return (free_dtab(tab), print_error(errno, NULL), NULL);
-	path = canonical_form(var, temp, tab);
-	free_dtab(tab);
-	if (!path)
 		return (NULL);
+	path = ft_strjoin(temp, in->data[1]);
+	free(temp);
 	return (path);
 }
 
 char	*cd_path(t_input *in)
 {
-	char	*temp;
 	char	*path;
 
-	temp = NULL;
-	path = NULL;
 	if (in->data[1][0] == '/')
 		path = ft_strdup(in->data[1]);
 	else
-	{
-		temp = ft_strjoin(find_var_env(in->env, "PWD="), "/");
-		if (!temp)
-			return (NULL);
-		path = ft_strjoin(temp, in->data[1]);
-		free(temp);
-		temp = NULL;
-	}
+		path = init_path(in);
 	if (!path)
 		return (print_error(errno, NULL), NULL);
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
-	// // printf("path  :%s\n", path);
 	if (check_directory(in->data[1], path))
 		return (free(path), NULL);
 	return (path);
@@ -133,11 +78,12 @@ int	special_cases(t_input *in, char **path)
 int	cd(t_input *in)
 {
 	char	*path;
+	char	*tmp;
 	int		rv;
 
 	path = NULL;
 	if (ft_arrlen((in)->data) > 2)
-		return (ft_putendl_fd("minishell: cd: too many arguments", 2), 1);
+		return (print_error(0, "minishell: cd: too many arguments"), 1);
 	rv = special_cases(in, &path);
 	if (rv == -1)
 		return (1);
@@ -147,14 +93,13 @@ int	cd(t_input *in)
 		if (!path)
 			return (1);
 	}
+	tmp = check_len(path, in->env);
+	if (!tmp)
+		return (free(path), 1);
+	if (chdir(tmp) == -1)
+		return (free(path), print_error(errno, NULL), 1);
 	if (pwds(in, path))
 		return (free(path), 1);
-	// path = check_len(path, in->env);
-	// if (!path)
-	// 	return (1);
-	// printf("pathhh : %s\n", path);
-	if (chdir(path) == -1)
-		return (free(path), print_error(errno, "chdir "), 1);
 	free(path);
 	return (0);
 }
