@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:15:35 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 18:06:24 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	display_dtab(char **dtab);
 void	fatal_exit(t_input **lst, int rv, char *error_message);
 void	*print_error(int error_code, char *error_message);
 int		parsing_error(char *s1, char *s2, char *s3);
+void	exit_no_input(t_env **env, char *line, int status);
 
 // builtins ------------------
 
@@ -148,7 +149,7 @@ int		pwds(t_input *in, char *path);
 char	*check_len(char	*path, t_env *env);
 
 /* unset.c */
-t_env	**unset(t_env **env, char **key);
+int		unset(t_input	**in);
 
 /*----------------------------------------------------------------------------*/
 

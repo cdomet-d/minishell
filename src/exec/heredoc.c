@@ -33,11 +33,7 @@ static void	*h_gnl(int fd, t_input *in)
 	// fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
 	rl_event_hook = get_nonull;
 	line = NULL;
-	tmpdel = ft_strdup(in->data[0]);
-	if (!tmpdel)
-		return (print_error(errno, NULL));
-	if (in->data[0][0] < 0)
-		tmpdel[0] *= -1;
+	tmpdel = get_delim(in);
 	while (1)
 	{
 		if (line)
@@ -53,10 +49,8 @@ static void	*h_gnl(int fd, t_input *in)
 			break ;
 		}
 	}
-	free(tmpdel);
-	free(line);
 	in->data[0][0] *= -1;
-	return ((int *) true);
+	return (free(tmpdel), free(line), (int *) true);
 }
 
 static char	*gen_filename(int fn)

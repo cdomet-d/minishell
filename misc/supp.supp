@@ -6,6 +6,14 @@
 }
 
 {
+	ignore_regex_library_leak
+	Memcheck:Leak
+	match-leak-kinds: all
+	...
+	obj:*/libregex.so.*
+}
+
+{
    ls
    Memcheck:Leak
    fun:malloc

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:14:55 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 18:36:06 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 // error_handling ------------
 
 /* exec_errors.c */
-void	*exe_failure(t_fd *fd, t_input *in);
+void	*killchild(t_fd *fd, t_input *in);
 
 // utils ---------------------
 
@@ -60,6 +60,7 @@ void	reset_stds(int tmpstdin, int tmpstdout);
 /* heredoc_utils.c */
 bool	here_true(t_input *in);
 t_input	*find_here(t_input	*in, bool next);
+char	*get_delim(t_input *in);
 
 /* operators_utils.c */
 bool	op_true(t_input *in, t_tok op);
@@ -82,11 +83,11 @@ int		heredoc_expand(char **line, t_input *in);
 void	*exec_cmd(t_input *in);
 
 /* redirections.c */
-void	*out_redir(t_fd *fd, t_input *in);
 void	*app_redir(t_fd *fd, t_input *in);
-void	*in_redir(t_fd *fd, t_input *in);
-void	*pip_redir(t_input *tmp, t_fd *fd);
 void	*here_redir(t_fd *fd, t_input *in);
+void	*in_redir(t_fd *fd, t_input *in);
+void	*out_redir(t_fd *fd, t_input *in);
+void	*pip_redir(t_input *tmp, t_fd *fd);
 
 /* exec_builtins.c */
 void	*exec_builtin(t_input **in, t_fd *fd);
@@ -99,9 +100,13 @@ void	*create_hdocs(t_fd *fd, t_input *in);
 // signals -------------------
 
 /* sighandler.c */
-void	sighandler(int sig);
+char	*send_eof(char *line);
 int		get_nonull(void);
 void	sigend(void);
+void	siglisten(void);
+
+void	set_status(t_input *in, int e_stat);
+
 
 /*----------------------------------------------------------------------------*/
 

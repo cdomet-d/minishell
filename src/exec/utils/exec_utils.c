@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:29:14 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 18:54:09 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_input	*get_last_node(t_input *in)
 
 void	close_and_wait(t_input *in, t_fd *fd)
 {
-	struct stat	infos;
-	t_input		*last;
 	int			e_stat;
 
 	if (count_pipes(in))
@@ -35,45 +33,7 @@ void	close_and_wait(t_input *in, t_fd *fd)
 	while (wait(0) != -1 && errno != ECHILD)
 		;
 	// TODO : move this bs to more logical location
-	last = get_last_node(in);
-	if (WIFEXITED(e_stat))
-	{
-		if (e_stat == 256)
-		{
-			// fprintf(stderr, "%.20s\n", "-- w/out signals ------------------");
-			if (builtin_true(last))
-				in->status = 1;
-			else if (access(last->data[0], X_OK) != -1)
-			{
-				// fprintf(stderr, "%.20s\n", "-- exist but couldnt execute ------------------");
-				if (last->data[1] && access(last->data[1], X_OK) == -1)
-					in->status = 1;
-				else if (stat(last->data[0], &infos) != -1)
-				{
-					// fprintf(stderr, "%.20s\n", "-- IS_DIR ------------------");
-					if (S_ISDIR(infos.st_mode))
-						in->status = 126;
-				}
-				return ;
-			}
-			else if (access(last->data[0], X_OK) == -1)
-			{
-				// fprintf(stderr, "%.20s\n", "-- cmd doesnt exist ------------------");
-				in->status = 127;
-				return ;
-			}
-			return ;
-		}
-	}
-	else if (!WIFEXITED(e_stat))
-	{
-		// fprintf(stderr, "%.20s\n", "-- w/ signals ------------------");
-		// printf("exit status : {%d}\n", in->status);
-		if (in->status == 1)
-			return ;
-		in->status = 128 + g_sig;
-	}
-	return ;
+	set_status(in, e_stat);
 }
 
 void	*create_child(t_input *in, t_fd *fd)

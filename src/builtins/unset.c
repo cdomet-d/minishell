@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:00:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:16:40 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 18:41:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,29 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 	return (*sup);
 }
 
-t_env	**unset(t_env **env, char **key)
+int	unset(t_input	**in)
 {
 	t_env	*head;
 	size_t	i;
 
-	if (!env || !(*env) || !key)
-		return (env);
-	head = (*env);
+	fprintf(stderr, "%.20s\n", "-- unset ----------------------");
+	if (!in || !(*in) || !(*in)->env || ((*in)->data && !(*in)->data[1]))
+		return (1);
+	head = (*in)->env;
 	i = 1;
-	while ((*env) && key[i])
+	while ((*in)->env && (*in)->data[i])
 	{
-		if (key[i] && ft_strncmp((*env)->env, key[i], ft_strlen(key[i])) == 0)
+		if ((*in)->data[i] && ft_strncmp((*in)->env->env, (*in)->data[i], ft_strlen((*in)->data[i])) == 0)
 		{
-			head = env_rmone(env, &head);
-			(*env) = head;
+			head = env_rmone(&(*in)->env, &head);
+			(*in)->env = head;
 			i++;
 		}
-		if ((*env))
-			(*env) = (*env)->next;
+		if ((*in)->env)
+			(*in)->env = (*in)->env->next;
 		else
-			(*env) = head;
+			(*in)->env = head;
 	}
-	(*env) = head;
-	return (env);
-	//return value : 130: No such file or directory
+	(*in)->env = head;
+	return (0);
 }

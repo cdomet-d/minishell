@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 17:37:21 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 17:49:56 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 
 static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
 {
-	if (ft_strncmp(line, "exit", 5) == 0)
-	{
-		env_freelst(env);
-		print_error(0, "exit");
-		exit (EXIT_SUCCESS);
-	}
+	// if (ft_strncmp(line, "exit", 5) == 0)
+	// {
+	// 	env_freelst(env);
+	// 	print_error(0, "exit");
+	// 	exit(*status);
+	// }
 	add_history(line);
 	parsing(&input, env, line, status);
 	if (input)
@@ -57,15 +57,16 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		fatal_exit(NULL, EXIT_FAILURE, "minishell: too many arguments");
-	status = 0;
 	(void)argv;
+	status = 0;
 	init_all(&line, envp, &env, &input);
-	rl_event_hook = get_nonull;
-	signal(SIGINT, sighandler);
+	siglisten();
 	while (1)
 	{
 		sigend();
 		line = readline("Minishell > ");
+		if (!send_eof(line))
+			exit_no_input(&env, line, status);
 		if (line && g_sig != SIGINT)
 			env = process_line(line, input, &env, &status);
 		if (line)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:16:55 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 13:01:35 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	mh_exit(char *line, t_input *in)
 {
 	int	rv;
 
-	pmin(in, NULL);
-	if (in->data[1])
+	if (in && in->data[1])
 		rv = ft_atoi(in->data[1]);
 	else
 		rv = in->status;

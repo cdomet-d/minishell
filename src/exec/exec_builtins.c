@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:28:12 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 12:04:48 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*exec_builtin(t_input **in, t_fd *fd)
 {
 	t_input	*tmp;
 
-	// fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
+	fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
 	tmp = builtin_true(*in);
 	(void)fd;
 	if (tmp->tok == ms_cd)
@@ -29,13 +29,8 @@ void	*exec_builtin(t_input **in, t_fd *fd)
 		(*in)->status = env(tmp);
 	if (tmp->tok == ms_export)
 		(*in)->status = export(&tmp);
-	// TODO : make unset take in instead of env to see if it fixes the need to return env
 	if (tmp->tok == ms_unset)
-	{
-		tmp->env = *unset(&tmp->env, tmp->data);
-		if (!tmp->env)
-			return (NULL);
-	}
+		(*in)->status = unset(&tmp);
 	if ((*in)->status == 1)
 		return (NULL);
 	return ((int *)true);
