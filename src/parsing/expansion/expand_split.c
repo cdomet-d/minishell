@@ -93,7 +93,7 @@ static void	nb_word(char **tab, size_t *word)
 	}
 }
 
-char	**expand_split(char **data, t_env **env, int rv)
+char	**expand_split(char **data, t_env **env, int status)
 {
 	char	**newtab;
 	char	**temp;
@@ -102,7 +102,7 @@ char	**expand_split(char **data, t_env **env, int rv)
 	newtab = NULL;
 	temp = NULL;
 	word = 0;
-	temp = expand(data, env, rv);
+	temp = expand(data, env, status);
 	if (!temp)
 		return (NULL);
 	if (!check_ws(temp))

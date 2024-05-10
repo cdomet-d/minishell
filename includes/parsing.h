@@ -19,7 +19,7 @@
 /*----------------------------- PARSING -----------------------------*/
 
 /* parsing.c */
-void	parsing(t_input **input, t_env **env, char *line, int *rv);
+void	parsing(t_input **input, t_env **env, char *line, int *status);
 void	revert(t_input *node);
 
 /* rm_quotes.c */
@@ -60,17 +60,17 @@ char	**build_tab(char *line, size_t *i, size_t word);
 int		check_opt(t_input **input, char *line, size_t *i);
 
 /* expand_split.c */
-char	**expand_split(char **data, t_env **env, int rv);
+char	**expand_split(char **data, t_env **env, int status);
 
 /* expand.c */
-char	**expand(char **data, t_env **env, int rv);
-void	ft_copy(char *data, char *newtab, t_env **env, char *rv);
-size_t	nb_letter(char *data, t_env **env, char *rv);
+char	**expand(char **data, t_env **env, int status);
+void	ft_copy(char *data, char *newtab, t_env **env, char *status);
+size_t	nb_letter(char *data, t_env **env, char *status);
 
 /* expand_utils.c */
 int		search_dollar(char **data);
 char	*search_env(char *data, t_env **env);
-void	nb_letter_rv(size_t *letter, size_t *j, char *rv);
+void	nb_letter_status(size_t *letter, size_t *j, char *status);
 
 /* expand_split_utils.c */
 void	put_in_neg(char *data, char quote1, char quote2);
