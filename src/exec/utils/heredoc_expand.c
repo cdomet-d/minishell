@@ -32,6 +32,8 @@ int	heredoc_expand(char **line, t_input *in)
 	char	*temp;
 	size_t	letter;
 
+	str = NULL;
+	temp = NULL;
 	str = ft_itoa(in->status);
 	if (!str)
 		return (print_error(errno, NULL), 1);
