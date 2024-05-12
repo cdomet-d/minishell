@@ -14,7 +14,7 @@
 
 int	search_dollar_hd(char *line)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (line[i])
@@ -30,7 +30,7 @@ int	heredoc_expand(char **line, t_input *in)
 {
 	char	*str;
 	char	*temp;
-	int		letter;
+	size_t	letter;
 
 	str = ft_itoa(in->status);
 	if (!str)
