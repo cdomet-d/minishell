@@ -27,7 +27,7 @@ char	*make_path(char *tab, char *path, char **temp)
 
 int	rm_dots(char **path, char **temp, char *tab, char *var)
 {
-	int		len;
+	size_t	len;
 
 	if (check_directory(var, *path))
 		return (free(*temp), free(*path), 1);
@@ -44,9 +44,9 @@ int	rm_dots(char **path, char **temp, char *tab, char *var)
 	return (0);
 }
 
-char	*canonical_form(char *var, char *path, char **tab, int j)
+char	*canonical_form(char *var, char *path, char **tab, ssize_t j)
 {
-	int		i;
+	ssize_t	i;
 	char	*temp;
 
 	i = -1;
