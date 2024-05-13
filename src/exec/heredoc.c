@@ -73,8 +73,7 @@ static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 	if (fd->hfd == -1)
 		return (print_error(errno, "minishell: heredoc: "));
 	if (!h_gnl(fd->hfd, tmp))
-		return (free (filename), close(fd->hfd), print_error(errno, \
-			"minishell: heredoc: "));
+		return (free (filename), close(fd->hfd), NULL);
 	free(filename);
 	if (close(fd->hfd) == -1)
 		return (print_error(errno, "minishell: heredoc: "));

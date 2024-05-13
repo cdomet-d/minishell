@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:16:31 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 16:54:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ int	export(t_input **in)
 			return (1);
 	while ((*in)->data[++i])
 	{
-		if (check_arg((*in)->data[i]) == 1)
-			return (1);
-		if (!(*in)->status)
+		if (!check_arg((*in)->data[i]))
 		{
 			rv = change_var(in, (*in)->data[i]);
 			if (rv == -1)
@@ -82,8 +80,10 @@ int	export(t_input **in)
 			(*in)->env = head;
 			if (!rv)
 				if (!exprt_inenv(&(*in)->env, (*in)->data[i]))
-					return (1);
+					return (0);
 		}
+		else
+			return (1);
 	}
 	return (0);
 }

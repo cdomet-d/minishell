@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 15:45:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 16:58:57 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	*pip_redir(t_input *tmp, t_fd *fd);
 /* exec_builtins.c */
 void	*exec_builtin(t_input **in, t_fd *fd);
 void	*redir_builtins(t_fd *fd, t_input *tmp);
-void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp);
+void	*handle_bt_nopipe(t_fd *fd, t_input *tmp);
 
 /* heredoc.c */
 void	*create_hdocs(t_fd *fd, t_input *in);

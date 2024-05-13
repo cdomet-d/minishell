@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 15:46:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 18:01:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 			return (NULL);
 	if (builtin_true(tmp))
 		if (!exec_builtin(&tmp, fd))
+		{
+			in->status = tmp->status;
 			return (NULL);
+		}
 	return (NULL);
 }
 
@@ -75,13 +78,16 @@ void	*exec_cmd(t_input *in)
 	while (tmp)
 	{
 		if (fd.pid != 0 && !count_pipes(in) && builtin_true(tmp))
-			handle_bt_nopipe(&fd, in, tmp);
+			handle_bt_nopipe(&fd, tmp);
 		if (fd.pid != 0)
 			if (!create_child(tmp, &fd))
 				return (print_error(errno, "exec_cmd (create_child)"));
 		if (tmp && fd.pid == 0)
 			if (!redir_cmd(tmp, &fd))
+			{
+				in->status = tmp->status;
 				killchild(&fd, in);
+			}
 		if (fd.pnb != 0)
 			save_pipin(&fd);
 		tmp = find_next_pipe(tmp, &fd);
