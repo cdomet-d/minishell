@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:58:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/08 17:20:02 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 16:25:55 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*init_path(t_input *in)
 	char	*path;
 	char	*temp;
 	char	*str;
-	
+
 	path = NULL;
 	temp = NULL;
 	str = NULL;
