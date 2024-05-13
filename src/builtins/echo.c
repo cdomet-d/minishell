@@ -14,7 +14,7 @@
 
 int	cmp_opt(char *arg)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (arg[0] != '-')
@@ -31,7 +31,7 @@ int	cmp_opt(char *arg)
 
 int	echo(char **data)
 {
-	int		i;
+	size_t	i;
 	bool	opt;
 
 	i = 1;

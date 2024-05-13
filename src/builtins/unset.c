@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 17:00:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/10 18:41:59 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/05/13 18:05:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "exec.h"
 
@@ -17,7 +18,7 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 	t_env	*tmp;
 
 	if (!(*sup))
-		return (print_error(errno, "minishell: invalid data in env_rmone"));
+		return (print_error(errno, "minishell: exec"));
 	tmp = (*sup);
 	if (!tmp->prev)
 	{

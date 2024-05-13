@@ -14,7 +14,7 @@
 
 int	check_arg(char *var)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (var[0] != '_' && !ft_isalpha(var[0]))
@@ -61,7 +61,7 @@ int	change_var(t_input **in, char *var)
 
 int	export(t_input **in)
 {
-	int		i;
+	size_t	i;
 	int		rv;
 	t_env	*head;
 

@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:38:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 19:16:13 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:41:08 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_directory(char *var, char *path)
 		}
 		if (errno == ENAMETOOLONG)
 			return (0);
-		return (print_error(errno, "stat "), 1);
+		return (print_error(errno, "minishell: exec"), 1);
 	}
 	if (S_ISDIR(buf.st_mode))
 		return (0);
@@ -56,10 +56,9 @@ int	change_pwds(t_env **env, char *path, char *var)
 				return (1);
 			free(node->env);
 			node->env = ft_strjoin(key, path);
+			free(key);
 			if (!node->env)
 				return (1);
-			free(key);
-			node->env = node->env;
 			return (0);
 		}
 		node = node->next;
@@ -90,7 +89,7 @@ int	pwds(t_input *in, char *path)
 		if (!temp)
 			return (1);
 		if (!exprt_inenv(&(in)->env, temp))
-			return (1);
+			return (free(temp), 1);
 		free(temp);
 	}
 	return (0);
@@ -106,7 +105,7 @@ char	*check_len(char	*path, t_env *env)
 	if (ft_strlen(path) > PATH_MAX)
 	{
 		pwd = find_var_env(env, "PWD=");
-		if (!pwd)
+		if (!pwd || !pwd[0])
 			return (path);
 		while (pwd[i] && path[i] && pwd[i] == path[i])
 			i++;
@@ -117,7 +116,7 @@ char	*check_len(char	*path, t_env *env)
 			if (errno == ENOENT)
 				return (path);
 			else
-				return (print_error(errno, "stat "));
+				return (print_error(errno, "minishell: exec"));
 		}
 		else if (S_ISDIR(buf.st_mode))
 			return (path + (i + 1));

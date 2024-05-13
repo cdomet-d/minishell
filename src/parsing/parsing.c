@@ -33,7 +33,7 @@ void	revert(t_input *node)
 	}
 }
 
-static int	search_expand(t_input *node, t_env **env, int rv)
+static int	search_expand(t_input *node, t_env **env, int status)
 {
 	char		**newtab;
 	ssize_t		i;
@@ -46,7 +46,7 @@ static int	search_expand(t_input *node, t_env **env, int rv)
 		put_in_neg(node->data[i], '"', '\'');
 	if (search_dollar(node->data))
 	{
-		newtab = expand_split(node->data, env, rv);
+		newtab = expand_split(node->data, env, status);
 		if (!newtab)
 			return (1);
 		if (!newtab[0])
@@ -106,21 +106,19 @@ static int	check_delim(t_input *node)
 	return (1);
 }
 
-void	parsing(t_input **input, t_env **env, char *line, int *rv)
+void	parsing(t_input **input, t_env **env, char *line, int *status)
 {
 	t_input	*node;
 	int		delim;
 
-	if (tokenization(input, env, line, rv))
+	if (tokenization(input, env, line, status))
 		return ;
 	node = *input;
 	while (node)
 	{
 		if (node->tok != heredoc)
-		{
-			if (search_expand(node, env, *rv))
+			if (search_expand(node, env, *status))
 				return (input_freelst(input));
-		}
 		delim = check_delim(node);
 		if (search_quotes(node))
 			return (input_freelst(input));

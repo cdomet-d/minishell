@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:42:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/03 18:22:55 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:21:56 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	check_quote(char *line)
 
 	i = 0;
 	quote = 0;
+	quotetype = 0;
 	while (line[i])
 	{
 		if (line[i] == '"' || line[i] == '\'')
@@ -49,10 +50,9 @@ static void	syntax_error(char *line, size_t *i)
 		ft_putchar_fd(line[*i], STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 	}
-	errno = 2;
 }
 
-char	**get_data(t_input **input, char *line, size_t *i)
+char	**get_data(t_input **input, char *line, size_t *i, int *rv)
 {
 	char	**data;
 
@@ -70,6 +70,7 @@ char	**get_data(t_input **input, char *line, size_t *i)
 	{
 		input_freelst(input);
 		syntax_error(line, i);
+		*rv = 2;
 	}
 	return (data);
 }

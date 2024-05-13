@@ -16,7 +16,9 @@ int	tok_inredir(t_input **input, t_env **env, char *line, size_t *i)
 {
 	char	**data;
 	int		tok;
+	int		rv;
 
+	rv = 1;
 	data = NULL;
 	if (line[*i + 1] == '<')
 	{
@@ -26,9 +28,9 @@ int	tok_inredir(t_input **input, t_env **env, char *line, size_t *i)
 	else
 		tok = inredir;
 	*i += 1;
-	data = get_data(input, line, i);
+	data = get_data(input, line, i, &rv);
 	if (!data)
-		return (1);
+		return (rv);
 	if (create_input(input, env, data, tok))
 		return (1);
 	if (check_opt(input, line, i))
@@ -40,7 +42,9 @@ int	tok_outredir(t_input **input, t_env **env, char *line, size_t *i)
 {
 	char	**data;
 	int		tok;
+	int		rv;
 
+	rv = 1;
 	data = NULL;
 	if (line[*i + 1] == '>')
 	{
@@ -50,9 +54,9 @@ int	tok_outredir(t_input **input, t_env **env, char *line, size_t *i)
 	else
 		tok = outredir;
 	*i += 1;
-	data = get_data(input, line, i);
+	data = get_data(input, line, i, &rv);
 	if (!data)
-		return (1);
+		return (rv);
 	if (create_input(input, env, data, tok))
 		return (1);
 	if (check_opt(input, line, i))
@@ -89,8 +93,7 @@ int	tok_pipe(t_input **input, t_env **env, char *line, size_t *i)
 	{
 		input_freelst(input);
 		print_error(0, "minishell : syntax error near unexpected token '|'");
-		errno = 2;
-		return (1);
+		return (2);
 	}
 	if (create_input(input, env, NULL, pip))
 		return (1);

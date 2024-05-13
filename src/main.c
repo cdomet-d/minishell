@@ -6,11 +6,10 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 12:12:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 18:04:34 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "parsing.h"
 
 int	g_sig;
@@ -23,28 +22,25 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 	create_env(input, envp, env);
 }
 
-static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
+static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
 {
-	// if (ft_strncmp(line, "exit", 5) == 0)
-	// {
-	// 	env_freelst(env);
-	// 	print_error(0, "exit");
-	// 	exit(*status);
-	// }
 	add_history(line);
-	parsing(&input, env, line, status);
-	if (input)
+	parsing(&in, env, line, stat);
+	if (in)
 	{
-		input->status = *status;
-		if (input->tok == ms_exit)
-			mh_exit(line, input);
-		exec_cmd(input);
-		*env = input->env;
-		*status = input->status;
+		in->status = *stat;
+		if (in->tok == ms_exit)
+			mh_exit(line, in);
+		exec_cmd(in);
+		*env = in->env;
+		*stat = in->status;
 	}
 	else
-		*status = errno;
-	input_freelst(&input);
+	{
+		if (*stat != 2)
+			*stat = errno;
+	}
+	input_freelst(&in);
 	return (*env);
 }
 
