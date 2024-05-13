@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 17:02:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:13:19 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,25 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 	create_env(input, envp, env);
 }
 
-static t_env	*process_line(char *line, t_input *input, t_env **env, \
-int *status)
+static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
 {
 	add_history(line);
-	parsing(&input, env, line, status);
-	if (input)
+	parsing(&in, env, line, stat);
+	if (in)
 	{
-		input->status = *status;
-		if (input->tok == ms_exit)
-			mh_exit(line, input);
-		exec_cmd(input);
-		*env = input->env;
-		*status = input->status;
+		in->status = *stat;
+		if (in->tok == ms_exit)
+			mh_exit(line, in);
+		exec_cmd(in);
+		*env = in->env;
+		*stat = in->status;
 	}
 	else
 	{
-		if (*status != 2)
-			*status = errno;
+		if (*stat != 2)
+			*stat = errno;
 	}
-	input_freelst(&input);
+	input_freelst(&in);
 	return (*env);
 }
 
