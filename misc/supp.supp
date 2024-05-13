@@ -6,27 +6,8 @@
 }
 
 {
-   ls
-   Memcheck:Leak
-   fun:malloc
-   obj:/usr/bin/ls
-   ...
-}
-
-{
-   grep
-   Memcheck:Leak
-   match-leak-kinds: all
-   fun:malloc
-   obj:/usr/bin/grep
-   ...
-}
-
-{
-   ls
-   Memcheck:Leak
-   fun:malloc
-   fun:calloc
-   obj:/usr/bin/ls
-   ...
+	leaks bash
+	Memcheck:Leak
+	...
+	obj:*/usr/bin*
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:28:12 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 17:59:40 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,8 @@ void	*exec_builtin(t_input **in, t_fd *fd)
 		(*in)->status = env(tmp);
 	if (tmp->tok == ms_export)
 		(*in)->status = export(&tmp);
-	// TODO : make unset take in instead of env to see if it fixes the need to return env
 	if (tmp->tok == ms_unset)
-	{
-		tmp->env = *unset(&tmp->env, tmp->data);
-		if (!tmp->env)
-			return (NULL);
-	}
+		(*in)->status = unset(&tmp);
 	if ((*in)->status == 1)
 		return (NULL);
 	return ((int *)true);
@@ -59,13 +54,11 @@ void	*redir_builtins(t_fd *fd, t_input *tmp)
 	return ((int *)true);
 }
 
-void	*handle_bt_nopipe(t_fd *fd, t_input	*in, t_input *tmp)
+void	*handle_bt_nopipe(t_fd *fd, t_input *tmp)
 {
 	int		tmpstdin;
 	int		tmpstdout;
 
-	(void)in;
-	// fprintf(stderr, "%.20s\n", "-- handle_bt --------------");
 	tmpstdin = dup(STDIN_FILENO);
 	tmpstdout = dup(STDOUT_FILENO);
 	if (!redir_builtins(fd, tmp))

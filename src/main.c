@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 17:13:19 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:04:34 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "parsing.h"
 
 int	g_sig;
@@ -54,19 +53,20 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		fatal_exit(NULL, EXIT_FAILURE, "minishell: too many arguments");
-	status = 0;
 	(void)argv;
+	status = 0;
 	init_all(&line, envp, &env, &input);
-	rl_event_hook = get_nonull;
-	signal(SIGINT, sighandler);
+	siglisten();
 	while (1)
 	{
 		sigend();
 		line = readline("Minishell > ");
+		if (!send_eof(line))
+			exit_no_input(&env, line, status);
 		if (line && g_sig != SIGINT)
 			env = process_line(line, input, &env, &status);
 		if (line)
 			free(line);
 	}
-	return (127);
+	exit (status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sighandler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:30:19 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/10 19:14:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,31 @@ int	get_nonull(void)
 	return (1);
 }
 
-void	sighandler(int sig)
+static void	sighandler(int sig)
 {
-	// TODO : add SIGKILL and ctrl + D
 	if (sig == SIGINT)
 	{
 		g_sig = sig;
 		rl_done = g_sig;
 		return ;
 	}
-	else
-		printf("signal received : %d\n", sig);
 }
 
 void	sigend(void)
 {
 	g_sig = -1;
+}
+
+void	siglisten(void)
+{
+	rl_event_hook = get_nonull;
+	signal(SIGINT, sighandler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+char	*send_eof(char *line)
+{
+	if (!line)
+		return (NULL);
+	return (line);
 }

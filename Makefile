@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/02 15:42:01 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/13 13:12:03 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,6 +100,7 @@ SRC_EXEC:=		exec.c \
 SRC +=  $(addprefix $(DIR_SIGNAL), $(SRC_SIGNAL))
 DIR_SIGNAL:= signals/
 SRC_SIGNAL:=		sighandler.c \
+					sig_set_stat.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
@@ -168,8 +169,9 @@ fclean: clean
 	
 re: fclean all
 
-V_PARAMS:= valgrind --log-file="mini_log" --trace-children=yes --track-fds=yes --leak-check=full --suppressions=misc/supp.supp --show-leak-kinds=all -s
-
+M_SUP:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/misc/supp.supp
+LOG:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/
+V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
 	$(V_PARAMS) ./$(NAME)
 

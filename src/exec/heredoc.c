@@ -18,10 +18,10 @@ static int	in_line(t_input *in, char *line, int fd)
 			if (heredoc_expand(&line, in))
 				return (1);
 	if (write(fd, line, ft_strlen(line)) == -1)
-		return (print_error(errno, "heredoc (write))"), 1);
+		return (print_error(errno, "minishell: heredoc: "), 1);
 	free(line);
 	if (write(fd, "\n", 1) == -1)
-		return (print_error(errno, "heredoc (write))"), 1);
+		return (print_error(errno, "minishell: heredoc: "), 1);
 	return (0);
 }
 
@@ -30,14 +30,11 @@ static void	*h_gnl(int fd, t_input *in)
 	char	*line;
 	char	*tmpdel;
 
-	// fprintf(stderr, "%.20s\n", "-- h_gnl -----------------------------");
 	rl_event_hook = get_nonull;
 	line = NULL;
-	tmpdel = ft_strdup(in->data[0]);
+	tmpdel = get_delim(in);
 	if (!tmpdel)
-		return (print_error(errno, NULL));
-	if (in->data[0][0] < 0)
-		tmpdel[0] *= -1;
+		return (NULL);
 	while (1)
 	{
 		if (line)
@@ -46,17 +43,13 @@ static void	*h_gnl(int fd, t_input *in)
 		sigend();
 		line = readline(" > ");
 		if (!line)
-			return (print_error(errno, "heredoc (GNL)"));
-		if (ft_strncmp(line, tmpdel, (ft_strlen(in->data[0]))) == 0 || g_sig == SIGINT)
-		{
-			rl_event_hook = NULL;
+			return (free(tmpdel), free(line), print_error(0, "minishell: \
+				warning: expected delimiter"));
+		if (exit_loop(line, tmpdel, in))
 			break ;
-		}
 	}
-	free(tmpdel);
-	free(line);
 	in->data[0][0] *= -1;
-	return ((int *) true);
+	return (free(tmpdel), free(line), (int *) true);
 }
 
 static char	*gen_filename(int fn)
@@ -66,25 +59,24 @@ static char	*gen_filename(int fn)
 
 	strfn = ft_itoa(fn);
 	if (!strfn)
-		return (print_error(errno, "gen_filename (itoa fn)"));
+		return (print_error(errno, "minishell: heredoc: "));
 	filename = ft_strjoin("/tmp/tmp_", strfn);
 	if (!filename)
-		return (print_error(errno, "gen_filename (strjoin filename)"));
+		return (print_error(errno, "minishell: heredoc: )"));
 	free(strfn);
 	return (filename);
 }
 
 static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 {
-	// fprintf(stderr, "%.20s\n", "-- create_hfile --------------------------");
-	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0777);
+	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd->hfd == -1)
-		return (print_error(errno, "create_hfile (opening tmp)"));
+		return (print_error(errno, "minishell: heredoc: "));
 	if (!h_gnl(fd->hfd, tmp))
-		return (print_error(errno, "create_hfile (h_gnl)"));
-	if (close(fd->hfd) == -1)
-		return (print_error(errno, "create_hfile (closing hfd)"));
+		return (free (filename), close(fd->hfd), NULL);
 	free(filename);
+	if (close(fd->hfd) == -1)
+		return (print_error(errno, "minishell: heredoc: "));
 	return ((int *) true);
 }
 
@@ -93,18 +85,18 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	t_input	*tmp;
 	int		fn;
 
-	// fprintf(stderr, "%.20s\n", "-- create_hdocs -----------------------------");
 	fn = 0;
 	tmp = find_here(in, false);
 	while (op_true(tmp, heredoc))
 	{
-		// fprintf(stderr, "%.20s\n", "-- in loop -----------------------------");
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
-			return (print_error(errno, "prep h_file (creating a file)"));
+			return (NULL);
 		free(tmp->data[0]);
+		in->status = tmp->status;
 		tmp->data[0] = gen_filename(fn);
 		tmp = find_here(tmp, true);
 		fn++;
 	}
+	set_status(in, 0);
 	return ((int *) true);
 }
