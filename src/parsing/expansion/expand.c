@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 18:27:48 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:31:36 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,18 +116,18 @@ char	**expand(char **data, t_env **env, int status)
 
 	str = ft_itoa(status);
 	if (!str)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "minishell: parsing"));
 	word = ft_arrlen(data);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (free(str), print_error(errno, NULL));
+		return (free(str), print_error(errno, "minishell: parsing"));
 	word = 0;
 	while (data[word])
 	{
 		letter = nb_letter(data[word], env, str);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
-			return (free(str), free_dtab(newtab), print_error(errno, NULL));
+			return (free(str), free_dtab(newtab), print_error(errno, "minishell: parsing"));
 		ft_copy(data[word], newtab[word], env, str);
 		word++;
 	}

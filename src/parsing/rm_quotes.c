@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 19:34:42 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:29:21 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*rm_quotes(char *str)
 	len = len_str(str);
 	new = ft_calloc(sizeof(char), len + 1);
 	if (!new)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "minishell: parsing"));
 	fill_str(new, str);
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:40:32 by csweetin          #+#    #+#             */
-/*   Updated: 2024/03/27 18:49:31 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:31:00 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**build_tab(char *line, size_t *i, size_t word)
 	letter = 0;
 	tab = ft_calloc(sizeof(char *), word + 1);
 	if (!tab)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "minishell: parsing"));
 	j = word;
 	word = 0;
 	while (j-- > 0)
@@ -111,7 +111,7 @@ char	**build_tab(char *line, size_t *i, size_t word)
 		letter = count_letter(line, *i);
 		tab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!tab[word])
-			return (free_dtab(tab), print_error(errno, NULL));
+			return (free_dtab(tab), print_error(errno, "minishell: parsing"));
 		fill_tab(line, i, tab, &word);
 		word++;
 	}

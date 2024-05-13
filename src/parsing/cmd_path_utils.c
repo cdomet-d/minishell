@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:40:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 17:42:13 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:30:24 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_path(char **path)
 		{
 			free(*path);
 			*path = NULL;
-			return (print_error(errno, NULL), 1);
+			return (print_error(errno, "minishell: parsing"), 1);
 		}
 		if (S_ISDIR(buf.st_mode))
 			return (0);

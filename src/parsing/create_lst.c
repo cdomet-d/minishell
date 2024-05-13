@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/06 17:43:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 16:29:35 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	create_input(t_input **input, t_env **env, char **data, int tok)
 	new = input_newnode(data, tok, *env);
 	if (!new)
 	{
-		print_error(errno, NULL);
+		print_error(errno, "minishell: parsing");
 		free_dtab(data);
 		input_freelst(input);
 		return (1);

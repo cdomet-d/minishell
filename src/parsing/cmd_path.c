@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/23 17:42:16 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:30:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*find_path(char *cmd, char *env)
 		size = letter + ft_strlen(cmd);
 		path = ft_calloc(sizeof(char), size + 2);
 		if (!path)
-			return (print_error(errno, NULL));
+			return (print_error(errno, "minishell: parsing"));
 		ft_strlcpy(path, env + (i - letter), letter + 1);
 		path[letter++] = '/';
 		ft_strlcpy(path + letter, cmd, ft_strlen(cmd) + 1);
