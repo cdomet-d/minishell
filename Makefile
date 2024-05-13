@@ -169,8 +169,8 @@ fclean: clean
 	
 re: fclean all
 
-M_SUP:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/misc/supp.supp
-LOG:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/
+M_SUP:=/home/charlotte242/Documents/minishell/misc/supp.supp
+LOG:=/home/charlotte242/Documents/minishell
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
 	$(V_PARAMS) ./$(NAME)
