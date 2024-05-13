@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:38:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 19:16:13 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:41:08 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_directory(char *var, char *path)
 		}
 		if (errno == ENAMETOOLONG)
 			return (0);
-		return (print_error(errno, "stat "), 1);
+		return (print_error(errno, "minishell: exec"), 1);
 	}
 	if (S_ISDIR(buf.st_mode))
 		return (0);
@@ -116,7 +116,7 @@ char	*check_len(char	*path, t_env *env)
 			if (errno == ENOENT)
 				return (path);
 			else
-				return (print_error(errno, "stat "));
+				return (print_error(errno, "minishell: exec"));
 		}
 		else if (S_ISDIR(buf.st_mode))
 			return (path + (i + 1));

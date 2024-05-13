@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:26:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:26:05 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:41:47 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ char	*make_path(char *tab, char *path, char **temp)
 	*temp = NULL;
 	*temp = ft_strdup(path);
 	if (!*temp)
-		return (free(path), print_error(errno, NULL));
+		return (free(path), print_error(errno, "minishell: exec"));
 	tmp = ft_strjoin(path, tab);
 	free(path);
 	if (!tmp)
-		return (free(*temp), print_error(errno, NULL));
+		return (free(*temp), print_error(errno, "minishell: exec"));
 	path = tmp;
 	tmp = ft_strjoin(path, "/");
 	free(path);
 	if (!tmp)
-		return (free(*temp), print_error(errno, NULL));
+		return (free(*temp), print_error(errno, "minishell: exec"));
 	path = tmp;
 	return (path);
 }
@@ -93,13 +93,13 @@ char	*prep_path(char *var, char *path)
 	free(path);
 	path = NULL;
 	if (!tab)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "minishell: exec"));
 	temp = ft_strdup("/");
 	if (!temp)
-		return (free_dtab(tab), print_error(errno, NULL));
+		return (free_dtab(tab), print_error(errno, "minishell: exec"));
 	path = canonical_form(var, temp, tab, 1);
 	free_dtab(tab);
 	if (!path)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "minishell: exec"));
 	return (path);
 }
