@@ -36,6 +36,8 @@ void	create_env(t_input **input, char **envp, t_env **env)
 
 	i = 0;
 	new = NULL;
+	if (!envp || !*envp)
+		return ;
 	while (envp[i])
 	{
 		new = env_newnode(envp[i]);
