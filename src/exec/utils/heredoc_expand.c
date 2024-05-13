@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:48:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 17:48:23 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 19:29:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ int	heredoc_expand(char **line, t_input *in)
 	if (!temp)
 		return (free(str), print_error(errno, NULL), 1);
 	ft_copy(*line, temp, &(in)->env, str);
-	free(*line);
-	*line = temp;
 	letter = 0;
+	// dprintf(2, "temp: %s\n", temp);
+	// dprintf(2, "line 1: %s\n", *line);
 	while (temp[letter])
 	{
 		if (temp[letter] < 0)
-			*line[letter] = temp[letter] * -1;
+			temp[letter] *= -1;
 		letter++;
 	}
+	free(*line);
+	*line = temp;
+	// dprintf(2, "line 2: %s\n", *line);
 	free(str);
 	return (0);
 }
