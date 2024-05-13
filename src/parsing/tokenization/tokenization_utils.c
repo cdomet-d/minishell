@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:42:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/03 18:22:55 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:21:56 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	check_quote(char *line)
 
 	i = 0;
 	quote = 0;
+	quotetype = 0;
 	while (line[i])
 	{
 		if (line[i] == '"' || line[i] == '\'')

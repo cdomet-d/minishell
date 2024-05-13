@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 17:15:30 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:21:18 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	ft_copy_env(char *data, char *newtab, t_env **env, size_t *j)
 	char	*str;
 
 	i = 0;
+	str = NULL;
 	str = search_env(data, env);
 	if (str)
 	{

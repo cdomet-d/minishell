@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:22:42 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:29:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:18:33 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*rm_quotes(char *str)
 	char		*new;
 	size_t		len;
 
+	new = NULL;
 	put_in_neg(str, '\'', '"');
 	len = len_str(str);
 	new = ft_calloc(sizeof(char), len + 1);

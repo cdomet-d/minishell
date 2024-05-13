@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:40:32 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:31:00 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:22:10 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	count_word(char *line, size_t i, size_t *word)
 {
 	char	quotetype;
 
+	quotetype = 0;
 	while (line[i] && line[i] != '>' && line[i] != '<' && line[i] != '|')
 	{
 		if (line[i] == ' ' || (line[i] >= '\t' && line[i] <= '\r'))
@@ -44,6 +45,7 @@ static size_t	count_letter(char *line, size_t letter)
 	size_t	temp;
 	char	quotetype;
 
+	quotetype = 0;
 	temp = letter;
 	while (line[letter] && line[letter] != ' ' && line[letter] != '>'
 		&& line[letter] != '<' && line[letter] != '|')
