@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/10 12:04:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 11:35:41 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*exec_builtin(t_input **in, t_fd *fd)
 {
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
+	// fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
 	tmp = builtin_true(*in);
 	(void)fd;
 	if (tmp->tok == ms_cd)

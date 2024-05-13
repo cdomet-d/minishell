@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/10 18:36:06 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 15:45:16 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ void	reset_stds(int tmpstdin, int tmpstdout);
 bool	here_true(t_input *in);
 t_input	*find_here(t_input	*in, bool next);
 char	*get_delim(t_input *in);
+bool	exit_loop(char *line, char *tmpdel, t_input	*in);
 
 /* operators_utils.c */
 bool	op_true(t_input *in, t_tok op);
 size_t	count_pipes(t_input *in);
 t_input	*find_next_pipe(t_input	*in, t_fd *fd);
 t_input	*find_tok(t_input	*in, t_tok op, bool next);
+t_input	*find_prev_tok(t_input	*in, t_tok op);
 
 /* redirection_utils.c */
 bool	is_first(t_input *in);
@@ -104,9 +106,7 @@ char	*send_eof(char *line);
 int		get_nonull(void);
 void	sigend(void);
 void	siglisten(void);
-
 void	set_status(t_input *in, int e_stat);
-
 
 /*----------------------------------------------------------------------------*/
 

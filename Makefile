@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/10 18:36:27 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/13 13:12:03 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -173,7 +173,7 @@ M_SUP:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/misc/supp.supp
 LOG:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
-	$(V_PARAMS) ./$(NAME) 2> $(LOG)mini_log
+	$(V_PARAMS) ./$(NAME)
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 

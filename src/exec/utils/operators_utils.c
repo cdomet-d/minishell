@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/07 13:58:58 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 15:47:12 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,20 @@ t_input	*find_next_pipe(t_input	*in, t_fd *fd)
 		tmp = tmp->next;
 	tmp = tmp->next;
 	return (tmp);
+}
+
+t_input	*find_prev_tok(t_input	*in, t_tok op)
+{
+	t_input	*tmp;
+
+	tmp = in;
+	if (!tmp)
+		return (NULL);
+	while (tmp && tmp->tok != pip)
+	{
+		if (tmp->tok == op)
+			return (tmp);
+		tmp = tmp->prev;
+	}
+	return (NULL);
 }
