@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 17:37:21 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 17:02:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,9 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 	create_env(input, envp, env);
 }
 
-static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
+static t_env	*process_line(char *line, t_input *input, t_env **env, \
+int *status)
 {
-	if (ft_strncmp(line, "exit", 5) == 0)
-	{
-		env_freelst(env);
-		print_error(0, "exit");
-		exit(EXIT_SUCCESS);
-	}
 	add_history(line);
 	parsing(&input, env, line, status);
 	if (input)
