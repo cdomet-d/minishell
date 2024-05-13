@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/24 17:16:59 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:33:09 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static char	**split_tab(char **data, char **newtab)
 			letter = nb_letter_str(data[i], &j, 0);
 			newtab[word] = ft_calloc(sizeof(char), letter + 1);
 			if (!newtab[word])
-				return (free_dtab(newtab), print_error(errno, NULL));
+				return (free_dtab(newtab), \
+				print_error(errno, print_error(errno, "minishell: parsing")));
 			ft_strlcpy(newtab[word], data[i] + (j - letter), letter + 1);
 			word += 1;
 			if (data[i][j])
@@ -93,7 +94,7 @@ static void	nb_word(char **tab, size_t *word)
 	}
 }
 
-char	**expand_split(char **data, t_env **env, int rv)
+char	**expand_split(char **data, t_env **env, int status)
 {
 	char	**newtab;
 	char	**temp;
@@ -102,7 +103,7 @@ char	**expand_split(char **data, t_env **env, int rv)
 	newtab = NULL;
 	temp = NULL;
 	word = 0;
-	temp = expand(data, env, rv);
+	temp = expand(data, env, status);
 	if (!temp)
 		return (NULL);
 	if (!check_ws(temp))
@@ -110,7 +111,7 @@ char	**expand_split(char **data, t_env **env, int rv)
 	nb_word(temp, &word);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (free_dtab(temp), print_error(errno, NULL));
+		return (free_dtab(temp), print_error(errno, "minishell: parsing"));
 	newtab = split_tab(temp, newtab);
 	if (!newtab)
 		return (free_dtab(temp), NULL);

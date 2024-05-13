@@ -18,44 +18,38 @@ static int	loop_content(t_input **input, t_env **env, char *line, size_t *i)
 			|| line[*i] == ' '))
 		*i += 1;
 	if (line[*i] && line[*i] == '<')
-	{
-		if (tok_inredir(input, env, line, i))
-			return (1);
-	}
+		return (tok_inredir(input, env, line, i));
 	else if (line[*i] && line[*i] == '>')
-	{
-		if (tok_outredir(input, env, line, i))
-			return (1);
-	}
+		return (tok_outredir(input, env, line, i));
 	else if (line[*i] && line[*i] == '|')
-	{
-		if (tok_pipe(input, env, line, i))
-			return (1);
-	}
+		return (tok_pipe(input, env, line, i));
 	else if (line[*i])
-	{
-		if (tok_command(input, env, line, i))
-			return (1);
-	}
+		return (tok_command(input, env, line, i));
 	return (0);
 }
 
-int	tokenization(t_input **input, t_env **env, char *line, int *rv)
+int	tokenization(t_input **input, t_env **env, char *line, int *status)
 {
 	size_t	i;
+	int		rv;
 
-	(void)rv;
 	i = 0;
+	rv = 0;
 	if (check_quote(line))
 	{
 		print_error(0, "minishell : syntax error missing quote");
-		/**rv*/errno = 2;
+		*status = 2;
 		return (1);
 	}
 	while (line[i])
 	{
-		if (loop_content(input, env, line, &i))
+		rv = loop_content(input, env, line, &i);
+		if (rv != 0)
+		{
+			if (rv == 2)
+				*status = 2;
 			return (1);
+		}
 	}
 	return (0);
 }

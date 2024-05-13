@@ -18,8 +18,9 @@ int	pwd(t_env *env)
 
 	str = NULL;
 	str = find_var_env(env, "PWD=");
-	if (!str)
+	if (!str || !str[0])
 	{
+		str = NULL;
 		str = getcwd(str, 0);
 		if (!str)
 			return (1);

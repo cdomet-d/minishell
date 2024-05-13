@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:09:30 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/09 16:25:28 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:31:16 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	fill_tab_join(char **tab, char **newtab, size_t *word)
 		letter = ft_strlen(tab[i]);
 		newtab[*word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[*word])
-			return (print_error(errno, NULL), 1);
+			return (print_error(errno, "minishell: parsing"), 1);
 		letter = 0;
 		while (tab[i][letter])
 		{
@@ -56,7 +56,7 @@ static char	**tab_join(char **s1, char **s2)
 	word = tab_len(s1) + tab_len(s2);
 	tab = ft_calloc(sizeof(char *), (word + 1));
 	if (!tab)
-		return (free_dtab(s2), print_error(errno, NULL));
+		return (free_dtab(s2), print_error(errno, "minishell: parsing"));
 	word = 0;
 	if (fill_tab_join(s1, tab, &word))
 		return (free_dtab(tab), free_dtab(s2), NULL);

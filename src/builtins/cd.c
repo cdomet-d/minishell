@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:58:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/08 17:20:02 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 16:40:41 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ char	*init_path(t_input *in)
 	char	*path;
 	char	*temp;
 	char	*str;
-	
+
+	path = NULL;
+	temp = NULL;
+	str = NULL;
 	str = find_var_env(in->env, "PWD=");
-	if (!str)
+	if (!str || !str[0])
 	{
+		str = NULL;
 		str = getcwd(str, 0);
 		if (!str)
-			return (print_error(errno, NULL));
+			return (NULL);
 		temp = ft_strjoin(str, "/");
 		free(str);
 	}
@@ -45,7 +49,7 @@ char	*cd_path(t_input *in)
 	else
 		path = init_path(in);
 	if (!path)
-		return (print_error(errno, NULL), NULL);
+		return (print_error(errno, "minishell: exec"));
 	path = prep_path(in->data[1], path);
 	if (!path)
 		return (NULL);
@@ -58,18 +62,22 @@ int	special_cases(t_input *in, char **path)
 {
 	if (!in->data[1])
 	{
-		*path = ft_strdup(find_var_env(in->env, "HOME="));
-		if (!*path)
+		*path = find_var_env(in->env, "HOME=");
+		if (!*path || !*path[0])
 			return (ft_putendl_fd("minishell: cd: HOME not set", 2), -1);
+		*path = ft_strdup(*path);
+		if (!*path)
+			return (print_error(errno, "minishell: exec"), -1);
 		return (1);
 	}
 	else if (in->data[1][0] == '-' && !in->data[1][1])
 	{
-		*path = ft_strdup(find_var_env(in->env, "OLDPWD="));
-		if (!*path)
+		*path = find_var_env(in->env, "OLDPWD=");
+		if (!*path || !*path[0])
 			return (ft_putendl_fd("minishell: cd: OLDPWD not set", 2), -1);
-		if (!*path[0])
-			return (-1);
+		*path = ft_strdup(*path);
+		if (!*path)
+			return (print_error(errno, "minishell: exec"), -1);
 		return (1);
 	}
 	return (0);
@@ -97,9 +105,9 @@ int	cd(t_input *in)
 	if (!tmp)
 		return (free(path), 1);
 	if (chdir(tmp) == -1)
-		return (free(path), print_error(errno, NULL), 1);
+		return (free(path), print_error(errno, "minishell: exec"), 1);
 	if (pwds(in, path))
-		return (free(path), 1);
+		return (free(path), print_error(errno, "minishell: exec"), 1);
 	free(path);
 	return (0);
 }

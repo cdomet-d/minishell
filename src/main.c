@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 17:37:21 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/13 17:13:19 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,25 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 	create_env(input, envp, env);
 }
 
-static t_env	*process_line(char *line, t_input *input, t_env **env, int *status)
+static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
 {
-	if (ft_strncmp(line, "exit", 5) == 0)
-	{
-		env_freelst(env);
-		print_error(0, "exit");
-		exit (EXIT_SUCCESS);
-	}
 	add_history(line);
-	parsing(&input, env, line, status);
-	if (input)
+	parsing(&in, env, line, stat);
+	if (in)
 	{
-		input->status = *status;
-		if (input->tok == ms_exit)
-			mh_exit(line, input);
-		exec_cmd(input);
-		*env = input->env;
-		*status = input->status;
+		in->status = *stat;
+		if (in->tok == ms_exit)
+			mh_exit(line, in);
+		exec_cmd(in);
+		*env = in->env;
+		*stat = in->status;
 	}
 	else
-		*status = errno;
-	input_freelst(&input);
+	{
+		if (*stat != 2)
+			*stat = errno;
+	}
+	input_freelst(&in);
 	return (*env);
 }
 

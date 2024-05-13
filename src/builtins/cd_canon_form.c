@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_canon_form.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/13 16:26:02 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/13 16:41:47 by csweetin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exec.h"
 
@@ -6,27 +16,28 @@ char	*make_path(char *tab, char *path, char **temp)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	free(*temp);
 	*temp = NULL;
 	*temp = ft_strdup(path);
 	if (!*temp)
-		return (free(path), print_error(errno, NULL));
+		return (free(path), print_error(errno, "minishell: exec"));
 	tmp = ft_strjoin(path, tab);
 	free(path);
 	if (!tmp)
-		return (print_error(errno, NULL));
+		return (free(*temp), print_error(errno, "minishell: exec"));
 	path = tmp;
 	tmp = ft_strjoin(path, "/");
 	free(path);
 	if (!tmp)
-		return (print_error(errno, NULL));
+		return (free(*temp), print_error(errno, "minishell: exec"));
 	path = tmp;
 	return (path);
 }
 
 int	rm_dots(char **path, char **temp, char *tab, char *var)
 {
-	int		len;
+	size_t	len;
 
 	if (check_directory(var, *path))
 		return (free(*temp), free(*path), 1);
@@ -38,14 +49,14 @@ int	rm_dots(char **path, char **temp, char *tab, char *var)
 	len = ft_strlen(tab) + 1;
 	free(*temp);
 	*temp = ft_substr(*path, 0, ft_strlen(*path) - len);
-	if (!temp)
+	if (!*temp)
 		return (free(*path), 1);
 	return (0);
 }
 
-char	*canonical_form(char *var, char *path, char **tab, int j)
+char	*canonical_form(char *var, char *path, char **tab, ssize_t j)
 {
-	int		i;
+	ssize_t	i;
 	char	*temp;
 
 	i = -1;
@@ -82,13 +93,13 @@ char	*prep_path(char *var, char *path)
 	free(path);
 	path = NULL;
 	if (!tab)
-		return (NULL);
+		return (print_error(errno, "minishell: exec"));
 	temp = ft_strdup("/");
 	if (!temp)
-		return (free_dtab(tab), print_error(errno, NULL));
+		return (free_dtab(tab), print_error(errno, "minishell: exec"));
 	path = canonical_form(var, temp, tab, 1);
 	free_dtab(tab);
 	if (!path)
-		return (NULL);
+		return (print_error(errno, "minishell: exec"));
 	return (path);
 }

@@ -77,8 +77,8 @@ char	*search_env(char *data, t_env **env)
 	return (NULL);
 }
 
-void	nb_letter_rv(size_t *letter, size_t *j, char *rv)
+void	nb_letter_status(size_t *letter, size_t *j, char *status)
 {
 	*j += 1;
-	*letter += ft_strlen(rv);
+	*letter += ft_strlen(status);
 }

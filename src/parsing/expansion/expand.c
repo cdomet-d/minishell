@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 18:27:48 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:21:18 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	ft_copy_env(char *data, char *newtab, t_env **env, size_t *j)
 	char	*str;
 
 	i = 0;
+	str = NULL;
 	str = search_env(data, env);
 	if (str)
 	{
@@ -36,7 +37,7 @@ static int	ft_copy_env(char *data, char *newtab, t_env **env, size_t *j)
 	return (i);
 }
 
-void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
+void	ft_copy(char *data, char *newtab, t_env **env, char *status)
 {
 	size_t	i;
 	size_t	j;
@@ -51,8 +52,8 @@ void	ft_copy(char *data, char *newtab, t_env **env, char *rv)
 			i++;
 			if (data[i] && data[i] == '?')
 			{
-				ft_strlcpy(newtab + j, rv, ft_strlen(rv) + 1);
-				j += ft_strlen(rv);
+				ft_strlcpy(newtab + j, status, ft_strlen(status) + 1);
+				j += ft_strlen(status);
 				i++;
 			}
 			else if (data[i])
@@ -80,7 +81,7 @@ static void	nb_letter_env(char *data, t_env **env, size_t *letter, size_t *j)
 		*j += 1;
 }
 
-size_t	nb_letter(char *data, t_env **env, char *rv)
+size_t	nb_letter(char *data, t_env **env, char *status)
 {
 	size_t	letter;
 	size_t	j;
@@ -94,7 +95,7 @@ size_t	nb_letter(char *data, t_env **env, char *rv)
 		{
 			j++;
 			if (data[j] && data[j] == '?')
-				nb_letter_rv(&letter, &j, rv);
+				nb_letter_status(&letter, &j, status);
 			else
 				nb_letter_env(data, env, &letter, &j);
 		}
@@ -107,20 +108,20 @@ size_t	nb_letter(char *data, t_env **env, char *rv)
 	return (letter);
 }
 
-char	**expand(char **data, t_env **env, int rv)
+char	**expand(char **data, t_env **env, int status)
 {
 	size_t	word;
 	size_t	letter;
 	char	**newtab;
 	char	*str;
 
-	str = ft_itoa(rv);
+	str = ft_itoa(status);
 	if (!str)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "minishell: parsing"));
 	word = ft_arrlen(data);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (free(str), print_error(errno, NULL));
+		return (free(str), print_error(errno, "minishell: parsing"));
 	word = 0;
 	while (data[word])
 	{
