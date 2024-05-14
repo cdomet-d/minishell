@@ -43,8 +43,6 @@ int	heredoc_expand(char **line, t_input *in)
 		return (free(str), print_error(errno, NULL), 1);
 	ft_copy(*line, temp, &(in)->env, str);
 	letter = 0;
-	// dprintf(2, "temp: %s\n", temp);
-	// dprintf(2, "line 1: %s\n", *line);
 	while (temp[letter])
 	{
 		if (temp[letter] < 0)
@@ -53,7 +51,6 @@ int	heredoc_expand(char **line, t_input *in)
 	}
 	free(*line);
 	*line = temp;
-	// dprintf(2, "line 2: %s\n", *line);
 	free(str);
 	return (0);
 }
