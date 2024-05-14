@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/10 19:14:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/14 16:35:57 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@ int	get_nonull(void)
 	return (1);
 }
 
+void	sighandle_child(int sig)
+{
+	printf("%d\n", sig);
+	g_sig = sig;
+	printf("%d\n", g_sig);
+	return ;
+
+}
+
 static void	sighandler(int sig)
 {
-	if (sig == SIGINT)
-	{
-		g_sig = sig;
-		rl_done = g_sig;
-		return ;
-	}
+	g_sig = sig;
+	rl_done = g_sig;
+	return ;
 }
 
 void	sigend(void)

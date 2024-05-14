@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:13:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 17:58:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/14 16:43:36 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@ void	set_status(t_input *in, int e_stat)
 	t_input		*last;
 
 	last = get_last_node(in);
+	if (WEXITSTATUS(e_stat) == 0)
+		return ;
 	if (here_true(last))
-	{
-		if (in->status == 130)
-			return ;
-		else
-			last = find_prev_tok(in, command);
-	}
+		last = find_prev_tok(in, command);
 	if (WIFEXITED(e_stat))
 	{
 		if (builtin_true(last) && e_stat != 0)
@@ -50,6 +47,9 @@ void	set_status(t_input *in, int e_stat)
 		set_error(in, last);
 	}
 	if (WIFSIGNALED(e_stat))
+	{
+		printf("%d\n", WTERMSIG(e_stat));
 		in->status = 128 + WTERMSIG(e_stat);
+	}
 	return ;
 }

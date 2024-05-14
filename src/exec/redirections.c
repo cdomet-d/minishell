@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/10 18:10:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/14 18:06:57 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 	}
 	else if (!is_first(tmp) && !is_last(tmp))
 	{
+		pmin(tmp, "neither");
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
 			return (print_error(errno, "pip_redir (else, tmpin to in"));
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)

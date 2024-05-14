@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/05/02 15:40:48 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/14 13:27:39 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CPPFLAGS = -MMD -MP
 BUILD_DIR := .dir_build
 SRCS := ft_atoi_intmax.c \
 		ft_atoi.c \
+		ft_atoll.c \
 		ft_bzero.c \
 		ft_calloc.c \
 		ft_dstrlen.c \

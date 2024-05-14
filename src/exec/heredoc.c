@@ -90,7 +90,7 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	while (op_true(tmp, heredoc))
 	{
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
-			return (NULL);
+			return (print_error(0, "create_hfile"));
 		free(tmp->data[0]);
 		in->status = tmp->status;
 		tmp->data[0] = gen_filename(fn);

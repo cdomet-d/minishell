@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 16:58:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/14 16:20:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int		get_nonull(void);
 void	sigend(void);
 void	siglisten(void);
 void	set_status(t_input *in, int e_stat);
+void	sighandle_child(int sig);
 
 /*----------------------------------------------------------------------------*/
 

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 17:52:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/14 17:11:20 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	close_and_wait(t_input *in, t_fd *fd)
 {
 	int			e_stat;
 
+	e_stat = 0;
 	if (count_pipes(in))
 		close_pipe_read(fd);
-	e_stat = in->status;
 	waitpid(fd->pid, &e_stat, 0);
 	while (wait(0) != -1 && errno != ECHILD)
 		;
@@ -37,18 +37,20 @@ void	close_and_wait(t_input *in, t_fd *fd)
 
 void	*create_child(t_input *in, t_fd *fd)
 {
-	if (fd->pnb != 0 && (op_true(in, command) || builtin_true(in)))
+	if (fd->pnb != 0)
 	{
-		// // fprintf(stderr, "%.20s\n", "-- pipe ------------------");
+		// fprintf(stderr, "%.20s\n", "-- pipe ------------------");
 		if (pipe(fd->pfd) == -1)
 			return (print_error(errno, "create_child (piping)"));
 	}
-	if (op_true(in, command) || (builtin_true(in) && fd->pnb != 0))
+	if (!(builtin_true(in) && fd->pnb != 0))
 	{
 		// fprintf(stderr, "%.20s\n", "-- fork ------------------");
 		fd->pid = fork();
 		if (fd->pid == -1)
 			return (print_error(errno, "create_child (forking)"));
+		if (fd->pid == 0)
+			signal(SIGQUIT, SIG_DFL);
 	}
 	return ((int *)true);
 }
@@ -71,8 +73,7 @@ void	init_rv(t_input *in)
 	int		status;
 
 	head = in;
-	// pmin(in, NULL);
-	status = in->status;
+ 	status = in->status;
 	while (in)
 	{
 		in->status = status;

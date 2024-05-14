@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 18:04:34 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/14 15:35:35 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	main(int argc, char **argv, char **envp)
 			exit_no_input(&env, line, status);
 		if (line && g_sig != SIGINT)
 			env = process_line(line, input, &env, &status);
+		if (g_sig == SIGINT)
+			status = 128 + g_sig;
 		if (line)
 			free(line);
 	}
