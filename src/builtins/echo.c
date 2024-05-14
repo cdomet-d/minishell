@@ -38,16 +38,14 @@ int	echo(char **data)
 	opt = false;
 	if (data && data[1])
 	{
-		if (!cmp_opt(data[1]))
-		{
-			i++;
+		while (data[++i] && !cmp_opt(data[i]))
 			opt = true;
-		}
-		while (data[++i])
+		while (data && data[i])
 		{
 			if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
 				return (1);
-			if (data[i + 1])
+			i++;
+			if (data[i])
 				if (write(1, " ", 1) == -1)
 					return (1);
 		}
