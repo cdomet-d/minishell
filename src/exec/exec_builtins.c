@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 14:13:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 14:25:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	*handle_bt_nopipe(t_fd *fd, t_input *tmp)
 	int		tmpstdin;
 	int		tmpstdout;
 
+	fprintf(stderr, "%.20s\n", "-- handle bt_no_pipe ----------------------");
 	tmpstdin = dup(STDIN_FILENO);
 	tmpstdout = dup(STDOUT_FILENO);
 	if (!redir_builtins(fd, tmp))

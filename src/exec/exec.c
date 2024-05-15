@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 14:14:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 14:29:39 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
-	pmin(tmp, "redir_cmd");
+	fprintf(stderr, "%.20s\n", "-- redircmd ------------------------------");
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (print_error(errno, "pip"));
@@ -72,11 +72,13 @@ void	*exec_cmd(t_input *in)
 	init_fds(&fd, in);
 	if (here_true(in))
 		if (!create_hdocs(&fd, in))
-			return (print_error(errno, "exec_cmd (creating heredoc)"));
+					return (print_error(errno, "exec_cmd (creating heredoc)"));
 	while (tmp)
 	{
+		pmin(tmp, "before bt");
 		if (fd.pid != 0 && !count_pipes(in) && builtin_true(tmp))
 				tmp = handle_bt_nopipe(&fd, tmp);
+		pmin(tmp, "after_bt");
 		if (fd.pid != 0)
 			if (!create_child(tmp, &fd))
 				return (print_error(errno, "exec_cmd (create_child)"));
