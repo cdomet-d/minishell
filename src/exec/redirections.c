@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/10 18:10:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 15:28:10 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*out_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	// fprintf(stderr, "%.20s\n", "-- outredir -----------------------------");
+	// fprintf(stderr,  "%.20s\n", "-- outredir -----------------------------");
 	tmp = find_tok(in, outredir, false);
 	if (!tmp)
 		return (print_error(0, "minishell: no such token"));
@@ -41,7 +41,7 @@ void	*app_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	// fprintf(stderr, "%.20s\n", "-- appredir -----------------------------");
+	// fprintf(stderr,  "%.20s\n", "-- appredir -----------------------------");
 	tmp = find_tok(in, append, false);
 	if (!tmp)
 		return (print_error(0, "minishell: no such token"));
@@ -66,7 +66,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	// fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+	// fprintf(stderr,  "%.20s\n", "-- inredir ------------------------------");
 	tmp = find_tok(in, inredir, false);
 	if (!tmp)
 		return (print_error(0, "minishell: no such token"));
@@ -74,7 +74,6 @@ void	*in_redir(t_fd *fd, t_input *in)
 		return (print_error(0, "minishell: ambiguous redirection"));
 	while (op_true(tmp, inredir))
 	{
-		// fprintf(stderr, "%.20s\n", "-- in ------------------------------");
 		if (!open_infiles(fd, tmp))
 			return (print_error(errno, "minishell: "));
 		tmp = find_tok(tmp, inredir, true);
@@ -86,7 +85,7 @@ void	*here_redir(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	// fprintf(stderr, "%.20s\n", "-- inredir ------------------------------");
+	// fprintf(stderr,  "%.20s\n", "-- inredir ------------------------------");
 	tmp = in;
 	if (op_true(tmp, inredir))
 		tmp = find_tok(in, inredir, false);

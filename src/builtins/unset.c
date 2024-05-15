@@ -6,27 +6,42 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/13 18:05:05 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/14 15:32:43 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "exec.h"
 
+static	size_t	env_len(t_env *env)
+{
+	size_t	i;
+
+	i = 0;
+	while (env)
+	{
+		env = env->next;
+		i++;
+	}
+	return (i);
+}
+
 static t_env	*env_rmone(t_env **sup, t_env **head)
 {
 	t_env	*tmp;
 
+	print_env_for(*sup, "env_rm");
 	if (!(*sup))
 		return (print_error(errno, "minishell: exec"));
 	tmp = (*sup);
 	if (!tmp->prev)
 	{
 		(*sup) = (*sup)->next;
-		(*sup)->prev = NULL;
+		if (env_len(tmp) > 1)
+			(*sup)->prev = NULL;
 		head = sup;
 	}
-	else if (!tmp->next)
+	else if ((*sup) && !tmp->next)
 		(*sup)->prev->next = NULL;
 	else
 	{
@@ -44,20 +59,20 @@ int	unset(t_input	**in)
 	t_env	*head;
 	size_t	i;
 
-	fprintf(stderr, "%.20s\n", "-- unset ----------------------");
 	if (!in || !(*in) || !(*in)->env || ((*in)->data && !(*in)->data[1]))
 		return (1);
 	head = (*in)->env;
 	i = 1;
 	while ((*in)->env && (*in)->data[i])
 	{
-		if ((*in)->data[i] && ft_strncmp((*in)->env->env, (*in)->data[i], ft_strlen((*in)->data[i])) == 0)
+		if ((*in)->data[i] && ft_strncmp((*in)->env->env, (*in)->data[i], \
+			ft_strlen((*in)->data[i])) == 0)
 		{
 			head = env_rmone(&(*in)->env, &head);
 			(*in)->env = head;
 			i++;
 		}
-		if ((*in)->env)
+		if ((*in)->env && (*in)->env->next)
 			(*in)->env = (*in)->env->next;
 		else
 			(*in)->env = head;

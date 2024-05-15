@@ -6,10 +6,9 @@
 #    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/15 15:26:46 by csweetin         ###   ########.fr        #
+#    Updated: 2024/05/15 17:17:32 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME := minishell
 LIB := libft.a
@@ -170,10 +169,10 @@ fclean: clean
 re: fclean all
 
 M_SUP:=/home/csweetin/Documents/minishell_github/misc/supp.supp
-LOG:=/home/csweetin/Documents/minishell_github
+LOG:=/home/csweetin/Documents/minishell_github/
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
-	$(V_PARAMS) ./$(NAME)
+	$(V_PARAMS) ./$(NAME) 
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 

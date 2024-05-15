@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:20:53 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 14:11:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 16:58:31 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define DEC "0123456789"
 
 # define DEL 127
+
+#define _ULLONG unsigned long long int
 
 /* Simple chained list*/
 typedef struct s_list
@@ -63,6 +65,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 long	ft_atoi_intmax(char *nptr);
+_ULLONG	ft_atoll(char *nptr);
 size_t	ft_arrlen(char **arr);
 size_t	ft_dstrlen(char **s);
 size_t	ft_isspace(char c);
@@ -84,7 +87,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 /* ft_printf */
 ssize_t	read_str(char flag, va_list arg_list);
 ssize_t	ft_parse_format(const char *s, va_list arg_list,
-			size_t *count, ssize_t *len);
+				size_t *count, ssize_t *len);
 int		ft_printf(const char *str, ...)
 		__attribute__ ((format (printf, 1, 2)));
 ssize_t	ft_p_putnbr(size_t nbr, int *count);
@@ -98,7 +101,7 @@ ssize_t	printstr(va_list arg_list);
 ssize_t	printx(va_list arg_list, char flag);
 
 /* get_next_line */
-char	*ft_buffer_alloc(void);
+// char	*ft_buffer_alloc(void);
 char	*ft_free(char *s1, char *s2);
 char	*ft_join_buff(char *buff, char *read);
 char	*ft_read(char *buff, int *check, int fd);
@@ -109,7 +112,8 @@ ssize_t	ft_len(const char *s, char c);
 /* Chained Lists */
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstfree(t_list **lst);
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), \
+		void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 16:58:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 14:05:00 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	*out_redir(t_fd *fd, t_input *in);
 void	*pip_redir(t_input *tmp, t_fd *fd);
 
 /* exec_builtins.c */
-void	*exec_builtin(t_input **in, t_fd *fd);
+void	*exec_builtin(t_input **in);
 void	*redir_builtins(t_fd *fd, t_input *tmp);
 void	*handle_bt_nopipe(t_fd *fd, t_input *tmp);
 
@@ -107,6 +107,7 @@ int		get_nonull(void);
 void	sigend(void);
 void	siglisten(void);
 void	set_status(t_input *in, int e_stat);
+void	sighandle_child(int sig);
 
 /*----------------------------------------------------------------------------*/
 
