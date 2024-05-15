@@ -34,22 +34,20 @@ int	echo(char **data)
 	size_t	i;
 	bool	opt;
 
-	i = 1;
+	i = 0;
 	opt = false;
-	if (data && data[i])
+	if (data && data[1])
 	{
-		if (!cmp_opt(data[i]))
-		{
-			i++;
+		while (data[++i] && !cmp_opt(data[i]))
 			opt = true;
-		}
-		while (data[i])
+		while (data && data[i])
 		{
 			if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
 				return (1);
-			if (write(1, " ", 1) == -1)
-				return (1);
 			i++;
+			if (data[i])
+				if (write(1, " ", 1) == -1)
+					return (1);
 		}
 	}
 	if (opt == false)
