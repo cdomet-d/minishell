@@ -6,10 +6,9 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/15 16:46:06 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/15 16:48:30 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME := minishell
 LIB := libft.a
