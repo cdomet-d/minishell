@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/14 18:04:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 14:14:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
+	pmin(tmp, "redir_cmd");
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (print_error(errno, "pip"));
@@ -56,9 +57,8 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	if (op_true(tmp, command))
 		ft_execve(tmp);
 	if (builtin_true(tmp))
-		exec_builtin(&tmp, fd);
+		exec_builtin(&tmp);
 	in->status = tmp->status;
-	fprintf(stderr, "%.20s\n", "-- after exec ------------------------------");
 	return (NULL);
 }
 
@@ -68,7 +68,6 @@ void	*exec_cmd(t_input *in)
 	t_fd	fd;
 
 	tmp = in;
-	pmin(in, "main");
 	in->status = 0;
 	init_fds(&fd, in);
 	if (here_true(in))
@@ -77,14 +76,13 @@ void	*exec_cmd(t_input *in)
 	while (tmp)
 	{
 		if (fd.pid != 0 && !count_pipes(in) && builtin_true(tmp))
-			handle_bt_nopipe(&fd, tmp);
+				tmp = handle_bt_nopipe(&fd, tmp);
 		if (fd.pid != 0)
 			if (!create_child(tmp, &fd))
 				return (print_error(errno, "exec_cmd (create_child)"));
 		if (tmp && fd.pid == 0)
 			if (!redir_cmd(tmp, &fd))
 			{
-				fprintf(stderr, "%.20s\n", "-- redirfail ------------------");
 				in->status = tmp->status;
 				killchild(&fd, in);
 			}

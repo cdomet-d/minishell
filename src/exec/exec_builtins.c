@@ -6,19 +6,18 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/14 17:54:28 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 14:13:31 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	*exec_builtin(t_input **in, t_fd *fd)
+void	*exec_builtin(t_input **in)
 {
 	t_input	*tmp;
 
 	fprintf(stderr, "%.20s\n", "-- exec_bt ----------------------");
 	tmp = builtin_true(*in);
-	(void)fd;
 	if (tmp->tok == ms_cd)
 		(*in)->status = cd(tmp);
 	if (tmp->tok == ms_echo)
@@ -50,7 +49,7 @@ void	*redir_builtins(t_fd *fd, t_input *tmp)
 	if (op_true(tmp, append))
 		if (!app_redir(fd, tmp))
 			return (print_error(errno, "redir_builtins 4"));
-	exec_builtin(&tmp, fd);
+	exec_builtin(&tmp);
 	return ((int *)true);
 }
 
@@ -65,5 +64,5 @@ void	*handle_bt_nopipe(t_fd *fd, t_input *tmp)
 		return (print_error(errno, "exec_cmd (redirections)"));
 	reset_stds(tmpstdin, tmpstdout);
 	tmp = find_next_pipe(tmp, fd);
-	return ((int *)true);
+	return ((t_input *)tmp);
 }
