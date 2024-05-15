@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/14 16:35:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 16:09:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	get_nonull(void)
 
 void	sighandle_child(int sig)
 {
-	printf("%d\n", sig);
+	fprintf(stderr, "sig : %d\n", sig);
+	fprintf(stderr, "g_sig : %d\n", g_sig);
 	g_sig = sig;
-	printf("%d\n", g_sig);
 	return ;
 
 }
