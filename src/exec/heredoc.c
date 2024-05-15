@@ -25,7 +25,7 @@ static int	in_line(t_input *in, char *line, int fd)
 	return (0);
 }
 
-static void	*h_gnl(int fd, t_input *in)
+static void	*h_rl(int fd, t_input *in)
 {
 	char	*line;
 	char	*tmpdel;
@@ -72,7 +72,7 @@ static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd->hfd == -1)
 		return (print_error(errno, "minishell: heredoc: "));
-	if (!h_gnl(fd->hfd, tmp))
+	if (!h_rl(fd->hfd, tmp))
 		return (free (filename), close(fd->hfd), NULL);
 	free(filename);
 	if (close(fd->hfd) == -1)

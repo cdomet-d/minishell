@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 14:29:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 16:33:30 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*ft_execve(t_input *in)
 	char	**arenv;
 	t_input	*tmp;
 
-	fprintf(stderr, "%.20s\n", "-- execve ------------------");
+	// fprintf(stderr,  "%.20s\n", "-- execve ------------------");
 	tmp = find_tok(in, command, false);
 	if (!tmp->data)
 		return (print_error(0, "ft_execve (data is null)"));
@@ -38,7 +38,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
-	fprintf(stderr, "%.20s\n", "-- redircmd ------------------------------");
+	// fprintf(stderr,  "%.20s\n", "-- redircmd ------------------------------");
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (print_error(errno, "pip"));
@@ -75,19 +75,17 @@ void	*exec_cmd(t_input *in)
 					return (print_error(errno, "exec_cmd (creating heredoc)"));
 	while (tmp)
 	{
-		pmin(tmp, "before bt");
 		if (fd.pid != 0 && !count_pipes(in) && builtin_true(tmp))
 				tmp = handle_bt_nopipe(&fd, tmp);
-		pmin(tmp, "after_bt");
-		if (fd.pid != 0)
+		if (tmp && fd.pid != 0)
 			if (!create_child(tmp, &fd))
 				return (print_error(errno, "exec_cmd (create_child)"));
 		if (tmp && fd.pid == 0)
+		{	
 			if (!redir_cmd(tmp, &fd))
-			{
 				in->status = tmp->status;
-				killchild(&fd, in);
-			}
+			killchild(&fd, in);
+		}
 		if (fd.pnb != 0)
 			save_pipin(&fd);
 		tmp = find_next_pipe(tmp, &fd);
