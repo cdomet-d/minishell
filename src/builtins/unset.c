@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/14 15:32:43 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/05/15 18:57:35 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/15 18:57:38 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "exec.h"
 

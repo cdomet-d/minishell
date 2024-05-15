@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:26:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:41:47 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:56:46 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,35 @@ char	*canonical_form(char *var, char *path, char **tab, ssize_t j)
 	return (free(temp), path);
 }
 
+int	just_slash(char **path)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	temp = *path;
+	while (temp[i] && temp[i] == '/')
+		i++;
+	if (temp[i] == '\0')
+	{
+		free(*path);
+		*path = NULL;
+		*path = ft_strdup("/");
+		if (!*path)
+			print_error(errno, "minishell: exec");
+		return (1);
+	}
+	return (0);
+}
+
 char	*prep_path(char *var, char *path)
 {
 	char	**tab;
 	char	*temp;
 
 	temp = NULL;
+	if (just_slash(&path))
+		return (path);
 	tab = ft_split(path, '/');
 	free(path);
 	path = NULL;

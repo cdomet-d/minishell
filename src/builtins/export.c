@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 17:09:37 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/15 17:32:49 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	check_arg(char *var)
 	size_t	i;
 
 	i = 0;
-	printf("%s\n", var);
 	if (var[0] != '_' && !ft_isalpha(var[0]))
 	{
 		parsing_error("minishell: export: '", var, "': not a valid identifier");
@@ -62,18 +61,15 @@ int	change_var(t_input **in, char *var)
 	return (0);
 }
 
-int	export(t_input **in)
+int	export_loop(t_input **in, t_env *head)
 {
 	size_t	i;
 	int		rv;
-	t_env	*head;
+	bool	status;
 
-	i = 1;
-	head = (*in)->env;
-	if ((*in)->env && !(*in)->data[1])
-		if (sort_env((*in)->env) == 1)
-			return (1);
-	while ((*in)->data[i])
+	status = true;
+	i = 0;
+	while ((*in)->data[++i])
 	{
 		if (!check_arg((*in)->data[i]))
 		{
@@ -85,7 +81,21 @@ int	export(t_input **in)
 				if (!exprt_inenv(&(*in)->env, (*in)->data[i]))
 					return (0);
 		}
-		i++;
+		else
+			status = false;
 	}
+	if (status == false)
+		return (1);
 	return (0);
+}
+
+int	export(t_input **in)
+{
+	t_env	*head;
+
+	head = (*in)->env;
+	if ((*in)->env && !(*in)->data[1])
+		if (sort_env((*in)->env) == 1)
+			return (1);
+	return (export_loop(in, head));
 }
