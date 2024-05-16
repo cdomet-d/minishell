@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/14 13:57:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 17:52:04 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,45 +112,61 @@ void	exit_no_input(t_env **env, char *line, int status);
 
 // builtins ------------------
 
-/* builtin_utils.c */
-char	*split_wsep(char *str, char sep);
-char	*find_var_env(t_env *env, char *var);
-void	*exprt_inenv(t_env **env, char *data);
-// t_env	**env_rmone(t_env **sup, t_env **head);
+/* exec_builtins.c */
+void	*exec_builtin(t_input **in);
+void	*redir_builtins(t_fd *fd, t_input *tmp);
+void	*handle_bt_nopipe(t_fd *fd, t_input *tmp);
+
+/* exec_builtins_utils.c */
+t_input	*builtin_true(t_input *in);
+
+// bt_functs -----------------
+
+/* cd_canon_form.c */
+char	*make_path(char *tab, char *path, char **temp);
+int	rm_dots(char **path, char **temp, char *tab, char *var);
+char	*canonical_form(char *var, char *path, char **tab, ssize_t j);
+char	*prep_path(char *var, char *path);
+
+/* cd_utils.c */
+int	check_directory(char *var, char *path);
+int	change_pwds(t_env **env, char *path, char *var);
+int	pwds(t_input *in, char *path);
+char	*check_len(char	*path, t_env *env);
+
+/* cd.c */
+char	*init_path(t_input *in);
+char	*cd_path(t_input *in);
+int	special_cases(t_input *in, char **path);
+int	cd(t_input *in);
 
 /* echo.c */
 int		echo(char **data);
 
 /* env.c */
-int		env(t_input *in);
+int	env(t_input *in);
 
 /* exit.c */
 void	mh_exit(char *line, t_input *in);
 
-/* pwd.c */
-int		pwd(t_env *env);
+/* export_utils.c */
+int	sort_env(t_env	*env);
 
 /* export.c */
-int		check_arg(char *var);
-int		change_var(t_input **in, char *var);
-int		export(t_input **in);
+int	check_arg(char *var);
+int	change_var(t_input **in, char *var);
+int	export(t_input **in);
 
-/* export_utils.c */
-int		sort_env(t_env	*env);
-
-/* cd.c */
-int		cd(t_input *in);
-
-/* cd_canon_form.c */
-char	*prep_path(char *var, char *path);
-
-/* cd_utils.c */
-int		check_directory(char *var, char *path);
-int		pwds(t_input *in, char *path);
-char	*check_len(char	*path, t_env *env);
+/* pwd.c */
+int	pwd(t_env *env);
 
 /* unset.c */
-int		unset(t_input	**in);
+int	unset(t_input	**in);
+
+/* builtin_utils.c */
+char	*split_wsep(char *str, char sep);
+char	*find_var_env(t_env *env, char *var);
+void	*exprt_inenv(t_env **env, char *data);
 
 /*----------------------------------------------------------------------------*/
 

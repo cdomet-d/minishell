@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:13:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 16:23:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 16:56:04 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ void	set_status(t_input *in, int e_stat)
 	if (WIFEXITED(e_stat))
 	{
 		if (builtin_true(last) && e_stat != 0)
-		{	
+		{
 			in->status = 1;
 			return ;
 		}
-		set_error(in, last);
+		if (last)
+			set_error(in, last);
 	}
 	if (WIFSIGNALED(e_stat))
 	{

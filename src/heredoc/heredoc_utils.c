@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:39:51 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/13 15:51:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 15:40:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_delim(t_input *in)
 
 	tmpdel = ft_strdup(in->data[0]);
 	if (!tmpdel)
-		return (print_error(errno, NULL));
+		return (print_error(errno, "minishell: heredoc"));
 	if (in->data[0][0] < 0)
 		tmpdel[0] *= -1;
 	return (tmpdel);

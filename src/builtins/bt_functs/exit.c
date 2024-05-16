@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 18:57:00 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:51:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static bool	not_num(char *str)
 	}
 	return (true);
 }
+
 
 void	mh_exit(char *line, t_input *in)
 {

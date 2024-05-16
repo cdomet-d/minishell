@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 14:15:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 12:12:26 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ t_input	*find_prev_tok(t_input	*in, t_tok op)
 
 	tmp = in;
 	if (!tmp)
+		return (NULL);
+	if (in->prev == NULL)
 		return (NULL);
 	while (tmp && tmp->tok != pip)
 	{

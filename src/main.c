@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:02:32 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:51:40 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 
 static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
 {
-	add_history(line);
+	if (line[0])
+		add_history(line);
 	parsing(&in, env, line, stat);
 	if (in)
 	{
 		in->status = *stat;
-		if (in->tok == ms_exit)
+		if (!count_pipes(in) && in->tok == ms_exit)
 			mh_exit(line, in);
 		exec_cmd(in);
 		*env = in->env;

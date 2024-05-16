@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:01:56 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:50:44 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ static void	*ft_execve(t_input *in)
 	char	**arenv;
 	t_input	*tmp;
 
-	// fprintf(stderr,  "%.20s\n", "-- execve ------------------");
 	tmp = find_tok(in, command, false);
 	if (!tmp->data)
-		return (print_error(0, "ft_execve (data is null)"));
+		return (NULL);
 	arenv = NULL;
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
-		(print_error(errno, "ft_execve (memissue in arenv)"));
+		return (NULL);
 	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
 		free_dtab(arenv);
 	in->status = 1;
-	return (print_error(errno, tmp->data[0]));
+	display_exec_error(in, errno);
+	return (NULL);
 }
 
 static void	*redir_cmd(t_input *in, t_fd *fd)
@@ -38,16 +38,15 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
-	// fprintf(stderr,  "%.20s\n", "-- redircmd ------------------------------");
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
-			return (print_error(errno, "pip"));
+			return (NULL);
 	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
-			return (print_error(errno, "in"));
+			return (NULL);
 	if (op_true(tmp, outredir))
 		if (!out_redir(fd, tmp))
-			return (print_error(errno, "out"));
+			return (NULL);
 	if (op_true(tmp, heredoc))
 		if (!here_redir(fd, tmp))
 			return (NULL);
@@ -67,21 +66,17 @@ void	*exec_cmd(t_input *in)
 	t_input	*tmp;
 	t_fd	fd;
 
-	tmp = in;
-	in->status = 0;
-	init_fds(&fd, in);
-	if (here_true(in))
-		if (!create_hdocs(&fd, in))
-					return (print_error(errno, "exec_cmd (creating heredoc)"));
+	init_exec(in, &tmp, &fd);
+	create_hdocs(&fd, in);
 	while (tmp)
 	{
 		if (fd.pid != 0 && !count_pipes(in) && builtin_true(tmp))
-				tmp = handle_bt_nopipe(&fd, tmp);
+			tmp = handle_bt_nopipe(&fd, tmp);
 		if (tmp && fd.pid != 0)
-			if (!create_child(tmp, &fd))
-				return (print_error(errno, "exec_cmd (create_child)"));
+			if (!create_child(&fd))
+				return (NULL);
 		if (tmp && fd.pid == 0)
-		{	
+		{
 			if (!redir_cmd(tmp, &fd))
 				in->status = tmp->status;
 			killchild(&fd, in);
