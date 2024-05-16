@@ -6,11 +6,10 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/16 16:17:26 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/16 17:33:33 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := minishell
 LIB := libft.a
 BUILD_DIR := .dir_build/
 LIBFT_DIR := includes/libft/
@@ -176,8 +175,8 @@ fclean: clean
 	
 re: fclean all
 
-M_SUP:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/misc/supp.supp
-LOG:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/
+M_SUP:=/home/csweetin/Documents/minishell_github/misc/supp.supp
+LOG:=/home/csweetin/Documents/minishell_github/
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
 	$(V_PARAMS) ./$(NAME) 
