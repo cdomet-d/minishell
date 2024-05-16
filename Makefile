@@ -168,8 +168,9 @@ fclean: clean
 	
 re: fclean all
 
-M_SUP:=/home/csweetin/Documents/minishell_github/misc/supp.supp
-LOG:=/home/csweetin/Documents/minishell_github/
+CHEMIN:= $(shell pwd)
+M_SUP:=$(CHEMIN)/misc/supp.supp
+LOG:=$(CHEMIN)
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
 	$(V_PARAMS) ./$(NAME) 
