@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:52:04 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:55:17 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,22 +123,15 @@ t_input	*builtin_true(t_input *in);
 // bt_functs -----------------
 
 /* cd_canon_form.c */
-char	*make_path(char *tab, char *path, char **temp);
-int	rm_dots(char **path, char **temp, char *tab, char *var);
-char	*canonical_form(char *var, char *path, char **tab, ssize_t j);
 char	*prep_path(char *var, char *path);
 
 /* cd_utils.c */
-int	check_directory(char *var, char *path);
-int	change_pwds(t_env **env, char *path, char *var);
-int	pwds(t_input *in, char *path);
+int		check_directory(char *var, char *path);
+int		pwds(t_input *in, char *path);
 char	*check_len(char	*path, t_env *env);
 
 /* cd.c */
-char	*init_path(t_input *in);
-char	*cd_path(t_input *in);
-int	special_cases(t_input *in, char **path);
-int	cd(t_input *in);
+int		cd(t_input *in);
 
 /* echo.c */
 int		echo(char **data);
