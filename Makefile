@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
+#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/15 17:17:32 by csweetin         ###   ########.fr        #
+#    Updated: 2024/05/16 16:17:26 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,12 @@ SRC_LST:=		env_lst_utils.c \
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ BUILTINS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_BUILTIN), $(SRC_BUILTIN))
 DIR_BUILTIN:= builtins/
-SRC_BUILTIN:=	export.c \
+SRC_BUILTIN:=	exec_builtins.c \
+				exec_builtins_utils.c \
+
+SRC +=  $(addprefix $(DIR_BT_FUNC), $(SRC_BT_FUNC))
+DIR_BT_FUNC:= builtins/bt_functs/
+SRC_BT_FUNC:=	export.c \
 				unset.c \
 				exit.c \
 				echo.c \
@@ -73,8 +78,16 @@ SRC_BUILTIN:=	export.c \
 				cd.c \
 				cd_utils.c \
 				cd_canon_form.c \
-				builtin_utils.c \
 				export_utils.c \
+				builtin_utils.c \
+
+# ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ HEREDOC ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
+SRC +=  $(addprefix $(DIR_HEREDOC), $(SRC_HEREDOC))
+DIR_HEREDOC:= heredoc/
+SRC_HEREDOC:=	heredoc.c \
+				heredoc_expand.c \
+				heredoc_utils.c \
+				heredoc_errors.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_UTILS), $(SRC_UTILS))
@@ -83,16 +96,14 @@ SRC_UTILS:=		display_data.c \
 				display_structs_q.c \
 				display_structs_v.c \
 				error_handling.c \
-				# main_utils.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ EXEC ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
 SRC +=  $(addprefix $(DIR_EXEC), $(SRC_EXEC))
 DIR_EXEC:= exec/
 SRC_EXEC:=		exec.c \
-				heredoc.c \
-				exec_builtins.c \
 				redirections.c \
+				exec_errors.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ SIGNALS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
@@ -108,15 +119,12 @@ UTILS_SUBDIR:=utils/
 SRC_SUBUTILS:=	arenvlst.c \
 				exec_utils.c \
 				fd_handling.c \
-				buitin_utils.c \
-				heredoc_utils.c \
-				heredoc_expand.c \
 				operators_utils.c \
 				redirection_utils.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(ERR_SUBDIR), $(SRC_SUBERR))
 ERR_SUBDIR:= error_handling/
-SRC_SUBERR:=	exec_errors.c \
+SRC_SUBERR:=	
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ RULES ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
@@ -168,8 +176,8 @@ fclean: clean
 	
 re: fclean all
 
-M_SUP:=/home/csweetin/Documents/minishell_github/misc/supp.supp
-LOG:=/home/csweetin/Documents/minishell_github/
+M_SUP:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/misc/supp.supp
+LOG:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
 	$(V_PARAMS) ./$(NAME) 

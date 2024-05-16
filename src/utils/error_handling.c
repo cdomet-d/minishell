@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/10 18:08:13 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 15:36:32 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	parsing_error(char *s1, char *s2, char *s3)
 
 void	*print_error(int error_code, char *error_message)
 {
-	// fprintf(stderr, "%.20s\n", "-- print_error ---------------------------");
 	if (error_code && !error_message)
 	{
 		ft_putstr_fd("\033[1;31m", STDERR_FILENO);

@@ -6,7 +6,8 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/26 16:27:28 by csweetin         ###   ########.fr       *//*                                                                            */
+/*   Updated: 2024/05/16 15:40:31 by cdomet-d         ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
@@ -18,10 +19,10 @@ static int	in_line(t_input *in, char *line, int fd)
 			if (heredoc_expand(&line, in))
 				return (1);
 	if (write(fd, line, ft_strlen(line)) == -1)
-		return (print_error(errno, "minishell: heredoc: "), 1);
+		return (print_error(errno, "minishell: heredoc"), 1);
 	free(line);
 	if (write(fd, "\n", 1) == -1)
-		return (print_error(errno, "minishell: heredoc: "), 1);
+		return (print_error(errno, "minishell: heredoc"), 1);
 	return (0);
 }
 
@@ -39,12 +40,11 @@ static void	*h_rl(int fd, t_input *in)
 	{
 		if (line)
 			if (in_line(in, line, fd))
-				return (free(line), free(tmpdel), NULL);
+				return (heredoc_error(in, tmpdel, line, false));
 		sigend();
-		line = readline(" > ");
+		line = readline("\033[38;5;206m🌸 ↪️\033[0m ");
 		if (!line)
-			return (free(tmpdel), free(line), print_error(0, "minishell: \
-				warning: expected delimiter"));
+			return (heredoc_error(in, tmpdel, line, true));
 		if (exit_loop(line, tmpdel, in))
 			break ;
 	}
@@ -59,10 +59,10 @@ static char	*gen_filename(int fn)
 
 	strfn = ft_itoa(fn);
 	if (!strfn)
-		return (print_error(errno, "minishell: heredoc: "));
+		return (print_error(errno, "minishell: heredoc"));
 	filename = ft_strjoin("/tmp/tmp_", strfn);
 	if (!filename)
-		return (print_error(errno, "minishell: heredoc: )"));
+		return (print_error(errno, "minishell: heredoc"));
 	free(strfn);
 	return (filename);
 }
@@ -71,12 +71,12 @@ static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 {
 	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd->hfd == -1)
-		return (print_error(errno, "minishell: heredoc: "));
+		return (print_error(errno, "minishell: heredoc"));
 	if (!h_rl(fd->hfd, tmp))
 		return (free (filename), close(fd->hfd), NULL);
 	free(filename);
 	if (close(fd->hfd) == -1)
-		return (print_error(errno, "minishell: heredoc: "));
+		return (print_error(errno, "minishell: heredoc"));
 	return ((int *) true);
 }
 
@@ -87,10 +87,12 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 
 	fn = 0;
 	tmp = find_here(in, false);
+	if (!tmp)
+		return (NULL);
 	while (op_true(tmp, heredoc))
 	{
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
-			return (print_error(0, "create_hfile"));
+			return (NULL);
 		free(tmp->data[0]);
 		in->status = tmp->status;
 		tmp->data[0] = gen_filename(fn);

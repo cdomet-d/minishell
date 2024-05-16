@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:23:09 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/14 13:41:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 14:44:54 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static int	ft_issign(char *str, int i)
 
 unsigned long long int	ft_atoll(char *nptr)
 {
-	size_t		i;
-	int			sign;
+	size_t					i;
+	int						sign;
 	unsigned long long int	nbr;
 
 	nbr = 0;
@@ -48,13 +48,6 @@ unsigned long long int	ft_atoll(char *nptr)
 		i++;
 	while (ft_isdigit(nptr[i]))
 	{
-		// if (((nbr * 10 + nptr[i] - '0') / 10 != nbr))
-		// {
-		// 	if (sign < 0)
-		// 		return ((int)LONG_MIN);
-		// 	else
-		// 		return ((int)LONG_MAX);
-		// }
 		nbr = nbr * 10 + nptr[i] - '0';
 		i++;
 	}

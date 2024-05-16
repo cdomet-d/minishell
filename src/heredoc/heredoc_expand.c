@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:48:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 19:29:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:40:26 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	heredoc_expand(char **line, t_input *in)
 	temp = NULL;
 	str = ft_itoa(in->status);
 	if (!str)
-		return (print_error(errno, NULL), 1);
+		return (print_error(errno, "minishell: heredoc"), 1);
 	letter = nb_letter(*line, &(in)->env, str);
 	temp = ft_calloc(sizeof(char), letter + 1);
 	if (!temp)
-		return (free(str), print_error(errno, NULL), 1);
+		return (free(str), print_error(errno, "minishell: heredoc"), 1);
 	ft_copy(*line, temp, &(in)->env, str);
 	letter = 0;
 	while (temp[letter])
