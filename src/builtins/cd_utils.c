@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:38:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:41:08 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:18:22 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	check_directory(char *var, char *path)
 	{
 		if (errno == ENOENT)
 		{
-			parsing_error("minishell: cd: ", var, ": No such file or directory");
+			parsing_error("minishell: cd: ", var, \
+			": No such file or directory");
 			return (1);
 		}
 		if (errno == ENAMETOOLONG)

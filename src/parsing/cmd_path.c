@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 17:18:11 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:17:57 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	path_slash(t_input *input, int *status)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '/')	
+		if (cmd[i] == '/')
 			return (check_path_slash(input, status));
 		i++;
 	}
