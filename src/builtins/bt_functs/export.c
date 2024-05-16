@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:51:16 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:06:17 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	check_arg(char *var)
 	size_t	i;
 
 	i = 0;
-	printf("%s\n", var);
 	if (var[0] != '_' && !ft_isalpha(var[0]))
 	{
 		parsing_error("minishell: export: '", var, "': not a valid identifier");
