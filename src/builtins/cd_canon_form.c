@@ -12,7 +12,7 @@
 
 #include "exec.h"
 
-char	*make_path(char *tab, char *path, char **temp)
+static char	*make_path(char *tab, char *path, char **temp)
 {
 	char	*tmp;
 
@@ -35,7 +35,7 @@ char	*make_path(char *tab, char *path, char **temp)
 	return (path);
 }
 
-int	rm_dots(char **path, char **temp, char *tab, char *var)
+static int	rm_dots(char **path, char **temp, char *tab, char *var)
 {
 	size_t	len;
 
@@ -54,7 +54,7 @@ int	rm_dots(char **path, char **temp, char *tab, char *var)
 	return (0);
 }
 
-char	*canonical_form(char *var, char *path, char **tab, ssize_t j)
+static char	*canonical_form(char *var, char *path, char **tab, ssize_t j)
 {
 	ssize_t	i;
 	char	*temp;
@@ -83,7 +83,7 @@ char	*canonical_form(char *var, char *path, char **tab, ssize_t j)
 	return (free(temp), path);
 }
 
-int	just_slash(char **path)
+static int	just_slash(char **path)
 {
 	int		i;
 	char	*temp;

@@ -119,7 +119,6 @@ void	*exprt_inenv(t_env **env, char *data);
 // t_env	**env_rmone(t_env **sup, t_env **head);
 
 /* echo.c */
-int		cmp_opt(char *arg);
 int		echo(char **data);
 
 /* env.c */

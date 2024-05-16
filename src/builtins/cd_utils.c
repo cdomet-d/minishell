@@ -20,9 +20,7 @@ int	check_directory(char *var, char *path)
 	{
 		if (errno == ENOENT)
 		{
-			ft_putstr_fd("minishell: cd: ", 2);
-			ft_putstr_fd(var, 2);
-			ft_putendl_fd(": No such file or directory", 2);
+			parsing_error("minishell: cd: ", var, ": No such file or directory");
 			return (1);
 		}
 		if (errno == ENAMETOOLONG)
@@ -33,15 +31,13 @@ int	check_directory(char *var, char *path)
 		return (0);
 	else
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(var, 2);
-		ft_putendl_fd(": No such file or directory", 2);
+		parsing_error("minishell: cd: ", var, ": No such file or directory");
 		return (1);
 	}
 	return (0);
 }
 
-int	change_pwds(t_env **env, char *path, char *var)
+static int	change_pwds(t_env **env, char *path, char *var)
 {
 	t_env	*node;
 	char	*key;

@@ -13,7 +13,7 @@
 
 #include "exec.h"
 
-char	*init_path(t_input *in)
+static char	*init_path(t_input *in)
 {
 	char	*path;
 	char	*temp;
@@ -41,7 +41,7 @@ char	*init_path(t_input *in)
 	return (path);
 }
 
-char	*cd_path(t_input *in)
+static char	*cd_path(t_input *in)
 {
 	char	*path;
 
@@ -59,7 +59,7 @@ char	*cd_path(t_input *in)
 	return (path);
 }
 
-int	special_cases(t_input *in, char **path)
+static int	special_cases(t_input *in, char **path)
 {
 	if (!in->data[1])
 	{

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	cmp_opt(char *arg)
+static int	cmp_opt(char *arg)
 {
 	size_t	i;
 
