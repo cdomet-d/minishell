@@ -33,7 +33,7 @@ void	create_env(t_input **input, char **envp, t_env **env);
 int		create_input(t_input **input, t_env **env, char **data, int tok);
 
 /* cmd_path.c */
-int		cmd_path(t_input *input, t_env **env);
+int		cmd_path(t_input *input, t_env **env, int *status);
 
 /* cmd_path_utils.c */
 size_t	path_len(char *env, size_t *i);

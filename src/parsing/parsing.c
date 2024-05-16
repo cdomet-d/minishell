@@ -127,7 +127,7 @@ void	parsing(t_input **input, t_env **env, char *line, int *status)
 		if (node->tok == command)
 			find_builtin(node);
 		if (node->tok == command)
-			if (cmd_path(node, env))
+			if (cmd_path(node, env, status))
 				return (input_freelst(input));
 		node = node->next;
 	}

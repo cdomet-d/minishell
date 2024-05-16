@@ -41,7 +41,7 @@ static char	*find_path(char *cmd, char *env)
 	return (cmd);
 }
 
-static int	put_path(t_input *input, t_env	*node)
+static int	put_path(t_input *input, t_env	*node, int *status)
 {
 	char	*path;
 
@@ -53,6 +53,7 @@ static int	put_path(t_input *input, t_env	*node)
 	{
 		ft_putstr_fd(input->data[0], 2);
 		ft_putendl_fd(": command not found", 2);
+		*status = 127;
 		free_dtab(input->data);
 		input->data = NULL;
 		return (0);
@@ -62,7 +63,7 @@ static int	put_path(t_input *input, t_env	*node)
 	return (0);
 }
 
-static int	check_path_slash(t_input *input)
+static int	check_path_slash(t_input *input, int *status)
 {
 	struct stat	buf;
 	char		*cmd;
@@ -75,6 +76,7 @@ static int	check_path_slash(t_input *input)
 		if (S_ISDIR(buf.st_mode))
 		{
 			parsing_error("minishell: ", cmd, ": Is a directory");
+			*status = 126;
 			free_dtab(input->data);
 			input->data = NULL;
 		}
@@ -82,13 +84,14 @@ static int	check_path_slash(t_input *input)
 	else
 	{
 		parsing_error("minishell: ", cmd, ": No such file or directory");
+		*status = 127;
 		free_dtab(input->data);
 		input->data = NULL;
 	}
 	return (1);
 }
 
-static int	path_slash(t_input *input)
+static int	path_slash(t_input *input, int *status)
 {
 	char	*cmd;
 	size_t	i;
@@ -98,13 +101,13 @@ static int	path_slash(t_input *input)
 	while (cmd[i])
 	{
 		if (cmd[i] == '/')	
-			return (check_path_slash(input));
+			return (check_path_slash(input, status));
 		i++;
 	}
 	return (0);
 }
 
-int	cmd_path(t_input *input, t_env **env)
+int	cmd_path(t_input *input, t_env **env, int *status)
 {
 	t_env	*node;
 	int		rv;
@@ -112,7 +115,7 @@ int	cmd_path(t_input *input, t_env **env)
 	node = *env;
 	if (!input->data || !input->data[0][0])
 		return (0);
-	rv = path_slash(input);
+	rv = path_slash(input, status);
 	if (rv == 1)
 		return (0);
 	if (rv == -1)
@@ -122,11 +125,12 @@ int	cmd_path(t_input *input, t_env **env)
 		if (!ft_strncmp(node->env, "PATH=", 5))
 		{
 			if (node->env[5])
-				return (put_path(input, node));
+				return (put_path(input, node, status));
 		}
 		node = node->next;
 	}
 	parsing_error("minishell: ", input->data[0], ": No such file or directory");
+	*status = 127;
 	free_dtab(input->data);
 	input->data = NULL;
 	return (0);

@@ -33,6 +33,7 @@ static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
 			mh_exit(line, in);
 		exec_cmd(in);
 		*env = in->env;
+		// if (*stat != 126 && *stat != 127)
 		*stat = in->status;
 	}
 	else
