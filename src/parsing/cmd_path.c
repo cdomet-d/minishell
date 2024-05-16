@@ -41,6 +41,27 @@ static char	*find_path(char *cmd, char *env)
 	return (cmd);
 }
 
+static int	put_path(t_input *input, t_env	*node)
+{
+	char	*path;
+
+	path = NULL;
+	path = find_path(input->data[0], node->env + 5);
+	if (!path)
+		return (1);
+	if (!ft_strncmp(path, input->data[0], ft_strlen(input->data[0]) + 1))
+	{
+		ft_putstr_fd(input->data[0], 2);
+		ft_putendl_fd(": command not found", 2);
+		free_dtab(input->data);
+		input->data = NULL;
+		return (0);
+	}
+	free(input->data[0]);
+	input->data[0] = path;
+	return (0);
+}
+
 static int	path_slash(t_input *input)
 {
 	char	*cmd;
@@ -74,27 +95,6 @@ static int	path_slash(t_input *input)
 		}
 		i++;
 	}
-	return (0);
-}
-
-static int	put_path(t_input *input, t_env	*node)
-{
-	char	*path;
-
-	path = NULL;
-	path = find_path(input->data[0], node->env + 5);
-	if (!path)
-		return (1);
-	if (!ft_strncmp(path, input->data[0], ft_strlen(input->data[0]) + 1))
-	{
-		ft_putstr_fd(input->data[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		free_dtab(input->data);
-		input->data = NULL;
-		return (0);
-	}
-	free(input->data[0]);
-	input->data[0] = path;
 	return (0);
 }
 
