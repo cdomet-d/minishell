@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/25 18:24:40 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:59:29 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	parsing(t_input **input, t_env **env, char *line, int *status)
 		if (node->tok == command)
 			find_builtin(node);
 		if (node->tok == command)
-			if (cmd_path(node, env, status))
+			if (cmd_path(node, env))
 				return (input_freelst(input));
 		node = node->next;
 	}

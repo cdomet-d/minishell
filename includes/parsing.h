@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/03 18:26:49 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:59:21 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	create_env(t_input **input, char **envp, t_env **env);
 int		create_input(t_input **input, t_env **env, char **data, int tok);
 
 /* cmd_path.c */
-int		cmd_path(t_input *input, t_env **env, int *status);
+int		cmd_path(t_input *input, t_env **env);
 
 /* cmd_path_utils.c */
 size_t	path_len(char *env, size_t *i);
