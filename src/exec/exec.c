@@ -25,7 +25,7 @@ static void	*ft_execve(t_input *in)
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
 		(print_error(errno, "ft_execve (memissue in arenv)"));
-	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
+	if (tmp->data[0])// && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
 		free_dtab(arenv);
