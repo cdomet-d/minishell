@@ -62,37 +62,43 @@ static int	put_path(t_input *input, t_env	*node)
 	return (0);
 }
 
+static int	check_path_slash(t_input *input)
+{
+	struct stat	buf;
+	char		*cmd;
+
+	cmd = input->data[0];
+	if (access(cmd, X_OK) == 0)
+	{
+		if (stat(cmd, &buf) == -1)
+			return (print_error(errno, "minishell: parsing"), -1);
+		if (S_ISDIR(buf.st_mode))
+		{
+			parsing_error("minishell: ", cmd, ": Is a directory");
+			free_dtab(input->data);
+			input->data = NULL;
+		}
+	}
+	else
+	{
+		parsing_error("minishell: ", cmd, ": No such file or directory");
+		free_dtab(input->data);
+		input->data = NULL;
+	}
+	return (1);
+}
+
 static int	path_slash(t_input *input)
 {
 	char	*cmd;
 	size_t	i;
-	struct stat	buf;
 
 	cmd = input->data[0];
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '/')
-		{
-			if (access(cmd, X_OK) == 0)
-			{
-				if (stat(cmd, &buf) == -1)
-					return (print_error(errno, "minishell: parsing"), -1); //!!!!!
-				if (S_ISDIR(buf.st_mode))
-				{
-					parsing_error("minishell: ", cmd, ": Is a directory");
-					free_dtab(input->data);
-					input->data = NULL;
-				}
-			}
-			else
-			{
-				parsing_error("minishell: ", cmd, ": No such file or directory");
-				free_dtab(input->data);
-				input->data = NULL;
-			}
-			return (1);
-		}
+		if (cmd[i] == '/')	
+			return (check_path_slash(input));
 		i++;
 	}
 	return (0);
@@ -101,12 +107,16 @@ static int	path_slash(t_input *input)
 int	cmd_path(t_input *input, t_env **env)
 {
 	t_env	*node;
+	int		rv;
 
 	node = *env;
 	if (!input->data || !input->data[0][0])
 		return (0);
-	if (path_slash(input))
+	rv = path_slash(input);
+	if (rv == 1)
 		return (0);
+	if (rv == -1)
+		return (1);
 	while (node)
 	{
 		if (!ft_strncmp(node->env, "PATH=", 5))

@@ -35,7 +35,7 @@ int	check_path(char **path)
 		{
 			free(*path);
 			*path = NULL;
-			return (print_error(errno, "minishell: parsing"), -1); //!!!!
+			return (print_error(errno, "minishell: parsing"), 1);
 		}
 		if (S_ISDIR(buf.st_mode))
 			return (0);
