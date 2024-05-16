@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/16 16:57:06 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:58:32 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ static char	*find_path(char *cmd, char *env)
 	return (cmd);
 }
 
-static int	path_slash(char *cmd)
-{
-	size_t	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static int	put_path(t_input *input, t_env	*node)
 {
 	char	*path;
@@ -67,6 +53,20 @@ static int	put_path(t_input *input, t_env	*node)
 		return (0);
 	free(input->data[0]);
 	input->data[0] = path;
+	return (0);
+}
+
+static int	path_slash(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
