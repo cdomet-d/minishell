@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/16 17:19:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 20:41:01 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	path(t_input *in)
 	tmpenv = in->env;
 	while (tmpenv)
 	{
-		if (ft_strncmp(tmpenv->env, "PATH=", 6) == 0)
+		if (ft_strncmp(tmpenv->env, "PATH=", 5) == 0)
 			return (true);
 		tmpenv = tmpenv->next;
 	}
@@ -56,22 +56,12 @@ void	display_exec_error(t_input	*in, int err)
 			printf("%s: %s: %s\n", "minishell", in->data[0], "is a directory");
 	if (path(in))
 	{
-		if (in->data && in->data[0] && access(in->data[0], X_OK) != -1)
-		{
-			if (in->data[1] && access(in->data[1], X_OK) == -1)
-				printf("%s: %s: %s\n", in->data[0], in->data[1], strerror(err));
-		}
-		else if (in->data && in->data[0] && access(in->data[0], X_OK) == -1)
+		if (in->data && in->data[0] && access(in->data[0], X_OK) == -1)
 			printf("%s: %s: %s\n", "minishell", in->data[0], "command not found");
 	}
 	else
 	{
-		if (in->data && in->data[0] && access(in->data[0], X_OK) != -1)
-		{
-			if (in->data[1] && access(in->data[1], X_OK) == -1)
-				printf("%s: %s: %s\n", in->data[0], in->data[1], strerror(err));
-		}
-		else if (in->data && in->data[0] && access(in->data[0], X_OK) == -1)
+		if (in->data && in->data[0] && access(in->data[0], X_OK) == -1)
 			printf("%s: %s: %s\n", "minishell", in->data[0], strerror(err));
 	}
 }

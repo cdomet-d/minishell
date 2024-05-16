@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/16 15:41:50 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 20:37:03 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,33 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 int	unset(t_input	**in)
 {
 	t_env	*head;
+	bool	missing;
 	size_t	i;
 
 	if (!in || !(*in) || !(*in)->env || ((*in)->data && !(*in)->data[1]))
 		return (1);
 	head = (*in)->env;
+	missing = false;
 	i = 1;
 	while ((*in)->env && (*in)->data[i])
 	{
-		if ((*in)->data[i] && ft_strncmp((*in)->env->env, (*in)->data[i], \
+		if ((*in)->data && (*in)->data[i] && ft_strncmp((*in)->env->env, (*in)->data[i], \
 			ft_strlen((*in)->data[i])) == 0)
 		{
 			head = env_rmone(&(*in)->env, &head);
 			(*in)->env = head;
 			i++;
 		}
+		else
+			missing = true;
 		if ((*in)->env && (*in)->env->next)
 			(*in)->env = (*in)->env->next;
 		else
+		{
 			(*in)->env = head;
+			if (missing)
+				break;
+		}		
 	}
 	(*in)->env = head;
 	return (0);

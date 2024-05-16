@@ -1,0 +1,74 @@
+==35924== Memcheck, a memory error detector
+==35924== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==35924== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==35924== Command: ./minishell
+==35924== Parent PID: 35923
+==35924== 
+==35971== 
+==35971== FILE DESCRIPTORS: 5 open (0 std) at exit.
+==35971== Open file descriptor 26: /home/jauseff/.vscode-server/data/logs/20240516T202636/network.log
+==35971==    <inherited from parent>
+==35971== 
+==35971== Open file descriptor 21: /home/jauseff/.vscode-server/data/logs/20240516T202636/remoteagent.log
+==35971==    <inherited from parent>
+==35971== 
+==35971== Open file descriptor 20: /home/jauseff/.vscode-server/data/logs/20240516T202636/ptyhost.log
+==35971==    <inherited from parent>
+==35971== 
+==35971== Open file descriptor 19: /dev/urandom
+==35971==    <inherited from parent>
+==35971== 
+==35971== Open file descriptor 3: /home/jauseff/42/projects/minishell/minilog
+==35971==    <inherited from parent>
+==35971== 
+==35971== 
+==35971== HEAP SUMMARY:
+==35971==     in use at exit: 208,224 bytes in 226 blocks
+==35971==   total heap usage: 614 allocs, 388 frees, 245,759 bytes allocated
+==35971== 
+==35971== LEAK SUMMARY:
+==35971==    definitely lost: 0 bytes in 0 blocks
+==35971==    indirectly lost: 0 bytes in 0 blocks
+==35971==      possibly lost: 0 bytes in 0 blocks
+==35971==    still reachable: 0 bytes in 0 blocks
+==35971==         suppressed: 208,224 bytes in 226 blocks
+==35971== 
+==35971== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--35971-- 
+--35971-- used_suppression:     67 ignore_libreadline_leaks /home/jauseff/42/projects/minishell/misc/supp.supp:2 suppressed: 208,224 bytes in 226 blocks
+==35971== 
+==35971== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==35924== 
+==35924== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==35924== Open file descriptor 26: /home/jauseff/.vscode-server/data/logs/20240516T202636/network.log
+==35924==    <inherited from parent>
+==35924== 
+==35924== Open file descriptor 21: /home/jauseff/.vscode-server/data/logs/20240516T202636/remoteagent.log
+==35924==    <inherited from parent>
+==35924== 
+==35924== Open file descriptor 20: /home/jauseff/.vscode-server/data/logs/20240516T202636/ptyhost.log
+==35924==    <inherited from parent>
+==35924== 
+==35924== Open file descriptor 19: /dev/urandom
+==35924==    <inherited from parent>
+==35924== 
+==35924== Open file descriptor 3: /home/jauseff/42/projects/minishell/minilog
+==35924==    <inherited from parent>
+==35924== 
+==35924== 
+==35924== HEAP SUMMARY:
+==35924==     in use at exit: 208,220 bytes in 225 blocks
+==35924==   total heap usage: 568 allocs, 343 frees, 241,375 bytes allocated
+==35924== 
+==35924== LEAK SUMMARY:
+==35924==    definitely lost: 0 bytes in 0 blocks
+==35924==    indirectly lost: 0 bytes in 0 blocks
+==35924==      possibly lost: 0 bytes in 0 blocks
+==35924==    still reachable: 0 bytes in 0 blocks
+==35924==         suppressed: 208,220 bytes in 225 blocks
+==35924== 
+==35924== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--35924-- 
+--35924-- used_suppression:     66 ignore_libreadline_leaks /home/jauseff/42/projects/minishell/misc/supp.supp:2 suppressed: 208,220 bytes in 225 blocks
+==35924== 
+==35924== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
