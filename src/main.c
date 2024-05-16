@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/14 15:35:35 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 17:02:32 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
 			mh_exit(line, in);
 		exec_cmd(in);
 		*env = in->env;
-		// if (*stat != 126 && *stat != 127)
 		*stat = in->status;
 	}
 	else
