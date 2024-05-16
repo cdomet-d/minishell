@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/16 17:50:53 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:16:07 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 {
 	t_env	*tmp;
 
-	print_env_for(*sup, "env_rm");
+	// print_env_for(*sup, "env_rm");
 	if (!(*sup))
 		return (print_error(errno, "minishell: exec"));
 	tmp = (*sup);
