@@ -1,0 +1,125 @@
+Process terminating with default action of signal 13 (SIGPIPE)
+==77382==    at 0x49DA887: write (write.c:26)
+==77382==    by 0x40603A: echo (echo.c:54)
+==77382==    by 0x4091A8: exec_builtin (exec_builtins.c:24)
+==77382==    by 0x408B15: redir_cmd (exec.c:60)
+==77382==    by 0x4088CF: exec_cmd (exec.c:85)
+==77382==    by 0x401491: process_line (main.c:34)
+==77382==    by 0x401395: main (main.c:67)
+==77382== 
+==77382== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==77382== Open file descriptor 103: /home/csweetin/apps/VSCode/v8_context_snapshot.bin
+==77382==    <inherited from parent>
+==77382== 
+==77382== Open file descriptor 39: /home/csweetin/apps/VSCode/resources/app/node_modules.asar
+==77382==    <inherited from parent>
+==77382== 
+==77382== Open AF_UNIX socket 38: <unknown>
+==77382==    <inherited from parent>
+==77382== 
+==77382== Open file descriptor 37: /home/csweetin/.config/Code/logs/20240516T161702/ptyhost.log
+==77382==    <inherited from parent>
+==77382== 
+==77382== 
+==77382== HEAP SUMMARY:
+==77382==     in use at exit: 221,189 bytes in 423 blocks
+==77382==   total heap usage: 647 allocs, 224 frees, 236,633 bytes allocated
+==77382== 
+==77382== 14 bytes in 1 blocks are still reachable in loss record 12 of 90
+==77382==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77382==    by 0x40B31B: ft_calloc (in /home/csweetin/Documents/minishell_github/minishell)
+==77382==    by 0x404B43: find_path (cmd_path.c:28)
+==77382==    by 0x404A31: put_path (cmd_path.c:49)
+==77382==    by 0x40496D: cmd_path (cmd_path.c:87)
+==77382==    by 0x40455E: parsing (parsing.c:130)
+==77382==    by 0x401455: process_line (main.c:28)
+==77382==    by 0x401395: main (main.c:67)
+==77382== 
+==77382== 32 bytes in 7 blocks are still reachable in loss record 24 of 90
+==77381== 
+==77381== FILE DESCRIPTORS: 4 open (0 std) at exit.
+==77381== Open file descriptor 103: /home/csweetin/apps/VSCode/v8_context_snapshot.bin
+==77381==    <inherited from parent>
+==77381== 
+==77381== Open file descriptor 39: /home/csweetin/apps/VSCode/resources/app/node_modules.asar
+==77381==    <inherited from parent>
+==77381== 
+==77381== Open AF_UNIX socket 38: <unknown>
+==77381==    <inherited from parent>
+==77381== 
+==77382==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77382==    by 0x40B31B: ft_calloc (in /home/csweetin/Documents/minishell_github/minishell)
+==77382==    by 0x40290A: build_tab (create_data.c:114)
+==77381== Open file descriptor 37: /home/csweetin/.config/Code/logs/20240516T161702/ptyhost.log
+==77381==    <inherited from parent>
+==77381== 
+==77381== 
+==77381== HEAP SUMMARY:
+==77381==     in use at exit: 208,384 bytes in 229 blocks
+==77381==   total heap usage: 647 allocs, 418 frees, 236,633 bytes allocated
+==77381== 
+==77382==    by 0x401D9C: tok_command (toke_type.c:75)
+==77382==    by 0x40177B: loop_content (tokenization.c:27)
+==77382==    by 0x40157B: tokenization (tokenization.c:46)
+==77382==    by 0x40448C: parsing (parsing.c:114)
+==77382==    by 0x401455: process_line (main.c:28)
+==77382==    by 0x401395: main (main.c:67)
+==77382== 
+==77382== 96 bytes in 4 blocks are still reachable in loss record 35 of 90
+==77382==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77382==    by 0x40B31B: ft_calloc (in /home/csweetin/Documents/minishell_github/minishell)
+==77382==    by 0x4027F5: build_tab (create_data.c:103)
+==77382==    by 0x401D9C: tok_command (toke_type.c:75)
+==77382==    by 0x40177B: loop_content (tokenization.c:27)
+==77382==    by 0x40157B: tokenization (tokenization.c:46)
+==77382==    by 0x40448C: parsing (parsing.c:114)
+==77382==    by 0x401455: process_line (main.c:28)
+==77382==    by 0x401395: main (main.c:67)
+==77382== 
+==77382== 144 bytes in 3 blocks are still reachable in loss record 37 of 90
+==77382==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77382==    by 0x40550C: input_newnode (input_lst_utils.c:55)
+==77382==    by 0x404251: create_input (create_lst.c:20)
+==77382==    by 0x401F2F: tok_pipe (toke_type.c:98)
+==77382==    by 0x401749: loop_content (tokenization.c:25)
+==77382==    by 0x40157B: tokenization (tokenization.c:46)
+==77382==    by 0x40448C: parsing (parsing.c:114)
+==77382==    by 0x401455: process_line (main.c:28)
+==77382==    by 0x401395: main (main.c:67)
+==77381== LEAK SUMMARY:
+==77381==    definitely lost: 0 bytes in 0 blocks
+==77381==    indirectly lost: 0 bytes in 0 blocks
+==77381==      possibly lost: 0 bytes in 0 blocks
+==77381==    still reachable: 0 bytes in 0 blocks
+==77381==         suppressed: 208,384 bytes in 229 blocks
+==77381== 
+==77381== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--77381-- 
+--77381-- used_suppression:     67 ignore_libreadline_leaks /home/csweetin/Documents/minishell_github/misc/supp.supp:2 suppressed: 208,384 bytes in 229 blocks
+==77381== 
+==77381== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==77382== 
+==77382== 192 bytes in 4 blocks are still reachable in loss record 41 of 90
+==77382==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77382==    by 0x40550C: input_newnode (input_lst_utils.c:55)
+==77382==    by 0x404251: create_input (create_lst.c:20)
+==77382==    by 0x401DD6: tok_command (toke_type.c:81)
+==77382==    by 0x40177B: loop_content (tokenization.c:27)
+==77382==    by 0x40157B: tokenization (tokenization.c:46)
+==77382==    by 0x40448C: parsing (parsing.c:114)
+==77382==    by 0x401455: process_line (main.c:28)
+==77382==    by 0x401395: main (main.c:67)
+==77382== 
+==77382== 1,776 bytes in 74 blocks are still reachable in loss record 61 of 90
+==77382==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77382==    by 0x405325: env_newnode (env_lst_utils.c:57)
+==77382==    by 0x40432A: create_env (create_lst.c:43)
+==77382==    by 0x401419: init_all (main.c:22)
+==77382==    by 0x401327: main (main.c:58)
+==77382== 
+==77382== 4,315 bytes in 74 blocks are still reachable in loss record 76 of 90
+==77382==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77382==    by 0x40BBFC: ft_strdup (in /home/csweetin/Documents/minishell_github/minishell)
+==77382==    by 0x40534A: env_newnode (env_lst_utils.c:60)
+==77382==    by 0x40432A: create_env (create_lst.c:43)
+==77382==    by 0x401419: init_all (main.c:22)
