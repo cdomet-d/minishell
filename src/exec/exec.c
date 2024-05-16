@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/15 16:33:30 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 17:01:56 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	*ft_execve(t_input *in)
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
 		(print_error(errno, "ft_execve (memissue in arenv)"));
-	if (tmp->data[0])// && access(tmp->data[0], X_OK) != -1)
+	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
 		free_dtab(arenv);
