@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:57:47 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/08 14:43:51 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 17:32:15 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	echo(char **data)
 	}
 	if (opt == false)
 		if (write(1, "\n", 1) == -1)
-			return (1);
+			return (print_error(errno, "minishell: exec"), 1);
 	return (0);
 }
