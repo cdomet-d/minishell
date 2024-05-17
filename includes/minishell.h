@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:55:17 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:40:56 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,6 @@ void	mh_exit(char *line, t_input *in);
 int	sort_env(t_env	*env);
 
 /* export.c */
-int	check_arg(char *var);
-int	change_var(t_input **in, char *var);
 int	export(t_input **in);
 
 /* pwd.c */

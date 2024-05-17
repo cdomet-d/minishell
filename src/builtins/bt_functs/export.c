@@ -6,13 +6,13 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 14:55:11 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:38:57 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	check_arg(char *var)
+static int	check_arg(char *var)
 {
 	size_t	i;
 
@@ -37,7 +37,7 @@ int	check_arg(char *var)
 	return (0);
 }
 
-int	change_var(t_input **in, char *var)
+static int	change_var(t_input **in, char *var)
 {
 	char	*key;
 
@@ -61,7 +61,7 @@ int	change_var(t_input **in, char *var)
 	return (0);
 }
 
-int	exec_export(t_input **in, t_env *head)
+static int	exec_export(t_input **in, t_env *head)
 {
 	size_t	i;
 	int		rv;
