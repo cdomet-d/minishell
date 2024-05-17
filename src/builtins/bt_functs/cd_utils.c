@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:38:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/17 13:59:24 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 18:29:48 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_directory(char *var, char *path)
 		}
 		if (errno == ENAMETOOLONG)
 			return (0);
-		return (print_error(errno, "minishell: exec"), 1);
+		return (1);
 	}
 	if (S_ISDIR(buf.st_mode))
 		return (0);

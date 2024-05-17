@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/17 14:01:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/05/17 18:44:24 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/17 19:22:23 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "exec.h"
 
 static char	*comp_keys(char *to_find, char *key)
 {
 	size_t	i;
-	
+
 	if (!to_find || !key)
 		return (NULL);
 	i = 0;
-	while(to_find[i] && i <ft_strlen(key))
+	while (to_find[i] && key[i])
 	{
 		if (to_find[i] != key[i])
 			return (NULL);
 		i++;
 	}
 	if (to_find[i] != '=')
-			return (NULL);
+		return (NULL);
 	return (to_find);
 }
 
@@ -71,26 +70,30 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 	return (*sup);
 }
 
-int	unset(t_input	**in)
+int	unset(t_input **in)
 {
 	t_env	*head;
+	t_env	*temp;
 	size_t	i;
 
 	if (!in || !(*in) || !(*in)->env || ((*in)->data && !(*in)->data[1]))
 		return (1);
 	head = (*in)->env;
-	i = 1;
-	while ((*in)->env && (*in)->data[i])
+	i = 0;
+	while ((*in)->data[++i])
 	{
-		if ((*in)->data && (*in)->data[i] && comp_keys((*in)->env->env, \
-			(*in)->data[i]))
+		while ((*in)->env)
 		{
-			head = env_rmone(&(*in)->env, &head);
-			(*in)->env = head;
-			i++;
+			temp = (*in)->env->next;
+			if (comp_keys((*in)->env->env, (*in)->data[i]))
+			{
+				head = env_rmone(&(*in)->env, &head);
+				(*in)->env = temp;
+			}
+			else if ((*in)->env)
+				(*in)->env = (*in)->env->next;
 		}
-		if ((*in)->env)
-			(*in)->env = (*in)->env->next;
+		(*in)->env = head;
 	}
 	(*in)->env = head;
 	return (0);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 13:59:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 17:53:42 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	check_arg(char *var)
+static int	check_arg(char *var)
 {
 	size_t	i;
 
@@ -37,7 +37,7 @@ int	check_arg(char *var)
 	return (0);
 }
 
-int	change_var(t_input **in, char *var)
+static int	change_var(t_input **in, char *var)
 {
 	char	*key;
 
@@ -61,18 +61,15 @@ int	change_var(t_input **in, char *var)
 	return (0);
 }
 
-int	export(t_input **in)
+static int	exec_export(t_input **in, t_env *head)
 {
 	size_t	i;
 	int		rv;
-	t_env	*head;
+	int		status;
 
-	i = 1;
-	head = (*in)->env;
-	if ((*in)->env && !(*in)->data[1])
-		if (sort_env((*in)->env) == 1)
-			return (1);
-	while ((*in)->data[i])
+	status = 0;
+	i = 0;
+	while ((*in)->data[++i])
 	{
 		if (!check_arg((*in)->data[i]))
 		{
@@ -83,8 +80,22 @@ int	export(t_input **in)
 			if (!rv)
 				if (!exprt_inenv(&(*in)->env, (*in)->data[i]))
 					return (0);
+			if (!head)
+				head = (*in)->env;
 		}
-		i++;
+		else
+			status = 1;
 	}
-	return (0);
+	return (status);
+}
+
+int	export(t_input **in)
+{
+	t_env	*head;
+
+	head = (*in)->env;
+	if ((*in)->env && !(*in)->data[1])
+		if (sort_env((*in)->env) == 1)
+			return (1);
+	return (exec_export(in, head));
 }

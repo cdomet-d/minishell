@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:00:38 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 19:32:34 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	*open_infiles(t_fd *fd, t_input *tmp);
 void	*create_hdocs(t_fd *fd, t_input *in);
 
 /* heredoc_expand.c */
-int	search_dollar_hd(char *line);
-int	heredoc_expand(char **line, t_input *in);
+int		search_dollar_hd(char *line);
+int		heredoc_expand(char **line, t_input *in);
 
 /* heredoc_utils.c */
 bool	here_true(t_input *in);
@@ -101,11 +101,9 @@ void	*heredoc_error(t_input	*in, char *tmpdel, char *line, bool err);
 void	set_status(t_input *in, int e_stat);
 
 /* sighandler.c */
-int	get_nonull(void);
+int		get_nonull(void);
 void	sigend(void);
 void	siglisten(void);
 char	*send_eof(char *line);
-
-
 
 #endif
