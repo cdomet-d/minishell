@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 15:43:24 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:32:41 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,22 +137,22 @@ int		cd(t_input *in);
 int		echo(char **data);
 
 /* env.c */
-int	env(t_input *in);
+int		env(t_input *in);
 
 /* exit.c */
 void	mh_exit(char *line, t_input *in);
 
 /* export_utils.c */
-int	sort_env(t_env	*env);
+int		sort_env(t_env	*env);
 
 /* export.c */
-int	export(t_input **in);
+int		export(t_input **in);
 
 /* pwd.c */
-int	pwd(t_env *env);
+int		pwd(t_env *env);
 
 /* unset.c */
-int	unset(t_input	**in);
+int		unset(t_input	**in);
 
 /* builtin_utils.c */
 char	*split_wsep(char *str, char sep);
