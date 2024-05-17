@@ -61,18 +61,15 @@ int	change_var(t_input **in, char *var)
 	return (0);
 }
 
-int	export(t_input **in)
+int	export_loop(t_input **in, t_env *head)
 {
 	size_t	i;
 	int		rv;
-	t_env	*head;
+	bool	status;
 
-	i = 1;
-	head = (*in)->env;
-	if ((*in)->env && !(*in)->data[1])
-		if (sort_env((*in)->env) == 1)
-			return (1);
-	while ((*in)->data[i])
+	status = true;
+	i = 0;
+	while ((*in)->data[++i])
 	{
 		if (!check_arg((*in)->data[i]))
 		{
@@ -84,7 +81,21 @@ int	export(t_input **in)
 				if (!exprt_inenv(&(*in)->env, (*in)->data[i]))
 					return (0);
 		}
-		i++;
+		else
+			status = false;
 	}
+	if (status == false)
+		return (1);
 	return (0);
+}
+
+int	export(t_input **in)
+{
+	t_env	*head;
+
+	head = (*in)->env;
+	if ((*in)->env && !(*in)->data[1])
+		if (sort_env((*in)->env) == 1)
+			return (1);
+	return (export_loop(in, head));
 }
