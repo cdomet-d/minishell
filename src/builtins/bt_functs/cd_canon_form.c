@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:26:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/15 18:56:46 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:27:02 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	*prep_path(char *var, char *path)
 		return (free_dtab(tab), print_error(errno, "minishell: exec"));
 	path = canonical_form(var, temp, tab, 1);
 	free_dtab(tab);
-	if (!path)
+	if (!path && errno != 2)
 		return (print_error(errno, "minishell: exec"));
 	return (path);
 }
