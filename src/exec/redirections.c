@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 15:40:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 13:59:31 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 	while (op_true(tmp, inredir))
 	{
 		if (!open_infiles(fd, tmp))
-			return (parsing_error("minishell", in->data[0], strerror(errno)), \
+			return (verbose_error("minishell", in->data[0], strerror(errno)), \
 			NULL);
 		tmp = find_tok(tmp, inredir, true);
 	}

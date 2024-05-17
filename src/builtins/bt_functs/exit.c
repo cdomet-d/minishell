@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:51:31 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:59:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	mh_exit(char *line, t_input *in)
 		rv = ft_atoll(in->data[1]);
 		if (!not_num(in->data[1]) || rv > EXIT_MAX)
 		{
-			parsing_error("minishell: exit: ", in->data[1], ": numeric argument\
+			verbose_error("minishell: exit: ", in->data[1], ": numeric argument\
 			required");
 			rv = 2;
 		}

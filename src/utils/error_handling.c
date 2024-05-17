@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/16 15:36:32 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 13:59:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	*errjoin(int error_code, char *error_message)
 	return ((int *)true);
 }
 
-int	parsing_error(char *s1, char *s2, char *s3)
+int	verbose_error(char *s1, char *s2, char *s3)
 {
 	if (ft_putstr_fd("\033[1;31m", STDERR_FILENO) == -1)
 		return (-1);

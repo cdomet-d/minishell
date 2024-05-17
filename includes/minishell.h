@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:55:17 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:59:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	display_dtab(char **dtab);
 /* error_handling.c */
 void	fatal_exit(t_input **lst, int rv, char *error_message);
 void	*print_error(int error_code, char *error_message);
-int		parsing_error(char *s1, char *s2, char *s3);
+int		verbose_error(char *s1, char *s2, char *s3);
 void	exit_no_input(t_env **env, char *line, int status);
 
 // builtins ------------------

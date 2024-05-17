@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/17 13:02:18 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 13:59:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ void	display_exec_error(t_input	*in, int err)
 		return ;
 	if (in->data[0] && stat(in->data[0], &infos) != -1)
 		if (S_ISDIR(infos.st_mode))
-			parsing_error("minishell: ", in->data[0], ": is a directory");
+			verbose_error("minishell: ", in->data[0], ": is a directory");
 	if (path(in))
 	{
 		if (in->data[0] && access(in->data[0], X_OK) == -1)
-			parsing_error("minishell: ", in->data[0], ": command not found");
+			verbose_error("minishell: ", in->data[0], ": command not found");
 	}
 	else
 	{
 		if (in->data[0] && access(in->data[0], X_OK) == -1)
-			parsing_error("minishell: ", in->data[0], strerror(err));
+			verbose_error("minishell: ", in->data[0], strerror(err));
 	}
 }
