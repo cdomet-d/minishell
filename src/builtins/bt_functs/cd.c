@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/13 18:04:50 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/05/16 16:18:58 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/16 16:19:01 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "exec.h"
 
-char	*init_path(t_input *in)
+static char	*init_path(t_input *in)
 {
 	char	*path;
 	char	*temp;
@@ -41,7 +40,7 @@ char	*init_path(t_input *in)
 	return (path);
 }
 
-char	*cd_path(t_input *in)
+static char	*cd_path(t_input *in)
 {
 	char	*path;
 
@@ -59,7 +58,7 @@ char	*cd_path(t_input *in)
 	return (path);
 }
 
-int	special_cases(t_input *in, char **path)
+static int	special_cases(t_input *in, char **path)
 {
 	if (!in->data[1])
 	{
