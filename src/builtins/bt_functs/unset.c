@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/17 14:01:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/05/17 18:44:24 by csweetin          #+#    #+#             */
+/*   Updated: 2024/05/17 18:44:29 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "exec.h"
 
 static char	*comp_keys(char *to_find, char *key)
 {
 	size_t	i;
-	
+
 	if (!to_find || !key)
 		return (NULL);
 	i = 0;
-	while(to_find[i] && i <ft_strlen(key))
+	while (to_find[i] && i < ft_strlen(key))
 	{
 		if (to_find[i] != key[i])
 			return (NULL);
 		i++;
 	}
 	if (to_find[i] != '=')
-			return (NULL);
+		return (NULL);
 	return (to_find);
 }
 
