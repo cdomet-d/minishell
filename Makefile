@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/16 16:17:26 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/16 17:52:37 by csweetin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -176,8 +176,9 @@ fclean: clean
 	
 re: fclean all
 
-M_SUP:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/misc/supp.supp
-LOG:=/home/cdomet-d/Documents/PROJETS/WIP/minishell/
+CHEMIN:= $(shell pwd)
+M_SUP:=$(CHEMIN)/misc/supp.supp
+LOG:=$(CHEMIN)
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
 	$(V_PARAMS) ./$(NAME) 

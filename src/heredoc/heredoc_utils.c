@@ -58,8 +58,8 @@ char	*get_delim(t_input *in)
 
 bool	exit_loop(char *line, char *tmpdel, t_input	*in)
 {
-	if (ft_strncmp(line, tmpdel, (ft_strlen(in->data[0]))) == 0 || \
-		g_sig == SIGINT)
+	if (ft_strncmp(line, tmpdel, (ft_strlen(in->data[0]) + 1)) == 0
+		|| g_sig == SIGINT)
 	{
 		rl_event_hook = NULL;
 		if (g_sig == SIGINT)

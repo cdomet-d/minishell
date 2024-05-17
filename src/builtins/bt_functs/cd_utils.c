@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:38:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:41:08 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:18:22 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ int	check_directory(char *var, char *path)
 	{
 		if (errno == ENOENT)
 		{
-			ft_putstr_fd("minishell: cd: ", 2);
-			ft_putstr_fd(var, 2);
-			ft_putendl_fd(": No such file or directory", 2);
+			parsing_error("minishell: cd: ", var, \
+			": No such file or directory");
 			return (1);
 		}
 		if (errno == ENAMETOOLONG)
@@ -33,15 +32,13 @@ int	check_directory(char *var, char *path)
 		return (0);
 	else
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(var, 2);
-		ft_putendl_fd(": No such file or directory", 2);
+		parsing_error("minishell: cd: ", var, ": No such file or directory");
 		return (1);
 	}
 	return (0);
 }
 
-int	change_pwds(t_env **env, char *path, char *var)
+static int	change_pwds(t_env **env, char *path, char *var)
 {
 	t_env	*node;
 	char	*key;

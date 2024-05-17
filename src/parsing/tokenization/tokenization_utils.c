@@ -46,9 +46,14 @@ static void	syntax_error(char *line, size_t *i)
 		print_error(0, "syntax error near unexpected token 'newline'");
 	else if (line[*i] == '>' || line[*i] == '<' || line[*i] == '|')
 	{
-		ft_putstr_fd("minishell : syntax error near unexpected token ", 2);
-		ft_putchar_fd(line[*i], STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
+		if (ft_putstr_fd("\033[1;31m", STDERR_FILENO) == -1)
+			return ;
+		if (ft_putstr_fd("minishell : syntax error near unexpected token ", 2) == -1)
+			return ;
+		if (ft_putchar_fd(line[*i], STDERR_FILENO) == -1)
+			return ;
+		if (ft_putendl_fd("\033[0m", STDERR_FILENO) == -1)
+			return ;
 	}
 }
 

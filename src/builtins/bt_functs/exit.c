@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:27:01 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 17:51:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static bool	not_num(char *str)
 	return (true);
 }
 
+
 void	mh_exit(char *line, t_input *in)
 {
 	unsigned long long int	rv;
@@ -40,11 +41,10 @@ void	mh_exit(char *line, t_input *in)
 	if (in && in->data[1])
 	{
 		rv = ft_atoll(in->data[1]);
-		printf("%llu\n", rv);
 		if (!not_num(in->data[1]) || rv > EXIT_MAX)
 		{
-			parsing_error("minishell: exit: ", in->data[1], \
-			": numeric argument required");
+			parsing_error("minishell: exit: ", in->data[1], ": numeric argument\
+			required");
 			rv = 2;
 		}
 		fatal_exit(&in, rv, NULL);
