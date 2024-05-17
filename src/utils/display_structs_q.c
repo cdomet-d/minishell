@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_structs_q.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:49:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/08 19:17:26 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 12:26:24 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	display_dtab(char **dtab)
 	i = 0;
 	while (dtab && dtab[i])
 	{
-		fprintf(stderr, "[%s] ", dtab[i]);
+		fprintf(stderr, "[(%ld) %s] ", i, dtab[i]);
 		i++;
 	}
 }
