@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 18:44:24 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/17 18:44:29 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:45:26 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 	return (*sup);
 }
 
-int	unset(t_input	**in)
+int	unset(t_input **in)
 {
 	t_env	*head;
 	size_t	i;
