@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 18:06:17 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:55:11 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	change_var(t_input **in, char *var)
 	return (0);
 }
 
-int	export_loop(t_input **in, t_env *head)
+int	exec_export(t_input **in, t_env *head)
 {
 	size_t	i;
 	int		rv;
@@ -97,5 +97,5 @@ int	export(t_input **in)
 	if ((*in)->env && !(*in)->data[1])
 		if (sort_env((*in)->env) == 1)
 			return (1);
-	return (export_loop(in, head));
+	return (exec_export(in, head));
 }
