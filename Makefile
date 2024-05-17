@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+         #
+#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/16 17:52:37 by csweetin         ###   ########.fr        #
+#    Updated: 2024/05/17 13:57:38 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -181,7 +181,7 @@ M_SUP:=$(CHEMIN)/misc/supp.supp
 LOG:=$(CHEMIN)
 V_PARAMS:= valgrind --trace-children=yes --track-fds=yes --leak-check=full --suppressions=$(M_SUP) --show-leak-kinds=all -s
 run: all
-	$(V_PARAMS) ./$(NAME) 
+	$(V_PARAMS) ./$(NAME)
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 

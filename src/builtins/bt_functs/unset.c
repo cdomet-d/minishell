@@ -3,15 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/16 18:16:07 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:01:31 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "exec.h"
+
+static char	*comp_keys(char *to_find, char *key)
+{
+	size_t	i;
+	
+	if (!to_find || !key)
+		return (NULL);
+	i = 0;
+	while(to_find[i] && i <ft_strlen(key))
+	{
+		if (to_find[i] != key[i])
+			return (NULL);
+		i++;
+	}
+	if (to_find[i] != '=')
+			return (NULL);
+	return (to_find);
+}
 
 static	size_t	env_len(t_env *env)
 {
@@ -30,7 +48,6 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 {
 	t_env	*tmp;
 
-	// print_env_for(*sup, "env_rm");
 	if (!(*sup))
 		return (print_error(errno, "minishell: exec"));
 	tmp = (*sup);
@@ -65,17 +82,15 @@ int	unset(t_input	**in)
 	i = 1;
 	while ((*in)->env && (*in)->data[i])
 	{
-		if ((*in)->data[i] && ft_strncmp((*in)->env->env, (*in)->data[i], \
-			ft_strlen((*in)->data[i])) == 0)
+		if ((*in)->data && (*in)->data[i] && comp_keys((*in)->env->env, \
+			(*in)->data[i]))
 		{
 			head = env_rmone(&(*in)->env, &head);
 			(*in)->env = head;
 			i++;
 		}
-		if ((*in)->env && (*in)->env->next)
+		if ((*in)->env)
 			(*in)->env = (*in)->env->next;
-		else
-			(*in)->env = head;
 	}
 	(*in)->env = head;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 17:39:51 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 15:40:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 15:09:25 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ bool	exit_loop(char *line, char *tmpdel, t_input	*in)
 	if (ft_strncmp(line, tmpdel, (ft_strlen(in->data[0]) + 1)) == 0
 		|| g_sig == SIGINT)
 	{
-		rl_event_hook = NULL;
 		if (g_sig == SIGINT)
 			in->status = 128 + g_sig;
 		sigend();

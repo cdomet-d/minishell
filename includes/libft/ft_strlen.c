@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 09:12:20 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/02 14:17:55 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 20:06:48 by jauseff          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s || !*s)
+		return (0);
 	while (s && s[i])
 		i++;
 	return (i);

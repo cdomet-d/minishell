@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 12:27:09 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/17 11:50:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*exec_builtin(t_input **in)
 	t_input	*tmp;
 
 	tmp = builtin_true(*in);
+	(*in)->status = 0;
 	if (tmp->tok == ms_cd)
 		(*in)->status = cd(tmp);
 	if (tmp->tok == ms_echo)
