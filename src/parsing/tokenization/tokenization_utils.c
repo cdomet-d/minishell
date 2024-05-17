@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:42:21 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 17:21:56 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:55:53 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void	syntax_error(char *line, size_t *i)
 	{
 		if (ft_putstr_fd("\033[1;31m", STDERR_FILENO) == -1)
 			return ;
-		if (ft_putstr_fd("minishell : syntax error near unexpected token ", 2) == -1)
+		if (ft_putstr_fd("minishell : syntax error near unexpected token ", 2) \
+			== -1)
 			return ;
 		if (ft_putchar_fd(line[*i], STDERR_FILENO) == -1)
 			return ;
