@@ -10,8 +10,8 @@ fi
 if [ -f "out" ]; then
 	rm out
 fi
-if [ -f "mini_log" ]; then
-	rm mini_log
+if [ -f "minilog" ]; then
+	rm minilog
 fi
 
 if [ -d "scripts/output" ]; then
