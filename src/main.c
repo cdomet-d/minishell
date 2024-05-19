@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("Minishell > ");
 		if (!send_eof(line))
 			exit_no_input(&env, line, status);
-		if (line && line[0] && g_sig != SIGINT)
+		if (line && g_sig != SIGINT)
 			env = process_line(line, input, &env, &status);
 		if (g_sig == SIGINT)
 			status = 128 + g_sig;
