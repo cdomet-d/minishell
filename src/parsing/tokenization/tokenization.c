@@ -48,8 +48,6 @@ int	tokenization(t_input **input, t_env **env, char *line, int *status)
 		{
 			if (rv == 2)
 				*status = 2;
-			else
-				*status = errno;
 			return (1);
 		}
 	}

@@ -110,38 +110,28 @@ void	parsing(t_input **input, t_env **env, char *line, int *status)
 {
 	t_input	*node;
 	int		delim;
+	int		temp;
 
+	temp = *status;
+	*status = 0;
 	if (tokenization(input, env, line, status))
 		return ;
 	node = *input;
 	while (node)
 	{
 		if (node->tok != heredoc)
-		{
-			if (search_expand(node, env, *status))
-			{
-				*status = errno;
+			if (search_expand(node, env, temp))
 				return (input_freelst(input));
-			}
-		}
 		delim = check_delim(node);
 		if (search_quotes(node))
-		{
-			*status = errno;
 			return (input_freelst(input));
-		}
 		if (!delim)
 			revert(node);
 		if (node->tok == command)
 			find_builtin(node);
 		if (node->tok == command)
-		{
 			if (cmd_path(node, env))
-			{
-				*status = errno;
 				return (input_freelst(input));
-			}
-		}
 		node = node->next;
 	}
 }
