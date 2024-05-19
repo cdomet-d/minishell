@@ -73,27 +73,25 @@ static t_env	*env_rmone(t_env **sup, t_env **head)
 int	unset(t_input **in)
 {
 	t_env	*head;
-	t_env	*temp;
 	size_t	i;
 
 	if (!in || !(*in) || !(*in)->env || ((*in)->data && !(*in)->data[1]))
 		return (1);
 	head = (*in)->env;
-	i = 0;
-	while ((*in)->data[++i])
+	i = 1;
+	while ((*in)->data[i])
 	{
 		while ((*in)->env)
 		{
-			temp = (*in)->env->next;
 			if (comp_keys((*in)->env->env, (*in)->data[i]))
 			{
 				head = env_rmone(&(*in)->env, &head);
-				(*in)->env = temp;
+				break;
 			}
-			else if ((*in)->env)
-				(*in)->env = (*in)->env->next;
+			(*in)->env = (*in)->env->next;
 		}
 		(*in)->env = head;
+		i++;
 	}
 	(*in)->env = head;
 	return (0);
