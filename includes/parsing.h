@@ -23,7 +23,7 @@ void	parsing(t_input **input, t_env **env, char *line, int *status);
 void	revert(t_input *node);
 
 /* rm_quotes.c */
-char	*rm_quotes(char *str);
+int	search_quotes(t_input *node);
 
 /* toke_builtin.c */
 void	find_builtin(t_input *node);

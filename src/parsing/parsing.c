@@ -60,35 +60,6 @@ static int	search_expand(t_input *node, t_env **env, int status)
 	return (0);
 }
 
-static int	search_quotes(t_input *node)
-{
-	ssize_t		i;
-	size_t		j;
-	char		*temp;
-
-	i = -1;
-	if (!node->data)
-		return (0);
-	while (node->data[++i])
-	{
-		j = 0;
-		while (node->data[i][j])
-		{
-			if (node->data[i][j] == '"' || node->data[i][j] == '\'')
-			{
-				temp = rm_quotes(node->data[i]);
-				if (!temp)
-					return (1);
-				free(node->data[i]);
-				node->data[i] = temp;
-				break ;
-			}
-			j++;
-		}
-	}
-	return (0);
-}
-
 static int	check_delim(t_input *node)
 {
 	size_t	i;
@@ -106,14 +77,19 @@ static int	check_delim(t_input *node)
 	return (1);
 }
 
+void	init_var(int *temp, int *status)
+{
+	*temp = *status;
+	*status = 0;
+}
+
 void	parsing(t_input **input, t_env **env, char *line, int *status)
 {
 	t_input	*node;
 	int		delim;
 	int		temp;
 
-	temp = *status;
-	*status = 0;
+	init_var(&temp, status);
 	if (tokenization(input, env, line, status))
 		return ;
 	node = *input;

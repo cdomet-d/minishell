@@ -52,7 +52,7 @@ static void	fill_str(char *new, char *str)
 	}
 }
 
-char	*rm_quotes(char *str)
+static char	*rm_quotes(char *str)
 {
 	char		*new;
 	size_t		len;
@@ -65,4 +65,33 @@ char	*rm_quotes(char *str)
 		return (print_error(errno, "minishell: parsing"));
 	fill_str(new, str);
 	return (new);
+}
+
+int	search_quotes(t_input *node)
+{
+	ssize_t		i;
+	size_t		j;
+	char		*temp;
+
+	i = -1;
+	if (!node->data)
+		return (0);
+	while (node->data[++i])
+	{
+		j = 0;
+		while (node->data[i][j])
+		{
+			if (node->data[i][j] == '"' || node->data[i][j] == '\'')
+			{
+				temp = rm_quotes(node->data[i]);
+				if (!temp)
+					return (1);
+				free(node->data[i]);
+				node->data[i] = temp;
+				break ;
+			}
+			j++;
+		}
+	}
+	return (0);
 }
