@@ -36,11 +36,6 @@ static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
 		*env = in->env;
 		*stat = in->status;
 	}
-	else
-	{
-		if (*stat != 2)
-			*stat = errno;
-	}
 	input_freelst(&in);
 	return (*env);
 }
@@ -64,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("Minishell > ");
 		if (!send_eof(line))
 			exit_no_input(&env, line, status);
-		if (line && g_sig != SIGINT)
+		if (line && line[0] && g_sig != SIGINT)
 			env = process_line(line, input, &env, &status);
 		if (g_sig == SIGINT)
 			status = 128 + g_sig;

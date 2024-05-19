@@ -77,37 +77,34 @@ static int	check_delim(t_input *node)
 	return (1);
 }
 
-void	init_var(int *temp, int *status)
+static void	init_status(int *status)
 {
-	*temp = *status;
-	*status = 0;
+	*status = errno;
 }
 
 void	parsing(t_input **input, t_env **env, char *line, int *status)
 {
 	t_input	*node;
 	int		delim;
-	int		temp;
 
-	init_var(&temp, status);
 	if (tokenization(input, env, line, status))
 		return ;
 	node = *input;
 	while (node)
 	{
 		if (node->tok != heredoc)
-			if (search_expand(node, env, temp))
-				return (input_freelst(input));
+			if (search_expand(node, env, *status))
+				return (input_freelst(input), init_status(status));
 		delim = check_delim(node);
 		if (search_quotes(node))
-			return (input_freelst(input));
+			return (input_freelst(input), init_status(status));
 		if (!delim)
 			revert(node);
 		if (node->tok == command)
 			find_builtin(node);
 		if (node->tok == command)
 			if (cmd_path(node, env))
-				return (input_freelst(input));
+				return (input_freelst(input), init_status(status));
 		node = node->next;
 	}
 }
