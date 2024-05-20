@@ -24,9 +24,9 @@ static int	ft_copy_env(char *data, char *newtab, t_env **env, size_t *j)
 	{
 		while (str[i])
 		{
-			if (str[i] == '\'' || str[i] == '"')
-				str[i] *= -1;
 			newtab[*j] = str[i];
+			if (newtab[*j] == '\'' || newtab[*j] == '"')
+				newtab[*j] *= -1;
 			*j += 1;
 			i++;
 		}
