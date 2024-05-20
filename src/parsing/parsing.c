@@ -79,7 +79,7 @@ static int	check_delim(t_input *node)
 
 static void	init_status(int *status)
 {
-	*status = errno;
+	*status = 1;
 }
 
 void	parsing(t_input **input, t_env **env, char *line, int *status)
