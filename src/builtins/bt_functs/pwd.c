@@ -23,7 +23,7 @@ int	pwd(t_env *env)
 		str = NULL;
 		str = getcwd(str, 0);
 		if (!str)
-			return (1);
+			return (print_error(errno, "minishell: exec"), 1);
 		if (ft_putendl_fd(str, STDOUT_FILENO) == -1)
 			return (free(str), 1);
 		free(str);
