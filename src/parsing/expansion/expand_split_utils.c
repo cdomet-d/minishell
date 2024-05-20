@@ -54,8 +54,11 @@ int	check_ws(char **tab)
 		while (tab[i][j])
 		{
 			if (tab[i][j] == '"')
+			{
+				j++;
 				while (tab[i][j] && tab[i][j] != '"')
 					j++;
+			}
 			if (tab[i][j] == ' ' || (tab[i][j] >= '\t' && tab[i][j] <= '\r'))
 				return (1);
 			if (tab[i][j])
