@@ -36,7 +36,7 @@ void	count_word(char *line, size_t i, size_t *word)
 			i++;
 	}
 	if ((line[i] == '\0' || line[i] == '>' || line[i] == '<' || line[i] == '|')
-		&& line[i - 1] != ' ')
+		&& (line[i - 1] != ' ' && (line[i - 1] < '\t' || line[i - 1] > '\r')))
 		*word += 1;
 }
 
@@ -47,7 +47,8 @@ static size_t	count_letter(char *line, size_t letter)
 
 	quotetype = 0;
 	temp = letter;
-	while (line[letter] && line[letter] != ' ' && line[letter] != '>'
+	while (line[letter] && line[letter] != ' ' && (line[letter] < '\t'
+		|| line[letter] > '\r') && line[letter] != '>'
 		&& line[letter] != '<' && line[letter] != '|')
 	{
 		if (line[letter] == '"' || line[letter] == '\'')
@@ -69,8 +70,8 @@ static void	fill_tab(char *line, size_t *i, char **tab, size_t *word)
 	char	quotetype;
 
 	letter = 0;
-	while (line[*i] && line[*i] != ' ' && line[*i] != '>'
-		&& line[*i] != '<' && line[*i] != '|')
+	while (line[*i] && line[*i] != ' ' && (line[*i] < '\t' || line[*i] > '\r')
+		&& line[*i] != '>' && line[*i] != '<' && line[*i] != '|')
 	{
 		if (line[*i] == '"' || line[*i] == '\'')
 		{
