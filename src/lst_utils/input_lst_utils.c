@@ -27,6 +27,7 @@ void	input_freelst(t_input **lst)
 		*lst = temp;
 	}
 	*lst = NULL;
+	lst = NULL;
 }
 
 void	input_addback(t_input **lst, t_input *node)
