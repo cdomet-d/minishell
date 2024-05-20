@@ -56,7 +56,7 @@ static char	**split_tab(char **data, char **newtab)
 			newtab[word] = ft_calloc(sizeof(char), letter + 1);
 			if (!newtab[word])
 				return (free_dtab(newtab), \
-				print_error(errno, print_error(errno, "minishell: parsing")));
+				print_error(errno, "minishell: parsing"));
 			ft_strlcpy(newtab[word], data[i] + (j - letter), letter + 1);
 			word += 1;
 			if (data[i][j])
