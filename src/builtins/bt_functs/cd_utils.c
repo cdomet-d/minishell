@@ -32,7 +32,7 @@ int	check_directory(char *var, char *path)
 		return (0);
 	else
 	{
-		verbose_error("minishell: cd: ", var, ": No such file or directory");
+		verbose_error("minishell: cd: ", var, ": Not a directory");
 		return (1);
 	}
 	return (0);
