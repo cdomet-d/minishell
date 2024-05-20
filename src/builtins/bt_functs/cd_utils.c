@@ -18,14 +18,14 @@ int	check_directory(char *var, char *path)
 
 	if (stat(path, &buf) == -1)
 	{
-		if (errno = 13)
-			verbose_error("minishell: cd: ", var, ": Not a directory");
 		if (errno == ENOENT)
 		{
 			verbose_error("minishell: cd: ", var, \
 			": No such file or directory");
 			return (1);
 		}
+		if (errno = 13)
+			verbose_error("minishell: cd: ", var, ": Not a directory");
 		if (errno == ENAMETOOLONG)
 			return (0);
 		return (1);
