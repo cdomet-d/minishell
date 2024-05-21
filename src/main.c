@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 14:48:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:53:39 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		sigend();
-		line = readline("Minishell > ");
+		line = readline("MinisHell$ ");
 		if (!send_eof(line))
 			exit_no_input(&env, line, status);
 		if (line && g_sig != SIGINT)
@@ -68,3 +68,4 @@ int	main(int argc, char **argv, char **envp)
 	}
 	exit (status);
 }
+
