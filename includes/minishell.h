@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 19:32:41 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:03:58 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int		echo(char **data);
 int		env(t_input *in);
 
 /* exit.c */
-void	mh_exit(char *line, t_input *in);
+void	mh_exit(char **line, t_input *in);
 
 /* export_utils.c */
 int		sort_env(t_env	*env);

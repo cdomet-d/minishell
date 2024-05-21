@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 13:57:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 12:16:59 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static void	*ft_execve(t_input *in)
 	arenv = NULL;
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
-		return (NULL);
+		return (verbose_error \
+		("minishell: ", tmp->data[0], ": no such file or directory"), NULL);
 	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
 		free_dtab(arenv);
 	in->status = 1;
-	display_exec_error(tmp, errno);
+	display_exec_error(tmp);
 	return (NULL);
 }
 
@@ -68,6 +69,7 @@ void	*exec_cmd(t_input *in)
 
 	init_exec(in, &tmp, &fd);
 	create_hdocs(&fd, in);
+	pmin(in, "EXEC");
 	while (tmp)
 	{
 		if (fd.pid != 0 && !count_pipes(in) && builtin_true(tmp))

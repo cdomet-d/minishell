@@ -6,15 +6,31 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 15:40:07 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 12:19:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
+static void	init_rv(t_input *in)
+{
+	t_input	*head;
+	
+	if (!in)
+		return ;
+	head = in;
+	while (in)
+	{
+		if (in->next)
+			in->next->status = in->status;
+		in = in->next;
+	}
+	in = head;
+}
+
 void	init_exec(t_input *in, t_input **tmp, t_fd *fd)
 {
-	in->status = 0;
+	init_rv(in);
 	init_fds(fd, in);
 	*tmp = in;
 }

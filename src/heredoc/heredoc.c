@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 15:30:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 12:13:16 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 		return (NULL);
 	while (op_true(tmp, heredoc))
 	{
-		tmp->status = 0;
+		// tmp->status = 0;
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
 			return (NULL);
 		free(tmp->data[0]);
