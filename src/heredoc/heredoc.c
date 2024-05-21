@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 15:30:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:54:54 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	*h_rl(int fd, t_input *in)
 		if (line)
 			if (in_line(in, line, fd))
 				return (heredoc_error(in, tmpdel, line, false));
-		line = readline("\033[38;5;206m🌸 ↪️\033[0m ");
+		line = readline("  > MiniHere$ ");
 		if (!line)
 			return (heredoc_error(in, tmpdel, line, true));
 		if (exit_loop(line, tmpdel, in))
@@ -89,7 +89,6 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 		return (NULL);
 	while (op_true(tmp, heredoc))
 	{
-		tmp->status = 0;
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
 			return (NULL);
 		free(tmp->data[0]);

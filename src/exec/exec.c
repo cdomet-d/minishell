@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 13:57:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:39:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static void	*ft_execve(t_input *in)
 	arenv = NULL;
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
-		return (NULL);
+		return (verror \
+		("minishell: ", tmp->data[0], ": no such file or directory"), NULL);
 	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
 		free_dtab(arenv);
 	in->status = 1;
-	display_exec_error(tmp, errno);
+	display_exec_error(tmp);
 	return (NULL);
 }
 
@@ -41,17 +42,14 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
+	if (op_true(tmp, outredir) || op_true(tmp, append))
+		if (!out_redir(fd, tmp))
+			return (NULL);
 	if (op_true(tmp, inredir))
 		if (!in_redir(fd, tmp))
 			return (NULL);
-	if (op_true(tmp, outredir))
-		if (!out_redir(fd, tmp))
-			return (NULL);
 	if (op_true(tmp, heredoc))
 		if (!here_redir(fd, tmp))
-			return (NULL);
-	if (op_true(tmp, append))
-		if (!app_redir(fd, tmp))
 			return (NULL);
 	if (op_true(tmp, command))
 		ft_execve(tmp);

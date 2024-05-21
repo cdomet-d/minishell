@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 17:51:40 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:53:39 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 	create_env(input, envp, env);
 }
 
-static t_env	*process_line(char *line, t_input *in, t_env **env, int *stat)
+static t_env	*process_line(char **line, t_input *in, t_env **env, int *stat)
 {
-	if (line[0])
-		add_history(line);
-	parsing(&in, env, line, stat);
+	if (*line[0])
+		add_history(*line);
+	parsing(&in, env, *line, stat);
 	if (in)
 	{
 		in->status = *stat;
@@ -56,11 +56,11 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		sigend();
-		line = readline("Minishell > ");
+		line = readline("MinisHell$ ");
 		if (!send_eof(line))
 			exit_no_input(&env, line, status);
 		if (line && g_sig != SIGINT)
-			env = process_line(line, input, &env, &status);
+			env = process_line(&line, input, &env, &status);
 		if (g_sig == SIGINT)
 			status = 128 + g_sig;
 		if (line)
@@ -68,3 +68,4 @@ int	main(int argc, char **argv, char **envp)
 	}
 	exit (status);
 }
+

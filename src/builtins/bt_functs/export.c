@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:23:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 17:53:42 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:39:21 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int	check_arg(char *var)
 	i = 0;
 	if (var[0] != '_' && !ft_isalpha(var[0]))
 	{
-		verbose_error("minishell: export: '", var, "': not a valid identifier");
+		verror("minishell: export: '", var, "': not a valid identifier");
 		return (1);
 	}
 	while (var[i] && var[i] != '=')
 	{
 		if (var[i] != '_' && !ft_isalnum(var[i]))
 		{
-			verbose_error("minishell: export: '", var, \
+			verror("minishell: export: '", var, \
 			"': not a valid identifier");
 			return (1);
 		}

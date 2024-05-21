@@ -6,27 +6,33 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 15:40:07 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:40:40 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	init_exec(t_input *in, t_input **tmp, t_fd *fd)
+static void	init_rv(t_input *in)
 {
-	in->status = 0;
-	init_fds(fd, in);
-	*tmp = in;
+	t_input	*head;
+
+	if (!in)
+		return ;
+	head = in;
+	while (in)
+	{
+		if (in->next)
+			in->next->status = in->status;
+		in = in->next;
+	}
+	in = head;
 }
 
-t_input	*get_last_node(t_input *in)
+void	init_exec(t_input *in, t_input **tmp, t_fd *fd)
 {
-	t_input	*tmp;
-
-	tmp = in;
-	while (tmp && tmp->next)
-		tmp = tmp->next;
-	return (tmp);
+	init_rv(in);
+	init_fds(fd, in);
+	*tmp = in;
 }
 
 void	close_and_wait(t_input *in, t_fd *fd)

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 13:59:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:39:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,25 @@ void	*out_redir(t_fd *fd, t_input *in)
 
 	tmp = find_tok(in, outredir, false);
 	if (!tmp)
-		return (NULL);
-	if (tmp->data[1])
+		tmp = find_tok(in, append, false);
+	if (tmp && tmp->data[1])
 		return (print_error(0, "minishell: ambiguous redirection"));
-	while (op_true(tmp, outredir))
+	while (tmp && tmp->tok != pip && (op_true(tmp, outredir) || \
+		op_true(tmp, append)))
 	{
-		fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
+		if (tmp->tok == outredir)
+			fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
+		else if (tmp->tok == append)
+			fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0644);
 		if (fd->ffd == -1)
-			return (print_error(errno, "minishell: exec"));
+			return (verror("minishell: ", tmp->data[0], \
+		": permission denied"), NULL);
 		if (op_true(in, command) || builtin_true(in))
 			if (dup2(fd->ffd, STDOUT_FILENO) == -1)
 				return (print_error(errno, "minishell: exec"));
 		if (close(fd->ffd) == -1)
 			return (print_error(errno, "minishell: exec"));
-		tmp = find_tok(tmp, outredir, true);
-	}
-	return ((int *)true);
-}
-
-void	*app_redir(t_fd *fd, t_input *in)
-{
-	t_input	*tmp;
-
-	tmp = find_tok(in, append, false);
-	if (!tmp)
-		return (NULL);
-	if (tmp->data[1])
-		return (print_error(0, "minishell: ambiguous redirection"));
-	while (op_true(tmp, append))
-	{
-		fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0644);
-		if (fd->ffd == -1)
-			return (NULL);
-		if (op_true(in, command) || builtin_true(in))
-			if (dup2(fd->ffd, STDOUT_FILENO) == -1)
-				return (print_error(errno, "minishell: exec"));
-		if (close(fd->ffd) == -1)
-			return (print_error(errno, "minishell: exec"));
-		tmp = find_tok(tmp, append, true);
+		tmp = tmp->next;
 	}
 	return ((int *)true);
 }
@@ -72,8 +53,7 @@ void	*in_redir(t_fd *fd, t_input *in)
 	while (op_true(tmp, inredir))
 	{
 		if (!open_infiles(fd, tmp))
-			return (verbose_error("minishell", in->data[0], strerror(errno)), \
-			NULL);
+			return (NULL);
 		tmp = find_tok(tmp, inredir, true);
 	}
 	return ((int *)true);
@@ -89,7 +69,7 @@ void	*here_redir(t_fd *fd, t_input *in)
 	else if (op_true(tmp, heredoc))
 		tmp = find_tok(in, heredoc, false);
 	if (!tmp)
-		return (print_error(0, "minishell: no such token"));
+		return (print_error(0, "minishell: exec"));
 	if (tmp->data[1])
 		return (print_error(0, "minishell: ambiguous redirection"));
 	while (op_true(tmp, heredoc))
@@ -106,25 +86,25 @@ void	*pip_redir(t_input *tmp, t_fd *fd)
 	if (is_first(tmp))
 	{
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
-			return (print_error(errno, "pip_redir (ifc, pipe[W] to out"));
+			return (print_error(errno, "minishell: exec"));
 	}
 	else if (is_last(tmp))
 	{
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
-			return (print_error(errno, "pip_redir (ilc, tmpin to in"));
+			return (print_error(errno, "minishell: exec"));
 	}
 	else if (!is_first(tmp) && !is_last(tmp))
 	{
 		if (dup2(fd->tmpin, STDIN_FILENO) == -1)
-			return (print_error(errno, "pip_redir (else, tmpin to in"));
+			return (print_error(errno, "minishell: exec"));
 		if (dup2(fd->pfd[W], STDOUT_FILENO) == -1)
-			return (print_error(errno, "pip_redir (else, pfd[W] to out"));
+			return (print_error(errno, "minishell: exec"));
 	}
 	if (fd->pid == 0)
 	{
 		if (fd->tmpin != -1)
 			if (close(fd->tmpin) == -1)
-				print_error(errno, "close_exec (tmpin)");
+				print_error(errno, "minishell: exec");
 		close_pfd(fd);
 	}
 	return ((int *)true);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:38:33 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/17 18:29:48 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:39:18 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	check_directory(char *var, char *path)
 	{
 		if (errno == ENOENT)
 		{
-			verbose_error("minishell: cd: ", var, \
+			verror("minishell: cd: ", var, \
 			": No such file or directory");
 			return (1);
 		}
-		if (errno = 13)
-			verbose_error("minishell: cd: ", var, ": Not a directory");
+		if (errno == 13)
+			verror("minishell: cd: ", var, ": Not a directory");
 		if (errno == ENAMETOOLONG)
 			return (0);
 		return (1);
@@ -34,7 +34,7 @@ int	check_directory(char *var, char *path)
 		return (0);
 	else
 	{
-		verbose_error("minishell: cd: ", var, ": Not a directory");
+		verror("minishell: cd: ", var, ": Not a directory");
 		return (1);
 	}
 	return (0);

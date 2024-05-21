@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:03:33 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 13:59:28 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:39:20 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	sort_env(t_env	*env)
 
 	arenv = arenvlst(env);
 	if (!arenv)
-		return (verbose_error("minishell: ", "export: ", strerror(errno)));
+		return (verror("minishell: ", "export: ", strerror(errno)));
 	len = ft_arrlen(arenv);
 	while (!is_sorted(arenv))
 		arenv = sort_tab(arenv, len);
