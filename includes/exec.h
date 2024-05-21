@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 19:32:34 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:48:48 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*pip_redir(t_input *tmp, t_fd *fd);
 
 /* exec_errors.c */
 void	*killchild(t_fd *fd, t_input *in);
-void	display_exec_error(t_input	*in, int err);
+void	display_exec_error(t_input *in);
 
 // exec_utils ---------------------
 
