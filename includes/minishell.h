@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 16:39:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 19:27:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_input
 	t_env			*env;
 	struct s_input	*next;
 	struct s_input	*prev;
+	struct s_input	*head;
 	int				status;
 }	t_input;
 
@@ -140,7 +141,7 @@ int		echo(char **data);
 int		env(t_input *in);
 
 /* exit.c */
-void	mh_exit(char **line, t_input *in);
+int	mh_exit(char **line, t_input *in);
 
 /* export_utils.c */
 int		sort_env(t_env	*env);

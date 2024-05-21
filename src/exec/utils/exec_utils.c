@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 16:40:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 19:35:50 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	init_rv(t_input *in)
 	{
 		if (in->next)
 			in->next->status = in->status;
+		in->head = head;
 		in = in->next;
 	}
 	in = head;
