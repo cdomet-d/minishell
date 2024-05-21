@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/16 16:59:21 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:36:42 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parsing(t_input **input, t_env **env, char *line, int *status);
 void	revert(t_input *node);
 
 /* rm_quotes.c */
-int	search_quotes(t_input *node);
+int		search_quotes(t_input *node);
 
 /* toke_builtin.c */
 void	find_builtin(t_input *node);
