@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 11:55:47 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:39:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,46 +18,25 @@ void	*out_redir(t_fd *fd, t_input *in)
 
 	tmp = find_tok(in, outredir, false);
 	if (!tmp)
-		return (NULL);
-	if (tmp->data[1])
+		tmp = find_tok(in, append, false);
+	if (tmp && tmp->data[1])
 		return (print_error(0, "minishell: ambiguous redirection"));
-	while (op_true(tmp, outredir))
+	while (tmp && tmp->tok != pip && (op_true(tmp, outredir) || \
+		op_true(tmp, append)))
 	{
-		fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
+		if (tmp->tok == outredir)
+			fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
+		else if (tmp->tok == append)
+			fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0644);
 		if (fd->ffd == -1)
-			return (verbose_error("minishell: ", tmp->data[0], \
-			": permission denied"), NULL);
+			return (verror("minishell: ", tmp->data[0], \
+		": permission denied"), NULL);
 		if (op_true(in, command) || builtin_true(in))
 			if (dup2(fd->ffd, STDOUT_FILENO) == -1)
 				return (print_error(errno, "minishell: exec"));
 		if (close(fd->ffd) == -1)
 			return (print_error(errno, "minishell: exec"));
-		tmp = find_tok(tmp, outredir, true);
-	}
-	return ((int *)true);
-}
-
-void	*app_redir(t_fd *fd, t_input *in)
-{
-	t_input	*tmp;
-
-	tmp = find_tok(in, append, false);
-	if (!tmp)
-		return (NULL);
-	if (tmp->data[1])
-		return (print_error(0, "minishell: ambiguous redirection"));
-	while (op_true(tmp, append))
-	{
-		fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0644);
-		if (fd->ffd == -1)
-			return (verbose_error("minishell: ", tmp->data[0], \
-			": permission denied"), NULL);
-		if (op_true(in, command) || builtin_true(in))
-			if (dup2(fd->ffd, STDOUT_FILENO) == -1)
-				return (print_error(errno, "minishell: exec"));
-		if (close(fd->ffd) == -1)
-			return (print_error(errno, "minishell: exec"));
-		tmp = find_tok(tmp, append, true);
+		tmp = tmp->next;
 	}
 	return ((int *)true);
 }

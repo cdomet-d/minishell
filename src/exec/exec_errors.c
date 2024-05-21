@@ -6,11 +6,21 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/21 13:29:37 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:41:48 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+t_input	*get_last_node(t_input *in)
+{
+	t_input	*tmp;
+
+	tmp = in;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}
 
 static bool	path(t_input *in)
 {
@@ -51,29 +61,27 @@ void	*killchild(t_fd *fd, t_input *in)
 void	display_exec_error(t_input	*in)
 {
 	struct stat	infos;
-	
+
 	if (!in->data)
 		return ;
-	if (in->data[0] && stat(in->data[0], &infos) != -1)
+	if (path(in))
+	{
+		if (in->data[0][0] == '/')
+			verror("minishell: ", in->data[0], ": no such file or directory");
+		else if (in->data[0] && access(in->data[0], X_OK) == -1)
+			verror("minishell: ", in->data[0], ": command not found");
+	}
+	else if (in->data[0] && stat(in->data[0], &infos) != -1)
 	{
 		if (S_ISDIR(infos.st_mode))
-			verbose_error("minishell: ", in->data[0], ": is a directory");
+			verror("minishell: ", in->data[0], ": is a directory");
 		else
 			print_error(errno, "minishell");
 		return ;
 	}
-	if (path(in))
-	{
-		if (in->data[0][0] == '/')
-			verbose_error \
-			("minishell: ", in->data[0], ": no such file or directory");
-		else if (in->data[0] && access(in->data[0], X_OK) == -1)
-			verbose_error("minishell: ", in->data[0], ": command not found");
-	}
 	else
 	{
 		if (in->data[0] && access(in->data[0], X_OK) == -1)
-			verbose_error \
-			("minishell: ", in->data[0], ": no such file or directory");
+			verror("minishell: ", in->data[0], ": no such file or directory");
 	}
 }

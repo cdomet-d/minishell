@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:57:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/17 13:59:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:39:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	env(t_input *in)
 
 	env = in->env;
 	if (in->data[1])
-		return (verbose_error("minishell: ", "env: ", strerror(E2BIG)));
+		return (verror("minishell: ", "env: ", strerror(E2BIG)));
 	while (env)
 	{
 		if (ft_putendl_fd(env->env, STDOUT_FILENO) == -1)
-			return (verbose_error("minishell: ", "env: ", strerror(errno)));
+			return (verror("minishell: ", "env: ", strerror(errno)));
 		env = env->next;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 18:44:24 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/17 19:22:23 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:43:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	unset(t_input **in)
 			if (comp_keys((*in)->env->env, (*in)->data[i]))
 			{
 				head = env_rmone(&(*in)->env, &head);
-				break;
+				break ;
 			}
 			(*in)->env = (*in)->env->next;
 		}

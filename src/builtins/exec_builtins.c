@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 11:48:17 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:42:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,11 @@ void	*redir_builtins(t_fd *fd, t_input *tmp)
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
-	if (op_true(tmp, inredir))
-		if (!in_redir(fd, tmp))
-			return (NULL);
-	if (op_true(tmp, outredir))
+	if (op_true(tmp, outredir) || op_true(tmp, append))
 		if (!out_redir(fd, tmp))
 			return (NULL);
-	if (op_true(tmp, append))
-		if (!app_redir(fd, tmp))
+	if (op_true(tmp, inredir))
+		if (!in_redir(fd, tmp))
 			return (NULL);
 	exec_builtin(&tmp);
 	return ((int *)true);

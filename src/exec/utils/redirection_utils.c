@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/21 11:55:32 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 16:39:24 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	*open_infiles(t_fd *fd, t_input *tmp)
 	if (fd->ffd == -1)
 	{
 		if (errno == ENOENT)
-			return (verbose_error("minishell: ", tmp->data[0], \
+			return (verror("minishell: ", tmp->data[0], \
 			": no such file or directory"), NULL);
 		else if (errno == EACCES)
-			return (verbose_error("minishell: ", tmp->data[0], \
+			return (verror("minishell: ", tmp->data[0], \
 			": permission denied"), NULL);
 		else
-			return (verbose_error("minishell: ", tmp->data[0], \
+			return (verror("minishell: ", tmp->data[0], \
 			": error opening file"), NULL);
 	}
 	if (dup2(fd->ffd, STDIN_FILENO) == -1)

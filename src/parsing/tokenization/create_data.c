@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:40:32 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 17:22:10 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:31:35 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static size_t	count_letter(char *line, size_t letter)
 	quotetype = 0;
 	temp = letter;
 	while (line[letter] && line[letter] != ' ' && (line[letter] < '\t'
-		|| line[letter] > '\r') && line[letter] != '>'
+			|| line[letter] > '\r') && line[letter] != '>'
 		&& line[letter] != '<' && line[letter] != '|')
 	{
 		if (line[letter] == '"' || line[letter] == '\'')
