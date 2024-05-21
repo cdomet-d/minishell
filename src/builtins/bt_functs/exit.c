@@ -42,8 +42,8 @@ void	mh_exit(char *line, t_input *in)
 		rv = ft_atoll(in->data[1]);
 		if (!not_num(in->data[1]) || rv > EXIT_MAX)
 		{
-			verbose_error("minishell: exit: ", in->data[1], ": numeric argument\
-			required");
+			verbose_error("minishell: exit: ", in->data[1], \
+			": numeric argument required");
 			rv = 2;
 		}
 		fatal_exit(&in, rv, NULL);

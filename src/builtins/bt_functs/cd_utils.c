@@ -24,6 +24,8 @@ int	check_directory(char *var, char *path)
 			": No such file or directory");
 			return (1);
 		}
+		if (errno = 13)
+			verbose_error("minishell: cd: ", var, ": Not a directory");
 		if (errno == ENAMETOOLONG)
 			return (0);
 		return (1);
@@ -32,7 +34,7 @@ int	check_directory(char *var, char *path)
 		return (0);
 	else
 	{
-		verbose_error("minishell: cd: ", var, ": No such file or directory");
+		verbose_error("minishell: cd: ", var, ": Not a directory");
 		return (1);
 	}
 	return (0);

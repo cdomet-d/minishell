@@ -40,22 +40,23 @@ int	check_quote(char *line)
 	return (0);
 }
 
-static void	syntax_error(char *line, size_t *i)
+static int	syntax_error(char *line, size_t *i)
 {
 	if (line[*i] == '\0')
 		print_error(0, "syntax error near unexpected token 'newline'");
 	else if (line[*i] == '>' || line[*i] == '<' || line[*i] == '|')
 	{
 		if (ft_putstr_fd("\033[1;31m", STDERR_FILENO) == -1)
-			return ;
+			return (1);
 		if (ft_putstr_fd("minishell : syntax error near unexpected token ", 2) \
 			== -1)
-			return ;
+			return (1);
 		if (ft_putchar_fd(line[*i], STDERR_FILENO) == -1)
-			return ;
+			return (1);
 		if (ft_putendl_fd("\033[0m", STDERR_FILENO) == -1)
-			return ;
+			return (1);
 	}
+	return (2);
 }
 
 char	**get_data(t_input **input, char *line, size_t *i, int *rv)
@@ -75,8 +76,7 @@ char	**get_data(t_input **input, char *line, size_t *i, int *rv)
 	else
 	{
 		input_freelst(input);
-		syntax_error(line, i);
-		*rv = 2;
+		*rv = syntax_error(line, i);
 	}
 	return (data);
 }
