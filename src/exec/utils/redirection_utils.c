@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/21 16:39:24 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 11:58:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,22 @@ void	*open_infiles(t_fd *fd, t_input *tmp)
 	}
 	if (dup2(fd->ffd, STDIN_FILENO) == -1)
 		return (print_error(errno, "open_infile (duping fd to STDIN)"));
-	close(fd->ffd);
+	if (close(fd->ffd) == -1)
+		return (print_error(errno, "minishell: exec: closing out"));	
+	return ((int *)true);
+}
+
+void	*open_outfiles(t_fd *fd, t_input *tmp)
+{
+	if (tmp->tok == outredir)
+			fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
+	else if (tmp->tok == append)
+		fd->ffd = open(tmp->data[0], O_CREAT | O_APPEND | O_RDWR, 0644);
+	if (fd->ffd == -1)
+		return (verror("minishell: ", tmp->data[0], ": permission denied"), NULL);
+	if (dup2(fd->ffd, STDOUT_FILENO) == -1)
+		return (print_error(errno, "minishell: exec: duping out"));
+	if (close(fd->ffd) == -1)
+		return (print_error(errno, "minishell: exec: closing out"));
 	return ((int *)true);
 }

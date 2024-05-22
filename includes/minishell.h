@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 19:27:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 12:09:34 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void	exit_no_input(t_env **env, char *line, int status);
 
 /* exec_builtins.c */
 void	*exec_builtin(t_input **in);
-void	*redir_builtins(t_fd *fd, t_input *tmp);
 void	*handle_bt_nopipe(t_fd *fd, t_input *tmp);
 
 /* exec_builtins_utils.c */

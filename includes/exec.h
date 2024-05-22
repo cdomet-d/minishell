@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 11:48:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 12:09:01 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@
 void	*exec_cmd(t_input *in);
 
 /* redirections.c */
-void	*out_redir(t_fd *fd, t_input *in);
-void	*app_redir(t_fd *fd, t_input *in);
-void	*in_redir(t_fd *fd, t_input *in);
-void	*here_redir(t_fd *fd, t_input *in);
+void	*redir_all_in_pipe(t_fd *fd, t_input *in);
 void	*pip_redir(t_input *tmp, t_fd *fd);
 
 /* exec_errors.c */
@@ -76,6 +73,7 @@ t_input	*find_prev_tok(t_input	*in, t_tok op);
 bool	is_first(t_input *in);
 bool	is_last(t_input *in);
 void	*open_infiles(t_fd *fd, t_input *tmp);
+void	*open_outfiles(t_fd *fd, t_input *tmp);
 
 // heredoc -------------------
 
