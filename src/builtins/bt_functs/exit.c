@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 16:43:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 19:38:50 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ static void	is_invalid_arg(t_input *in, unsigned long long int rv)
 	}
 }
 
-void	mh_exit(char **line, t_input *in)
+int	mh_exit(char **line, t_input *in)
 {
 	unsigned long long int	rv;
-	unsigned char			ucrv;
 
-	if (*line)
+	if (line && *line)
 	{
 		free(*line);
 		*line = NULL;
@@ -71,17 +70,14 @@ void	mh_exit(char **line, t_input *in)
 	{
 		is_invalid_arg(in, 0);
 		if (ft_dstrlen(in->data) > 2)
-		{
-			print_error(E2BIG, "minishell: exit: ");
-			return ;
-		}
+			return (print_error(E2BIG, "minishell: exit: "), 1);
 		else
 		{
 			rv = ft_atoll(in->data[1]);
-			ucrv = (unsigned char)rv;
-			fatal_exit(&in, (int)ucrv, NULL);
+			in->status = (unsigned char)rv;
+			return (fatal_exit(&in, in->status, NULL), in->status);
 		}
 	}
 	rv = in->status;
-	fatal_exit(&in, rv, NULL);
+	return (fatal_exit(&in, rv, NULL), rv);
 }

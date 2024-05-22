@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/04/30 12:33:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 19:20:03 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	input_freelst(t_input **lst)
 {
 	t_input	*temp;
 
+	// pmin(*lst, NULL);
 	temp = NULL;
 	if (!lst || !*lst)
 		return ;
