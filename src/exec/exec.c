@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 19:35:46 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 12:03:57 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
-	if (op_true(tmp, outredir) || op_true(tmp, append))
-		if (!out_redir(fd, tmp))
-			return (NULL);
-	if (op_true(tmp, inredir))
-		if (!in_redir(fd, tmp))
-			return (NULL);
-	if (op_true(tmp, heredoc))
-		if (!here_redir(fd, tmp))
+	if (!redir_all_in_pipe(fd, tmp))
 			return (NULL);
 	if (op_true(tmp, command))
 		ft_execve(tmp);
