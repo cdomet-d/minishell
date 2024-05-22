@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/21 16:39:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 19:35:54 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	exit_no_input(t_env **env, char *line, int status)
 
 void	fatal_exit(t_input **lst, int rv, char *error_message)
 {
+	*lst = (*lst)->head;
 	rl_clear_history();
 	if (lst && (*lst) && (*lst)->env)
 		env_freelst(&(*lst)->env);

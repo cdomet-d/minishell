@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 16:42:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/21 18:51:25 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	*exec_builtin(t_input **in)
 		(*in)->status = export(&tmp);
 	if (tmp->tok == ms_unset)
 		(*in)->status = unset(&tmp);
+	if (tmp->tok == ms_exit)
+		(*in)->status = mh_exit(NULL, tmp);
 	if ((*in)->status == 1)
 		return (NULL);
 	return ((int *)true);
