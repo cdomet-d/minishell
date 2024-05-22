@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/21 13:36:42 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:28:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		create_input(t_input **input, t_env **env, char **data, int tok);
 
 /* cmd_path.c */
 int		cmd_path(t_input *input, t_env **env);
+int		path_slash(char *cmd);
 
 /* cmd_path_utils.c */
 size_t	path_len(char *env, size_t *i);

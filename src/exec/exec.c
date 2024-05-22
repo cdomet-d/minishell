@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 12:03:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 16:15:24 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static void	*ft_execve(t_input *in)
 	arenv = NULL;
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
-		return (verror \
-		("minishell: ", tmp->data[0], ": no such file or directory"), NULL);
+		return (display_exec_error(tmp), NULL);
 	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)

@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:25:53 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/16 16:58:32 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:28:16 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	put_path(t_input *input, t_env	*node)
 	return (0);
 }
 
-static int	path_slash(char *cmd)
+int	path_slash(char *cmd)
 {
 	size_t	i;
 
