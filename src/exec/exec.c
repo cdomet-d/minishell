@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 16:15:24 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:18:05 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
 	if (!redir_all_in_pipe(fd, tmp))
-			return (NULL);
+		return (NULL);
 	if (op_true(tmp, command))
 		ft_execve(tmp);
 	if (builtin_true(tmp))

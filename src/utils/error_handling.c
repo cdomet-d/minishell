@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:27:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/21 19:35:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 17:19:11 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	verror(char *s1, char *s2, char *s3)
 		return (print_error(0, "Congrat ! The error message crashed"), 1);
 	error_message = ft_strjoin(tmp, s3);
 	if (!error_message)
-		return (free(tmp), print_error(0, "Congrat ! The error message crashed"), 1);
+		return (free(tmp), \
+		print_error(0, "Congrat ! The error message crashed"), 1);
 	free(tmp);
 	if (ft_putstr_fd("\033[1;31m", STDERR_FILENO) == -1)
 		return (-1);
