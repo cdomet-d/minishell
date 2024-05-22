@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 12:12:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 13:16:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_input	*find_tok(t_input	*in, t_tok op, bool next)
 	}
 	return (NULL);
 }
+
 
 t_input	*find_next_pipe(t_input	*in, t_fd *fd)
 {
