@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operators_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:19:32 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 13:16:05 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 17:17:28 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_input	*find_tok(t_input	*in, t_tok op, bool next)
 	}
 	return (NULL);
 }
-
 
 t_input	*find_next_pipe(t_input	*in, t_fd *fd)
 {

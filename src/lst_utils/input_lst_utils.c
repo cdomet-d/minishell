@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_lst_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/21 19:20:03 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 17:18:41 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	input_freelst(t_input **lst)
 {
 	t_input	*temp;
 
-	// pmin(*lst, NULL);
 	temp = NULL;
 	if (!lst || !*lst)
 		return ;

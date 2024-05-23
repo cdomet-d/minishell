@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/21 16:41:48 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 17:10:31 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,19 @@ void	display_exec_error(t_input	*in)
 {
 	struct stat	infos;
 
-	if (!in->data)
+	if (!in->data || !in->data[0])
 		return ;
-	if (path(in))
+	if (!path_slash(in->data[0]) && path(in))
+		verror("minishell: ", in->data[0], ": command not found");
+	else if (in->data[0] && stat(in->data[0], &infos) == -1)
 	{
-		if (in->data[0][0] == '/')
+		if (errno == ENOENT)
 			verror("minishell: ", in->data[0], ": no such file or directory");
-		else if (in->data[0] && access(in->data[0], X_OK) == -1)
-			verror("minishell: ", in->data[0], ": command not found");
-	}
-	else if (in->data[0] && stat(in->data[0], &infos) != -1)
-	{
-		if (S_ISDIR(infos.st_mode))
-			verror("minishell: ", in->data[0], ": is a directory");
 		else
 			print_error(errno, "minishell");
-		return ;
 	}
-	else
-	{
-		if (in->data[0] && access(in->data[0], X_OK) == -1)
-			verror("minishell: ", in->data[0], ": no such file or directory");
-	}
+	else if (S_ISDIR(infos.st_mode))
+		verror("minishell: ", in->data[0], ": Is a directory");
+	else if (access(in->data[0], X_OK))
+		print_error(errno, "minishell");
 }
