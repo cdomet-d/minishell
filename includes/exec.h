@@ -103,5 +103,6 @@ int		get_nonull(void);
 void	sigend(void);
 void	siglisten(void);
 char	*send_eof(char *line);
+void	sighandler(int sig);
 
 #endif
