@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:13:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/23 15:13:36 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/23 16:11:00 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,26 @@ static void	set_error(t_input *in, t_input *last, int e_stat)
 		in->status = 127;
 }
 
+static bool	nominal_exit(t_input *in, int e_stat)
+{
+	if (WEXITSTATUS(e_stat) == 0 && !WTERMSIG(e_stat))
+	{
+		in->status = WEXITSTATUS(e_stat);
+		return (true);
+	}
+	return (false);
+}
+
 void	set_status(t_input *in, int e_stat)
 {
 	t_input		*last;
 
 	last = get_last_executable(in);
-	if (WEXITSTATUS(e_stat) == 0 && !WTERMSIG(e_stat))
-	{
-		in->status = WEXITSTATUS(e_stat);
+	if (nominal_exit(in, e_stat))
 		return ;
-	}
-	if (here_true(last))
-		last = find_prev_tok(in, command);
+	if (here_true(in))
+		if (in->status >= 128)
+			return ;
 	if (WIFEXITED(e_stat))
 	{
 		if (builtin_true(last) && e_stat != 0)
