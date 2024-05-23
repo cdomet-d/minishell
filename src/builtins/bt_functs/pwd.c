@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:57:23 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/08 14:43:55 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/23 14:50:28 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	pwd(t_env *env)
 		str = getcwd(str, 0);
 		if (!str)
 			return (print_error(errno, "minishell: exec"), 1);
-		if (signal(SIGPIPE, sighandler) || ft_putendl_fd(str, STDOUT_FILENO) == -1)
+		if (g_sig == SIGPIPE || ft_putendl_fd(str, STDOUT_FILENO) == -1)
 			return (free(str), 1);
 		free(str);
 	}
-	else if (signal(SIGPIPE, sighandler) || ft_putendl_fd(str, STDOUT_FILENO) == -1)
+	else if (g_sig == SIGPIPE || ft_putendl_fd(str, STDOUT_FILENO) == -1)
 		return (free(str), 1);
 	return (0);
 }

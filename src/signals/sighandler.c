@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:15:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/17 14:52:14 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/23 15:37:51 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	get_nonull(void)
 void	sighandler(int sig)
 {
 	g_sig = sig;
-	rl_done = g_sig;
+	if (g_sig == SIGINT)
+		rl_done = g_sig;
 	return ;
 }
 

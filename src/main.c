@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/23 15:43:50 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:16:38 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	int		status;
 
 	if (argc != 1)
-		fatal_exit(NULL, EXIT_FAILURE, "minishell: too many arguments");
+		return (print_error(errno, "minishell: too many arguments"), 1);
 	(void)argv;
 	status = 0;
 	init_all(&line, envp, &env, &input);
