@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 12:03:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 17:18:05 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static void	*ft_execve(t_input *in)
 	arenv = NULL;
 	arenv = arenvlst(tmp->env);
 	if (!arenv)
-		return (verror \
-		("minishell: ", tmp->data[0], ": no such file or directory"), NULL);
+		return (display_exec_error(tmp), NULL);
 	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
@@ -43,7 +42,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
 	if (!redir_all_in_pipe(fd, tmp))
-			return (NULL);
+		return (NULL);
 	if (op_true(tmp, command))
 		ft_execve(tmp);
 	if (builtin_true(tmp))

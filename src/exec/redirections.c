@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 17:01:02 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 17:17:49 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static t_input	*find_redir(t_input	*in, bool next)
 		tmp = tmp->next;
 	while (tmp && tmp->tok != pip)
 	{
-		if (tmp->tok == append || tmp->tok == outredir || tmp->tok == inredir || tmp->tok == heredoc)
+		if (tmp->tok == append || tmp->tok == outredir || tmp->tok == inredir
+			|| tmp->tok == heredoc)
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -36,7 +37,6 @@ void	*redir_all_in_pipe(t_fd *fd, t_input *in)
 {
 	t_input	*tmp;
 
-	
 	tmp = find_redir(in, false);
 	if (tmp && tmp->data[1])
 		return (print_error(0, "minishell: ambiguous redirection"));

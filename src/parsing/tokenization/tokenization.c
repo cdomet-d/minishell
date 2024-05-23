@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-static int	loop_content(t_input **input, t_env **env, char *line, size_t *i)
+static int	exec_toke(t_input **input, t_env **env, char *line, size_t *i)
 {
 	while (line[*i] && ((line[*i] >= '\t' && line[*i] <= '\r')
 			|| line[*i] == ' '))
@@ -43,7 +43,7 @@ int	tokenization(t_input **input, t_env **env, char *line, int *status)
 	}
 	while (line[i])
 	{
-		rv = loop_content(input, env, line, &i);
+		rv = exec_toke(input, env, line, &i);
 		if (rv != 0)
 		{
 			if (rv == 2)
