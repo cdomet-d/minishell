@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 13:11:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/23 13:28:00 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	reset_stds(int tmpstdin, int tmpstdout);
 
 /* exec_utils.c */
 void	init_exec(t_input *in, t_input **tmp, t_fd *fd);
-t_input	*get_last_node(t_input *in);
+t_input	*get_last_executable(t_input *in);
 void	close_and_wait(t_input *in, t_fd *fd);
 void	*create_child(t_fd *fd);
 void	*save_pipin(t_fd *fd);
