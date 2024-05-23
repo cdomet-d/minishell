@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/17 13:57:38 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/05/23 17:00:41 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,10 +92,7 @@ SRC_HEREDOC:=	heredoc.c \
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ UTILS ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 SRC +=  $(addprefix $(DIR_UTILS), $(SRC_UTILS))
 DIR_UTILS:= utils/
-SRC_UTILS:=		display_data.c \
-				display_structs_q.c \
-				display_structs_v.c \
-				error_handling.c \
+SRC_UTILS:=		error_handling.c \
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ EXEC ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
