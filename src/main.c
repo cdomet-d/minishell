@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 18:44:28 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 18:28:55 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static t_env	*process_line(char **line, t_input *in, t_env **env, int *stat)
 	if (in)
 	{
 		in->status = *stat;
+		// in->head = in;
 		if (!count_pipes(in) && in->tok == ms_exit)
 		{
 			*stat = mh_exit(line, in);

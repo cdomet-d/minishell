@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 12:03:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 18:48:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	*redir_cmd(t_input *in, t_fd *fd)
 	t_input	*tmp;
 
 	tmp = in;
+	print_fds(fd);
 	if (fd->pnb != 0)
 		if (!pip_redir(tmp, fd))
 			return (NULL);
@@ -70,6 +71,7 @@ void	*exec_cmd(t_input *in)
 		{
 			if (!redir_cmd(tmp, &fd))
 				in->status = tmp->status;
+			fprintf(stderr, "%.20s\n", "-- failed --------------------------");	
 			killchild(&fd, in);
 		}
 		if (fd.pnb != 0)

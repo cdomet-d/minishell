@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_handling.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jauseff <jauseff@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:39:05 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/08 18:26:17 by jauseff          ###   ########lyon.fr   */
+/*   Updated: 2024/05/22 18:32:05 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	close_pfd(t_fd *fd)
 
 void	reset_stds(int tmpstdin, int tmpstdout)
 {
+	fprintf(stderr, "%.20s\n", "-- resetstds --------------------------");
 	if (dup2(tmpstdin, STDIN_FILENO) == -1)
 		print_error(errno, "reset_stds (reopening STDIN)");
 	if (dup2(tmpstdout, STDOUT_FILENO) == -1)
