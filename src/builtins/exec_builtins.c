@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:24 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 18:34:08 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/23 15:07:04 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*exec_builtin(t_input **in)
 	t_input	*tmp;
 
 	tmp = builtin_true(*in);
+	signal(SIGPIPE, sighandler);
 	(*in)->status = 0;
 	if (tmp->tok == ms_cd)
 		(*in)->status = cd(tmp);
@@ -34,7 +35,7 @@ void	*exec_builtin(t_input **in)
 		(*in)->status = mh_exit(NULL, tmp);
 	if ((*in)->status == 1)
 		return (NULL);
-	sigend;
+	sigend();
 	signal(SIGPIPE, SIG_DFL);
 	return ((int *)true);
 }

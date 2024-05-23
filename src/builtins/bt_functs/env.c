@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:57:38 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/21 16:39:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/23 15:10:40 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	env(t_input *in)
 		return (verror("minishell: ", "env: ", strerror(E2BIG)));
 	while (env)
 	{
-		if (signal(SIGPIPE, sighandler))
-			return (1);
-		if (ft_putendl_fd(env->env, STDOUT_FILENO) == -1)
+		if (g_sig == SIGPIPE || ft_putendl_fd(env->env, STDOUT_FILENO) == -1)
 			return (verror("minishell: ", "env: ", strerror(errno)));
 		env = env->next;
 	}
