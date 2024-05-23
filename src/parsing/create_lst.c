@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:45:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:29:35 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:49:22 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	create_input(t_input **input, t_env **env, char **data, int tok)
 	return (0);
 }
 
-void	create_env(t_input **input, char **envp, t_env **env)
+void	create_env(char **envp, t_env **env)
 {
 	size_t		i;
 	t_env		*new;
@@ -44,7 +44,8 @@ void	create_env(t_input **input, char **envp, t_env **env)
 		if (!new)
 		{
 			env_freelst(env);
-			fatal_exit(input, errno, NULL);
+			print_error(errno, "minishell: parsing");
+			exit(EXIT_FAILURE);
 		}
 		env_addback(env, new);
 		i++;

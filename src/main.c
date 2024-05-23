@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/23 15:46:55 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/23 16:16:38 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	init_all(char **str, char **envp, t_env **env, t_input **input)
 	*str = NULL;
 	*env = NULL;
 	*input = NULL;
-	create_env(input, envp, env);
+	create_env(envp, env);
 }
 
 static t_env	*process_line(char **line, t_input *in, t_env **env, int *stat)

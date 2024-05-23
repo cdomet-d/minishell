@@ -6,7 +6,7 @@
 /*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:41:26 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/22 15:28:31 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:43:43 by csweetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		search_quotes(t_input *node);
 void	find_builtin(t_input *node);
 
 /* create_lst.c */
-void	create_env(t_input **input, char **envp, t_env **env);
+void	create_env(char **envp, t_env **env);
 int		create_input(t_input **input, t_env **env, char **data, int tok);
 
 /* cmd_path.c */
