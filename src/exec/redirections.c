@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:42:06 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 17:17:49 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:20:32 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,19 @@ void	*redir_all_in_pipe(t_fd *fd, t_input *in)
 	t_input	*tmp;
 
 	tmp = find_redir(in, false);
-	if (tmp && tmp->data[1])
-		return (print_error(0, "minishell: ambiguous redirection"));
 	while (tmp && tmp->tok != pip)
 	{
 		if (tmp->tok == inredir || tmp->tok == heredoc)
 		{
-			if (!open_infiles(fd, tmp))
+			if ((tmp && tmp->data && tmp->data[1]) || !tmp->data)
+				return (print_error(0, "minishell: ambiguous redirection"));
+			else if (!open_infiles(fd, tmp))
 				return (NULL);
 		}
 		else if (tmp->tok == outredir || tmp->tok == append)
 		{
+			if ((tmp && tmp->data && tmp->data[1]) || !tmp->data)
+				return (print_error(0, "minishell: ambiguous redirection"));
 			if (!open_outfiles(fd, tmp))
 				return (NULL);
 		}

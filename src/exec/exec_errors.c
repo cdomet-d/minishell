@@ -3,22 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 23:32:19 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/22 17:10:31 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:29:01 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-t_input	*get_last_node(t_input *in)
+t_input	*get_last_executable(t_input *in)
 {
 	t_input	*tmp;
 
 	tmp = in;
 	while (tmp && tmp->next)
 		tmp = tmp->next;
+	while (tmp && tmp->prev)
+	{
+		if (op_true(tmp, command) || builtin_true(tmp))
+			return (tmp);
+		tmp = tmp->prev;
+	}
 	return (tmp);
 }
 
@@ -43,7 +49,7 @@ void	*killchild(t_fd *fd, t_input *in)
 	int		e_stat;
 	t_input	*last;
 
-	last = get_last_node(in);
+	last = get_last_executable(in);
 	if (builtin_true(last))
 		e_stat = in->status;
 	else
