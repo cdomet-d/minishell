@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
 
 int	pwd(t_env *env)
 {
@@ -24,11 +25,11 @@ int	pwd(t_env *env)
 		str = getcwd(str, 0);
 		if (!str)
 			return (print_error(errno, "minishell: exec"), 1);
-		if (ft_putendl_fd(str, STDOUT_FILENO) == -1)
+		if (signal(SIGPIPE, sighandler) || ft_putendl_fd(str, STDOUT_FILENO) == -1)
 			return (free(str), 1);
 		free(str);
 	}
-	else if (ft_putendl_fd(str, STDOUT_FILENO) == -1)
+	else if (signal(SIGPIPE, sighandler) || ft_putendl_fd(str, STDOUT_FILENO) == -1)
 		return (free(str), 1);
 	return (0);
 }

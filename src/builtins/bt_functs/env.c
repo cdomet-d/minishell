@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
 
 int	env(t_input *in)
 {
@@ -21,6 +22,8 @@ int	env(t_input *in)
 		return (verror("minishell: ", "env: ", strerror(E2BIG)));
 	while (env)
 	{
+		if (signal(SIGPIPE, sighandler))
+			return (1);
 		if (ft_putendl_fd(env->env, STDOUT_FILENO) == -1)
 			return (verror("minishell: ", "env: ", strerror(errno)));
 		env = env->next;
