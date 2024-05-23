@@ -17,7 +17,7 @@ int	get_nonull(void)
 	return (1);
 }
 
-static void	sighandler(int sig)
+void	sighandler(int sig)
 {
 	g_sig = sig;
 	rl_done = g_sig;

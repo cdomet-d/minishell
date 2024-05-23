@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
 
 static int	cmp_opt(char *arg)
 {
@@ -42,16 +43,16 @@ int	echo(char **data)
 			opt = true;
 		while (data && data[i])
 		{
-			if (ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
+			if (signal(SIGPIPE, sighandler) || ft_putstr_fd(data[i], STDOUT_FILENO) == -1)
 				return (1);
 			i++;
 			if (data[i])
-				if (write(1, " ", 1) == -1)
+				if (signal(SIGPIPE, sighandler) || write(1, " ", 1) == -1)
 					return (1);
 		}
 	}
 	if (opt == false)
-		if (write(1, "\n", 1) == -1)
-			return (print_error(errno, "minishell: exec"), 1);
+		if (signal(SIGPIPE, sighandler) || write(1, "\n", 1) == -1)
+			return (1);
 	return (0);
 }
