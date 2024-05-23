@@ -34,6 +34,7 @@ void	*exec_builtin(t_input **in)
 		(*in)->status = mh_exit(NULL, tmp);
 	if ((*in)->status == 1)
 		return (NULL);
+	sigend;
 	signal(SIGPIPE, SIG_DFL);
 	return ((int *)true);
 }
