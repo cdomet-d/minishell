@@ -51,7 +51,7 @@ make run
 ## Execution loop logic graph
 
 ```mermaid
-graph LR
+graph TD
 
 	C(create_hdocs)
 	C --> D(while input is not null)
