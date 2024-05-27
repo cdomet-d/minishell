@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/23 11:54:58 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/24 14:45:12 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@ static void	*ft_execve(t_input *in)
 	if (!tmp->data)
 		return (NULL);
 	arenv = NULL;
-	arenv = arenvlst(tmp->env);
-	if (!arenv)
-		return (display_exec_error(tmp), NULL);
-	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1)
+	if (in->env)
+	{
+		arenv = arenvlst(tmp->env);
+		if (!arenv)
+			return (NULL);
+	}
+	if (tmp->data[0] && access(tmp->data[0], X_OK) != -1 && \
+		path_slash(tmp->data[0]))
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
 		free_dtab(arenv);

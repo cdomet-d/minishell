@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:31:14 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/22 17:14:40 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:13:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,6 @@ void	env_addback(t_env **env, t_env *node);
 t_env	*env_newnode(char *data);
 
 // utils ---------------------
-
-/* display_data.c */
-void	print_fds(t_fd *fd);
-
-/* display_structs_v.c */
-void	print_in_for(t_input *input);
-void	print_enum(int token);
-void	print_in_node(t_input *node, t_fd *fd, char *str);
-void	print_env_for(t_env *env, char *str);
-void	vdisplay_dtab(char **dtab);
-
-/* display_structs_q.c */
-void	pmin(t_input *input, char *str);
-void	display_dtab(char **dtab);
 
 /* error_handling.c */
 void	fatal_exit(t_input **lst, int rv, char *error_message);

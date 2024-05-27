@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/23 15:37:44 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/24 12:18:12 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static bool	not_num(char *str)
 	size_t	i;
 
 	i = 0;
+	if (isdigit(str[i]) || str[i] == '+' || str[i] == '-')
+		i++;
 	while (str[i])
 	{
 		if (!isdigit(str[i]))
@@ -61,7 +63,7 @@ int	mh_exit(char **line, t_input *in)
 {
 	unsigned long long int	rv;
 
-	printf("exit\n");
+	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (line && *line)
 	{
 		free(*line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:04:56 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/23 16:16:38 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:12:18 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int	g_sig;
 
-static void	init_all(char **str, char **envp, t_env **env, t_input **input)
+static int	init_all(char **str, char **envp, t_env **env, t_input **input)
 {
+	if (!isatty(0) || !isatty(1))
+		return (print_error(errno, "minishell"), 0);
 	*str = NULL;
 	*env = NULL;
 	*input = NULL;
 	create_env(envp, env);
+	siglisten();
+	return (1);
 }
 
 static t_env	*process_line(char **line, t_input *in, t_env **env, int *stat)
@@ -54,10 +58,10 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (print_error(errno, "minishell: too many arguments"), 1);
+	if (!init_all(&line, envp, &env, &input))
+		return (1);
 	(void)argv;
 	status = 0;
-	init_all(&line, envp, &env, &input);
-	siglisten();
 	while (1)
 	{
 		sigend();
