@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/04/09 15:02:45 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/24 11:04:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**arenvlst(t_env	*env)
 	i = 0;
 	arenv = malloc(sizeof(char *) * (env_len(env) + 1));
 	if (!arenv)
-		return (print_error(errno, "arenvlst (malloc)"));
+		return (print_error(errno, "minishell"));
 	arenv[env_len(env)] = 0;
 	while (tmp)
 	{
@@ -48,7 +48,7 @@ char	**arenvlst(t_env	*env)
 		if (!arenv[i])
 		{
 			free_dtab(arenv);
-			return (print_error(errno, "arenvlst (malloc 2)"));
+			return (print_error(errno, "minishell"));
 		}
 		i++;
 		tmp = tmp->next;

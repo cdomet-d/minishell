@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 11:51:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 16:54:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/24 13:29:38 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,19 @@ static char	*gen_filename(int fn)
 	if (!strfn)
 		return (print_error(errno, "minishell: heredoc"));
 	filename = ft_strjoin("/tmp/tmp_", strfn);
+	free(strfn);
 	if (!filename)
 		return (print_error(errno, "minishell: heredoc"));
-	free(strfn);
 	return (filename);
 }
 
 static void	*create_hfile(t_fd *fd, t_input *tmp, char *filename)
 {
+	if (!filename)
+		return (NULL);
 	fd->hfd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd->hfd == -1)
-		return (print_error(errno, "minishell: heredoc"));
+		return (free (filename), print_error(errno, "minishell: heredoc"));
 	if (!h_rl(fd->hfd, tmp))
 		return (free (filename), close(fd->hfd), NULL);
 	free(filename);
@@ -90,13 +92,19 @@ void	*create_hdocs(t_fd *fd, t_input *in)
 	while (op_true(tmp, heredoc))
 	{
 		if (!create_hfile(fd, tmp, gen_filename(fn)))
+		{
+			free(tmp->data[0]);
+			tmp->data[0] = NULL;
 			return (NULL);
+		}
 		free(tmp->data[0]);
 		in->status = tmp->status;
 		tmp->data[0] = gen_filename(fn);
+		if (!tmp->data[0])
+			return (NULL);
 		tmp = find_here(tmp, true);
 		fn++;
 	}
-	set_status(in, 0);
+	set_status(in, *fd, 0);
 	return ((int *) true);
 }

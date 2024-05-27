@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:05:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 19:35:50 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/24 13:25:39 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	close_and_wait(t_input *in, t_fd *fd)
 	waitpid(fd->pid, &e_stat, 0);
 	while (wait(0) != -1 && errno != ECHILD)
 		;
-	set_status(in, e_stat);
+	set_status(in, *fd, e_stat);
 }
 
 void	*create_child(t_fd *fd)

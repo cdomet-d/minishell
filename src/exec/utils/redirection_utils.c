@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 22:44:46 by jauseff           #+#    #+#             */
-/*   Updated: 2024/05/23 11:20:40 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/24 11:26:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ bool	is_last(t_input *in)
 
 void	*open_infiles(t_fd *fd, t_input *tmp)
 {
+	if (!tmp->data || !tmp->data[0])
+		return (NULL);
 	fd->ffd = open(tmp->data[0], O_RDONLY);
 	if (tmp->tok == heredoc)
 		unlink(tmp->data[0]);
@@ -78,6 +80,8 @@ void	*open_infiles(t_fd *fd, t_input *tmp)
 
 void	*open_outfiles(t_fd *fd, t_input *tmp)
 {
+	if (!tmp->data || !tmp->data[0])
+		return (NULL);
 	if (tmp->tok == outredir)
 		fd->ffd = open(tmp->data[0], O_CREAT | O_TRUNC | O_RDWR, 0644);
 	else if (tmp->tok == append)

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:39:49 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/23 13:28:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/05/24 13:22:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,9 @@ void	*heredoc_error(t_input	*in, char *tmpdel, char *line, bool err);
 // signals -------------------
 
 /* sig_set_stat.c */
-void	set_status(t_input *in, int e_stat);
+void	set_status(t_input *in, t_fd fd, int e_stat);
 
 /* sighandler.c */
-int		get_nonull(void);
 void	sigend(void);
 void	siglisten(void);
 char	*send_eof(char *line);
