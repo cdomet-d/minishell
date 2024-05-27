@@ -1,0 +1,19 @@
+#!/bin/bash
+
+make fclean
+if [ "$1" = "-n" ]; then
+	norminette > norm
+	grep -v "OK" norm
+	rm norm
+fi
+
+if [ -f "out" ]; then
+	rm out
+fi
+if [ -f "minilog" ]; then
+	rm minilog
+fi
+
+if [ -d "scripts/output" ]; then
+	rm -r scripts/output
+fi

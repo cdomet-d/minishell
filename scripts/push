@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -ge 1 ]; then
+    commit_message="$*"
+    bash scripts/prep
+    git add .
+    git commit --allow-empty -m "$commit_message"
+    git push
+else
+    echo "gimme the commit message u animal"
+fi
