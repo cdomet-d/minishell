@@ -69,3 +69,80 @@ graph TD
 
 	L --> |input is NULL| CLOSE(wait for children) --> RETURN(set return value)
 ```
+
+## File tree
+```
+Makefile
+README.md
+includes/
+├── exec.h
+├── libft
+├── minishell.h
+└── parsing.h
+utils/
+├── exec.md
+└── supp.supp
+scripts	/
+├── exf
+├── extract_funct
+├── prep
+└── push	
+src/
+├── main.c
+├── builtins/
+│   ├── bt_functs/
+│   │   ├── builtin_utils.c	
+│   │   ├── echo.c
+│   │   ├── cd.c 
+│   │   ├── cd_canon_form.c	
+│   │   ├── cd_utils.c
+│   │   ├── env.c	
+│   │   ├── exit.c
+│   │   ├── export.c	
+│   │   ├── export_utils.c
+│   │   ├── pwd.c	
+│   │   └── unset.c
+│   ├── exec_builtins.c
+│   └── exec_builtins_utils.c
+├── exec/
+│   ├── utils/
+│   │   ├── arenvlst.c	
+│   │   ├── fd_handling.c	
+│   │   ├── exec_utils.c	
+│   │   ├── operators_utils.c
+│   │   └── redirection_utils.c
+│   ├── exec.c	
+│   ├── exec_errors.c	
+│   └── redirections.c
+├── heredoc/
+│   ├── heredoc.c	
+│   ├── heredoc_errors.c
+│   ├── heredoc_expand.c	
+│   └── heredoc_utils.c
+├── lst_utils/
+│   ├── env_lst_utils.c
+│   └── input_lst_utils.c
+├── parsing/
+│   ├── expansion/
+│   │   ├── expand.c	
+│   │   ├── expand_split.c
+│   │   ├── expand_split_utils.c	
+│   │   └── expand_utils.c
+│   ├── tokenization/
+│   │   ├── cmd_opt.c	
+│   │   ├── create_data.c
+│   │   ├── tokenization.c	
+│   │   ├── tokenization_utils.c	
+│   │   └── toke_type.c
+│   ├── cmd_path.c	
+│   ├── cmd_path_utils.c
+│   ├── create_lst.c	
+│   ├── parsing.c
+│   ├── rm_quotes.c	
+│   └── toke_builtin.c
+├── signals/
+│   ├── sighandler.c
+│   └── sig_set_stat.c
+└── utils/
+    └── error_handling.c
+```
