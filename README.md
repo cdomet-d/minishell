@@ -46,7 +46,7 @@ make run
 - [@cdomet-d](https://github.com/Jauppp)
 
 
-## Appendix
+# Appendix
 
 ## Execution loop logic graph
 
@@ -69,7 +69,6 @@ graph TD
 
 	L --> |input is NULL| CLOSE(wait for children) --> RETURN(set return value)
 ```
-
 ## File tree
 ```
 Makefile
