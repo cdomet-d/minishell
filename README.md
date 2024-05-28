@@ -81,8 +81,8 @@ redircmd --> redirophd
 rao --> redirophd
 file --> redirophd(op /hd) --> redirdot(...)
 
-STR --> |"|"| pip(op) --> op/hd/cmd/nothing --> pipeerror("syntax error")
-STR --> dost(...) --> |"|"| pipe(op)
+STR --> |"pipe"| pip(op) --> A("op /hd /cmd /nothing") --> pipeerror("syntax error")
+STR --> dost(...) --> |"pipe"| pipe(op)
 pipe --> |"whitespace or nothing"| pipeerror
 pipe --> |"(whitespace +) ascii char \nexcept <, >, <<, >>, | if not in quotes"| pipecmd(cmd)
 pipe --> op/hd(op /hd)
