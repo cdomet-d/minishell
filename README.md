@@ -51,28 +51,52 @@ make run
 ## Execution loop logic graph
 
 ```mermaid
-graph LR
+%%{init: {'theme': 'neutral', 'themeVariables': {'fontFamily': 'Arial', 'fontSize': '14px'}, 'flowchart': {'curve': 'linear'}}}%%
+graph TD;
 
-	C(create_hdocs)
-	C --> D(while input is not null)
+    %% Start of the process
+    A(Start Process) --> B(create_hdocs);
 
-	D -->|true| E(is a single builtin)
-	E -->|true| F(execute builtin in parent)
-	E -->|false| G(create_child)
+    %% Loop for input handling
+    B --> C(Is input null?);
+    
+    %% Handling input
+    C -->|No| D(Is input a single builtin?);
+    C -->|Yes| Q(End Process);
+    
+    %% Builtin command handling
+    D -->|Yes| E(Execute builtin in parent);
+    D -->|No| F(Create child process);
+    
+    %% Execution in parent or child
+    E --> F;
+    F --> G(In child process);
+    
+    %% Child process handling
+    G -->|Yes| H(Redirect command) --> a.0
+    H -->|No| J("End process if 
+				command was invalid" ) --> K("Save current 
+					pipe read end");
 
-	F --> G
-	G --> H(is child process)
-	H -->|true| I(redir_command)
-	I --> |false| J(killchild) --> K(save_pipin)
-	I --> |true| K
-	K--> L(find_next_pipe) --> D
+    a.0(Is pipe redirection) --> |Yes| b.0(Perform pipe redirection);
+    a.0(Is pipe redirection) --> |No| c.00(Perform pipe redirection);
+    b.0 --> c.00(Is <, >, << or >>)
+	c.00 --> |Yes| c.01(Perform file redirection);
+	c.00 --> |No| d.0(Perform file redirection);
+    c.01 --> d.0(Execute command);
+    d.0 --> g.0(Set exit status);
+	g.0 --> J
 
-	L --> |input is NULL| CLOSE(wait for children) --> RETURN(set return value)
+    %% Loop continuation
+    K --> V(Find next pipe) --> C;
+    
+    %% End of process
+    Q --> R(Wait for children) --> S("Set exit status 
+		of last child");
 ```
-
 ```mermaid
-graph LR
-
+%%{init: {'theme': 'neutral', 'themeVariables': {'fontFamily': 'Arial', 'fontSize': '14px'}, 'flowchart': {'curve': 'linear'}}}%%
+graph TD
 STR(str) --> |<, >, >>| redir(op) --> |"(whitespace +) ascii char \nexcept <, >, <<, >>, | if not in quotes"| file(file)
 redir --> |"whitespace, op or nothing"| redirerror("syntax error")
 file --> |"whitespace + ascii char \nexcept <, >, <<, >>, | if not in quotes"| redircmd(cmd)
