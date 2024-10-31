@@ -29,7 +29,7 @@ graph
 		T2 -->|true| U2(is an executable && is not a directory)
 		U2 -->|true| V2(execve)
 
-		V2 --> |did not execute| Y2(free_dtab)--> X2(display_exec_error) 
+		V2 --> |did not execute| Y2(free_darr)--> X2(display_exec_error) 
 
 		T2 -->|false| X2
 		Y2 --> X2

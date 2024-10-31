@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_opt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 16:09:30 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:31:16 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ static char	**tab_join(char **s1, char **s2)
 	word = tab_len(s1) + tab_len(s2);
 	tab = ft_calloc(sizeof(char *), (word + 1));
 	if (!tab)
-		return (free_dtab(s2), print_error(errno, "minishell: parsing"));
+		return (free_darr(s2), print_error(errno, "minishell: parsing"));
 	word = 0;
 	if (fill_tab_join(s1, tab, &word))
-		return (free_dtab(tab), free_dtab(s2), NULL);
+		return (free_darr(tab), free_darr(s2), NULL);
 	if (fill_tab_join(s2, tab, &word))
-		return (free_dtab(tab), free_dtab(s2), NULL);
+		return (free_darr(tab), free_darr(s2), NULL);
 	tab[word] = NULL;
-	free_dtab(s2);
+	free_darr(s2);
 	return (tab);
 }
 
@@ -83,7 +83,7 @@ static int	add_opt(t_input **input, t_input *ptr, char *line, size_t *i)
 	new = tab_join(ptr->data, data);
 	if (!new)
 		return (input_freelst(input), 1);
-	free_dtab(ptr->data);
+	free_darr(ptr->data);
 	ptr->data = new;
 	return (0);
 }

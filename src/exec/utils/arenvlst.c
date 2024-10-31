@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arenvlst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:27:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/24 11:04:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**arenvlst(t_env	*env)
 		arenv[i] = ft_strdup(tmp->env);
 		if (!arenv[i])
 		{
-			free_dtab(arenv);
+			free_darr(arenv);
 			return (print_error(errno, "minishell"));
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_canon_form.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:26:02 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/17 18:27:02 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,9 @@ char	*prep_path(char *var, char *path)
 		return (print_error(errno, "minishell: exec"));
 	temp = ft_strdup("/");
 	if (!temp)
-		return (free_dtab(tab), print_error(errno, "minishell: exec"));
+		return (free_darr(tab), print_error(errno, "minishell: exec"));
 	path = canonical_form(var, temp, tab, 1);
-	free_dtab(tab);
+	free_darr(tab);
 	if (!path && errno != 2)
 		return (print_error(errno, "minishell: exec"));
 	return (path);

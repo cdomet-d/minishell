@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:42:08 by cdomet-d          #+#    #+#             */
-/*   Updated: 2023/12/26 12:53:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/10/31 14:38:18 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ ssize_t	read_str(char flag, va_list arg_list)
 	}
 }
 
-ssize_t	ft_parse_format(const char *s, va_list arg_list,
+ssize_t	ft_parsef(const char *s, va_list arg_list,
 					size_t *count, ssize_t *len)
 {
 	ssize_t	check;
@@ -83,7 +83,7 @@ int		__attribute__ ((format (printf, 1, 2)))
 	total_len = 0;
 	count_flag = 0;
 	va_start(arg_list, str);
-	check = ft_parse_format(str, arg_list, &count_flag, &total_len);
+	check = ft_parsef(str, arg_list, &count_flag, &total_len);
 	va_end(arg_list);
 	if (check < 0)
 		return (-1);

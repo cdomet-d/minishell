@@ -320,53 +320,78 @@ src/
 ## Appendix
 ### Execution
 ```mermaid
-%%{init: {'theme': 'neutral', 'themeVariables': {'fontFamily': 'Arial', 'fontSize': '14px'}, 'flowchart': {'curve': 'linear'}}}%%
+---
+config:
+  layout: elk
+  elk:
+    <!-- mergeEdges: true -->
+    nodePlacementStrategy: BRANDES_KOEPF
+  look: handDrawn
+  theme: forest
+---
 graph TD;
+    START(Start Process)
+	HDOC(Create heredocs);
+    CHECK_INPUT(Is input null?);
+	IS_SINGLE_BT(Is input a single builtin?);
+    IS_SINGLE_BT_0(Execute builtin in parent);
+   	CREATE_CHILD(Create child process);
+    NEED_REDIR(Check if redirections are needed)
+	SAVE_PIPE("Save current pipe read end");
 
-    %% Start of the process
-    A(Start Process) --> B(create_hdocs);
-
-    %% Loop for input handling
-    B --> C(Is input null?);
-    
-    %% Handling input
-    C -->|No| D(Is input a single builtin?);
-    C -->|Yes| Q(End Process);
-    
-    %% Builtin command handling
-    D -->|Yes| E(Execute builtin in parent);
-    D -->|No| F(Create child process);
-    
-    %% Execution in parent or child
-    E --> F;
-    F --> G(In child process);
-    
-    %% Child process handling
-    G -->|Yes| H(Redirect command) --> a.0
-    H -->|No| J("End process if 
-				command was invalid" ) --> K("Save current 
-					pipe read end");
-
-    a.0(Is pipe redirection) --> |Yes| b.0(Perform pipe redirection);
-    a.0(Is pipe redirection) --> |No| c.00(Perform pipe redirection);
-    b.0 --> c.00(Is <, >, << or >>)
-	c.00 --> |Yes| c.01(Perform file redirection);
-	c.00 --> |No| d.0(Perform file redirection);
-    c.01 --> d.0(Execute command);
-    d.0 --> g.0(Set exit status);
-	g.0 --> J
+    NEED_REDIR_pipe_0(Is pipe ?) 
+	NEED_REDIR_pipe_1(Perform pipe redirection);
+    NEED_REDIR_file_0(Is <, >, << or >> ? )
+	NEED_REDIR_file_1(Perform file redirection);
+    EXE(Execute command);
+    SET_EXIT(Set exit status);
 
     %% Loop continuation
-    K --> V(Find next pipe) --> C;
+    CONTINUE(Find next pipe);
     
     %% End of process
-    Q --> R(Wait for children) --> S("Set exit status 
-		of last child");
+    EXIT(Exit exec loop and return to main);
+    WAIT(Wait for children)
+	SET_LAST_EXIT("Set exit status of last child");
+
+	START --> HDOC
+	HDOC -- ERR --> SET_EXIT
+	HDOC --> CHECK_INPUT
+	CHECK_INPUT -- YES --> SET_EXIT
+	CHECK_INPUT -- NO --> IS_SINGLE_BT
+	IS_SINGLE_BT -- YES --> IS_SINGLE_BT_0 --> SET_EXIT
+	IS_SINGLE_BT -- NO --> CREATE_CHILD
+	CREATE_CHILD -- ERR --> SET_EXIT
+	CREATE_CHILD --> NEED_REDIR
+	NEED_REDIR -- YES --> NEED_REDIR_pipe_0
+	NEED_REDIR -- NO --> EXE
+	NEED_REDIR_pipe_0 -- YES --> 
+	NEED_REDIR_pipe_1 --> NEED_REDIR_file_0
+	NEED_REDIR_pipe_1 -- ERR --> SET_EXIT
+	NEED_REDIR_pipe_0 -- NO --> NEED_REDIR_file_0
+	NEED_REDIR_file_0 -- YES --> 
+	NEED_REDIR_file_1 --> EXE
+	NEED_REDIR_file_1 -- ERR --> SET_EXIT
+	NEED_REDIR_file_0 -- NO --> EXE
+	EXE -- ERR --> SET_EXIT
+	EXE --> SAVE_PIPE --> CONTINUE --> CHECK_INPUT
+
+	SET_EXIT --> WAIT --> SET_LAST_EXIT --> EXIT
+
+
 ```
 ### Parsing tokeniser diagram
 
 ```mermaid
-%%{init: {'theme': 'neutral', 'themeVariables': {'fontFamily': 'Arial', 'fontSize': '14px'}, 'flowchart': {'curve': 'linear'}}}%%
+---
+config:
+  layout: elk
+  elk:
+    mergeEdges: true
+    nodePlacementStrategy: LINEAR_SEGMENTS
+  look: handDrawn
+  theme: forest
+---
 graph TD
 STR(str) --> |<, >, >>| redir(op) --> |"(whitespace +) ascii char \nexcept <, >, <<, >>, | if not in quotes"| file(file)
 redir --> |"whitespace, op or nothing"| redirerror("syntax error")

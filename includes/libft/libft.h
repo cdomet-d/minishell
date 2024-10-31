@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:20:53 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/16 14:54:16 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/10/31 14:38:18 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void					ft_striteri(char *s, void (*f)(unsigned int, char*));
 
 /* ft_printf */
 ssize_t					read_str(char flag, va_list arg_list);
-ssize_t					ft_parse_format(const char *s, va_list arg_list, \
+ssize_t					ft_parsef(const char *s, va_list arg_list, \
 						size_t *count, ssize_t *len);
 int						ft_printf(const char *str, ...)
 						__attribute__ ((format (printf, 1, 2)));
@@ -126,6 +126,6 @@ void					ft_lstdelone(t_list *lst, void (*del)(void*));
 void					ft_lstiter(t_list *lst, void (*f)(void *));
 
 /* Utils */
-void					free_dtab(char **dtab);
+void					free_darr(char **dtab);
 
 #endif

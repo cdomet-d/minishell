@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/05/23 17:00:41 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/10/01 17:52:50 by cdomet-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,7 +121,7 @@ SRC_SUBUTILS:=	arenvlst.c \
 
 SRC +=  $(addprefix $(DIR_EXEC)$(ERR_SUBDIR), $(SRC_SUBERR))
 ERR_SUBDIR:= error_handling/
-SRC_SUBERR:=	
+SRC_SUBERR:=
 
 # ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ RULES ⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒⌒ #
 
@@ -143,6 +143,7 @@ $(NAME): $(LIBFT_DIR)$(LIB) $(OBJS)
 	@echo
 	
 $(BUILD_DIR)%.o: $(SCR_DIR)%.c $(LIBFT_DIR)libft.h $(MS_H) $(EX_H) $(PA_H) Makefile
+	@echo "I am making $(dir $@)"
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 

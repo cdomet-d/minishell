@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:58:56 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/16 16:59:29 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ static int	search_expand(t_input *node, t_env **env, int status)
 			return (1);
 		if (!newtab[0])
 		{
-			free_dtab(newtab);
+			free_darr(newtab);
 			newtab = NULL;
 		}
-		free_dtab(node->data);
+		free_darr(node->data);
 		node->data = newtab;
 	}
 	return (0);

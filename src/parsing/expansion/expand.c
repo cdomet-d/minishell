@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:43:58 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 17:21:18 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	**expand(char **data, t_env **env, int status)
 		letter = nb_letter(data[word], env, str);
 		newtab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!newtab[word])
-			return (free(str), free_dtab(newtab), print_error(errno, NULL));
+			return (free(str), free_darr(newtab), print_error(errno, NULL));
 		ft_copy(data[word], newtab[word], env, str);
 		word++;
 	}

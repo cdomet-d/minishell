@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:26:17 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/24 14:45:12 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	*ft_execve(t_input *in)
 		path_slash(tmp->data[0]))
 		execve(tmp->data[0], tmp->data, arenv);
 	if (arenv)
-		free_dtab(arenv);
+		free_darr(arenv);
 	in->status = 1;
 	display_exec_error(tmp);
 	return (NULL);

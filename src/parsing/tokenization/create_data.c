@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:40:32 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/21 17:19:19 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	**build_tab(char *line, size_t *i, size_t word)
 		letter = count_letter(line, *i);
 		tab[word] = ft_calloc(sizeof(char), letter + 1);
 		if (!tab[word])
-			return (free_dtab(tab), print_error(errno, "minishell: parsing"));
+			return (free_darr(tab), print_error(errno, "minishell: parsing"));
 		fill_tab(line, i, tab, &word);
 		word++;
 	}

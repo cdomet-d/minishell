@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/05/14 13:27:39 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS := ft_atoi_intmax.c \
 		ft_bzero.c \
 		ft_calloc.c \
 		ft_dstrlen.c \
-		ft_free_dtab.c \
+		ft_free_darr.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
 		ft_isascii.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:28:27 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/13 16:33:09 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	**split_tab(char **data, char **newtab)
 			letter = nb_letter_str(data[i], &j, 0);
 			newtab[word] = ft_calloc(sizeof(char), letter + 1);
 			if (!newtab[word])
-				return (free_dtab(newtab), \
+				return (free_darr(newtab), \
 				print_error(errno, "minishell: parsing"));
 			ft_strlcpy(newtab[word], data[i] + (j - letter), letter + 1);
 			word += 1;
@@ -111,10 +111,10 @@ char	**expand_split(char **data, t_env **env, int status)
 	nb_word(temp, &word);
 	newtab = ft_calloc(sizeof(char *), word + 1);
 	if (!newtab)
-		return (free_dtab(temp), print_error(errno, "minishell: parsing"));
+		return (free_darr(temp), print_error(errno, "minishell: parsing"));
 	newtab = split_tab(temp, newtab);
 	if (!newtab)
-		return (free_dtab(temp), NULL);
-	free_dtab(temp);
+		return (free_darr(temp), NULL);
+	free_darr(temp);
 	return (newtab);
 }

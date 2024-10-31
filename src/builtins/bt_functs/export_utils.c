@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:03:33 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/21 16:39:20 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	sort_env(t_env	*env)
 	while (!is_sorted(arenv))
 		arenv = sort_tab(arenv, len);
 	rv = print_senv(arenv);
-	free_dtab(arenv);
+	free_darr(arenv);
 	if (rv == -1)
 		return (1);
 	return (0);

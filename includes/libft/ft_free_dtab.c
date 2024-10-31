@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_dtab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:09:28 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/07 10:58:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	free_dtab(char **dtab)
+void	free_darr(char **dtab)
 {
 	size_t	i;
 

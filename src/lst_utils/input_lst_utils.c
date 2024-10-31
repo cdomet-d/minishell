@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_lst_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csweetin <csweetin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:47:07 by csweetin          #+#    #+#             */
-/*   Updated: 2024/05/22 17:18:41 by csweetin         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	input_freelst(t_input **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		free_dtab((*lst)->data);
+		free_darr((*lst)->data);
 		free(*lst);
 		*lst = temp;
 	}
