@@ -323,7 +323,7 @@ src/
 ### Execution
 ![execution algorithmic graph](assets/minishell_exec.png)
 ### Parsing tokeniser diagram
-![execution algorithmic graph](assets/minishell_parsing.png)
+![parsing algorithmic graph](assets/minishell_parsing.png)
 
 ##  Sources
 
