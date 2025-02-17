@@ -29,7 +29,7 @@
 - [Appendix](#appendix)
 	- [Execution](#execution)
 	- [Parsing tokeniser diagram](#parsing-tokeniser-diagram)
-- [Sources](#sources)
+- [Acknowledgments](#acknowledgments)
 </details>
 <hr>
 
@@ -321,118 +321,11 @@ src/
 
 ## Appendix
 ### Execution
-<<<<<<< HEAD
-```mermaid
----
-config:
-  layout: elk
-  elk:
-    layout: elk.stress
-    nodePlacementStrategy: BRANDES_KOEPF
-    mergeEdges: true
-  look: handDrawn
-  theme: forest
----
-graph TD;
-    START((Start))
-	HDOC(Create heredocs);
-    CHECK_INPUT{{input != NULL}};
-	IS_SINGLE_BT{{input is single builtin}};
-    IS_SINGLE_BT_0(Execute builtin in parent);
-   	CREATE_CHILD(Create child process);
-    NEED_REDIR{{Need redirection}}
-	SAVE_PIPE(Save Read End of Pipe);
-    NEED_REDIR_pipe_0{{Pipe redirection}} 
-	NEED_REDIR_pipe_1(Perform pipe redirection);
-    NEED_REDIR_file_0{{File redirection}}
-	NEED_REDIR_file_1(Perform file redirection);
-    EXE(Execute command);
-    SET_EXIT(Set exit status);
-
-    %% Loop continuation
-    NEXT{Input still <br> has a pipe};
-    
-    %% End of process
-    EXIT(Exit exec loop and <br> return to main);
-    WAIT(Wait for children)
-	SET_LAST_EXIT("Set exit status of last child");
-	END((End))
-
-	START --> HDOC
-	HDOC --> IS_SINGLE_BT -- true --> IS_SINGLE_BT_0 --> SET_EXIT
-	IS_SINGLE_BT -- false --> CHECK_INPUT
-	CHECK_INPUT -- false --> SET_EXIT
-	CHECK_INPUT -- true --> CREATE_CHILD
-	CREATE_CHILD --> NEED_REDIR
-	NEED_REDIR -- true --> NEED_REDIR_pipe_0
-	NEED_REDIR -- false --> EXE
-	NEED_REDIR_pipe_0 -- true --> 
-	NEED_REDIR_pipe_1 --> NEED_REDIR_file_0
-	NEED_REDIR_pipe_0 -- false --> NEED_REDIR_file_0
-	NEED_REDIR_file_0 -- true --> 
-	NEED_REDIR_file_1 --> EXE
-	NEED_REDIR_file_0 -- false --> EXE
-	EXE --> SAVE_PIPE --> NEXT
-	NEXT -- true --> CONTINUE(Repeat from input != NULL)
-	NEXT -- false --> SET_EXIT --> WAIT --> SET_LAST_EXIT --> EXIT
-	--> END
-```
-=======
 ![execution algorithmic graph](assets/minishell_exec.png)
->>>>>>> e6836fa (doc: update readme.md)
 ### Parsing tokeniser diagram
 ![execution algorithmic graph](assets/minishell_parsing.png)
 
-<<<<<<< HEAD
-```mermaid
----
-config:
-  layout: elk
-  elk:
-    mergeEdges: true
-    falsedePlacementStrategy: LINEAR_SEGMENTS
-  look: handDrawn
-  theme: forest
----
-graph TD
-STR(str) --> |<, >, >>| redir(op) --> |"(whitespace +) ascii char \nexcept <, >, <<, >>, | if falset in quotes"| file(file)
-redir --> |"whitespace, op or falsething"| redirerror("syntax error")
-file --> |"whitespace + ascii char \nexcept <, >, <<, >>, | if not in quotes"| redircmd(cmd)
-redircmd --> |"whitespace + ascii char \nexcept <, >, <<, >>, | if not in quotes"| rao(arg /opt)
-redircmd --> redirophd
-rao --> redirophd
-file --> redirophd(op /hd) --> redirdot(...)
-
-STR --> |"pipe"| pip(op) --> A("op /hd /cmd /nothing") --> pipeerror("syntax error")
-STR --> dost(...) --> |"pipe"| pipe(op)
-pipe --> |"whitespace or nothing"| pipeerror
-pipe --> |"(whitespace +) ascii char \nexcept <, >, <<, >>, | if not in quotes"| pipecmd(cmd)
-pipe --> op/hd(op /hd)
-pipecmd --> |"whitespace + ascii char \nexcept <, >, <<, >>, | if not in quotes"| pao(arg /opt)
-pao --> op/hd
-pipecmd --> op/hd
-op/hd --> dot(...)
-
-STR --> |<<| hd(heredoc)
-hd --> |"whitespace, op or nothing"| hderror("syntax error")
-hd --> |"(whitespace +) ascii char \nexcept <, >, <<, >>, | if not in quotes"| delim(delim)
-delim --> |"whitespace + ascii char \nexcept <, >, <<, >>, | if not in quotes"| hdcmd(cmd) --> |"whitespace + ascii char \nexcept <, >, <<, >>, | if not in quotes"| hdcmdopt(arg /opt)
-delim --> hdop(op /hd)
-hdcmd --> hdop
-hdcmdopt --> hdop
-hdop --> hdodt(...)
-
-STR --> |"(whitespace +) ascii char \nexcept <, >, <<, >>, | if not in quotes"| cmd(cmd) 
-cmd --> |"whitespace + ascii char \nexcept <, >, <<, >>, | if not in quotes"| cmdopt(arg /opt)
-cmd --> cmdop(op /hd)
-cmdopt --> cmdop(op /hd)
-cmdop --> cmddot(...)
-```
-
-##  Acknowledgments
-=======
 ##  Sources
->>>>>>> e6836fa (doc: update readme.md)
 
 - [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html)
 - [Understanding Shell Expansion](https://effective-shell.com/part-6-advanced-techniques/understanding-shell-expansion/)
