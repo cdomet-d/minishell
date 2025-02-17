@@ -20,14 +20,16 @@
 <details>
   <summary>Table of Contents</summary><br>
 
-- [ Features](#-features)
-- [ Repository Structure](#-repository-structure)
-- [ Modules](#-modules)
-- [ Getting Started](#-getting-started)
-  - [ Installation](#-installation)
-- [ Authors](#-authors)
-- [ Appendix](#-appendix)
-- [ Acknowledgments](#-acknowledgments)
+- [Features](#features)
+- [Repository Structure](#repository-structure)
+- [Modules](#modules)
+- [Getting Started](#getting-started)
+	- [Installation](#installation)
+- [Authors](#authors)
+- [Appendix](#appendix)
+	- [Execution](#execution)
+	- [Parsing tokeniser diagram](#parsing-tokeniser-diagram)
+- [Sources](#sources)
 </details>
 <hr>
 
@@ -319,6 +321,7 @@ src/
 
 ## Appendix
 ### Execution
+<<<<<<< HEAD
 ```mermaid
 ---
 config:
@@ -374,8 +377,13 @@ graph TD;
 	NEXT -- false --> SET_EXIT --> WAIT --> SET_LAST_EXIT --> EXIT
 	--> END
 ```
+=======
+![execution algorithmic graph](assets/minishell_exec.png)
+>>>>>>> e6836fa (doc: update readme.md)
 ### Parsing tokeniser diagram
+![execution algorithmic graph](assets/minishell_parsing.png)
 
+<<<<<<< HEAD
 ```mermaid
 ---
 config:
@@ -422,6 +430,9 @@ cmdop --> cmddot(...)
 ```
 
 ##  Acknowledgments
+=======
+##  Sources
+>>>>>>> e6836fa (doc: update readme.md)
 
 - [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html)
 - [Understanding Shell Expansion](https://effective-shell.com/part-6-advanced-techniques/understanding-shell-expansion/)
