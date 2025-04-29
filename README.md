@@ -323,8 +323,8 @@ src/
 - [Understanding Shell Expansion](https://effective-shell.com/part-6-advanced-techniques/understanding-shell-expansion/)
 - [Readline Documentation](https://www.man7.org/linux/man-pages/man3/readline.3.html)
 - [ReadMe Generator](https://github.com/eli64s/readme-ai)
-- [Icon](https://github.com/ayogun/42-project-badges/tree/main)
-
-[**Return**](#contents)
+- [Icon](https://github.com/ayogun/42-project-badges)
 
 ---
+
+[**Return**](#contents)
