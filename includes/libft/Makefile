@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/10/31 14:19:59 by cdomet-d         ###   ########.fr        #
+#    Updated: 2024/10/31 14:23:09 by cdomet-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,11 @@ CFLAGS = -Werror -Wextra -Wall
 CPPFLAGS = -MMD -MP
 
 BUILD_DIR := .dir_build
-SRCS := ft_atoi_intmax.c \
-		ft_atoi.c \
+SRCS := ft_atoi.c \
 		ft_atoll.c \
 		ft_bzero.c \
 		ft_calloc.c \
-		ft_dstrlen.c \
-		ft_free_darr.c \
+		free_darr.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
 		ft_isascii.c \
@@ -74,6 +72,7 @@ SRCS := ft_atoi_intmax.c \
  		ft_lstlast.c \
  		ft_lstsize.c \
 		ft_arrlen.c \
+		print_darr.c \
 		
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 				

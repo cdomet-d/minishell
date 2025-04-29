@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 16:12:53 by cdomet-d          #+#    #+#             */
-/*   Updated: 2023/11/23 11:32:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/10/31 14:25:54 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	{
 		while (n > 0)
 		{
-			((unsigned char *)dest)[n - 1] = ((unsigned char *)src)[n - 1];
+			((char *)dest)[n - 1] = ((char *)src)[n - 1];
 			n--;
 		}
 	}
 	else
 	{
 		while (++i < n)
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+			((char *)dest)[i] = ((char *)src)[i];
 	}
 	return (dest);
 }

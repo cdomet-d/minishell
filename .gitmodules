@@ -1,0 +1,3 @@
+[submodule "Improved-LIBFT"]
+	path = Improved-LIBFT
+	url = https://github.com/cdomet-d/Improved-LIBFT

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cdomet-d <cdomet-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 11:54:27 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/05/24 12:18:12 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2025/04/29 15:47:53 by cdomet-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	mh_exit(char **line, t_input *in)
 	if (in && in->data[1])
 	{
 		is_invalid_arg(in, 0);
-		if (ft_dstrlen(in->data) > 2)
+		if (ft_arrlen(in->data) > 2)
 			return (print_error(E2BIG, "minishell: exit: "), 1);
 		else
 		{
